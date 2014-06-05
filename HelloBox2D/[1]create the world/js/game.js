@@ -25,14 +25,27 @@ function init() {
 	b2Contacts =  Box2D.Dynamics.Contacts;  
 	b2Listener =Box2D.Dynamics.b2ContactListener;  
 	
+	/* */
 	world = new b2World(new b2Vec2(0, 10),true); 
 	
 	// Get canvas fordrawing.  
 	canvas = document.getElementById("gameCanvas");  
 	canvasPosition = getElementPosition(canvas);  
 	canvasContext = canvas.getContext("2d");  
+	/* */
+	var debugDraw = new b2DebugDraw();  
+	debugDraw.SetSprite(canvasContext);  
+	debugDraw.SetDrawScale(worldScale);  
+	debugDraw.SetFillAlpha(0.5);  
+	debugDraw.SetLineThickness(1.0);  
+	debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);  
+	world.SetDebugDraw(debugDraw);  
+	
+	/*设置监听*/
+	var arrowContactListener = new b2Listener;  
+	arrowContactListener.PreSolve = arrowPreSolve;  
+	//world.SetContactListener(arrowContactListener);  
 		 
-
 	// Create bottom wall  
 	createBox(640,30,320,480,b2Body.b2_staticBody,null);  
 	// Create top wall  
@@ -40,16 +53,13 @@ function init() {
 	// Create left wall  
 	createBox(30,480,0,240,b2Body.b2_staticBody,null);  
 	// Create right wall  
-	createBox(30,480,640,240,b2Body.b2_staticBody,null);  
-	document.addEventListener("mousedown",onMouseDown);  
-	debugDraw();              
+	createBox(30,480,640,240,b2Body.b2_staticBody,null); 
+	
+	/*添加事件*/
+	document.addEventListener("mousedown",onMouseDown);
+	
+	/* 定时更新UI */
 	window.setInterval(update,1000/60); 
-	
-	
-	/*设置监听*/
-	var arrowContactListener = new b2Listener;  
-	arrowContactListener.PreSolve = arrowPreSolve;  
-	//world.SetContactListener(arrowContactListener);  
 }; 
 
 
@@ -102,7 +112,7 @@ function createArrow(pX,pY) {
     fixtureDef.friction = 0.5;  
     fixtureDef.restitution = 0.5;  
     fixtureDef.shape = polygonShape;  
-         
+		
     var body = world.CreateBody(bodyDef);  
     body.CreateFixture(fixtureDef);  
    
@@ -113,15 +123,6 @@ function createArrow(pX,pY) {
  }  
 
 //*定时更新*//
-function debugDraw() {  
-    var debugDraw = new b2DebugDraw();  
-    debugDraw.SetSprite(canvasContext);  
-    debugDraw.SetDrawScale(worldScale);  
-    debugDraw.SetFillAlpha(0.5);  
-    debugDraw.SetLineThickness(1.0);  
-    debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);  
-    world.SetDebugDraw(debugDraw);  
-}  
 function update() {   
 	world.Step(1/60,10,10);  
 	world.ClearForces();  
