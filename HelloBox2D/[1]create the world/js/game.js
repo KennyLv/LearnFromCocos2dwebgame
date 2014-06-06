@@ -4,11 +4,12 @@ var b2Joints,b2Contacts,b2Listener;
 
 var world;
 // World constants.  
-var worldScale = 30;  
+var worldScale = 20;  
 var dragConstant=0.05;  
 var dampingConstant = 2; 
 
 var canvas, canvasContext , canvasPosition;
+var debugGameController, debugGameTester;
 
 function init() {  
 	// Commen code for usingBox2D object.  
@@ -55,13 +56,44 @@ function init() {
 	// Create right wall  
 	createBox(30,480,640,240,b2Body.b2_staticBody,null); 
 	
+	/*Debug info*/
+	debugGameController = document.getElementById("gameController");
+	debugGameTester = document.getElementById("gameTester");
+		
 	/*添加事件*/
-	document.addEventListener("mousedown",onMouseDown);
+	document.addEventListener("mousedown", function(e){
+		var evt = e||window.event;
+		debugGameController.innerText = "canvasPosition : " + canvasPosition.x + "-" + canvasPosition.y;
+		debugGameController.innerText += "\n click X-Y :" + (e.clientX) + "-" + (e.clientY);
+		
+		createArrow(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y);
+	});
+
 	
-	/* 定时更新UI */
+	/* 时间步,频率为60Hz */
 	window.setInterval(update,1000/60); 
 }; 
 
+var gameStarted = false;
+var gmaeTriggerId ;
+function gameControl(){
+	if(!gameStarted){
+		debugGameController.innerText = "End";
+		gmaeTriggerId = window.setInterval("createArrow(520,200);",500); 
+		gameStarted = true;
+	}else{
+		debugGameController.innerText="Start";
+		window.clearInterval(gmaeTriggerId);
+		gameStarted = false;
+	}
+}
+
+/*
+function onMouseDown(e) {  
+    var evt = e||window.event;  
+    createArrow(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y);  
+}
+*/
 
 /*设置边框*/
 function createBox(width,height,pX,pY,type,data){  
@@ -84,28 +116,29 @@ function createBox(width,height,pX,pY,type,data){
 }  
 
 /*绘制物体*/
-function onMouseDown(e) {  
-    var evt = e||window.event;  
-    createArrow(e.clientX-canvasPosition.x,e.clientY-canvasPosition.y);  
-}
 function createArrow(pX,pY) {  
     // Set the left corner as the originalpoint.  
-    var angle = Math.atan2(pY-450, pX);  
-   
+    var angle = Math.atan2(pY-450, pX); 
     // Define the shape of arrow.  
     var vertices = [];  
-    vertices.push(new b2Vec2(-1.4,0));  
+    vertices.push(new b2Vec2(-1.8,0));  
     vertices.push(new b2Vec2(0,-0.1));  
+    vertices.push(new b2Vec2(0,-0.2));  
     vertices.push(new b2Vec2(0.6,0));  
-    vertices.push(new b2Vec2(0,0.1));  
-   
+    vertices.push(new b2Vec2(0,0.2));  
+    vertices.push(new b2Vec2(0,0.1));
+	
     var bodyDef = new b2BodyDef;  
-    bodyDef.type = b2Body.b2_dynamicBody;  
+    bodyDef.type = b2Body.b2_dynamicBody;
     bodyDef.position.Set(40/worldScale,400/worldScale);  
     bodyDef.userData = "Arrow";  
-   
+	
+	
+	debugGameController.innerText += "\n Arrow position:" + (40/worldScale)+"-" + (400/worldScale);
+	debugGameController.innerText += "\n Arrow angle:" + (-180*angle/Math.PI);
+	
     var polygonShape = new b2PolygonShape;  
-    polygonShape.SetAsVector(vertices,4);  
+    polygonShape.SetAsVector(vertices,6);  
    
     var fixtureDef = new b2FixtureDef;  
     fixtureDef.density = 1.0;  
@@ -117,50 +150,54 @@ function createArrow(pX,pY) {
     body.CreateFixture(fixtureDef);  
    
     // Set original state of arrow.  
-    body.SetLinearVelocity(new b2Vec2(20*Math.cos(angle), 20*Math.sin(angle)));  
+    body.SetLinearVelocity(new b2Vec2(40*Math.cos(angle), 40*Math.sin(angle)));  
     body.SetAngle(angle);  
-    body.SetAngularDamping(dampingConstant);  
+    body.SetAngularDamping(dampingConstant);
  }  
 
 //*定时更新*//
 function update() {   
 	world.Step(1/60,10,10);  
 	world.ClearForces();  
-
+/*
 	for(var b = world.m_bodyList; b != null; b = b.m_next){  
 		if(b.GetUserData() === "Arrow") {  
 			updateArrow(b);  
 		}  
-	}
+	}*/
 	world.DrawDebugData();  
 }  
 
-/*更新箭矢在空中的运动形态*/
+/*更新箭矢在空中的运动形态*//*
 function updateArrow(arrowBody) {  
-    // Calculate arrow's fligth speed.  
-    var flightSpeed =Normalize2(arrowBody.GetLinearVelocity());  
-   
-    // Calculate arrow's pointingdirection.  
-    var bodyAngle = arrowBody.GetAngle();  
-    var pointingDirection = new b2Vec2(Math.cos(bodyAngle),-Math.sin(bodyAngle));  
-   
-    // Calculate arrow's flightingdirection and normalize it.  
-    var flightAngle =Math.atan2(arrowBody.GetLinearVelocity().y,arrowBody.GetLinearVelocity().x);  
-    var flightDirection = new b2Vec2(Math.cos(flightAngle), Math.sin(flightAngle));  
-   
-    // Calculate dot production.  
-    var dot = b2Dot( flightDirection,pointingDirection );  
-    var dragForceMagnitude = (1 -Math.abs(dot)) * flightSpeed * flightSpeed * dragConstant *arrowBody.GetMass();  
-    var arrowTailPosition =arrowBody.GetWorldPoint(new b2Vec2( -1.4, 0 ) );  
-    arrowBody.ApplyForce( new b2Vec2(dragForceMagnitude*-flightDirection.x,dragForceMagnitude*-flightDirection.y),arrowTailPosition );  
+	// Calculate arrow's fligth speed.  
+	var flightSpeed =Normalize2(arrowBody.GetLinearVelocity());  
+
+	// Calculate arrow's pointingdirection.  
+	var bodyAngle = arrowBody.GetAngle();  
+	var pointingDirection = new b2Vec2(Math.cos(bodyAngle),-Math.sin(bodyAngle));  
+
+	// Calculate arrow's flightingdirection and normalize it.  
+	var flightAngle =Math.atan2(arrowBody.GetLinearVelocity().y,arrowBody.GetLinearVelocity().x);  
+	var flightDirection = new b2Vec2(Math.cos(flightAngle), Math.sin(flightAngle));  
+
+	// Calculate dot production.  
+	var dot = b2Dot( flightDirection,pointingDirection );  
+	//Math.abs:取绝对值
+	//Force Magnitude 力大小
+	var dragForceMagnitude = (1 -Math.abs(dot)) * flightSpeed * flightSpeed * dragConstant *arrowBody.GetMass();  
+	var arrowTailPosition =arrowBody.GetWorldPoint(new b2Vec2( -1.4, 0 ) );  
+	arrowBody.ApplyForce( new b2Vec2(dragForceMagnitude*-flightDirection.x,dragForceMagnitude*-flightDirection.y),arrowTailPosition );  
 }  
-   
+   */
 function b2Dot(a, b) {  
     return a.x * b.x + a.y * b.y;  
 }  
    
 function Normalize2(b) {  
-    return Math.sqrt(b.x * b.x + b.y *b.y);  
+	//Math.sqrt: 平方根
+	//此处用于取直角三角形第三边长度
+	return Math.sqrt(b.x * b.x + b.y *b.y);  
 }
 
 
