@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Dom对象, jQuery对象,jQuery包装集</title>
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+</head>
+<body>
+<div id="testDiv">测试图层</div>
+<script type="text/javascript">
+    //根据ID获取Dom对象
+    var div = document.getElementById("testDiv");
+    
+    //根据标签类型获取Dom对象集合
+    var divs = document.getElementsByTagName("div");
+    
+    //根据ID获取jQuery包装集
+    var jQueryObject = $("#testDiv");
+
+    //$是jQuery对象的引用:
+    var jQueryObject = jQuery("#testDiv");
+    
+    //从jQuery包装集中返回Dom对象
+    var domObject = $("#testDiv")[0];
+ 
+    //将Dom对象转换成jQuery包装集
+    var domToJQueryObject = $(div);
+
+    //each方法中的this是Dom对象
+    $("#testDiv").each(function() { alert(this) })
+    
+    //将each方法中的this转换为jQuery包装集
+    $("#testDiv").each(function() { $(this).html("修改内容") })    
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8' />
+<title>那些花儿</title>
+<style>
+*{padding:0;margin:0;}
+html,body{height:100%;overflow:hidden;background:#333;}
+</style>
+</head>
+<body>
+<canvas id="pad" width='2000' height='1000'><a href='http://www.cssass.com'>cssass.com</a>提醒您：ie9以下用户请一边惭愧去吧</canvas>
+</body>
+<script>
+var con=document.getElementById("pad").getContext('2d');
+	con.strokeStyle = 'rgba(255,255,255,0.5)';
+	con.lineJoin = 'round';
+	con.lineCap = 'round';
+	con.lineWidth=.5;
+function Tad(x,y,c){ /* 位置，角数 */
+	var l,r,n,k,mx;
+	var xt=0, yt=0, angle=0 ,a=[];
+		r=360/c; //每只角分到的度数
+		var t=5; //转角
+		while(t>1){
+			if(r%t===0) break;
+			t--;
+		};
+		n=360/t; //总线条数
+		k=r/t; //每只角分到的线条数
+	this.init=function(){
+		if(a.length<n){
+			angle+=t;
+			a.unshift(angle);  //存储所有转角
+			this.init();
+		};
+	};
+	this.change=function(){
+		angle+=t;
+		a.unshift(angle)
+		a.pop(angle);
+		this.body(x,y);
+	};
+	this.body=function() {
+		l=0; //线长(初始)
+		o=c; //每次增加的线长.这个值可以自定义
+		mx=l+ k*o + 10; //直径(最大值)
+		con.clearRect(x-mx/2, y-mx/2, mx, mx);
+		for(var i=1; i<a.length; i++) {
+			l+=o;
+			if(Math.floor(i%(k/2))===0) { //峰谷时反向
+				o=-o;
+				if(i%(k/2)===0.5) {l+=o;} //遇到k是奇数的情况。如c=8时。
+			}
+			xt = l*Math.cos(a[i-1]*Math.PI/180);
+			yt = l*Math.sin(a[i-1]*Math.PI/180);
+			this.dw(x, y, x+xt, y-yt);
+		}
+	};
+	this.init();
+	this.body();
+}
+Tad.prototype.move=function(){
+	var that = this;
+	var _s=function(){
+		that.change();
+		setTimeout(_s,100);
+	}
+	_s();
+};
+Tad.prototype.dw=function(ax, ay, bx, by) {
+	con.beginPath();
+	con.moveTo(ax, ay);
+	con.lineTo(bx, by);
+	con.stroke();
+};
+new Tad(100,100,15).move();
+new Tad(200,100,12).move();
+new Tad(300,100,9).move();
+new Tad(400,100,8).move();
+new Tad(500,100,6).move();
+new Tad(100,200,5).move();
+new Tad(200,200,4).move();
+new Tad(300,200,3).move();
+new Tad(400,200,2).move();
+new Tad(500,200,1).move();
+</script>
+</html>

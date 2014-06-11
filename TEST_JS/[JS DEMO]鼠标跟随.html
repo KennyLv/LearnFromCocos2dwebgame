@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+</head>
+<body>
+<input id="idClick" type="button" value="click">
+<div id="test1" style="position:absolute;width:5px;height:5px;background:#333; font-size:0;"></div>
+<div id="test2" style="position:absolute;width:5px;height:5px;background:#F00; font-size:0;"></div>
+<script>
+var Round = {
+    X: function(t,b,r){ return r*Math.cos(t/20)+b; },
+    Y: function(t,b,r){ return r*Math.sin(t/20)+b; }
+}
+var t=x=y=0;
+document.getElementById("idClick").onclick = function(e){
+    document.onmousemove = function(e){
+        e=e||event;
+        x=e.clientX+document.documentElement.scrollLeft;
+        y=e.clientY+document.documentElement.scrollTop;
+    };
+    document.onmousemove(e);
+    setInterval(function(){
+        var iX = Math.ceil(Round.X(t,x,100)), iY = Math.ceil(Round.Y(t,y,50));
+        with(document.getElementById("test1").style){ left = iX + "px"; top = iY + "px"; }
+        with(document.getElementById("test2").style){
+            left = Math.ceil(Round.X(t*5,iX,25)) + "px"; top = Math.ceil(Round.Y(t*5,iY,25)) + "px";
+        }
+        t++;
+    }, 10);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>TEST</title>
+<script type="text/javascript">
+function stripBadWord(text)
+{
+   var reBadWords = /badword1|badword|bad word|anotherbadword/gi;//要屏蔽的词 
+　 return text.replace(reBadWords,function(temp){
+     return temp.replace(/./g,"*");
+   });
+}
+
+function stripHTMLTag(text)
+{
+    var reTag = /<(?:.|\s)*?/g;
+    return text.replace(reTag,"");
+}
+
+function stripHTMLTag_1(text)
+{
+    return text.replace(/<[^>].*?>/g,"");
+}
+
+var badText = "badword1 is really a bad word";
+var b = stripBadWord(badText);
+console.log(b);
+
+var testText = "<font color=\"#c60a00\">生活服务</font><font color=\"#c60a00\">美容美发</font>";
+var s = stripHTMLTag(testText);
+console.log(s);
+
+var testText1 = "<font color=\"#c60a00\">生活服务</font><font color=\"#c60a00\">美容美发</font>";
+var s1 = stripHTMLTag_1(testText1);
+console.log(s1);
+
+
+</script>
+</head>
+<body>
+</body>
+</html>

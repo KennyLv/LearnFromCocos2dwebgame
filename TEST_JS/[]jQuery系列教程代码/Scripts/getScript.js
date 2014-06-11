@@ -1,0 +1,1 @@
+﻿alert("getScript.js loading!");

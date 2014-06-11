@@ -1,0 +1,1874 @@
+<html><head><!--STATUS OK-->
+
+
+<meta http-equiv="content-type" content="text/html; charset=GB2312">
+<title>JQuery实现智能输入提示（仿机票预订网站）_夏日里的春天_百度空间      </title>
+
+<style type="text/css">
+    .error{color:#FF0000;font-size:12px}
+    .shareUser,.shareLastEditor{line-height:20px;color:#666666;text-align:left}
+    .shareLastEditor{margin:5px 0 8px;}
+</style>
+
+<script type="text/javascript">
+    var g_pageTimerStart=new Date().getTime();
+</script>
+
+<script type="text/javascript" src="jssuggestion_files/global.js"></script>
+<script type="text/javascript" src="jssuggestion_files/libs.js"></script>
+<script type="text/javascript" src="jssuggestion_files/tangram-1.js"></script>
+
+
+<script type="text/javascript">
+var Session = {
+    isLogin: ! true,
+    isHost: "",
+    userName: "honfei",   
+    userPortrait:'77d7686f6e6665694700',
+    spaceURL: "/honfei",
+    spBasicURL:"honfei",
+    spBasicURLEnc:"honfei",
+    visitorName:    "",
+    visitorPortrait:'00000000',
+    isActive: '',   
+    visitorURL: "/index.html",        // 
+    pageURL: "http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560%2Ehtml",    
+    refer: "http://www.google.com.hk/search?hl=zh-CN&newwindow=1&safe=strict&client=iceweasel-a&rls=org.mozilla%3Azh-CN%3Aunofficial&biw=1274&bih=736&q=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&oq=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&aq=f&aqi=&aql=&gs_sm=e&gs_upl=8673l8673l0l8960l1l1l0l0l0l0l0l0ll0",
+    spToken: 'c997aec75edb3220ea634cf605f8aecd', 
+    spFriendDomain: 'http://frd.baidu.com',
+    spSpaceDomain: 'http://hi.baidu.com',
+    spPortraitDomain: '',
+    spSpaceStaticDomain: 'http://hi.baidu.com' 
+
+    ,isDrag:  false  
+    ,isProfile:  false   
+    ,isPortraitVerify:!true
+    };
+</script>
+
+<script src="jssuggestion_files/brwstat.html" type="text/javascript"></script><link href="jssuggestion_files/ucard.css" rel="stylesheet" type="text/css"><script src="jssuggestion_files/ucard.js" type="text/javascript"></script><script src="jssuggestion_files/check_baiduhi.js" type="text/javascript"></script><script src="jssuggestion_files/search.html" type="text/javascript"></script></head><body><iframe name="_BdPopupLayer_eu8a7qsrqo3bifi67xtttrb" style="position: absolute; z-index: 65001; display: none;" id="_BdPopupLayer_eu8a7qsrqo3bifi67xtttrb" frameborder="0" scrolling="no"></iframe><iframe name="_BdPopupLayer_oiqn7zefqqpc8dr1mnsze2w" style="position: absolute; z-index: 65001; display: none;" id="_BdPopupLayer_oiqn7zefqqpc8dr1mnsze2w" frameborder="0" scrolling="no"></iframe><link rel="Stylesheet" type="text/css" href="jssuggestion_files/bdeditor.css">
+
+<center>
+
+<script type="text/javascript">
+/*<![CDATA[*/
+if(top.location != self.location){
+	top.location = self.location;
+}
+var myref = encodeURIComponent("http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560%2Ehtml");
+/*]]>*/
+</script>
+<link rel="stylesheet" type="text/css" href="jssuggestion_files/mods.css">
+
+<link rel="stylesheet" type="text/css" href="jssuggestion_files/251112d42a4a5801a18bb7de.css">
+
+<link rel="stylesheet" type="text/css" href="jssuggestion_files/space.css">
+
+<div class="userbar">
+    <div id="nav">
+        <a class="logo" href="http://hi.baidu.com/index.htm"><img src="jssuggestion_files/logo.gif" alt="图片" border="0"></a>
+
+
+
+        <div class="manage">
+            <form action="https://passport.baidu.com/?login" method="post">
+                用户名:<input name="username" type="text">&nbsp;&nbsp; 
+                密码:<input name="password" type="password"> 
+                <input name="mem_pass" value="on" type="hidden">
+                <input value="" style="width: 0pt; height: 0pt;" type="submit">
+                <a href="#" class="loginlink" onclick="this.parentNode.submit(); return false;">登录</a>  
+            </form> 
+            <a href="http://hi.baidu.com/reg/new" class="reglink">注册</a>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript" src="jssuggestion_files/base.js"></script>
+ <link rel="stylesheet" type="text/css" href="jssuggestion_files/base.css">
+
+
+		
+
+
+
+<div id="main" align="left">
+
+<!--[if IE]>
+<script>
+var objmain = document.getElementById("main");
+function updatesize(){ var bodyw = window.document.body.offsetWidth; if(bodyw <= 790) objmain.style.width="772px"; else if(bodyw >= 1016) objmain.style.width="996px"; else objmain.style.width="100%"; }
+updatesize(); window.onresize = updatesize;
+</script>
+<![endif]-->
+
+	<div id="header">
+
+	<div class="lc"><div class="rc"></div></div>
+<div class="tit"><a href="http://hi.baidu.com/honfei/home" class="titlink" title="honfei的空间 http://hi.baidu.com/honfei">夏日里的春天</a></div>
+<div class="desc">淋漓的雨,淋漓的心 夏天的雨说来就来!</div>
+<div id="tabline">&nbsp;</div>
+
+	<div id="tab"><a href="http://hi.baidu.com/honfei/home">主页</a><a href="http://hi.baidu.com/honfei/blog" class="on">博客</a><a href="http://hi.baidu.com/honfei/album">相册</a><span>|</span><a href="http://hi.baidu.com/honfei/profile">个人档案</a>
+
+	<span>|</span><a href="http://hi.baidu.com/honfei/friends">好友</a>
+
+
+<span>|</span><a href="http://tieba.baidu.com/i/sys/jump?un=honfei&amp;fr=spacebar" onclick="BdUtil.ns_trackerLink('m_20110330_spacebar','')" target="_blank">i贴吧</a>
+
+
+	</div>
+
+</div>
+
+
+
+<div class="stage">
+
+<div class="stagepad">
+
+<div style="width: 100%;">
+
+
+<table class="modth" border="0" cellpadding="0" cellspacing="0" width="100%">
+
+	<tbody><tr><td class="modtl" width="7">&nbsp;</td>
+
+	<td class="modtc" nowrap="nowrap"><div class="modhead"><span class="modtit">查看文章</span></div></td>
+
+	<td class="modtc" nowrap="nowrap" align="right"></td>
+
+	<td class="modtr" width="7">&nbsp;</td>
+
+	</tr></tbody></table>
+
+
+
+<div id="m_blog" class="modbox" style="overflow-x: hidden;">
+
+<div class="tit">
+
+JQuery实现智能输入提示（仿机票预订网站）</div>
+
+<div class="date">2010/07/20  17:12</div>
+
+
+
+
+<table style="table-layout: fixed; width: 100%;"><tbody><tr><td><div id="blog_text" class="cnt"> 最近在研究JQuery框架，JQuery是一套很优秀的JS框架，可以实现很多美观实用的控件。今天给大家推荐一个智能提示的空间，是模仿现在很多机票预订网站的城市智能提示。
+<p>&nbsp;&nbsp;&nbsp;  注： aircity.js把城市信息数据封装成了JOSN数组，js能解析josn从而获得需要的数据。</p>
+<p><img src="jssuggestion_files/8aa9a0db3184e826d1164e78.jpg" border="0" height="325" width="548">&nbsp;&nbsp;</p>
+<p>    需要用到的JS文件：<a target="_blank" href="http://files.cnblogs.com/kyle_zhao/js.rar">/Files/kyle_zhao/js.rar</a></p>
+<p>&nbsp;&nbsp;&nbsp;  大家可以下载上面的压缩包，里面包括了jquery-1.4.2.min.js, aircity.js,j.suggest.js,j.dimensions.js.</p>
+<p>&nbsp;&nbsp;&nbsp;  下面是代码部分。</p>
+<p>&nbsp;&nbsp;&nbsp;  jquery.suggest.css</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<div class="cnblogs_code" onxxxxx="cnblogs_code_show('590af74a-e440-45cf-8c70-a518b902c161')"><img class="code_img_closed" style="display: none;" jquery1279616587093="2" src="jssuggestion_files/bd9fcb66596fb364aa184c78.gif"><img class="code_img_opened" onxxxxx="cnblogs_code_hide('590af74a-e440-45cf-8c70-a518b902c161',event)" src="jssuggestion_files/2df5c0eedd14efbbb3fb9579.gif"><span class="cnblogs_code_collapse">jquery.suggest.css</span>
+<div class="cnblogs_code_hide" style="display: block;" jquery1279616587093="1">
+<pre><div><span style="color: rgb(128, 0, 0);">            body</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">margin</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">font-family</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">"宋体"</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">font-size</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">13px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">text-align</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">center</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            h1</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">margin</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">20px 0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">font-size</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">16px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            ol</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">padding-left</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">20px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">line-height</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">130%</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            #box</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">width</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">600px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">text-align</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">left</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">margin</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0 auto</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding-top</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">80px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            #suggest,#suggest2</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">width</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">200px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .gray</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">color</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">gray</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_results </span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">background</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">#fff</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">border</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">1px solid #7f9db9</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">position</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);"> absolute</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">z-index</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);"> 10000</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">display</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);"> none</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_results ul</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">margin</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">0</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">list-style</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">none</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_results li a</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">white-space</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);"> nowrap</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">text-decoration</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">none</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">display</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">block</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">color</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">#05a</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">1px 3px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_results li</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">border</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">1px solid #fff</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_over,.ac_results li a:hover </span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">background</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">#c8e3fc</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_results li a span</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">float</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">right</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>            .ac_result_tip</span><span style="color: rgb(0, 0, 0);">{</span><span style="color: rgb(255, 0, 0);">border-bottom</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">1px dashed #666</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(255, 0, 0);">padding</span><span style="color: rgb(0, 0, 0);">:</span><span style="color: rgb(0, 0, 255);">3px</span><span style="color: rgb(0, 0, 0);">;</span><span style="color: rgb(0, 0, 0);">}</span><span style="color: rgb(128, 0, 0);"><br>    </span></div></pre>
+</div>
+</div>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>head中的代码</p>
+<p> </p>
+<div class="cnblogs_code" onxxxxx="cnblogs_code_show('ae6f093a-3f4d-4310-b606-b497acb92dd8')"><img class="code_img_closed" style="display: none;" jquery1279616587093="4" src="jssuggestion_files/db74902420612d6bd5074278.gif"><img class="code_img_opened" onxxxxx="cnblogs_code_hide('ae6f093a-3f4d-4310-b606-b497acb92dd8',event)" src="jssuggestion_files/a07a0e2b597e8fbae7cd4078.gif"><span class="cnblogs_code_collapse">head</span>
+<div class="cnblogs_code_hide" style="display: block;" jquery1279616587093="3">
+<pre><div><span style="color: rgb(0, 0, 0);">    </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">title</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">智能输入提示</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">title</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">link </span><span style="color: rgb(255, 0, 0);">rel</span><span style="color: rgb(0, 0, 255);">="stylesheet"</span><span style="color: rgb(255, 0, 0);"> type</span><span style="color: rgb(0, 0, 255);">="text/css"</span><span style="color: rgb(255, 0, 0);"> href</span><span style="color: rgb(0, 0, 255);">="css/jquery.suggest.css"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>    </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">script </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text/javascript"</span><span style="color: rgb(255, 0, 0);"> src</span><span style="color: rgb(0, 0, 255);">="js/jquery-1.4.2.min.js"</span><span style="color: rgb(0, 0, 255);">&gt;&lt;/</span><span style="color: rgb(128, 0, 0);">script</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br></span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">script </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text/javascript"</span><span style="color: rgb(255, 0, 0);"> src</span><span style="color: rgb(0, 0, 255);">="js/j.dimensions.js"</span><span style="color: rgb(0, 0, 255);">&gt;&lt;/</span><span style="color: rgb(128, 0, 0);">script</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br></span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">script </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text/javascript"</span><span style="color: rgb(255, 0, 0);"> src</span><span style="color: rgb(0, 0, 255);">="js/aircity.js"</span><span style="color: rgb(0, 0, 255);">&gt;&lt;/</span><span style="color: rgb(128, 0, 0);">script</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>        </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">script </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text/javascript"</span><span style="color: rgb(255, 0, 0);"> src</span><span style="color: rgb(0, 0, 255);">="js/j.suggest.js"</span><span style="color: rgb(0, 0, 255);">&gt;&lt;/</span><span style="color: rgb(128, 0, 0);">script</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>        </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">script </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text/javascript"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);"><br>            $(</span><span style="color: rgb(0, 0, 255); background-color: rgb(245, 245, 245);">function</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">(){<br>                $(</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#arrcity</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">).suggest(citys,{hot_list:commoncitys,dataContainer:</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">'</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#arrcity_3word</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">'</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">,onSelect:</span><span style="color: rgb(0, 0, 255); background-color: rgb(245, 245, 245);">function</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">(){$(</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#city2</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">).click();}, attachObject:</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">'</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#suggest</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">'</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">});<br>                $(</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#city2</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">).suggest(citys,{hot_list:commoncitys,attachObject:</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">#suggest2</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">"</span><span style="color: rgb(0, 0, 0); background-color: rgb(245, 245, 245);">});<br>            });<br>        </span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">script</span><span style="color: rgb(0, 0, 255);">&gt;</span></div></pre>
+</div>
+</div>
+<p> </p>
+<p> </p>
+<p>body中的代码</p>
+<p> </p>
+<div class="cnblogs_code" onxxxxx="cnblogs_code_show('f9bd0e41-6868-4210-bfa5-39669ed22fe7')"><img class="code_img_closed" style="display: none;" jquery1279616587093="6" src="jssuggestion_files/edafe2890f28b5f30e244478.gif"><img class="code_img_opened" onxxxxx="cnblogs_code_hide('f9bd0e41-6868-4210-bfa5-39669ed22fe7',event)" src="jssuggestion_files/0446dba74c4a72d5d0435878.gif"><span class="cnblogs_code_collapse">代码</span>
+<div class="cnblogs_code_hide" style="display: block;" jquery1279616587093="5">
+<pre><div><span style="color: rgb(0, 0, 0);">        </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">div </span><span style="color: rgb(255, 0, 0);">id</span><span style="color: rgb(0, 0, 255);">="box"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">h1</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">仿机票预定智能输入提示DEMO</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">h1</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">input </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="hidden"</span><span style="color: rgb(255, 0, 0);"> name</span><span style="color: rgb(0, 0, 255);">="arrcity_3word"</span><span style="color: rgb(255, 0, 0);"> id</span><span style="color: rgb(0, 0, 255);">="arrcity_3word"</span><span style="color: rgb(255, 0, 0);"> value</span><span style="color: rgb(0, 0, 255);">=""</span><span style="color: rgb(255, 0, 0);"> </span><span style="color: rgb(0, 0, 255);">/&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">label </span><span style="color: rgb(255, 0, 0);">for</span><span style="color: rgb(0, 0, 255);">="arrcity"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">出发城市：</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">label</span><span style="color: rgb(0, 0, 255);">&gt;&lt;</span><span style="color: rgb(128, 0, 0);">input </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text"</span><span style="color: rgb(255, 0, 0);"> name</span><span style="color: rgb(0, 0, 255);">="arrcity"</span><span style="color: rgb(255, 0, 0);"> id</span><span style="color: rgb(0, 0, 255);">="arrcity"</span><span style="color: rgb(255, 0, 0);"> </span><span style="color: rgb(0, 0, 255);">/&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">div </span><span style="color: rgb(255, 0, 0);">id</span><span style="color: rgb(0, 0, 255);">='suggest' </span><span style="color: rgb(255, 0, 0);">class</span><span style="color: rgb(0, 0, 255);">="ac_results"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">div</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">label </span><span style="color: rgb(255, 0, 0);">for</span><span style="color: rgb(0, 0, 255);">="city2"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">目的城市：</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">label</span><span style="color: rgb(0, 0, 255);">&gt;&lt;</span><span style="color: rgb(128, 0, 0);">input </span><span style="color: rgb(255, 0, 0);">type</span><span style="color: rgb(0, 0, 255);">="text"</span><span style="color: rgb(255, 0, 0);"> name</span><span style="color: rgb(0, 0, 255);">="city2"</span><span style="color: rgb(255, 0, 0);"> id</span><span style="color: rgb(0, 0, 255);">="city2"</span><span style="color: rgb(255, 0, 0);"> </span><span style="color: rgb(0, 0, 255);">/&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">div </span><span style="color: rgb(255, 0, 0);">id</span><span style="color: rgb(0, 0, 255);">='suggest2' </span><span style="color: rgb(255, 0, 0);">class</span><span style="color: rgb(0, 0, 255);">="ac_results"</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">div</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">p</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">具体的功能如下：</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">p</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">ol</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>                </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">点击输入框，自动列出热门出行城市；</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>                </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">支持中文/拼音/3字码 输入的智能提示；</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>                </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">支持键盘方向键选择、回车键确定；</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>                </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">支持选择后自定义callback函数；</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>                </span><span style="color: rgb(0, 0, 255);">&lt;</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);">支持IE6、IE7、IE8、Firefox</span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">li</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>            </span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">ol</span><span style="color: rgb(0, 0, 255);">&gt;</span><span style="color: rgb(0, 0, 0);"><br>        </span><span style="color: rgb(0, 0, 255);">&lt;/</span><span style="color: rgb(128, 0, 0);">div</span><span style="color: rgb(0, 0, 255);">&gt;</span></div></pre>
+</div>
+</div></div></td></tr></tbody></table>
+
+<br>
+
+<div class="opt">
+
+<a href="http://hi.baidu.com/honfei/blog/category/Jquery" title="查看该分类中所有文章">类别：Jquery</a>
+
+| <a href="#" onclick="addToShare(); return false;" target="_blank"><img src="jssuggestion_files/share_btn.gif" border="0" align="absbottom"></a>
+
+
+
+
+	
+
+	| <a title="将此文章添加到百度搜藏" href="http://cang.baidu.com/do/add" onclick="return addToFavor();" target="_blank">添加到搜藏</a>
+
+	
+    | <a title="将此文章分享到i贴吧" href="#" onclick="addToiTieba(); return false;" target="_blank">分享到i贴吧</a>
+
+	| 浏览(<span id="result">357</span>)
+
+	| <a href="#send">评论</a>&nbsp;(1)
+
+
+
+<script language="javascript">
+
+/*<![CDATA[*/
+
+var pre = [true,'VC自绘美化通用控件', 'VC自绘美化通用控件','/honfei/blog/item/eebf7e11c2e1e8cba7ef3f1a.html'];
+
+var post = [true,'mysql mysql-connector-net使用文档','mysql mysql-connector-net使用...', '/honfei/blog/item/5ab818cbab4118f053664f6e.html'];
+
+if(pre[0] || post[0]){
+
+	document.write('<div style="height:5px;line-height:5px;">&nbsp;</div><div id="in_nav">');
+
+	if(pre[0]){
+
+		document.write('上一篇：<a href="' + pre[3] + '" title="' + pre[1] + '">' +  pre[2] + '</a>&nbsp;&nbsp;&nbsp;&nbsp;');
+
+	}
+
+	if(post[0]){
+
+		document.write('下一篇：<a href="' + post[3] + '" title="' + post[1] + '">' +  post[2] + '</a>');
+
+	}
+
+	document.write('</div>');
+
+}
+
+/*]]>*/
+
+</script><div style="height: 5px; line-height: 5px;">&nbsp;</div><div id="in_nav">上一篇：<a href="http://hi.baidu.com/honfei/blog/item/eebf7e11c2e1e8cba7ef3f1a.html" title="VC自绘美化通用控件">VC自绘美化通用控件</a>&nbsp;&nbsp;&nbsp;&nbsp;下一篇：<a href="http://hi.baidu.com/honfei/blog/item/5ab818cbab4118f053664f6e.html" title="mysql mysql-connector-net使用文档">mysql mysql-connector-net使用...</a></div>
+
+
+
+</div>
+
+
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+    
+<style type="text/css">
+
+/*<![CDATA[*/
+
+#in_related_doc a { text-decoration:none; }
+
+/*]]>*/
+
+</style>
+
+<div id="in_related_tmp"></div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="in_reader">
+    <div class="tit">最近读者：</div>
+
+<table width="100%"><tbody><tr><td width="10%" align="center"><img src="jssuggestion_files/portraitn.jpg" border="0" height="55" width="55"></td><td width="12%" align="left"><a href="https://passport.baidu.com/?login&amp;tpl=sp&amp;tpl_reg=sp&amp;u=http%3A%2F%2Fhi.baidu.com%2Fhonfei%2Fblog%2Fitem%2Ff3be480032356f1c738b6560%252Ehtml" target="_self" onclick="BdUtil.relogin(); return false;">登录</a>后，您就出现在这里。</td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/notwin" target="_blank" class="ucard" pid="65d06e6f7477696e9d02"><img src="jssuggestion_files/65d06e6f7477696e9d02.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/805617894" target="_blank" class="ucard" pid="7cd16138303536313738393461750a"><img src="jssuggestion_files/7cd16138303536313738393461750a.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/beinsky2" target="_blank" class="ucard" pid="fbb56265696e736b7932e90e"><img src="jssuggestion_files/fbb56265696e736b7932e90e.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/wushudong" target="_blank" class="ucard" pid="7d817775736875646f6e671316"><img src="jssuggestion_files/7d817775736875646f6e671316.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/gtiszdd" target="_blank" class="ucard" pid="03107a64644a6176612c0a"><img src="jssuggestion_files/03107a64644a6176612c0a.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/bobo8088" target="_blank" class="ucard" pid="2dc9626f626f383038383600"><img src="jssuggestion_files/2dc9626f626f383038383600.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/sj1234" target="_blank" class="ucard" pid="db916c7679757169616e678001"><img src="jssuggestion_files/db916c7679757169616e678001.jpg" border="0"></a></td><td class="user" valign="bottom" width="10%" align="center"><a href="http://hi.baidu.com/limi1986214" target="_blank" class="ucard" pid="233c6c696d6931393836323134310b"><img src="jssuggestion_files/233c6c696d6931393836323134310b.jpg" border="0"></a></td><td width="100%"></td></tr><tr><td>&nbsp;</td><td>&nbsp;</td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/notwin" target="_blank" class="ucard" pid="65d06e6f7477696e9d02">notwin</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/805617894" target="_blank" class="ucard" pid="7cd16138303536313738393461750a">a805617894a</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/beinsky2" target="_blank" class="ucard" pid="fbb56265696e736b7932e90e">beinsky2</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/wushudong" target="_blank" class="ucard" pid="7d817775736875646f6e671316">wushudong</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/gtiszdd" target="_blank" class="ucard" pid="03107a64644a6176612c0a">zddJava</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/bobo8088" target="_blank" class="ucard" pid="2dc9626f626f383038383600">bobo8088</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/sj1234" target="_blank" class="ucard" pid="db916c7679757169616e678001">lvyuqiang</a></td><td class="user" valign="top" align="center"><a href="http://hi.baidu.com/limi1986214" target="_blank" class="ucard" pid="233c6c696d6931393836323134310b">limi1986214</a></td><td></td></tr></tbody></table></div>
+
+
+
+
+
+<div class="line">&nbsp;</div>
+
+
+
+
+
+
+
+
+
+
+<div id="in_comment">
+
+    <a name="comment"></a>
+
+    <div class="tit">网友评论：</div>
+
+    <span id="userCommentList"><a name="db749024f3737a25d40742b8" rename="shenfeng_tang" repid="be4b7368656e66656e675f74616e672b07"></a><table class="item" style="overflow: hidden; table-layout: fixed; word-wrap: break-word;" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td class="index" valign="top" width="5%">1</td><td valign="top" width="10%" align="center"><div class="user" style="overflow: hidden;"><a href="http://hi.baidu.com/shenfeng_tang" target="_blank" class="ucard" pid="be4b7368656e66656e675f74616e672b07"><img src="jssuggestion_files/be4b7368656e66656e675f74616e672b07.jpg" border="0"><br>shenfeng_tang</a></div></td><td class="cnt" style="padding-left: 20px;"><span class="date">2011/01/20  09:43   | <a href="#" onclick="goCmtReply('be4b7368656e66656e675f74616e672b07');return false;">回复</a> </span><div class="desc" style="overflow: hidden;" name="cmtcontent">我的数据是从数据库内获取的？怎么办了？</div></td></tr></tbody></table><div class="line">&nbsp;</div></span>    
+
+    <div id="page"></div>
+
+</div>
+
+<form action="/honfei/commit" id="blogCmtSubmitForm" name="blogCmtSubmitForm" method="post">
+    <input name="bdstoken" value="c997aec75edb3220ea634cf605f8aecd" type="hidden">
+    <input name="ct" value="8" type="hidden">
+    <input name="cm" value="2" type="hidden">
+    <input name="spBlogID" value="f3be480032356f1c738b6560" type="hidden">
+    <input name="spBlogCmtID" value="" type="hidden">
+    <input name="spRefURL" value="" type="hidden">
+</form>
+
+
+
+
+
+
+<div id="in_send">
+
+<a name="send"></a>
+
+<form name="form1" id="popFormSubmit" action="/honfei/commit" method="post" onsubmit="return checkcmtform()">
+
+<input name="bdstoken" value="c997aec75edb3220ea634cf605f8aecd" type="hidden">
+
+<input name="ct" value="8" type="hidden">
+
+<input name="cm" value="1" type="hidden">
+
+<input name="spBlogID" value="f3be480032356f1c738b6560" type="hidden">
+
+<input value="http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560.html" name="spRefURL" id="spRefURL" type="hidden">
+
+<script>
+
+    document.getElementById("spRefURL").value = window.location.href;
+
+</script>
+
+<div class="tit">发表评论：</div>
+
+<table border="0" cellpadding="0" cellspacing="5" width="620">
+
+
+
+
+
+<tbody><tr id="2_err" style="display: none;">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="2_err_con"></div></td>
+
+</tr>
+
+
+
+<tr>
+
+<td class="f14" id="reTitle" valign="top">内　容：</td>
+
+<td>
+	        <div id="bdeditor_container_nl8bob5bjzp97jod1bkwqcer">            <table border="0" cellpadding="0" cellspacing="0" height="155px" width="100%">                <tbody><tr>                    <td style="display: none;" id="editor_toolbar_nl8bob5bjzp97jod1bkwqcer" class="ToolbarContainer"><div class="ToolbarStrip"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td nowrap="nowrap"><div class="ToolbarItem" title="插入表情" id="ToolbarItem_t1zfvrsmbfk02bmgk0h5dep6" onclick="_Instance['t1zfvrsmbfk02bmgk0h5dep6'].clickHandler(this)" onmouseup="_Instance['t1zfvrsmbfk02bmgk0h5dep6'].mouseUpHandler(this)" onmousedown="_Instance['t1zfvrsmbfk02bmgk0h5dep6'].mouseDownHandler(this)" onmouseout="_Instance['t1zfvrsmbfk02bmgk0h5dep6'].mouseOutHandler(this)" onmouseover="_Instance['t1zfvrsmbfk02bmgk0h5dep6'].mouseOverHandler(this)"><div class="img Smiley" alt="插入表情"><font style="font-size: 12px;">插入表情</font></div></div></td></tr></tbody></table></div></td>                </tr>                <tr>                    <td id="editor_area_nl8bob5bjzp97jod1bkwqcer" class="EditorContainer"><iframe src="javascript:void(0)" frameborder="0" height="155px" width="100%"></iframe></td>                </tr>            </tbody></table>        </div>    <textarea name="spBlogCmtText" id="spBlogCmtText" style="width: 520px; height: 155px; display: none;" tabindex="3" onfocus="hidErr(3);" onclick="BdUtil.relogin(); return false;"></textarea>
+</td>
+
+</tr>
+
+<tr id="3_err" style="display: none;">
+
+<td>&nbsp;</td>
+
+<td><div class="error" id="3_err_con"></div></td>
+
+</tr>
+
+
+
+
+<tr>
+
+<td class="f14" valign="top">&nbsp;</td>
+
+<td class="f14" valign="top"><input id="btn_ok" name="btn_ok" autocomplete="off" onclick="BdUtil.relogin(); return false;" value="发表评论" tabindex="5" type="submit">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" id="cancleReLink" onclick="canclereply(); return false;" style="display: none; font-size: 12px; color: rgb(102, 102, 102);">取消回复</a></td>
+
+</tr>
+
+</tbody></table>
+
+</form>
+
+</div>
+
+
+
+
+
+
+
+
+
+<br>
+
+</div>
+
+
+
+<table border="0" cellpadding="0" cellspacing="0" height="8" width="100%">
+
+<tbody><tr><td class="modbl" width="7">&nbsp;</td>
+
+<td class="modbc">&nbsp;</td>
+
+<td class="modbr" width="7">&nbsp;</td>
+
+</tr></tbody></table>
+
+
+
+
+
+
+
+</div>
+
+</div>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+<br><center><div id="ft">&#169;2011 Baidu</div></center>
+
+
+</center>
+
+<ul id="blogCmtContentList" style="display: none;">
+
+ <li id="blogCmtContent_1">我的数据是从数据库内获取的？怎么办了？</li>
+
+</ul>
+
+<!--inc_getmsgnum.html-->
+
+<iframe id="submitiframe" name="submitiframe" src="jssuggestion_files/blank.html" style="display: none;"></iframe>
+
+
+<script type="text/javascript" src="jssuggestion_files/detailpage.js"></script>
+<script type="text/javascript">
+    //*****there is some function。
+    function checkMail(s)
+
+    {
+
+        var pattern=/\w+@\w+\.[a-z]+/;
+
+        if(pattern.test(s))
+
+        {
+
+           return true;
+
+        }
+
+        else
+
+       {
+
+          return false;
+
+       }
+
+    }
+
+
+
+
+
+    function checkeandu(eanduid)
+
+    {
+
+        var eanduvalue=baidu.G(eanduid).value;
+
+        var len=baidu.string.getByteLength(eanduvalue);
+
+        if(len>128)
+
+        {
+
+            showErr(2,"您输入的网址或邮箱太长，请保持在128字节以内。");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+             return true;
+
+        }
+
+
+
+    }
+
+
+
+
+
+    function checkname(strid)
+
+    {
+
+        var ele=baidu.G(strid);
+
+        var len=baidu.string.getByteLength(ele.value);
+
+        if(len>49)
+
+        {
+
+            showErr(1,"您输入的姓名太长，请保持在49字节以内。");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+            if(len==0)
+
+            {
+
+                baidu.G(strid).value="匿名网友";
+
+            }
+
+             return true;
+
+        }
+
+
+
+    }
+
+
+
+    function checktext(textid)
+
+    {
+
+            var tempStr='';
+
+            var isLightFont=false;
+
+            if(editor&&textid=="spBlogCmtText"){
+
+                tempStr=editor.getHtml();
+                
+                /*
+                //火星文处理，能不碰它就别碰它
+                tempStr=tempStr.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,'');
+
+                tempStr=tempStr.replace(/<\/span>/ig,'');
+                */
+
+                baidu.G("spBlogCmtText").value=tempStr;
+
+                isLightFont=!(tempStr==editor.getHtml());
+
+            }
+
+
+            var str=baidu.string.trim(baidu.G(textid).value);
+            baidu.G(textid).value=str;
+
+            
+
+            len=str.length;
+
+            if(len==0 || ((/^[\s,　]+$/gi).test(str)) )
+
+            {
+
+                showErr(3,"您必须输入评论内容，请检查。");
+
+                return false;
+
+            }
+
+            else
+
+            {
+
+                    var maxLength=isLightFont?916:1000;
+
+                    if(len > maxLength)
+
+                    {
+
+                        showErr(3,"您输入的评论内容太长，请保持在500字以内。");
+
+                        return false;
+
+                    }
+
+                    if(editor&&textid=="spBlogCmtText"){
+
+                        baidu.G("spBlogCmtText").value=editor.getHtml();
+
+                        baidu.G(textid).value=str;
+
+                    }
+
+
+
+                return true;
+
+            }
+
+    }
+
+
+
+    function showErr(index,str)
+
+    {
+
+        baidu.G(index+"_err").style.display="";
+
+        baidu.G(index+"_err_con").innerHTML=str;
+
+    }
+
+    function hidErr(index)
+
+    {
+
+        baidu.G(index+"_err").style.display="none";
+
+        baidu.G(index+"_err_con").innerHTML="";
+
+    }
+
+
+
+    function alertPop(tit,con)
+
+    {
+
+        var pop=new Popup({ contentType:4,isReloadOnClose:false,width:340,height:80});
+
+        pop.setContent("title",tit);
+
+        pop.setContent("alertCon",con);
+
+        pop.build();
+
+        pop.show();
+
+    }
+
+
+
+    function cmtfull()
+
+    {
+
+        var cnum=1;
+
+        if(cnum>=50000)
+
+        {
+
+            alertPop("发表评论","单篇日志评论数最多为50000条.");
+
+            return false;
+
+        }
+
+        else
+
+        {
+
+            return true;
+
+        }
+
+    }
+
+
+	function showCmtSuccess(){
+		ShareBlog.showCmtShareResult(0);
+	}
+
+
+    function checkcmtform()
+
+    {
+
+        if(checkname("spBlogCmtor")&&checkeandu("spBlogCmtURL")&&checktext("spBlogCmtText")&&cmtfull())
+
+        {
+            if(baidu.g("shareBlog").checked && !ShareBlog.isHostReply){
+                baidu.g("shareBlogEchoback").value = "shareblog"; 
+                ShareBlog.submit(Session.spToken);
+            }else{
+                baidu.g("shareBlogEchoback").value = "";
+            }
+            submitForm();
+
+            return true;
+
+        }
+
+        else
+
+        {
+
+            return false;
+
+        }
+
+    }
+
+
+
+    var g_pop=null;
+
+    function submitForm()
+
+    {
+
+        g_pop=new Popup({ contentType:1,isReloadOnClose:false,width:340,height:80});
+
+        g_pop.setContent("title","添加评论");
+
+        g_pop.setContent("contentUrl","");
+
+        g_pop.setContent("someDisabledBtn","btn_ok");
+
+        g_pop.build();
+
+        G("popFormSubmit").target=g_pop.iframeIdName;
+
+        g_pop.show();
+
+    }
+
+
+
+    function g_close_pop()
+
+    {
+
+        g_pop.close();
+
+    }
+
+
+
+    function formatonlinpic()
+
+    {
+
+        var picobj=document.getElementsByName("onlinepic");
+
+        var picnum=picobj.length;
+
+
+
+        for(var i=0;i<picnum;i++)
+
+        {
+
+            if(picobj[i].width>200)
+
+            {
+
+                picobj[i].width=200;
+
+            }
+
+            if(picobj[i].height>200)
+
+            {
+
+                picobj[i].height=200;
+
+            }
+
+        }
+
+        try{baidu.G("btn_ok").disabled = "";}catch(e){}
+
+    }
+
+
+
+    function addToFavor(){
+
+        var blogTitle='JQuery实现智能输入提示（仿机票预订网站）'.replace(/&#39;/g,'\'');
+
+        window.open('http://cang.baidu.com/do/add?it='+encodeURIComponent(blogTitle+'_百度空间')+'&iu='+encodeURIComponent(location.href)+'&fr=sp#nw=1','_s','scrollbars=no,width=600,height=450,right=75,top=20,status=no,resizable=yes');
+
+        return false;
+
+    }
+
+    function addToiTieba(){
+        var blogTitle='JQuery实现智能输入提示（仿机票预订网站）'.replace(/&#39;/g,'\'');
+        window.open('http://tieba.baidu.com/i/sys/share?link='+encodeURIComponent('http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560.html')+'&type=text&title='+encodeURIComponent(blogTitle)+'&content=');
+    }
+
+    function addToShare(){
+        window.open('http://apps.hi.baidu.com/share/?url='+encodeURIComponent('http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560.html'));
+    }
+
+
+    /* some functions for cmt-reply */
+    var g_cmtorInfo = [];
+    function goCmtReply(cmtPorID){
+        //如果是主人的话，回复别人的评论，是不需要显示分享的
+        
+
+        cmtreply(g_cmtorInfo[cmtPorID],cmtPorID);
+    }
+    function cmtreply(cmtName,cmtPorID)
+
+    {
+
+        cmtName=cmtName.replace(/<|>/g,"");
+
+        window.location.hash="#send";
+
+        var cmtForm=document.form1;
+
+        cmtForm.cm.value="3";
+
+        if(!cmtForm.spReferTarget)
+
+        {
+
+            var ipt=document.createElement("input");
+
+            ipt.type="hidden";
+
+            ipt.name="spReferTarget";
+
+            ipt.value=cmtPorID;
+
+            cmtForm.appendChild(ipt);
+
+        }else cmtForm.spReferTarget.value=cmtPorID;
+
+
+
+
+
+         //G("reTitle").innerHTML="回复"+cmtName+"：";
+
+         G("cancleReLink").style.display="";
+
+         cmtForm.btn_ok.value="回复评论";
+
+
+
+
+
+         try{
+
+            editor.window.focus();
+
+            editor.window.document.body.innerHTML="回复"+cmtName+"：";
+
+
+
+            var w = editor.window;
+
+            if(w.getSelection){
+
+                var d = w.document;
+
+                var s = w.getSelection();
+
+                var r = d.createRange();
+
+                r.setStartAfter(d.body.firstChild);
+
+                r.setEndAfter(d.body.lastChild);
+
+                s.removeAllRanges();
+
+                s.addRange(r);
+
+            }
+
+        }catch(e){
+
+                try{
+
+                    cmtForm.getElementsByTagName("textarea")[0].focus();
+
+                    cmtForm.getElementsByTagName("textarea")[0].value="回复"+cmtName+"：";
+
+                }catch(e){}
+
+        }
+
+    }
+
+
+
+    function canclereply()
+
+    {
+        //主人可以分享自己的文章
+        ShareBlog.cancelReply();
+
+        var cmtForm=document.form1;
+
+        cmtForm.cm.value="1";
+
+        try{cmtForm.removeChild(cmtForm.spReferTarget);}catch(e){}
+
+        /*
+
+        try{
+
+                var cmt=cmtForm.getElementsByTagName("textarea")[0]
+
+                cmt.value="";
+
+                cmt.focus();
+
+        }catch(e){}
+
+        */
+
+
+
+        try{
+
+                var ed=editor.window.document.body;
+
+                ed.innerHTML="";
+
+                editor.window.focus();
+
+            }catch(e){
+
+                var cmt=cmtForm.getElementsByTagName("textarea")[0];
+
+                cmt.value="";
+
+                cmt.focus();
+
+        }
+
+
+
+        G("cancleReLink").style.display="none";
+
+        cmtForm.btn_ok.value="发表评论";
+
+    }
+
+
+
+    function gotoreply()
+
+    {//to checking whether reply cmt
+
+        if( window.location.hash.indexOf("&re=1")<0) return;
+
+        var cmtID=window.location.hash.split("&")[0].replace("#","");
+
+        var cmtlinks=document.getElementsByTagName("a");
+
+        for(var i=0,n=cmtlinks.length;i<n;i++)
+
+        {
+
+            if(cmtlinks[i].name==cmtID){ var rename=cmtlinks[i].getAttribute("rename");  repid=cmtlinks[i].getAttribute("repid"); break;}
+
+        }
+
+        if(typeof(rename)!="undefined"){
+
+            cmtreply(rename, repid);
+
+        }
+
+    }
+
+    
+    
+    function f_focus(){
+        getVcode();
+    }
+    function getVcode(){
+        var url="http://hi.baidu.com/sys/file/getvcode?echoback=getVcodeDone&t="+(new Date().getTime());
+        BdAjax.loadJS(url)
+    }
+
+    function getVcodeDone(vcode){
+        document.form1.spVcode.value=vcode;
+        var imgsrc="http://hiup.baidu.com/cgi-bin/genimg?"+vcode;
+        G('verifypic').src=imgsrc;
+        G('yanzheng').style.display="block";
+    }
+    function newverifypic(){
+        getVcode();
+        return false;
+    }
+
+    function blogdel(str)
+
+    {
+
+        var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+
+        pop.setContent("title","删除文章");
+
+        pop.setContent("confirmCon","您确定要彻底删除这篇文章及其所有评论吗？");
+
+        pop.setContent("callBack",delCallback);
+
+        pop.setContent("parameter",{fid:str,popup:pop});
+
+        pop.build();
+
+        pop.show();
+
+        return false;
+
+    }
+
+    
+    function delCallback(para)
+
+    {
+        if(!para["popup"])return;
+
+        var o_pop=para["popup"];
+
+        o_pop.config.contentType=1;
+
+        o_pop.setContent("contentUrl","");
+
+        o_pop.reBuild();
+
+        G(para["fid"]).target=o_pop.iframeIdName;
+        eval("document.draft"+para["fid"]).submit();
+
+        eval("document."+para["fid"]).submit();
+
+    }
+
+
+
+    var _Space = _Space || {};
+    
+    /********这里的东西，是用来生成评论列表的**********/
+    _Space.commentOperate = (function(){
+        
+        function getCmtTpl(){
+            
+            var cmtStrTpl = [];
+                        
+            cmtStrTpl.push('<a name="#{cmtid}" rename="#{cmtuser}" repid="#{cmtportrait}"></a>');
+            cmtStrTpl.push('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="item" style="table-layout:fixed;word-wrap:break-word;overflow:hidden;"><tr>');
+            cmtStrTpl.push('<td valign="top" class="index" width="5%">#{cmtindex}</td>');
+            cmtStrTpl.push('<td align="center" valign="top" width="10%">');
+            cmtStrTpl.push('<div class="user" style="overflow:hidden;">#{cmtuserhead}</div>');
+            cmtStrTpl.push('</td><td class="cnt" style="padding-left:20px;">');
+            cmtStrTpl.push('<span class="date">#{cmttime} #{mobileup} #{cmtreplay} #{cmtdel}</span>');
+            cmtStrTpl.push('<div class="desc" style="overflow:hidden;word-break:normal;"  name="cmtcontent">#{cmtcontent}</div></td>');
+            cmtStrTpl.push('</tr></table>');
+            cmtStrTpl.push('<div class="line">&nbsp;</div>');
+
+            return cmtStrTpl.join('');
+        }
+
+        function getUserPortrait(type,cmtid,cmtname,cmturl,portraitId){
+            var html1="";
+
+        	if(type==1){
+
+			    html1="<a href='"+cmturl+"' target='_blank' class='ucard' pid="+portraitId+"><img  border='0' src='http://tx.bdimg.com/sys/portraitn/item/"+portraitId+".jpg'><br>"+cmtname+"</a>";
+
+            }else{
+
+                if(cmtname=="" || cmtname=="匿名网友"){
+
+                    if(cmturl==""){
+
+                        html1="<a>匿名网友</a>";
+
+                    }else{
+
+                        html1="<a href='"+cmturl+"' target='_blank' class='ucard' pid="+portraitId+">"+cmtname+"</a>";
+
+                    }
+
+                }else{
+
+                    if(cmturl==""){
+
+                        html1="<div class='f14' style='display:inline'>网友:<a>"+cmtname+"</a></div>";
+
+                    }else{
+
+                        html1="<div class='f14' style='display:inline'>网友:<a href='"+cmturl+"' target='_blank' title='"+cmturl+"'>"+cmtname+"</a></div>";
+
+                    }
+
+                }
+
+            }
+
+            return html1;
+        }
+
+        function renderCmt(cmtdata){
+            var tpl = getCmtTpl();
+
+            var mobileup=cmtdata.isMobileUp? '<a  href="http://hi.baidu.com/hi/cms/article/help_phone/index.html" target="_blank" style="text-decoration:none;">来自手机<img src="http://img.baidu.com/hi/img/mobile.gif" align="absmiddle" border="0" /></a>' : '';
+
+            var cmtreplay =(cmtdata.isCanReply && cmtdata.isCmtAllow)? ( cmtdata.isAnonymity ? ' | <a href="#" onclick="BdUtil.relogin();return false;">回复</a>' : ' | <a href="#" onclick="goCmtReply(\'#{cmtportrait}\');return false;">回复</a>') : '';
+
+            var cmtdel = Session.isHost ? ' | <a href="#" onClick="_Space.commentOperate.deleteCmt(\'#{cmtid}\'); return false;">删除</a> | <a href="#" onclick="userSpam.tipBlogCmt(this, \'#{cmtuser}\' ,\'#{cmtid}\', \'#{blogid}\') ; return false;">举报</a>' : '';
+
+            var cmtuserhead = getUserPortrait(cmtdata.userType,"#{cmtid}","#{cmtuser}","#{cmturl}","#{cmtportrait}");
+
+            mobileup = baidu.string.format(mobileup, cmtdata);
+            cmtreplay = baidu.string.format(cmtreplay, cmtdata);
+            cmtdel = baidu.string.format(cmtdel, cmtdata);
+            cmtuserhead = baidu.string.format(cmtuserhead, cmtdata);
+
+            cmtdata.mobileup = mobileup;
+            cmtdata.cmtreplay = cmtreplay;
+            cmtdata.cmtdel = cmtdel;
+            cmtdata.cmtuserhead = cmtuserhead;
+
+
+            return baidu.string.format(tpl, cmtdata);
+        }
+
+        
+        function deleteCmt(cid){
+            var pop=new Popup({ contentType:3,isReloadOnClose:false,width:340,height:80});
+
+            pop.setContent("title","删除评论");
+
+            pop.setContent("confirmCon","您确定要彻底删除这条评论吗？");
+
+            pop.setContent("callBack", function(){
+            
+                var o_pop=pop;
+                var _F = baidu.G('blogCmtSubmitForm');
+                _F.spBlogCmtID.value=cid;
+                _F.spRefURL.value = window.location.href;
+
+                o_pop.config.contentType=1;
+
+                o_pop.setContent("contentUrl","");
+
+                o_pop.reBuild();
+
+                _F.target=o_pop.iframeIdName;
+
+                _F.submit();
+            });
+
+            pop.build();
+
+            pop.show();
+
+            return false;
+        }
+    
+
+        function showCmtList(){
+            var cmtDataList = getCmtDataList();
+            var cmtList = [];
+
+            baidu.each(cmtDataList, function(item, index){
+                cmtList.push( renderCmt(item) );
+            });
+
+            baidu.G('userCommentList').innerHTML = cmtList.join('');
+
+            filterCmtContent('userCommentList');
+        }
+
+        function getCmtDataList(){
+            var cmtDataList=[];
+
+            
+    
+            g_cmtorInfo["be4b7368656e66656e675f74616e672b07"] = "shenfeng_tang"; //评论用户列表。 因为xss，所以改成了现在这个搓样子。
+            
+            cmtDataList.push({
+                cmtid : "db749024f3737a25d40742b8",
+                cmtuser : "shenfeng_tang",
+                cmturl : "http://hi.baidu.com/shenfeng_tang",
+                cmtportrait : "be4b7368656e66656e675f74616e672b07",
+                cmttime : "2011/01/20  09:43",
+                // spBlogCmtTextList。 但是因为不能编码，所以就先到html里吧。。
+                cmtcontent : baidu.G('blogCmtContent_1').innerHTML,  
+                cmtindex : "1",
+                isMobileUp :  false ,
+                isCanReply :  true ,
+                isCmtAllow :  true ,
+                isisAnonymity :  true ,
+                userType :  1 ,
+                blogid : "f3be480032356f1c738b6560"
+            });
+
+            
+
+            return cmtDataList;
+        }
+        
+        
+        function filterCmtContent(n){
+
+            if(!baidu.browser.ie){
+
+                var defaultfilter1='<span style="filter:glow(color=#000000,strength=2);height:0px;color:#000000">';
+
+                var defaultfilter2='<span style="height: 0px; color: rgb(0, 0, 0);">';
+
+                var commentDiv=document.getElementById(n);
+
+                var divs=commentDiv.getElementsByTagName('div');
+
+                var d,tmp;
+
+                for( var i=0,len=divs.length;i<len;i++){
+
+                    d=divs[i];
+
+                    if(d.getAttribute('name')=='cmtcontent'){
+
+                        tmp=d.innerHTML;
+
+                        tmp=tmp.replace(/<span style="filter:glow\(color=#([0-9a-z]{3,6}),strength=2\);height:0px;color:#([0-9a-z]{3,6})">/ig,defaultfilter1);
+
+                        tmp=tmp.replace('<span style="height: 0px; color: rgb(255, 255, 255);">',defaultfilter2);
+
+                        d.innerHTML=tmp;
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        return {
+            showCmtList : showCmtList,
+            deleteCmt : deleteCmt
+        }
+        
+    })();
+    
+    /**********分享该文章的用户功能**********/
+    
+
+    
+    /*********相关文章的显示函数********/
+    _Space.RelatedDoc=(function(){
+
+        function HI_MOD_IN_RELATED_DOC_CALLBACK(arg){
+
+            if(arg.length <= 1) return false;
+
+            var hasMore = arg[0];
+
+            var D=function(A,B){A[A.length]=B;}
+
+            if(arg.length % 2 == 0) D(arg, ["","","",""]);
+
+
+
+            var html = ['<div id="in_related_doc" onclick="relative_Click()"><div class="tit">相关文章：</div>'];
+
+            D(html, '<table cellpadding="0" cellspacing="3" border="0">');
+
+            for(var i = 1, j = arg.length; i < j; i += 2){
+
+                D(html, '<tr>');
+
+                D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i][3] + '/blog/item/' + arg[i][2] + '.html" target="_blank" title="' + arg[i][0] + '">' + arg[i][1] + '</a>');
+
+                D(html, new Array(10).join('\u3000'));
+
+                D(html, '</td>');
+
+                if(arg[i + 1][0] != "")
+
+                    D(html, '<td width="15px"><a style="font-size:25px" >&#8226;</a></td><td><a href="http://hi.baidu.com/' + arg[i + 1][3] + '/blog/item/' + arg[i + 1][2] + '.html" target="_blank" title="' + arg[i + 1][0] + '">' + arg[i + 1][1] + '</a></td>');
+
+                else
+
+                    D(html, '<td>&nbsp;</td><td>&nbsp;</td>');
+
+                D(html, '</tr>');
+
+            }
+
+            if(hasMore) D(html, '<tr><td colspan="4"><a target="_blank" href="/sys/search?pageno=1&type=7&sort=1&word=JQuery%CA%B5%CF%D6%D6%C7%C4%DC%CA%E4%C8%EB%CC%E1%CA%BE%A3%A8%B7%C2%BB%FA%C6%B1%D4%A4%B6%A9%CD%F8%D5%BE%A3%A9&item=f3be480032356f1c738b6560">更多&gt;&gt;</a></td></tr>');
+
+            D(html, '</table></div><div class="line">&nbsp;</div>');
+
+
+
+            var div = document.getElementById('in_related_tmp');
+
+            if(div){
+
+                div.innerHTML = html.join('');
+
+                while(div.firstChild){
+
+                    div.parentNode.insertBefore(div.firstChild, div);
+
+                }
+
+                div.parentNode.removeChild(div);
+
+            }
+
+
+        }
+
+        window.HI_MOD_IN_RELATED_DOC_CALLBACK = HI_MOD_IN_RELATED_DOC_CALLBACK;
+
+        function show(){
+            if( baidu.G('in_related_tmp') )
+            baidu.sio.callByServer("/sys/search?type=8&word=JQuery%CA%B5%CF%D6%D6%C7%C4%DC%CA%E4%C8%EB%CC%E1%CA%BE%A3%A8%B7%C2%BB%FA%C6%B1%D4%A4%B6%A9%CD%F8%D5%BE%A3%A9&item=f3be480032356f1c738b6560");
+        }
+
+        return {
+            show : show
+        }
+
+    })();
+    
+
+    /*********最近读者*********/
+    _Space.latestReader=(function(){
+        var g_read=[
+
+        
+
+        ["notwin","65d06e6f7477696e9d02","notwin"],
+
+        
+
+        ["805617894","7cd16138303536313738393461750a","a805617894a"],
+
+        
+
+        ["beinsky2","fbb56265696e736b7932e90e","beinsky2"],
+
+        
+
+        ["wushudong","7d817775736875646f6e671316","wushudong"],
+
+        
+
+        ["gtiszdd","03107a64644a6176612c0a","zddJava"],
+
+        
+
+        ["bobo8088","2dc9626f626f383038383600","bobo8088"],
+
+        
+
+        ["sj1234","db916c7679757169616e678001","lvyuqiang"],
+
+        
+
+        ["limi1986214","233c6c696d6931393836323134310b","limi1986214"],
+
+        
+
+        {}
+
+        ];
+
+        g_read.length=g_read.length-1;
+
+
+
+        var _rh1="";
+
+        var _rh2="";
+
+
+
+        function show(){
+
+            _rh1 += '<table width="100%" ><tr>';
+
+            _rh2+='<tr>';
+
+            if(!Session.isLogin){
+
+                _rh1+='<td align="center" width="10%" ><img border="0" width="55" height="55" src="http://img.baidu.com/hi/img/portraitn.jpg"></td>';
+
+                _rh2+='<td>&nbsp;</td>';
+
+                if(g_read.length>0){
+
+                    _rh1+='<td align="left" width="12%">';
+
+                }else{
+
+                    _rh1+='<td align="left" width="100%">';
+
+                }
+
+                _rh1+='<a href="https://passport.baidu.com/?login&tpl=sp&tpl_reg=sp&u='+myref+'" target="_self" onclick="BdUtil.relogin(); return false;">登录</a>后，您就出现在这里。</td>';
+
+                _rh2+='<td>&nbsp;</td>'
+
+            }
+
+            if(g_read.length==0){
+
+                if(Session.isLogin){
+
+                    _rh1+='<td align=left width="100%">最近还没有登录用户看过这篇文章……</td>';
+
+                    _rh2+='<td>&nbsp;</td>';
+
+                }
+
+            }else{
+
+                for(i=0,len=g_read.length;i<len;i++){
+
+                    _rh1+='<td align="center" valign="bottom" width="10%" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid="'+g_read[i][1]+'"><img border="0" src="http://tx.bdimg.com/sys/portraitn/item/'+g_read[i][1]+'.jpg"></a></td>';
+
+                    _rh2+='<td align="center" valign="top" class="user"><a href="/'+g_read[i][0]+'" target="_blank" class="ucard" pid="'+g_read[i][1]+'">'+g_read[i][2]+'</a></td>';
+
+                }
+
+            }
+
+            _rh1+='<td width="100%"></td></tr>';
+
+            _rh2+='<td></td></tr></table>';
+
+
+            baidu.dom.insertHTML("in_reader", "beforeEnd", _rh1+_rh2);
+
+        }
+
+        return {
+            show : show
+        }
+    })();
+    
+
+    /*********页面完成后执行的一些东西，比较乱，小心轻放**********/
+    _Space.pageDone = (function(){
+        
+        function initBlogTextForFCK(){
+            //fck init music
+            if(window.Node){Node.prototype.replaceNode=function(Node){this.parentNode.replaceChild(Node,this);}}
+            var imgBox=document.getElementsByName('musicName');
+            var isAutoPlay=true;
+            for(var i=0,n=imgBox.length;i<n;i++){
+                var img=imgBox[i];
+                if(img.getAttribute('rel')){
+                    var musicSrc=img.getAttribute('rel');
+                    var musicDiv = document.createElement("SPAN");
+                    var tmp=musicSrc.substr (musicSrc.indexOf('#')+1, 1);
+                    var tmpAutoPlay=(tmp=='1');
+                    if(isAutoPlay&&tmpAutoPlay){
+                        isAutoPlay=false;
+                        tmpAutoPlay=true;
+                    }else{
+                        tmpAutoPlay=false;
+                    }
+                    var shtml=creatbgmusic(musicSrc.substr(0,musicSrc.indexOf('#')).replace(/[\s><()'"]+/g,''),1,true,false,tmpAutoPlay,tmpAutoPlay,'FckMusicHelper');
+                    shtml=shtml.replace('width=100%','width=200').replace('width="100%"','width=200 height=45');			img.replaceNode(musicDiv);
+                    musicDiv.innerHTML=shtml;
+                    i--;n--;
+                }
+            }
+                //fck init vote
+            !function(){
+                var vote = document.getElementsByName('FCK_VOTE');
+                for(var i=0,len=vote.length,item,rel=0,cdiv;i<len;i++){
+                    item = vote[0];
+                    rel = item.getAttribute('rel')|0;
+                    if(rel){
+                        cdiv = document.createElement('span');
+                        item.parentNode.replaceChild(cdiv,item);
+                        baidu.swf.create({
+                            "id": "VOTE_FLASH_"+i,
+                            "width" : "585",
+                            "height": "100",
+                            "ver"   : "9.0.0",
+                            "wmode" : document.all ? "opaque" : "window",
+                            "allowscriptaccess" : "always",
+                            "url"   : "http://hi.bdimg.com/apps/appvote/spaceVote.swf?vote_id="+rel
+                        },cdiv)
+
+                    }
+                }
+            }()
+            //document.getElementById('blog_text').style.display='';
+        }
+        
+        function resizeBlogImg(){
+
+            if(document.getElementById("m_blog"))
+
+            {
+
+                var imgarray = document.getElementById("m_blog").getElementsByTagName('img');
+
+                var imgw = document.getElementById("m_blog").offsetWidth;
+
+                imgw =imgw-40;
+
+	            var imgs = []
+                for(var i=0; i<imgarray.length; i++){
+                    if(imgarray[i].className=="blogimg" && imgarray[i].width>=imgw) {
+                        imgs[i]=new Image();
+                        (function(_imgarray,_imgs,_i){
+                            _imgs[_i].onload=function(){
+                                var h=imgw/_imgs[_i].width*_imgs[_i].height;
+                                _imgarray[_i].height = h;
+                                _imgarray[_i].style.height=h+'px';
+                            };
+                        })(imgarray,imgs,i);
+                        imgs[i].src=imgarray[i].src;
+                        imgarray[i].width=imgw;
+                        imgarray[i].style.width=imgw+'px';
+                    }
+                }
+            }
+        }
+
+        function fixURLCopyBug(){
+        
+            // Fix ff bugs
+
+            var blog_text = document.getElementById('blog_text');
+            /**
+
+            blog_text.innerHTML = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+            */
+            /*modify by poker, to fix the flashalbum's static domain*/
+            var _blog_trans = blog_text.innerHTML.replace(/href\s*=\s*("|')?(\.\.\/\.\.\/)/gi,"href=$1../$2");
+            _blog_trans = _blog_trans.replace(/http:\/\/hi\.baidu\.com\/static\/album\/album\.swf/g,"http://hi.bdimg.com/static/album/album.swf");
+            blog_text.innerHTML = _blog_trans;
+        }
+
+        function getPVData(){
+
+            var hstr="";
+
+            baidu.sio.callByServer("/honfei/brwstat?key1=1&key2=029509529340eb0e0cf3e3a1_f3be480032356f1c738b6560_");   
+        } 
+
+        function setpv(allnum)
+
+        {
+
+            var num = allnum.split('_');
+
+            baidu.G("result").innerHTML=num[0];
+
+        }
+
+        window.setpv = setpv;
+        
+        function initCmtEditor(){ //初始化浏览编辑器
+            var editor=null;
+
+            try{
+
+                editor=new BdEditor("spBlogCmtText",{width:"100%",height:"155px"});
+
+                editor.onfocus = function(){hidErr(3);}
+
+                editor.render();
+
+                //如果用户没有登陆，焦点进入编辑器，弹出登录框
+				
+                var editorCont=editor.window;
+				baidu.Q("ToolbarContainer",baidu.G("in_send"))[0].style.display="none";
+                baidu.on(editorCont,"focus",function(){
+				BdUtil.relogin();
+				return false;
+				});
+				
+
+            }catch(e){
+
+                var spBlogCmtText = document.getElementById("spBlogCmtText");
+                if(!spBlogCmtText ) return false;
+
+                var p = spBlogCmtText.previousSibling;
+
+                while(p && p.nodeType != 1) p = p.previousSibling;
+
+                if(p && /bdeditor_container/.test(p.id)){
+
+                    p.parentNode.removeChild(p);
+
+                }
+
+                spBlogCmtText.style.display = '';
+
+                editor=null;
+
+            }
+
+            
+
+            window.editor = editor;
+        }
+
+        function ok(){
+            getPVData();
+            resizeBlogImg();
+            fixURLCopyBug();
+            initBlogTextForFCK();
+            initCmtEditor();
+
+            gotoreply(); /* external fun*/
+        }
+
+        return {
+            ok : ok
+        }
+    })();
+	
+	function relative_Click(){
+		BdUtil.ns_trackerLink('m_20110329_relative_article','')
+	}
+    /********分段加载处理对象，实验性功能*********/
+    _Space.SectionLoad = (function(){
+
+        var loaded = false;
+
+        var sectioinList = [];
+
+        function complete(item){
+            item.isComplete = true;
+        }
+
+        function add(mod, loadCallback){
+
+            var mod = baidu.G(mod);
+            
+            sectioinList.push({"mod": mod, "callback":loadCallback});
+        }
+
+        function startLoad(item){
+            item['callback']();
+            complete(item);
+        }
+
+        function checkStat(){
+            if(sectioinList.length <= 0) return;
+
+            var pageTop2bottom=getPageTop2bottom();
+            
+            baidu.each(sectioinList, function(item, index){
+
+                if(! item.isComplete){
+                    if(getOffsetTop(item.mod)-100 <= pageTop2bottom)
+                        startLoad(item);
+                }
+            });
+        }
+
+        function getOffsetTop(mod){
+            return baidu.dom.getPosition(mod).top;
+        }
+
+        function getPageTop2bottom(){
+            var dsh = baidu.page.getScrollTop();
+            var dch = baidu.page.getViewHeight();
+
+            return dsh + dch;
+        }
+
+        
+        baidu.on(window, 'resize', checkStat);
+        baidu.on(window, 'onload', checkStat);
+        baidu.on(window, 'scroll', checkStat);
+        
+        return {
+            "add" : add
+        } 
+    })();
+
+    /*******Start Working！*******/
+    var _pageEndTime=(new Date().getTime()) - g_pageTimerStart;
+
+    baidu.on(window, 'load', function(){
+        var _pageLoadTime=(new Date().getTime()) - g_pageTimerStart;
+
+        BdUtil.hi_trackerLink('m_20101109_blogloadtime', _pageLoadTime+'|'+_pageEndTime);
+    });
+
+    /**********Step2***********/
+    _Space.pageDone.ok();
+
+    baidu.G('share_user_list') && _Space.SectionLoad.add('share_user_list', _Space.BlogSharedUser.getData);
+    baidu.G('in_related_tmp') && _Space.SectionLoad.add('in_related_tmp', _Space.RelatedDoc.show);
+    baidu.G('in_reader') && _Space.SectionLoad.add('in_reader', _Space.latestReader.show);
+    baidu.G('in_comment') && _Space.SectionLoad.add('in_comment', _Space.commentOperate.showCmtList);
+</script>
+
+
+
+			
+
+
+<script type="text/javascript">
+/*<![CDATA[*/
+
+var SP = SP || {};
+if(!SP.mycard){
+    SP.mycard = new (function(){
+        var me = this;
+        var _cancleAction = Session.isDrag;  
+        var _list = [];
+        var _sourceLoaded = false;    
+        me.bind = function (_id){
+            if(_cancleAction){  //abort
+                return;
+            }
+            if(!_sourceLoaded){
+                _list.push(_id);
+            } else {
+                baidu.space.mycard.bind(_id);
+            }
+        }
+        me.init = function (_config){
+            _cancleAction = !!_config.cancle;
+        }
+        me.onSourceLoaded = function (){
+            _sourceLoaded = true;
+            baidu.space.mycard.init({portrait: Session.visitorPortrait});
+            for(var i=0,len=_list.length; i<len; i++){
+                baidu.space.mycard.bind(_list[i]);
+            }
+        }
+    })();
+    baidu.dom.ready(function(){
+        BdAjax.loadCSS('/ui/css/ucard/ucard.css?v=020507100.css');
+        BdAjax.loadJS('/ui/scripts/ucard/ucard.js?v=020507100.js');
+    });
+}
+SP.mycard.bind('m_blog');  
+/*]]>*/
+</script>
+
+
+	<script type="text/javascript" src="jssuggestion_files/refer.js"></script><div style="border: 0px solid rgb(255, 0, 0); overflow: hidden; position: absolute; z-index: 65531 ! important; width: 304px; height: 28px; left: 723px; top: 1121px;" id="xp"><div style="border-width: 0px; overflow: hidden; position: absolute; z-index: 1; width: 304px; height: 229px; left: 0px; top: 0px;" id="xp_content"><a style="position: absolute; z-index: 2; font-size: 0px; line-height: 0px; left: 270px; top: 6px; width: 13px; height: 13px; background-image: url(http://img.baidu.com/hi/img/refer/blogrecommend_hz_003.gif);" id="closeButton" href="#"></a><a style="position: absolute; z-index: 2; font-size: 0px; line-height: 0px; left: 250px; top: 6px; width: 13px; height: 13px; background-image: url(http://img.baidu.com/hi/img/refer/yzq_001.gif);" id="switchButton" href="#"></a><div id="ifm_div" style="height: 245px;"><iframe id="xp_content_iframe" src="jssuggestion_files/refer.html" allowtransparency="true" frameborder="0" height="100%" scrolling="no" width="100%"></iframe></div></div></div>
+	
+<link rel="stylesheet" type="text/css" href="jssuggestion_files/userset.css">
+<link rel="stylesheet" type="text/css" href="jssuggestion_files/widget.css">
+
+<script type="text/javascript" src="jssuggestion_files/b9d549a2c4783eadcbefd08b.js"></script>
+
+<script type="text/javascript">
+//页面状态变量
+var Session = Session || {
+    spaceURL: "/honfei",
+    pageURL: "http://hi.baidu.com/honfei/blog/item/f3be480032356f1c738b6560%2Ehtml",    //当前访问的url
+    isHost: "",         // 是否是空间主人
+    userName: "honfei",   // 空间主人用户名
+    userNameEnc:    "honfei", 
+    visitorName:    "",
+    visitorURL: "/index.html",        // 
+    refer: "http://www.google.com.hk/search?hl=zh-CN&newwindow=1&safe=strict&client=iceweasel-a&rls=org.mozilla%3Azh-CN%3Aunofficial&biw=1274&bih=736&q=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&oq=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&aq=f&aqi=&aql=&gs_sm=e&gs_upl=8673l8673l0l8960l1l1l0l0l0l0l0l0ll0",
+    spBasicURL:"honfei",
+    spBasicURLEnc:"honfei"
+};
+</script>
+<script src="jssuggestion_files/render.js" type="text/javascript"></script>
+<script type="text/javascript">
+baidu.dom.ready(function(){
+    if(typeof spBeautifyConfigData != 'undefined'){
+        var _installList = spBeautifyConfigData.list;
+    } else {
+        spBeautifyConfigData = {};
+        _installList = [];
+    }
+    spBeautifyConfigData.currentDate  = Math.round((new Date('2011/07/15')).getTime() / 1000);    
+    BeautifyWidget.init({timeStamp: spBeautifyConfigData.currentDate, env: 'sys'});
+    BeautifyWidget.render(_installList);
+	if(Space && Space.ActiveTip){
+		if(baidu.g("active_space")){
+			window.active_tip=new Space.ActiveTip("tary_space_name",function(){
+				active_tip.hidden();
+				//activeSpace("pop_tip");
+				if(BdUtil && BdUtil.ns_trackerLink){
+					BdUtil.ns_trackerLink('nm_20101018_activeBlank',''); 
+				}
+				window.open('http://hi.baidu.com/reg/preihome?pageDomain=pop_tip');
+			//	window.location.href="http://hi.baidu.com/reg/preihome?pageDomain=pop_tip";
+				setTimeout(function(){
+					window.location.reload();
+				},1000);
+				
+			
+			});
+		}
+		window.succTip=function(spaceUrl){
+			active_dia.close();
+			//var tiphtml="<div><div class='setBlackcon'>恭喜您，激活成功！欢迎入驻百度空间！</div><div class='setBlackpanel'><div class='blackConfirmbtn' onclick=\"goIhome('"+spaceUrl+"')\">确认</div></div></div>";
+			BdDialog.Alert("恭喜您，激活成功！欢迎入驻百度空间！");
+			baidu.g("dialogYES").onclick=function(){
+				window.location.reload();
+			};	
+		};
+	}
+	
+});
+</script>
+
+
+
+<script type="text/javascript" src="jssuggestion_files/auto.js"></script>
+<script>
+try{SCD.init("http://www.google.com.hk/search?hl=zh-CN&newwindow=1&safe=strict&client=iceweasel-a&rls=org.mozilla%3Azh-CN%3Aunofficial&biw=1274&bih=736&q=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&oq=jquery+%E5%AE%9E%E7%8E%B0%E6%8F%90%E7%A4%BA&aq=f&aqi=&aql=&gs_sm=e&gs_upl=8673l8673l0l8960l1l1l0l0l0l0l0l0ll0")}catch(e){}
+</script>
+
+
+</body></html>

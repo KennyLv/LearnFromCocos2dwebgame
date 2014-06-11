@@ -1,0 +1,2599 @@
+一、先来看一个简单的例子： 
+        下面以三个页面分别命名为 frame.html、 top.html、 bottom.html为例来具体说明如何做。  
+         
+        frame.html 由上(top.html)下(bottom.html)两个页面组成，代码如下： 
+
+ 1 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">  
+ 2 <HTML>  
+ 3 <HEAD>  
+ 4 <TITLE> frame </TITLE>  
+ 5 </HEAD>  
+ 6 <frameset rows="50%,50%">  
+ 7    <frame name=top src="top.html">  
+ 8    <frame name=bottom src="bottom.html">  
+ 9 </frameset>  
+10 </HTML> 
+      
+        现在假设top.html (即上面的页面) 有七个button来实现对bottom.html (即下面的页面) 的刷新，可以用以下七种语句，哪个好用自己看着办了。       
+ 1 top.html 页面的代码如下：  
+ 2  
+ 3 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">  
+ 4 <HTML>  
+ 5 <HEAD>  
+ 6 <TITLE> top.html </TITLE>  
+ 7 </HEAD>  
+ 8 <BODY>  
+ 9   <input type=button value="刷新1" onclick="window.parent.frames[1].location.reload()"><br>  
+10   <input type=button value="刷新2" onclick="window.parent.frames.bottom.location.reload()"><br>  
+11   <input type=button value="刷新3" onclick="window.parent.frames[&apos;bottom&apos;].location.reload()"><br>   
+12   <input type=button value="刷新4" onclick="window.parent.frames.item(1).location.reload()"><br>  
+13   <input type=button value="刷新5" onclick="window.parent.frames.item(&apos;bottom&apos;).location.reload()"><br>  
+14   <input type=button value="刷新6" onclick="window.parent.bottom.location.reload()"><br>  
+15   <input type=button value="刷新7" onclick="window.parent[&apos;bottom&apos;].location.reload()"><br>  
+16 </BODY>  
+17 </HTML>  
+18 
+           
+           下面是bottom.html页面源代码，为了证明下方页面的确被刷新了，在装载完页面弹出一个对话框。   
+ 1  
+ 2 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">  
+ 3 <HTML>  
+ 4 <HEAD>  
+ 5 <TITLE> bottom.html </TITLE>  
+ 6 </HEAD>  
+ 7 <BODY onload="alert(&apos;我被加载了！&apos;)">  
+ 8    <h1>This is the content in bottom.html.</h1>  
+ 9 </BODY>  
+10 </HTML> 
+
+              解释一下： 
+
+1.window指代的是当前页面，例如对于此例它指的是top.html页面。  
+2.parent指的是当前页面的父页面，也就是包含它的框架页面。例如对于此例它指的是framedemo.html。  
+3.frames是window对象，是一个数组。代表着该框架内所有子页面。  
+4.item是方法。返回数组里面的元素。  
+5.如果子页面也是个框架页面，里面还是其它的子页面，那么上面的有些方法可能不行。  
+ 
+附：  
+ 
+Javascript刷新页面的几种方法：  
+1 history.go(0)  
+2 location.reload()  
+3 location=location  
+4 location.assign(location)  
+5 document.execCommand(&apos;Refresh&apos;)  
+6 window.navigate(location)  
+7 location.replace(location)  
+8 document.URL=location.href 
+
+二、自动刷新页面 
+        1.页面自动刷新：把如下代码加入<head>区域中        
+<meta http-equiv="refresh" content="20">  
+其中20指每隔20秒刷新一次页面. 
+       2.页面自动跳转：把如下代码加入<head>区域中 
+
+<meta http-equiv="refresh" content="20;url=http://xcp.blogjava.net">  
+其中20指隔20秒后跳转到http://xcp.blogjava.net页面 
+      3.页面自动刷新js版 
+
+<script language="JavaScript">  
+    function myrefresh()  
+    {  
+           window.location.reload();  
+    }  
+    setTimeout(&apos;myrefresh()&apos;,1000); //指定1秒刷新一次  
+</script> 
+
+
+三、java在写Servler,Action等程序时，要操作返回页面的话（如谈出了窗口，操作完成以后，关闭当前页面，刷新父页面） 
+
+1         PrintWriter out = response.getWriter(); 
+2         out.write("<script  type=\"text/javascript\">"); 
+3          ////子窗口刷新父窗口  
+4          out.write("self.opener.location.reload();");  
+5          //关闭窗口 
+6          out.write("window.opener=null;"); 
+7          out.write("window.close();"); 
+8          out.write("</script>");
+
+四、JS刷新框架的脚本语句 
+        1.如何刷新包含该框架的页面用 
+
+<script language=JavaScript>  
+  parent.location.reload();  
+</script> 
+       
+       2.子窗口刷新父窗口 
+
+<script language=JavaScript>  
+    self.opener.location.reload();  
+</script> 
+      
+       3.如何刷新另一个框架的页面用 （上面的实例以说明了） 
+
+语句1. window.parent.frames[1].location.reload();  
+语句2.  window.parent.frames.bottom.location.reload();  
+语句3. window.parent.frames["bottom"].location.reload();  
+语句4. window.parent.frames.item(1).location.reload();  
+语句5. window.parent.frames.item(&apos;bottom&apos;).location.reload();  
+语句6. window.parent.bottom.location.reload();  
+语句7. window.parent[&apos;bottom&apos;].location.reload(); 
+     
+       4.如果想关闭窗口时刷新或者想开窗时刷新的话，在<body>中调用以下语句即可。  
+<body onload="opener.location.reload()"> 开窗时刷新  
+<body onUnload="opener.location.reload()"> 关闭时刷新  
+<script language="javascript">  
+    window.opener.document.location.reload()  
+</script> 
+ 
+
+
+xcp 2010-05-29 11:30 发表评论
+阅读全文...
+本站相关内容:
+页面刷新特征（转） 
+
+作者: love2java  链接： http://love2java.javaeye.com/blog/211948  发表时间: 2008年07月05日 
+
+声明：本文系JavaEye网站发布的原创博客文章，未经作者书面许可，严禁任何网站转载本文，否则必将追究法律责任！ 
+
+来分析这样一种实际情况，即，在HTTP处理程序处理请求之前对请求进行筛选，这有助于实现一个原本不可能的特征。回发机制有一个严重的缺陷——如果用户刷新当前显示页面，则服务器上所采取的最后一个动作将盲目地重复。例如，如果作为前一次发送的结果添加了一个新记录，则应用程序会在另一次回发时试图插入一个完全相同的记录。当然，这会导致插入完全相同的记录，因而应当产生一个异常。这一缺陷自Web编程最先出现时就已经存在了，ASP.NET无疑不会引入它。要实现非重复的动作，必须采取一些对策，本质上将任何关键的服务器端操作转换为一个幂等性。在代数中，如果一个操作不管对它执行多少次结果都不变，我们就说该操作是幂等的。例如，看一看如下SQL命令： 
+
+DELETE FROM employees WHERE employeeid=9 
+
+我们可以对该命令连续执行1000次，但是最多只会删掉1个记录，即满足WHERE子句中设定的标准的记录。另请考虑如下命令： 
+
+INSERT INTO employees VALUES (...) 
+
+每次执行该命令，都有可能把一个新记录添加到employees表中。如果存在自动编码的键列或者非惟一的列，尤其会出现这种情况。如果表设计要求键是惟一的并且明确加以规定，则第2次运行该命令时会抛出一个SQL异常。 
+
+虽然刚才考虑的特殊情况通常在数据访问层(data access layer，简称DAL)解决，但是它的基本模式代表了大多数Web应用程序的一个常见方案。因此，待研究的问题是：怎样查明页面是因为一个显式的用户操作被回传，还是因为用户按下了F5键或页面刷新工具栏按钮呢？ 
+
+1. 页面刷新操作的基本原理 
+
+页面刷新操作是一种内部浏览器操作，对此浏览器不会根据事件或回调提供任何外部通知。从技术上讲，页面刷新是由最新请求的“简单的”重复组成的。浏览器缓存它所服务的最新请求，并在用户按下页面刷新键或按钮时重新显示。我所知道的浏览器不会为页面刷新事件提供任何类型通知——即使有，无疑也不是一种公认标准。 
+
+据此可知，服务器端代码(例如，ASP.NET、经典ASP或ISAPI DLL)无法将刷新请求与一般的提交或回发请求相区分。为了帮助ASP.NET检测和处理页面刷新，我们需要创建外围机制，使两个在其他方面相同的请求看起来不同。所有已知的浏览器都是通过重新发送最后发送的HTTP请求来实现刷新；为了使该副本不同于原始请求，一个额外的服务必须添加其他参数，而 ASP.NET页面必须能够捕获它们。 
+
+我考虑了一些附加需求。解决方案不应依赖会话状态，而且不应使服务器内存负荷太重。它应该是相对容易部署的，而且应尽量不引人注目。 
+
+2. 解决方案的概要描述 
+
+本解决方案基于如下思想：每个请求被分配一个标签号，而HTTP模块将跟踪它处理的每个不同页面里最后服务的标签。如果该页面持有的标签号小于该页面的最后服务的标签，则只能表明服务了相同的请求——即，页面刷新。该解决方案由两个构造块组成：一个HTTP模块和一个自定义的页面类，前者对标签号作初步检查，后者自动地将一个渐进的标签号码添加到每个服务过的页面。使该特征起作用涉及两个步骤：首先，注册该HTTP模块；其次，在相关的应用程序中改变每个页面的基本的代码隐藏类以检测浏览器刷新。 
+
+HTTP模块位于HTTP运行库环境的中间，登记应用程序中的一个资源的每个请求。页面第一次被请求时(不是回发时)，不分配任何标签。HTTP模块将生成一个新的标签号，并把它存储在HttpContext对象的Items集合中。此外，该模块将最后服务的标签的内部计数器初始化为0。随后该页面每次被请求时，该模块都将最后服务的标签与页面标签进行比较。如果页面标签更新一些，则该请求被认为是一次普通的回发；否则，它将被标记为一次页面刷新。表2.6总结了这两种场景及其相关的操作。 
+
+ 
+
+
+为了确保每个请求(除了第一次以外)都有一个合适的标签号，需要得到页面类的一些帮助。这就是为什么需要将每个打算支持该特征的页面的代码隐藏类设置为一个特定类——这是我们稍候将讨论的一个过程。该页面类将从HTTP模块接收两种不同的信息：要存储在随页面一起传送的一个隐藏字段中的下一个标签，以及该请求是否为页面刷新的信息。作为对开发人员的一项增值服务，代码隐藏类将提供一个额外的布尔属性：IsRefreshed，以允许开发人员了解请求是页面刷新还是常规回发。 
+
+*重要提示 HttpContext类上的Items集合是一个载体集合，是为了让HTTP模块将信息向下传递给实际负责服务请求的页面和HTTP处理程序而特意建立的。我们这里采用的HTTP模块在Items集合中设置两个数据项。一个数据项让页面知道请求是否为页面刷新；另一个数据项让页面知道下一个标签号是什么。让HTTP模块将下一个标签号传递给页面，满足使页面类的行为尽可能地简单和线性的目的，从而将大部分实现和执行负担转移给HTTP模块。 
+
+3. 解决方案的实现 
+
+我刚刚概述的解决方案有几个问题有待研究。首先，状态是必需的，我们把它保存在哪里？其次，对每个输入请求都将调用一个HTTP模块。如何区分对相同页面的请求呢？如何把信息传递给页面呢？你希望页面有多大的智能呢？ 
+
+显然，这里所列的每个问题，都可以用不同于此处所介绍的方法进行设计和实现。为了得到一个可行的解决方案，这里作出的所有设计选择应当被认为是任意的，如果需要对该代码进行重新加工以更好地满足自己的目的，可以用等效的策略替换它。下一个实例中给出的代码版本，融入了我一直以来所收集的最宝贵的建议。这些建议之一如前一个重要提示所述，尽量将代码移到HTTP模块中。 
+
+如下代码展示了该HTTP模块的实现： 
+
+
+public class RefreshModule : IHttpModule
+
+{
+
+public void Init(HttpApplication app) {
+
+app.BeginRequest += new EventHandler(OnAcquireRequestState);
+
+}
+
+public void Dispose() {
+
+}
+
+void OnAcquireRequestState(object sender, EventArgs e) {
+
+HttpApplication app = (HttpApplication) sender;
+
+HttpContext ctx = app.Context;
+
+RefreshAction.Check(ctx);
+
+return;
+
+}
+
+}
+
+该模块监听BeginRequest事件，结束调用RefreshAction辅助类上的Check方法。 
+
+
+public class RefreshAction
+
+{
+
+static Hashtable requestHistory = null;
+// Other string constants defined here
+public static void Check(HttpContext ctx) {
+
+// Initialize the ticket slot
+EnsureRefreshTicket(ctx);
+
+// Read the last ticket served in the session (from Session)
+int lastTicket = GetLastRefreshTicket(ctx);
+
+// Read the ticket of the current request (from a hidden field)
+int thisTicket = GetCurrentRefreshTicket(ctx, lastTicket);
+
+// Compare tickets
+if (thisTicket > lastTicket ||(thisTicket==lastTicket && thisTicket==0)) {
+
+UpdateLastRefreshTicket(ctx, thisTicket);
+
+ctx.Items[PageRefreshEntry] = false;
+
+}
+
+else
+
+ctx.Items[PageRefreshEntry] = true;
+
+}
+
+// Initialize the internal data store
+
+static void EnsureRefreshTicket(HttpContext ctx)
+
+{
+
+if (requestHistory == null)
+
+requestHistory = new Hashtable();
+
+}
+
+// Return the last-served ticket for the URL
+
+static int GetLastRefreshTicket(HttpContext ctx)
+
+{
+
+// Extract and return the last ticket
+
+if (!requestHistory.ContainsKey(ctx.Request.Path))
+
+return 0;
+
+else
+
+return (int) requestHistory[ctx.Request.Path];
+
+}
+
+// Return the ticket associated with the page
+
+static int GetCurrentRefreshTicket(HttpContext ctx, int lastTicket)
+
+{
+
+int ticket;
+
+object o = ctx.Request[CurrentRefreshTicketEntry];
+
+if (o == null)
+
+ticket = lastTicket;
+
+else
+
+ticket = Convert.ToInt32(o);
+
+ctx.Items[RefreshAction.NextPageTicketEntry] = ticket + 1;
+
+return ticket;
+
+}
+
+// Store the last-served ticket for the URL
+
+static void UpdateLastRefreshTicket(HttpContext ctx, int ticket)
+
+{
+
+requestHistory[ctx.Request.Path] = ticket;
+
+}
+
+}
+
+Check方法操作如下：它将最后服务的标签(如果有)与页面提供的标签进行比较。该页面将标签号存储在一个通过Request对象接口读入的隐藏字段中。HTTP模块维护一个散列表，服务的每个不同的URL都有一个表项。该散列表中的值存储该URL的最后服务的标签。 
+
+注意 Item索引器属性，来设置最后服务的标签，因为Item重写已有的项。如果数据项已经存在，则Add方法只是返回。 
+
+除了创建HTTP模块，我们还需要安排一个页面类，以用作需要检测浏览器刷新的页面的基类。下面给出了这个页面类的代码： 
+
+
+// Assume to be in a custom namespace
+public class Page : System.Web.UI.Page
+
+{
+
+public bool IsRefreshed {
+
+get {
+
+HttpContext ctx = HttpContext.Current;
+
+object o = ctx.Items[RefreshAction.PageRefreshEntry];
+
+if (o == null)
+
+return false;
+
+return (bool) o;
+
+}
+
+}
+
+// Handle the PreRenderComplete event
+
+protected override void OnPreRenderComplete(EventArgs e) {
+
+base.OnPreRenderComplete(e);
+
+SaveRefreshState();
+
+}
+
+// Create the hidden field to store the current request ticket
+
+private void SaveRefreshState() {
+
+HttpContext ctx = HttpContext.Current;
+
+int ticket = (int) ctx.Items[RefreshAction.NextPageTicketEntry];
+
+ClientScript.RegisterHiddenField(
+
+RefreshAction.CurrentRefreshTicketEntry,
+
+ticket.ToString());
+
+}
+
+}
+
+该示例页面定义了一个新的公共布尔属性IsRefreshed。我们可以在代码中以使用IsPostBack或IsCallback那样的方法使用该属性。该实例页面重写了OnPreRenderComplete方法，用页面标签添加隐藏字段。如前所述，该页面标签是通过Items集合中的一个特别的(并且是任意命名的)项从HTTP模块中得到的。 
+
+ 
+
+
+public partial class TestRefresh : ProAspNet20.CS.Components.Page
+
+{
+
+protected void AddContactButton_Click(object sender, EventArgs e)
+
+{
+
+Msg.InnerText = "Added";
+
+if (!this.IsRefreshed)
+
+AddRecord(FName.Text, LName.Text);
+
+else
+
+Msg.InnerText = "Page refreshed";
+
+BindData();
+
+}
+
+}
+IsRefreshed属性允许我们决定在一个回发动作被请求时要做什么。在上述代码中，如果页面正在刷新，则不调用AddRecord方法。不用说，IsRefreshed仅适用于这里介绍的自定义页面类。自定义页面类并非只是添加该属性，它还要添加隐藏字段，这是该机制起作用所必不可少的。 
+
+转自：http://space.itpub.net/100788/viewspace-271432 
+本文的讨论也很精彩，浏览讨论>> 
+
+
+JavaEye推荐 
+
+搜狐网站诚聘Java、PHP和C++工程师 
+快来参加7月17日在成都举行的SOA中国技术论坛 
+JavaEye问答大赛开始了！ 从6月23日 至 7月6日，奖品丰厚 ！ 
+北京: 千橡集团暨校内网诚聘软件研发工程师 
+Oracle专区上线，有Oracle最新文章，重要下载及知识库等精彩内容，欢迎访问。
+
+
+
+自动刷新页面 
+自动刷新页面的实现方法总结: 
+
+1) 
+<meta http-equiv="refresh"content="10;url=跳转的页面"> 
+10表示间隔10秒刷新一次 
+2) 
+<script language=''javascript''> 
+window.location.reload(true); 
+</script> 
+如果是你要刷新某一个iframe就把window给换成frame的名字或ID号 
+3) 
+<script language=''javascript''> 
+window.navigate("本页面url"); 
+</script> 
+4> 
+
+function abc() 
+{ 
+window.location.href="/blog/window.location.href"; 
+setTimeout("abc()",10000); 
+} 
+
+刷新本页： 
+Response.Write("<script language=javascript>window.location.href=window.location.href;</script>") 
+
+刷新父页： 
+Response.Write("<script language=javascript>opener.location.href=opener.location.href;</script>") 
+
+转到指定页: 
+Response.Write("<script language=javascript>window.location.href='yourpage.aspx';</script>") 
+
+
+刷新页面实现方式总结(HTML,ASP,JS) 
+'by aloxy 
+
+定时刷新： 
+1，<script>setTimeout("location.href='url'",2000)</script> 
+
+说明：url是要刷新的页面URL地址 
+2000是等待时间=2秒， 
+
+2，<meta name="Refresh" content="n;url"> 
+
+说明： 
+n is the number of seconds to wait before loading the specified URL. 
+url is an absolute URL to be loaded. 
+n,是等待的时间，以秒为单位 
+url是要刷新的页面URL地址 
+
+3，<%response.redirect url%> 
+
+说明：一般用一个url参数或者表单传值判断是否发生某个操作，然后利用response.redirect 刷新。 
+
+4，刷新框架页 
+   〈script language=javascript>top.leftFrm.location.reload();parent.frmTop.location.reload();</script〉 
+
+弹出窗体后再刷新的问题 
+
+
+Response.Write("<script>window.showModalDialog('../OA/SPCL.aspx',window,'dialogHeight: 300px; dialogWidth: 427px; dialogTop: 200px; dialogLeft: 133px')</script>");//open 
+             Response.Write("<script>document.location=document.location;</script>"); 
+
+在子窗体页面代码head中加入<base target="_self"/> 
+
+刷新的内容加在    if (!IsPostBack) 中 
+
+在框架页中右面刷新左面 
+    //刷新框架页左半部分 
+    Response.Write("<script language=javascript>"); 
+    Response.Write("parent.left.location.href='PayDetailManage_Left.aspx'"); 
+    Response.Write("</script>"); 
+
+
+页面定时刷新功能实现 
+
+有三种方法： 
+1，在html中设置： 
+<title>xxxxx</title>之後加入下面这一行即可！ 
+定时刷新：<META HTTP-EQUIV="Refresh" content="10"> 
+10代表刷新间隔,单位为秒 
+
+2.jsp 
+<% response.setHeader("refresh","1"); %> 
+每一秒刷新一次 
+
+3.使用javascript: 
+<script language="javascript"> 
+setTimeout("self.location.reload();",1000); 
+<script> 
+一秒一次 
+
+
+页面自动跳转： 
+1，在html中设置： 
+<title>xxxxx</title>之後加入下面这一行即可！ 
+定时跳转并刷新：<meta http-equiv="refresh" content="20;url=http://自己的URL">, 
+其中20指隔20秒后跳转到http://自己的URL 页面。 
+
+
+点击按钮提交表单后刷新上级窗口 
+
+A窗口打开B窗口 
+
+然后在B里面提交数据至C窗口 
+
+最后要刷新A窗口 
+
+并且关闭B窗口 
+
+几个javascript函数 
+
+//第一个自动关闭窗口 
+<script language="javascript"> 
+<!-- 
+function clock(){i=i-1 
+document.title="本窗口将在"+i+"秒后自动关闭!"; 
+if(i>0)setTimeout("clock();",1000); 
+else self.close();} 
+var i=2 
+clock(); 
+//--> 
+</script> 
+
+//第二个刷新父页面的函数 
+
+<script language="javascript"> 
+opener.location.reload(); 
+</script> 
+
+
+//第三个打开窗口 
+
+<script language="javascript"> 
+function show(mylink,mytitle,width,height) 
+{mailwin=window.open(mylink,mytitle,'top=350,left=460,width='+width+',height='+height+',scrollbars=no')} 
+</script> 
+
+
+
+已有 0 人发表留言，猛击->> 这里<<-参与讨论 
+
+
+JavaEye推荐 
+
+上海：高薪诚聘Python开发人员 
+成都：月薪5千到1万招聘Java开发工程师 
+上海：天会皓闻诚聘资深Java架构师 
+北京：手机之家网站诚聘PHP程序员 
+上海：月薪1-2万诚聘资深PHP开发人员 
+上海：天会皓闻诚聘CTO技术总监
+
+
+
+js页面验证 
+
+作者: wangzhengji2006  链接： http://wangzhengji2006.javaeye.com/blog/207887  发表时间: 2008年06月25日 
+
+声明：本文系JavaEye网站发布的原创博客文章，未经作者书面许可，严禁任何网站转载本文，否则必将追究法律责任！ 
+
+** 
+* 取得字符串的字节长度 
+*/ 
+
+1. function strlen(str) 
+2. { 
+3. var i; 
+4. var len; 
+5. 
+6. len = 0; 
+7. for (i=0;i<str.length;i++) 
+8. { 
+9. if (str.charCodeAt(i)>255) len+=2; else len++; 
+10. } 
+11. return len; 
+12. } 
+
+/* 
+* 判断是否为数字，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_number(obj) 
+2. { 
+3. if (/^\d+$/.test(obj.value)) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入数字"); 
+10. return false; 
+11. } 
+12. } 
+/* 
+* 判断是否为自然数，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_naturalnumber(obj) 
+2. { 
+3. var s = obj.value; 
+4. if (/^[0-9]+$/.test( s ) && (s > 0)) 
+5. { 
+6. return true; 
+7. } 
+8. else 
+9. { 
+10. f_alert(obj,"请输入自然数"); 
+11. return false; 
+12. } 
+13. } 
+/* 
+* 判断是否为整数，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_integer(obj) 
+2. { 
+3. if (/^(\+|-)?\d+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入整数"); 
+10. return false; 
+11. } 
+12. } 
+/* 
+* 判断是否为实数，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_float(obj) 
+2. { 
+3. if (/^(\+|-)?\d+($|\.\d+$)/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入实数"); 
+10. return false; 
+11. } 
+12. } 
+/* 
+* 校验数字的长度和精度 
+*/ 
+
+1. function f_check_double(obj){ 
+2. var numReg; 
+3. var value = obj.value; 
+4. var strValueTemp, strInt, strDec; 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. var len = pos_dtype[0], prec = pos_dtype[1]; 
+8. try 
+9. { 
+10. numReg =/[\-]/; 
+11. strValueTemp = value.replace(numReg, ""); 
+12. numReg =/[\+]/; 
+13. strValueTemp = strValueTemp.replace(numReg, ""); 
+14. //整数 
+15. if(prec==0){ 
+16. numReg =/[\.]/; 
+17. if(numReg.test(value) == true){ 
+18. f_alert(obj, "输入必须为整数类型"); 
+19. return false; 
+20. } 
+21. } 
+22. if(strValueTemp.indexOf(".") < 0 ){ 
+23. if(strValueTemp.length >( len - prec)){ 
+24. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+25. return false; 
+26. } 
+27. }else{ 
+28. strInt = strValueTemp.substr( 0, strValueTemp.indexOf(".") ); 
+29. if(strInt.length >( len - prec)){ 
+30. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+31. return false; 
+32. } 
+33. strDec = strValueTemp.substr( (strValueTemp.indexOf(".")+1), strValueTemp.length ); 
+34. if(strDec.length > prec){ 
+35. f_alert(obj, "小数位不能超过"+ prec +"位"); 
+36. return false; 
+37. } 
+38. } 
+39. return true; 
+40. }catch(e){ 
+41. alert("in f_check_double = " + e); 
+42. return false; 
+43. } 
+44. } 
+/* 
+* 校验数字的最小最大值 
+* 返回bool 
+*/ 
+
+1. function f_check_interval(obj) 
+2. { 
+3. var value = parseFloat(obj.value); 
+4. 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. 
+8. var minLimit = pos_dtype[0]; 
+9. var maxLimit = pos_dtype[1]; 
+10. var minVal = parseFloat(pos_dtype[0]); 
+11. var maxVal = parseFloat(pos_dtype[1]); 
+12. 
+13. if(isNaN(value)) 
+14. { 
+15. f_alert(obj, "值必须为数字"); 
+16. return false; 
+17. } 
+18. if((isNaN(minVal) && (minLimit != "-")) || (isNaN(maxVal) && (maxLimit != "+"))) 
+19. { 
+20. f_alert(obj, "边界值必须为数字或-、+"); 
+21. return false; 
+22. } 
+23. 
+24. if(minLimit == "-" && !isNaN(maxVal)) 
+25. { 
+26. if(value > maxVal) 
+27. { 
+28. f_alert(obj, "值不能超过" + maxVal); 
+29. return false; 
+30. } 
+31. } 
+32. 
+33. if(!isNaN(minVal) && maxLimit == "+") 
+34. { 
+35. if(value < minVal) 
+36. { 
+37. f_alert(obj, "值不能小于" + minVal); 
+38. return false; 
+39. } 
+40. } 
+41. 
+42. if(!isNaN(minVal) && !isNaN(maxVal)) 
+43. { 
+44. if(minVal > maxVal) 
+45. { 
+46. f_alert(obj, "起始值" + minVal + "不能大于终止值" + maxVal); 
+47. }else 
+48. { 
+49. if(!(value <= maxVal && value >= minVal)) 
+50. { 
+51. f_alert(obj, "值应该在" + minVal + "和" + maxVal + "之间"); 
+52. return false; 
+53. } 
+54. } 
+55. } 
+56. return true; 
+57. } 
+/* 
+用途：检查输入字符串是否只由汉字组成 
+如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_zh(obj){ 
+2. if (/^[\u4e00-\u9fa5]+$/.test(obj.value)) { 
+3. return true; 
+4. } 
+5. f_alert(obj,"请输入汉字"); 
+6. return false; 
+7. } 
+/* 
+* 判断是否为小写英文字母，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_lowercase(obj) 
+2. { 
+3. if (/^[a-z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入小写英文字母"); 
+8. return false; 
+9. } 
+/** 
+* 取得字符串的字节长度 
+*/ 
+1. function strlen(str) 
+2. { 
+3. var i; 
+4. var len; 
+5. 
+6. len = 0; 
+7. for (i=0;i<str.length;i++) 
+8. { 
+9. if (str.charCodeAt(i)>255) len+=2; else len++; 
+10. } 
+11. return len; 
+12. } 
+13. 
+
+/* 
+* 判断是否为数字，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_number(obj) 
+2. { 
+3. if (/^\d+$/.test(obj.value)) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入数字"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 判断是否为自然数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_naturalnumber(obj) 
+2. { 
+3. var s = obj.value; 
+4. if (/^[0-9]+$/.test( s ) && (s > 0)) 
+5. { 
+6. return true; 
+7. } 
+8. else 
+9. { 
+10. f_alert(obj,"请输入自然数"); 
+11. return false; 
+12. } 
+13. } 
+14. 
+
+/* 
+* 判断是否为整数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_integer(obj) 
+2. { 
+3. if (/^(\+|-)?\d+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入整数"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 判断是否为实数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_float(obj) 
+2. { 
+3. if (/^(\+|-)?\d+($|\.\d+$)/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入实数"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 校验数字的长度和精度 
+*/ 
+Java代码 
+1. function f_check_double(obj){ 
+2. var numReg; 
+3. var value = obj.value; 
+4. var strValueTemp, strInt, strDec; 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. var len = pos_dtype[0], prec = pos_dtype[1]; 
+8. try 
+9. { 
+10. numReg =/[\-]/; 
+11. strValueTemp = value.replace(numReg, ""); 
+12. numReg =/[\+]/; 
+13. strValueTemp = strValueTemp.replace(numReg, ""); 
+14. //整数 
+15. if(prec==0){ 
+16. numReg =/[\.]/; 
+17. if(numReg.test(value) == true){ 
+18. f_alert(obj, "输入必须为整数类型"); 
+19. return false; 
+20. } 
+21. } 
+22. if(strValueTemp.indexOf(".") < 0 ){ 
+23. if(strValueTemp.length >( len - prec)){ 
+24. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+25. return false; 
+26. } 
+27. }else{ 
+28. strInt = strValueTemp.substr( 0, strValueTemp.indexOf(".") ); 
+29. if(strInt.length >( len - prec)){ 
+30. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+31. return false; 
+32. } 
+33. strDec = strValueTemp.substr( (strValueTemp.indexOf(".")+1), strValueTemp.length ); 
+34. if(strDec.length > prec){ 
+35. f_alert(obj, "小数位不能超过"+ prec +"位"); 
+36. return false; 
+37. } 
+38. } 
+39. return true; 
+40. }catch(e){ 
+41. alert("in f_check_double = " + e); 
+42. return false; 
+43. } 
+44. } 
+45. 
+
+/* 
+* 校验数字的最小最大值 
+* 返回bool 
+*/ 
+Java代码 
+1. function f_check_interval(obj) 
+2. { 
+3. var value = parseFloat(obj.value); 
+4. 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. 
+8. var minLimit = pos_dtype[0]; 
+9. var maxLimit = pos_dtype[1]; 
+10. var minVal = parseFloat(pos_dtype[0]); 
+11. var maxVal = parseFloat(pos_dtype[1]); 
+12. 
+13. if(isNaN(value)) 
+14. { 
+15. f_alert(obj, "值必须为数字"); 
+16. return false; 
+17. } 
+18. if((isNaN(minVal) && (minLimit != "-")) || (isNaN(maxVal) && (maxLimit != "+"))) 
+19. { 
+20. f_alert(obj, "边界值必须为数字或-、+"); 
+21. return false; 
+22. } 
+23. 
+24. if(minLimit == "-" && !isNaN(maxVal)) 
+25. { 
+26. if(value > maxVal) 
+27. { 
+28. f_alert(obj, "值不能超过" + maxVal); 
+29. return false; 
+30. } 
+31. } 
+32. 
+33. if(!isNaN(minVal) && maxLimit == "+") 
+34. { 
+35. if(value < minVal) 
+36. { 
+37. f_alert(obj, "值不能小于" + minVal); 
+38. return false; 
+39. } 
+40. } 
+41. 
+42. if(!isNaN(minVal) && !isNaN(maxVal)) 
+43. { 
+44. if(minVal > maxVal) 
+45. { 
+46. f_alert(obj, "起始值" + minVal + "不能大于终止值" + maxVal); 
+47. }else 
+48. { 
+49. if(!(value <= maxVal && value >= minVal)) 
+50. { 
+51. f_alert(obj, "值应该在" + minVal + "和" + maxVal + "之间"); 
+52. return false; 
+53. } 
+54. } 
+55. } 
+56. return true; 
+57. } 
+58. 
+
+/* 
+用途：检查输入字符串是否只由汉字组成 
+如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_zh(obj){ 
+2. if (/^[\u4e00-\u9fa5]+$/.test(obj.value)) { 
+3. return true; 
+4. } 
+5. f_alert(obj,"请输入汉字"); 
+6. return false; 
+7. } 
+8. 
+
+/* 
+* 判断是否为小写英文字母，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_lowercase(obj) 
+2. { 
+3. if (/^[a-z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入小写英文字母"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+* 判断是否为大写英文字母，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_uppercase(obj) 
+2. { 
+3. if (/^[A-Z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入大写英文字母"); 
+8. return false; 
+9. } 
+/* 
+* 判断是否为英文字母，是则返回true,否则返回false 
+*/ 
+
+1. function f_check_letter(obj) 
+2. { 
+3. if (/^[A-Za-z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入英文字母"); 
+8. return false; 
+9. } 
+/* 
+用途：检查输入字符串是否只由汉字、字母、数字组成 
+输入： 
+value：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_ZhOrNumOrLett(obj){ //判断是否是汉字、字母、数字组成 
+2. var regu = "^[0-9a-zA-Z\u4e00-\u9fa5]+$"; 
+3. var re = new RegExp(regu); 
+4. if (re.test( obj.value )) { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入汉字、字母或数字"); 
+8. return false; 
+9. } 
+/* 
+用途：校验ip地址的格式 
+输入：strIP：ip地址 
+返回：如果通过验证返回true,否则返回false； 
+*/ 
+
+1. function f_check_IP(obj) 
+2. { 
+3. var re=/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; //匹配IP地址的正则表达式 
+4. if(re.test( obj.value )) 
+5. { 
+6. if( RegExp.$1 <256 && RegExp.$2<256 && RegExp.$3<256 && RegExp.$4<256) return true; 
+7. } 
+8. f_alert(obj,"请输入合法的计算机IP地址"); 
+9. return false; 
+10. } 
+/* 
+用途：检查输入对象的值是否符合端口号格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_port(obj) 
+2. { 
+3. if(!f_check_number(obj)) 
+4. return false; 
+5. if(obj.value < 65536) 
+6. return true; 
+7. f_alert(obj,"请输入合法的计算机IP地址端口号"); 
+8. return false; 
+9. } 
+/* 
+用途：检查输入对象的值是否符合网址格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_URL(obj){ 
+2. var myReg = /^((http:[/][/])?\w+([.]\w+|[/]\w*)*)?$/; 
+3. if(myReg.test( obj.value )) return true; 
+4. f_alert(obj,"请输入合法的网页地址"); 
+5. return false; 
+6. } 
+/* 
+用途：检查输入对象的值是否符合E-Mail格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_email(obj){ 
+2. var myReg = /^([-_A-Za-z0-9\.]+)@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/; 
+3. if(myReg.test( obj.value )) return true; 
+4. f_alert(obj,"请输入合法的电子邮件地址"); 
+5. return false; 
+6. } 
+/* 
+要求：一、移动电话号码为11或12位，如果为12位,那么第一位为0 
+二、11位移动电话号码的第一位和第二位为"13" 
+三、12位移动电话号码的第二位和第三位为"13" 
+用途：检查输入手机号码是否正确 
+输入： 
+s：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_mobile(obj){ 
+2. var regu =/(^[1][3][0-9]{9}$)|(^0[1][3][0-9]{9}$)/; 
+3. var re = new RegExp(regu); 
+4. if (re.test( obj.value )) { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入正确的手机号码"); 
+8. return false; 
+9. } 
+/* 
+要求：一、电话号码由数字、"("、")"和"-"构成 
+二、电话号码为3到8位 
+三、如果电话号码中包含有区号，那么区号为三位或四位 
+四、区号用"("、")"或"-"和其他部分隔开 
+用途：检查输入的电话号码格式是否正确 
+输入： 
+strPhone：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+
+1. function f_check_phone(obj) 
+2. { 
+3. var regu =/(^([0][1-9]{2,3}[-])?\d{3,8}(-\d{1,6})?$)|(^\([0][1-9]{2,3}\)\d{3,8}(\(\d{1,6}\))?$)|(^\d{3,8}$)/; 
+4. var re = new RegExp(regu); 
+5. if (re.test( obj.value )) { 
+6. return true; 
+7. } 
+8. f_alert(obj,"请输入正确的电话号码"); 
+9. return false; 
+10. } 
+/* 判断是否为邮政编码 */ 
+
+1. function f_check_zipcode(obj) 
+2. { 
+3. if(!f_check_number(obj)) 
+4. return false; 
+5. if(obj.value.length!=6) 
+6. { 
+7. f_alert(obj,"邮政编码长度必须是6位"); 
+8. return false; 
+9. } 
+10. return true; 
+11. } 
+/* 
+用户ID，可以为数字、字母、下划线的组合， 
+第一个字符不能为数字,且总长度不能超过20。 
+*/ 
+
+1. function f_check_userID(obj) 
+2. { 
+3. var userID = obj.value; 
+4. if(userID.length > 20) 
+5. { 
+6. f_alert(obj,"ID长度不能大于20"); 
+7. return false; 
+8. } 
+9. 
+10. if(!isNaN(userID.charAt(0))) 
+11. { 
+12. f_alert(obj,"ID第一个字符不能为数字"); 
+13. return false; 
+14. } 
+15. if(!/^\w{1,20}$/.test(userID)) 
+16. { 
+17. f_alert(obj,"ID只能由数字、字母、下划线组合而成"); 
+18. return false; 
+19. } 
+20. return true; 
+21. } 
+/* 
+功能：验证身份证号码是否有效 
+提示信息：未输入或输入身份证号不正确！ 
+使用：f_check_IDno(obj) 
+返回：bool 
+*/ 
+
+1. function f_check_IDno(obj) 
+2. { 
+3. var aCity={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"}; 
+4. 
+5. var iSum = 0; 
+6. var info = ""; 
+7. var strIDno = obj.value; 
+8. var idCardLength = strIDno.length; 
+9. if(!/^\d{17}(\d|x)$/i.test(strIDno)&&!/^\d{15}$/i.test(strIDno)) 
+10. { 
+11. f_alert(obj,"非法身份证号"); 
+12. return false; 
+13. } 
+14. 
+15. //在后面的运算中x相当于数字10,所以转换成a 
+16. strIDno = strIDno.replace(/x$/i,"a"); 
+17. 
+18. if(aCity[parseInt(strIDno.substr(0,2))]==null) 
+19. { 
+20. f_alert(obj,"非法地区"); 
+21. return false; 
+22. } 
+23. 
+24. if (idCardLength==18) 
+25. { 
+26. sBirthday=strIDno.substr(6,4)+"-"+Number(strIDno.substr(10,2))+"-"+Number(strIDno.substr(12,2)); 
+27. var d = new Date(sBirthday.replace(/-/g,"/")) 
+28. if(sBirthday!=(d.getFullYear()+"-"+ (d.getMonth()+1) + "-" + d.getDate())) 
+29. { 
+30. f_alert(obj,"非法生日"); 
+31. return false; 
+32. } 
+33. 
+34. for(var i = 17;i>=0;i --) 
+35. iSum += (Math.pow(2,i) % 11) * parseInt(strIDno.charAt(17 - i),11); 
+36. 
+37. if(iSum%11!=1) 
+38. { 
+39. f_alert(obj,"非法身份证号"); 
+40. return false; 
+41. } 
+42. } 
+43. else if (idCardLength==15) 
+44. { 
+45. sBirthday = "19" + strIDno.substr(6,2) + "-" + Number(strIDno.substr(8,2)) + "-" + Number(strIDno.substr(10,2)); 
+46. var d = new Date(sBirthday.replace(/-/g,"/")) 
+47. var dd = d.getFullYear().toString() + "-" + (d.getMonth()+1) + "-" + d.getDate(); 
+48. if(sBirthday != dd) 
+49. { 
+50. f_alert(obj,"非法生日"); 
+51. return false; 
+52. } 
+53. } 
+54. return true; 
+55. } 
+56. 
+/* 
+* 判断字符串是否符合指定的正则表达式 
+*/ 
+
+1. function f_check_formatStr(obj) 
+2. { 
+3. var str = obj.value; 
+4. var dtype = obj.eos_datatype; 
+5. var regu = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //指定的正则表达式 
+6. var re = new RegExp(regu); 
+7. if(re.test(str)) 
+8. return true; 
+9. f_alert(obj , "不符合指定的正则表达式要求"); 
+10. return false; 
+11. } 
+/* 
+功能：判断是否为日期(格式:yyyy年MM月dd日,yyyy-MM-dd,yyyy/MM/dd,yyyyMMdd) 
+提示信息：未输入或输入的日期格式错误！ 
+使用：f_check_date(obj) 
+返回：bool 
+*/ 
+
+1. function f_check_date(obj) 
+2. { 
+3. var date = Trim(obj.value); 
+4. var dtype = obj.eos_datatype; 
+5. var format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+6. var year,month,day,datePat,matchArray; 
+7. 
+8. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2})$/.test(format)) 
+9. datePat = /^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2})$/; 
+10. else if(/^(y{4})(年)(M{1,2})(月)(d{1,2})(日)$/.test(format)) 
+11. datePat = /^(\d{4})年(\d{1,2})月(\d{1,2})日$/; 
+12. else if(format=="yyyyMMdd") 
+13. datePat = /^(\d{4})(\d{2})(\d{2})$/; 
+14. else 
+15. { 
+16. f_alert(obj,"日期格式不对"); 
+17. return false; 
+18. } 
+19. matchArray = date.match(datePat); 
+20. if(matchArray == null) 
+21. { 
+22. f_alert(obj,"日期长度不对,或日期中有非数字符号"); 
+23. return false; 
+24. } 
+25. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2})$/.test(format)) 
+26. { 
+27. year = matchArray[1]; 
+28. month = matchArray[3]; 
+29. day = matchArray[4]; 
+30. } else 
+31. { 
+32. year = matchArray[1]; 
+33. month = matchArray[2]; 
+34. day = matchArray[3]; 
+35. } 
+36. if (month < 1 || month > 12) 
+37. { 
+38. f_alert(obj,"月份应该为1到12的整数"); 
+39. return false; 
+40. } 
+41. if (day < 1 || day > 31) 
+42. { 
+43. f_alert(obj,"每个月的天数应该为1到31的整数"); 
+44. return false; 
+45. } 
+46. if ((month==4 || month==6 || month==9 || month==11) && day==31) 
+47. { 
+48. f_alert(obj,"该月不存在31号"); 
+49. return false; 
+50. } 
+51. if (month==2) 
+52. { 
+53. var isleap=(year % 4==0 && (year % 100 !=0 || year % 400==0)); 
+54. if (day>29) 
+55. { 
+56. f_alert(obj,"2月最多有29天"); 
+57. return false; 
+58. } 
+59. if ((day==29) && (!isleap)) 
+60. { 
+61. f_alert(obj,"闰年2月才有29天"); 
+62. return false; 
+63. } 
+64. } 
+65. return true; 
+66. } 
+/* 
+功能：校验的格式为yyyy年MM月dd日HH时mm分ss秒,yyyy-MM-dd HH:mm:ss,yyyy/MM/dd HH:mm:ss,yyyyMMddHHmmss 
+提示信息：未输入或输入的时间格式错误 
+使用：f_check_time(obj) 
+返回：bool 
+*/ 
+
+1. function f_check_time(obj) 
+2. { 
+3. var time = Trim(obj.value); 
+4. var dtype = obj.eos_datatype; 
+5. var format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+6. var datePat,matchArray,year,month,day,hour,minute,second; 
+7. 
+8. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2}) (HH:mm:ss)$/.test(format)) 
+9. datePat = /^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/; 
+10. else if(/^(y{4})(年)(M{1,2})(月)(d{1,2})(日)(HH时mm分ss秒)$/.test(format)) 
+11. datePat = /^(\d{4})年(\d{1,2})月(\d{1,2})日(\d{1,2})时(\d{1,2})分(\d{1,2})秒$/; 
+12. else if(format == "yyyyMMddHHmmss") 
+13. datePat = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/; 
+14. else 
+15. { 
+16. f_alert(obj,"日期格式不对"); 
+17. return false; 
+18. } 
+19. matchArray = time.match(datePat); 
+20. if(matchArray == null) 
+21. { 
+22. f_alert(obj,"日期长度不对,或日期中有非数字符号"); 
+23. return false; 
+24. } 
+25. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2}) (HH:mm:ss)$/.test(format)) 
+26. { 
+27. year = matchArray[1]; 
+28. month = matchArray[3]; 
+29. day = matchArray[4]; 
+30. hour = matchArray[5]; 
+31. minute = matchArray[6]; 
+32. second = matchArray[7]; 
+33. } else 
+34. { 
+35. year = matchArray[1]; 
+36. month = matchArray[2]; 
+37. day = matchArray[3]; 
+38. hour = matchArray[4]; 
+39. minute = matchArray[5]; 
+40. second = matchArray[6]; 
+41. } 
+42. if (month < 1 || month > 12) 
+43. { 
+44. f_alert(obj,"月份应该为1到12的整数"); 
+45. return false; 
+46. } 
+47. if (day < 1 || day > 31) 
+48. { 
+49. f_alert(obj,"每个月的天数应该为1到31的整数"); 
+50. return false; 
+51. } 
+52. if ((month==4 || month==6 || month==9 || month==11) && day==31) 
+53. { 
+54. f_alert(obj,"该月不存在31号"); 
+55. return false; 
+56. } 
+57. if (month==2) 
+58. { 
+59. var isleap=(year % 4==0 && (year % 100 !=0 || year % 400==0)); 
+60. if (day>29) 
+61. { 
+62. f_alert(obj,"2月最多有29天"); 
+63. return false; 
+64. } 
+65. if ((day==29) && (!isleap)) 
+66. { 
+67. f_alert(obj,"闰年2月才有29天"); 
+68. return false; 
+69. } 
+70. } 
+71. if(hour<0 || hour>23) 
+72. { 
+73. f_alert(obj,"小时应该是0到23的整数"); 
+74. return false; 
+75. } 
+76. if(minute<0 || minute>59) 
+77. { 
+78. f_alert(obj,"分应该是0到59的整数"); 
+79. return false; 
+80. } 
+81. if(second<0 || second>59) 
+82. { 
+83. f_alert(obj,"秒应该是0到59的整数"); 
+84. return false; 
+85. } 
+86. return true; 
+87. } 
+88. 
+/*判断当前对象是否可见*/ 
+
+1. function isVisible(obj){ 
+2. var visAtt,disAtt; 
+3. try{ 
+4. disAtt=obj.style.display; 
+5. visAtt=obj.style.visibility; 
+6. }catch(e){} 
+7. if(disAtt=="none" || visAtt=="hidden") 
+8. return false; 
+9. return true; 
+10. } 
+/*判断当前对象及其父对象是否可见*/ 
+
+1. function checkPrVis(obj){ 
+2. var pr=obj.parentNode; 
+3. do{ 
+4. if(pr == undefined || pr == "undefined") return true; 
+5. else{ 
+6. if(!isVisible(pr)) return false; 
+7. } 
+8. }while(pr=pr.parentNode); 
+9. return true; 
+10. } 
+/* 弹出警告对话框，用户点确定后将光标置于出错文本框上， 并且将原来输入内容选中。*/ 
+
+1. function f_alert(obj,alertInfo) 
+2. { 
+3. var caption = obj.getAttribute("eos_displayname"); 
+4. if(caption == null) 
+5. caption = ""; 
+6. alert(caption + "：" + alertInfo + "！"); 
+7. obj.select(); 
+8. if(isVisible(obj) && checkPrVis(obj)) 
+9. obj.focus(); 
+10. } 
+/** 
+* 检测字符串是否为空 
+*/ 
+
+1. function isnull(str) 
+2. { 
+3. var i; 
+4. if(str.length == 0) 
+5. return true; 
+6. for (i=0;i<str.length;i++) 
+7. { 
+8. if (str.charAt(i)!=' ') 
+9. return false; 
+10. } 
+11. return true; 
+12. } 
+/** 
+* 检测指定文本框输入是否合法。 
+* 如果用户输入的内容有错，则弹出提示对话框， 
+* 同时将焦点置于该文本框上，并且该文本框前面 
+* 会出现一个警告图标(输入正确后会自动去掉)。 
+*/ 
+
+1. function checkInput(object) 
+2. { 
+3. var image; 
+4. var i; 
+5. var length; 
+6. 
+7. if(object.eos_maxsize + "" != "undefined") length = object.eos_maxsize; 
+8. else length = 0; 
+9. 
+10. if (object.eos_isnull=="true" && isnull(object.value)) return true; 
+11. 
+12. /* 长度校验 */ 
+13. if(length != 0 && strlen(object.value) > parseInt(length)) { 
+14. f_alert(object, "超出最大长度" + length); 
+15. return false; 
+16. } 
+17. /* 数据类型校验 */ 
+18. else { 
+19. if (object.eos_datatype + "" != "undefined") 
+20. { 
+21. 
+22. var dtype = object.eos_datatype; 
+23. var objName = object.name; 
+24. //如果类型名后面带有括号，则视括号前面的字符串为校验类型 
+25. if(dtype.indexOf("(") != -1) 
+26. dtype = dtype.substring(0,dtype.indexOf("(")); 
+27. //根据页面元素的校验类型进行校验 
+28. try{ 
+29. if(eval("f_check_" + dtype + "(object)") != true) 
+30. return false; 
+31. }catch(e){return true;} 
+32. /* 如果form中存在name前半部分相同，并且同时存在以"min"和"max"结尾的表单域， 
+33. 那么视为按区间查询。即"min"结尾的表单域的值要小于等于"max"结尾的表单域的值。 */ 
+34. if(objName.substring((objName.length-3),objName.length)=="min") 
+35. { 
+36. var objMaxName = objName.substring(0, (objName.length-3)) + "max"; 
+37. if(document.getElementById(objMaxName) != undefined && document.getElementById(objMaxName) != "undefined" ) 
+38. { 
+39. if(checkIntervalObjs(object, document.getElementById(objMaxName)) != true) 
+40. return false; 
+41. } 
+42. } 
+43. } 
+44. } 
+45. return true; 
+46. } 
+47. 
+/* 检测表单中所有输入项的正确性，一般用于表单的onsubmit事件 */ 
+
+1. function checkForm(myform) 
+2. { 
+3. var i; 
+4. for (i=0;i<myform.elements.length;i++) 
+5. { 
+6. /* 非自定义属性的元素不予理睬 */ 
+7. if (myform.elements[i].eos_displayname + "" == "undefined") continue; 
+8. /* 非空校验 */ 
+9. if (myform.elements[i].eos_isnull=="false" && isnull(myform.elements[i].value)){ 
+10. f_alert(myform.elements[i],"不能为空"); 
+11. return false; 
+12. } 
+13. /* 数据类型校验 */ 
+14. if (checkInput(myform.elements[i])==false) 
+15. return false; 
+16. } 
+17. return true; 
+18. } 
+/** 
+* 取得字符串的字节长度 
+*/ 
+Java代码 
+1. function strlen(str) 
+2. { 
+3. var i; 
+4. var len; 
+5. 
+6. len = 0; 
+7. for (i=0;i<str.length;i++) 
+8. { 
+9. if (str.charCodeAt(i)>255) len+=2; else len++; 
+10. } 
+11. return len; 
+12. } 
+13. 
+
+/* 
+* 判断是否为数字，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_number(obj) 
+2. { 
+3. if (/^\d+$/.test(obj.value)) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入数字"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 判断是否为自然数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_naturalnumber(obj) 
+2. { 
+3. var s = obj.value; 
+4. if (/^[0-9]+$/.test( s ) && (s > 0)) 
+5. { 
+6. return true; 
+7. } 
+8. else 
+9. { 
+10. f_alert(obj,"请输入自然数"); 
+11. return false; 
+12. } 
+13. } 
+14. 
+
+/* 
+* 判断是否为整数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_integer(obj) 
+2. { 
+3. if (/^(\+|-)?\d+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入整数"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 判断是否为实数，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_float(obj) 
+2. { 
+3. if (/^(\+|-)?\d+($|\.\d+$)/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. else 
+8. { 
+9. f_alert(obj,"请输入实数"); 
+10. return false; 
+11. } 
+12. } 
+13. 
+
+/* 
+* 校验数字的长度和精度 
+*/ 
+Java代码 
+1. function f_check_double(obj){ 
+2. var numReg; 
+3. var value = obj.value; 
+4. var strValueTemp, strInt, strDec; 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. var len = pos_dtype[0], prec = pos_dtype[1]; 
+8. try 
+9. { 
+10. numReg =/[\-]/; 
+11. strValueTemp = value.replace(numReg, ""); 
+12. numReg =/[\+]/; 
+13. strValueTemp = strValueTemp.replace(numReg, ""); 
+14. //整数 
+15. if(prec==0){ 
+16. numReg =/[\.]/; 
+17. if(numReg.test(value) == true){ 
+18. f_alert(obj, "输入必须为整数类型"); 
+19. return false; 
+20. } 
+21. } 
+22. if(strValueTemp.indexOf(".") < 0 ){ 
+23. if(strValueTemp.length >( len - prec)){ 
+24. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+25. return false; 
+26. } 
+27. }else{ 
+28. strInt = strValueTemp.substr( 0, strValueTemp.indexOf(".") ); 
+29. if(strInt.length >( len - prec)){ 
+30. f_alert(obj, "整数位不能超过"+ (len - prec) +"位"); 
+31. return false; 
+32. } 
+33. strDec = strValueTemp.substr( (strValueTemp.indexOf(".")+1), strValueTemp.length ); 
+34. if(strDec.length > prec){ 
+35. f_alert(obj, "小数位不能超过"+ prec +"位"); 
+36. return false; 
+37. } 
+38. } 
+39. return true; 
+40. }catch(e){ 
+41. alert("in f_check_double = " + e); 
+42. return false; 
+43. } 
+44. } 
+45. 
+
+/* 
+* 校验数字的最小最大值 
+* 返回bool 
+*/ 
+Java代码 
+1. function f_check_interval(obj) 
+2. { 
+3. var value = parseFloat(obj.value); 
+4. 
+5. var dtype = obj.eos_datatype; 
+6. var pos_dtype = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")).split(","); 
+7. 
+8. var minLimit = pos_dtype[0]; 
+9. var maxLimit = pos_dtype[1]; 
+10. var minVal = parseFloat(pos_dtype[0]); 
+11. var maxVal = parseFloat(pos_dtype[1]); 
+12. 
+13. if(isNaN(value)) 
+14. { 
+15. f_alert(obj, "值必须为数字"); 
+16. return false; 
+17. } 
+18. if((isNaN(minVal) && (minLimit != "-")) || (isNaN(maxVal) && (maxLimit != "+"))) 
+19. { 
+20. f_alert(obj, "边界值必须为数字或-、+"); 
+21. return false; 
+22. } 
+23. 
+24. if(minLimit == "-" && !isNaN(maxVal)) 
+25. { 
+26. if(value > maxVal) 
+27. { 
+28. f_alert(obj, "值不能超过" + maxVal); 
+29. return false; 
+30. } 
+31. } 
+32. 
+33. if(!isNaN(minVal) && maxLimit == "+") 
+34. { 
+35. if(value < minVal) 
+36. { 
+37. f_alert(obj, "值不能小于" + minVal); 
+38. return false; 
+39. } 
+40. } 
+41. 
+42. if(!isNaN(minVal) && !isNaN(maxVal)) 
+43. { 
+44. if(minVal > maxVal) 
+45. { 
+46. f_alert(obj, "起始值" + minVal + "不能大于终止值" + maxVal); 
+47. }else 
+48. { 
+49. if(!(value <= maxVal && value >= minVal)) 
+50. { 
+51. f_alert(obj, "值应该在" + minVal + "和" + maxVal + "之间"); 
+52. return false; 
+53. } 
+54. } 
+55. } 
+56. return true; 
+57. } 
+58. 
+
+/* 
+用途：检查输入字符串是否只由汉字组成 
+如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_zh(obj){ 
+2. if (/^[\u4e00-\u9fa5]+$/.test(obj.value)) { 
+3. return true; 
+4. } 
+5. f_alert(obj,"请输入汉字"); 
+6. return false; 
+7. } 
+8. 
+
+/* 
+* 判断是否为小写英文字母，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_lowercase(obj) 
+2. { 
+3. if (/^[a-z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入小写英文字母"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+* 判断是否为大写英文字母，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_uppercase(obj) 
+2. { 
+3. if (/^[A-Z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入大写英文字母"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+* 判断是否为英文字母，是则返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_letter(obj) 
+2. { 
+3. if (/^[A-Za-z]+$/.test( obj.value )) 
+4. { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入英文字母"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+用途：检查输入字符串是否只由汉字、字母、数字组成 
+输入： 
+value：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_ZhOrNumOrLett(obj){ //判断是否是汉字、字母、数字组成 
+2. var regu = "^[0-9a-zA-Z\u4e00-\u9fa5]+$"; 
+3. var re = new RegExp(regu); 
+4. if (re.test( obj.value )) { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入汉字、字母或数字"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+用途：校验ip地址的格式 
+输入：strIP：ip地址 
+返回：如果通过验证返回true,否则返回false； 
+*/ 
+Java代码 
+1. function f_check_IP(obj) 
+2. { 
+3. var re=/^(\d+)\.(\d+)\.(\d+)\.(\d+)$/; //匹配IP地址的正则表达式 
+4. if(re.test( obj.value )) 
+5. { 
+6. if( RegExp.$1 <256 && RegExp.$2<256 && RegExp.$3<256 && RegExp.$4<256) return true; 
+7. } 
+8. f_alert(obj,"请输入合法的计算机IP地址"); 
+9. return false; 
+10. } 
+11. 
+
+/* 
+用途：检查输入对象的值是否符合端口号格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_port(obj) 
+2. { 
+3. if(!f_check_number(obj)) 
+4. return false; 
+5. if(obj.value < 65536) 
+6. return true; 
+7. f_alert(obj,"请输入合法的计算机IP地址端口号"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+用途：检查输入对象的值是否符合网址格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_URL(obj){ 
+2. var myReg = /^((http:[/][/])?\w+([.]\w+|[/]\w*)*)?$/; 
+3. if(myReg.test( obj.value )) return true; 
+4. f_alert(obj,"请输入合法的网页地址"); 
+5. return false; 
+6. } 
+7. 
+
+/* 
+用途：检查输入对象的值是否符合E-Mail格式 
+输入：str 输入的字符串 
+返回：如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_email(obj){ 
+2. var myReg = /^([-_A-Za-z0-9\.]+)@([_A-Za-z0-9]+\.)+[A-Za-z0-9]{2,3}$/; 
+3. if(myReg.test( obj.value )) return true; 
+4. f_alert(obj,"请输入合法的电子邮件地址"); 
+5. return false; 
+6. } 
+7. 
+
+/* 
+要求：一、移动电话号码为11或12位，如果为12位,那么第一位为0 
+二、11位移动电话号码的第一位和第二位为"13" 
+三、12位移动电话号码的第二位和第三位为"13" 
+用途：检查输入手机号码是否正确 
+输入： 
+s：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_mobile(obj){ 
+2. var regu =/(^[1][3][0-9]{9}$)|(^0[1][3][0-9]{9}$)/; 
+3. var re = new RegExp(regu); 
+4. if (re.test( obj.value )) { 
+5. return true; 
+6. } 
+7. f_alert(obj,"请输入正确的手机号码"); 
+8. return false; 
+9. } 
+10. 
+
+/* 
+要求：一、电话号码由数字、"("、")"和"-"构成 
+二、电话号码为3到8位 
+三、如果电话号码中包含有区号，那么区号为三位或四位 
+四、区号用"("、")"或"-"和其他部分隔开 
+用途：检查输入的电话号码格式是否正确 
+输入： 
+strPhone：字符串 
+返回： 
+如果通过验证返回true,否则返回false 
+*/ 
+Java代码 
+1. function f_check_phone(obj) 
+2. { 
+3. var regu =/(^([0][1-9]{2,3}[-])?\d{3,8}(-\d{1,6})?$)|(^\([0][1-9]{2,3}\)\d{3,8}(\(\d{1,6}\))?$)|(^\d{3,8}$)/; 
+4. var re = new RegExp(regu); 
+5. if (re.test( obj.value )) { 
+6. return true; 
+7. } 
+8. f_alert(obj,"请输入正确的电话号码"); 
+9. return false; 
+10. } 
+11. 
+
+/* 判断是否为邮政编码 */ 
+Java代码 
+1. function f_check_zipcode(obj) 
+2. { 
+3. if(!f_check_number(obj)) 
+4. return false; 
+5. if(obj.value.length!=6) 
+6. { 
+7. f_alert(obj,"邮政编码长度必须是6位"); 
+8. return false; 
+9. } 
+10. return true; 
+11. } 
+12. 
+
+/* 
+用户ID，可以为数字、字母、下划线的组合， 
+第一个字符不能为数字,且总长度不能超过20。 
+*/ 
+Java代码 
+1. function f_check_userID(obj) 
+2. { 
+3. var userID = obj.value; 
+4. if(userID.length > 20) 
+5. { 
+6. f_alert(obj,"ID长度不能大于20"); 
+7. return false; 
+8. } 
+9. 
+10. if(!isNaN(userID.charAt(0))) 
+11. { 
+12. f_alert(obj,"ID第一个字符不能为数字"); 
+13. return false; 
+14. } 
+15. if(!/^\w{1,20}$/.test(userID)) 
+16. { 
+17. f_alert(obj,"ID只能由数字、字母、下划线组合而成"); 
+18. return false; 
+19. } 
+20. return true; 
+21. } 
+22. 
+
+/* 
+功能：验证身份证号码是否有效 
+提示信息：未输入或输入身份证号不正确！ 
+使用：f_check_IDno(obj) 
+返回：bool 
+*/ 
+Java代码 
+1. function f_check_IDno(obj) 
+2. { 
+3. var aCity={11:"北京",12:"天津",13:"河北",14:"山西",15:"内蒙古",21:"辽宁",22:"吉林",23:"黑龙江",31:"上海",32:"江苏",33:"浙江",34:"安徽",35:"福建",36:"江西",37:"山东",41:"河南",42:"湖北",43:"湖南",44:"广东",45:"广西",46:"海南",50:"重庆",51:"四川",52:"贵州",53:"云南",54:"西藏",61:"陕西",62:"甘肃",63:"青海",64:"宁夏",65:"新疆",71:"台湾",81:"香港",82:"澳门",91:"国外"}; 
+4. 
+5. var iSum = 0; 
+6. var info = ""; 
+7. var strIDno = obj.value; 
+8. var idCardLength = strIDno.length; 
+9. if(!/^\d{17}(\d|x)$/i.test(strIDno)&&!/^\d{15}$/i.test(strIDno)) 
+10. { 
+11. f_alert(obj,"非法身份证号"); 
+12. return false; 
+13. } 
+14. 
+15. //在后面的运算中x相当于数字10,所以转换成a 
+16. strIDno = strIDno.replace(/x$/i,"a"); 
+17. 
+18. if(aCity[parseInt(strIDno.substr(0,2))]==null) 
+19. { 
+20. f_alert(obj,"非法地区"); 
+21. return false; 
+22. } 
+23. 
+24. if (idCardLength==18) 
+25. { 
+26. sBirthday=strIDno.substr(6,4)+"-"+Number(strIDno.substr(10,2))+"-"+Number(strIDno.substr(12,2)); 
+27. var d = new Date(sBirthday.replace(/-/g,"/")) 
+28. if(sBirthday!=(d.getFullYear()+"-"+ (d.getMonth()+1) + "-" + d.getDate())) 
+29. { 
+30. f_alert(obj,"非法生日"); 
+31. return false; 
+32. } 
+33. 
+34. for(var i = 17;i>=0;i --) 
+35. iSum += (Math.pow(2,i) % 11) * parseInt(strIDno.charAt(17 - i),11); 
+36. 
+37. if(iSum%11!=1) 
+38. { 
+39. f_alert(obj,"非法身份证号"); 
+40. return false; 
+41. } 
+42. } 
+43. else if (idCardLength==15) 
+44. { 
+45. sBirthday = "19" + strIDno.substr(6,2) + "-" + Number(strIDno.substr(8,2)) + "-" + Number(strIDno.substr(10,2)); 
+46. var d = new Date(sBirthday.replace(/-/g,"/")) 
+47. var dd = d.getFullYear().toString() + "-" + (d.getMonth()+1) + "-" + d.getDate(); 
+48. if(sBirthday != dd) 
+49. { 
+50. f_alert(obj,"非法生日"); 
+51. return false; 
+52. } 
+53. } 
+54. return true; 
+55. } 
+56. 
+
+/* 
+* 判断字符串是否符合指定的正则表达式 
+*/ 
+Java代码 
+1. function f_check_formatStr(obj) 
+2. { 
+3. var str = obj.value; 
+4. var dtype = obj.eos_datatype; 
+5. var regu = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //指定的正则表达式 
+6. var re = new RegExp(regu); 
+7. if(re.test(str)) 
+8. return true; 
+9. f_alert(obj , "不符合指定的正则表达式要求"); 
+10. return false; 
+11. } 
+12. 
+
+/* 
+功能：判断是否为日期(格式:yyyy年MM月dd日,yyyy-MM-dd,yyyy/MM/dd,yyyyMMdd) 
+提示信息：未输入或输入的日期格式错误！ 
+使用：f_check_date(obj) 
+返回：bool 
+*/ 
+Java代码 
+1. function f_check_date(obj) 
+2. { 
+3. var date = Trim(obj.value); 
+4. var dtype = obj.eos_datatype; 
+5. var format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+6. var year,month,day,datePat,matchArray; 
+7. 
+8. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2})$/.test(format)) 
+9. datePat = /^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2})$/; 
+10. else if(/^(y{4})(年)(M{1,2})(月)(d{1,2})(日)$/.test(format)) 
+11. datePat = /^(\d{4})年(\d{1,2})月(\d{1,2})日$/; 
+12. else if(format=="yyyyMMdd") 
+13. datePat = /^(\d{4})(\d{2})(\d{2})$/; 
+14. else 
+15. { 
+16. f_alert(obj,"日期格式不对"); 
+17. return false; 
+18. } 
+19. matchArray = date.match(datePat); 
+20. if(matchArray == null) 
+21. { 
+22. f_alert(obj,"日期长度不对,或日期中有非数字符号"); 
+23. return false; 
+24. } 
+25. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2})$/.test(format)) 
+26. { 
+27. year = matchArray[1]; 
+28. month = matchArray[3]; 
+29. day = matchArray[4]; 
+30. } else 
+31. { 
+32. year = matchArray[1]; 
+33. month = matchArray[2]; 
+34. day = matchArray[3]; 
+35. } 
+36. if (month < 1 || month > 12) 
+37. { 
+38. f_alert(obj,"月份应该为1到12的整数"); 
+39. return false; 
+40. } 
+41. if (day < 1 || day > 31) 
+42. { 
+43. f_alert(obj,"每个月的天数应该为1到31的整数"); 
+44. return false; 
+45. } 
+46. if ((month==4 || month==6 || month==9 || month==11) && day==31) 
+47. { 
+48. f_alert(obj,"该月不存在31号"); 
+49. return false; 
+50. } 
+51. if (month==2) 
+52. { 
+53. var isleap=(year % 4==0 && (year % 100 !=0 || year % 400==0)); 
+54. if (day>29) 
+55. { 
+56. f_alert(obj,"2月最多有29天"); 
+57. return false; 
+58. } 
+59. if ((day==29) && (!isleap)) 
+60. { 
+61. f_alert(obj,"闰年2月才有29天"); 
+62. return false; 
+63. } 
+64. } 
+65. return true; 
+66. } 
+67. 
+
+/* 
+功能：校验的格式为yyyy年MM月dd日HH时mm分ss秒,yyyy-MM-dd HH:mm:ss,yyyy/MM/dd HH:mm:ss,yyyyMMddHHmmss 
+提示信息：未输入或输入的时间格式错误 
+使用：f_check_time(obj) 
+返回：bool 
+*/ 
+Java代码 
+1. function f_check_time(obj) 
+2. { 
+3. var time = Trim(obj.value); 
+4. var dtype = obj.eos_datatype; 
+5. var format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+6. var datePat,matchArray,year,month,day,hour,minute,second; 
+7. 
+8. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2}) (HH:mm:ss)$/.test(format)) 
+9. datePat = /^(\d{4})(-|\/)(\d{1,2})\2(\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$/; 
+10. else if(/^(y{4})(年)(M{1,2})(月)(d{1,2})(日)(HH时mm分ss秒)$/.test(format)) 
+11. datePat = /^(\d{4})年(\d{1,2})月(\d{1,2})日(\d{1,2})时(\d{1,2})分(\d{1,2})秒$/; 
+12. else if(format == "yyyyMMddHHmmss") 
+13. datePat = /^(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/; 
+14. else 
+15. { 
+16. f_alert(obj,"日期格式不对"); 
+17. return false; 
+18. } 
+19. matchArray = time.match(datePat); 
+20. if(matchArray == null) 
+21. { 
+22. f_alert(obj,"日期长度不对,或日期中有非数字符号"); 
+23. return false; 
+24. } 
+25. if(/^(y{4})(-|\/)(M{1,2})\2(d{1,2}) (HH:mm:ss)$/.test(format)) 
+26. { 
+27. year = matchArray[1]; 
+28. month = matchArray[3]; 
+29. day = matchArray[4]; 
+30. hour = matchArray[5]; 
+31. minute = matchArray[6]; 
+32. second = matchArray[7]; 
+33. } else 
+34. { 
+35. year = matchArray[1]; 
+36. month = matchArray[2]; 
+37. day = matchArray[3]; 
+38. hour = matchArray[4]; 
+39. minute = matchArray[5]; 
+40. second = matchArray[6]; 
+41. } 
+42. if (month < 1 || month > 12) 
+43. { 
+44. f_alert(obj,"月份应该为1到12的整数"); 
+45. return false; 
+46. } 
+47. if (day < 1 || day > 31) 
+48. { 
+49. f_alert(obj,"每个月的天数应该为1到31的整数"); 
+50. return false; 
+51. } 
+52. if ((month==4 || month==6 || month==9 || month==11) && day==31) 
+53. { 
+54. f_alert(obj,"该月不存在31号"); 
+55. return false; 
+56. } 
+57. if (month==2) 
+58. { 
+59. var isleap=(year % 4==0 && (year % 100 !=0 || year % 400==0)); 
+60. if (day>29) 
+61. { 
+62. f_alert(obj,"2月最多有29天"); 
+63. return false; 
+64. } 
+65. if ((day==29) && (!isleap)) 
+66. { 
+67. f_alert(obj,"闰年2月才有29天"); 
+68. return false; 
+69. } 
+70. } 
+71. if(hour<0 || hour>23) 
+72. { 
+73. f_alert(obj,"小时应该是0到23的整数"); 
+74. return false; 
+75. } 
+76. if(minute<0 || minute>59) 
+77. { 
+78. f_alert(obj,"分应该是0到59的整数"); 
+79. return false; 
+80. } 
+81. if(second<0 || second>59) 
+82. { 
+83. f_alert(obj,"秒应该是0到59的整数"); 
+84. return false; 
+85. } 
+86. return true; 
+87. } 
+88. 
+
+/*判断当前对象是否可见*/ 
+Java代码 
+1. function isVisible(obj){ 
+2. var visAtt,disAtt; 
+3. try{ 
+4. disAtt=obj.style.display; 
+5. visAtt=obj.style.visibility; 
+6. }catch(e){} 
+7. if(disAtt=="none" || visAtt=="hidden") 
+8. return false; 
+9. return true; 
+10. } 
+11. 
+
+/*判断当前对象及其父对象是否可见*/ 
+Java代码 
+1. function checkPrVis(obj){ 
+2. var pr=obj.parentNode; 
+3. do{ 
+4. if(pr == undefined || pr == "undefined") return true; 
+5. else{ 
+6. if(!isVisible(pr)) return false; 
+7. } 
+8. }while(pr=pr.parentNode); 
+9. return true; 
+10. } 
+11. 
+
+/* 弹出警告对话框，用户点确定后将光标置于出错文本框上， 并且将原来输入内容选中。*/ 
+Java代码 
+1. function f_alert(obj,alertInfo) 
+2. { 
+3. var caption = obj.getAttribute("eos_displayname"); 
+4. if(caption == null) 
+5. caption = ""; 
+6. alert(caption + "：" + alertInfo + "！"); 
+7. obj.select(); 
+8. if(isVisible(obj) && checkPrVis(obj)) 
+9. obj.focus(); 
+10. } 
+11. 
+
+/** 
+* 检测字符串是否为空 
+*/ 
+Java代码 
+1. function isnull(str) 
+2. { 
+3. var i; 
+4. if(str.length == 0) 
+5. return true; 
+6. for (i=0;i<str.length;i++) 
+7. { 
+8. if (str.charAt(i)!=' ') 
+9. return false; 
+10. } 
+11. return true; 
+12. } 
+13. 
+
+/** 
+* 检测指定文本框输入是否合法。 
+* 如果用户输入的内容有错，则弹出提示对话框， 
+* 同时将焦点置于该文本框上，并且该文本框前面 
+* 会出现一个警告图标(输入正确后会自动去掉)。 
+*/ 
+Java代码 
+1. function checkInput(object) 
+2. { 
+3. var image; 
+4. var i; 
+5. var length; 
+6. 
+7. if(object.eos_maxsize + "" != "undefined") length = object.eos_maxsize; 
+8. else length = 0; 
+9. 
+10. if (object.eos_isnull=="true" && isnull(object.value)) return true; 
+11. 
+12. /* 长度校验 */ 
+13. if(length != 0 && strlen(object.value) > parseInt(length)) { 
+14. f_alert(object, "超出最大长度" + length); 
+15. return false; 
+16. } 
+17. /* 数据类型校验 */ 
+18. else { 
+19. if (object.eos_datatype + "" != "undefined") 
+20. { 
+21. 
+22. var dtype = object.eos_datatype; 
+23. var objName = object.name; 
+24. //如果类型名后面带有括号，则视括号前面的字符串为校验类型 
+25. if(dtype.indexOf("(") != -1) 
+26. dtype = dtype.substring(0,dtype.indexOf("(")); 
+27. //根据页面元素的校验类型进行校验 
+28. try{ 
+29. if(eval("f_check_" + dtype + "(object)") != true) 
+30. return false; 
+31. }catch(e){return true;} 
+32. /* 如果form中存在name前半部分相同，并且同时存在以"min"和"max"结尾的表单域， 
+33. 那么视为按区间查询。即"min"结尾的表单域的值要小于等于"max"结尾的表单域的值。 */ 
+34. if(objName.substring((objName.length-3),objName.length)=="min") 
+35. { 
+36. var objMaxName = objName.substring(0, (objName.length-3)) + "max"; 
+37. if(document.getElementById(objMaxName) != undefined && document.getElementById(objMaxName) != "undefined" ) 
+38. { 
+39. if(checkIntervalObjs(object, document.getElementById(objMaxName)) != true) 
+40. return false; 
+41. } 
+42. } 
+43. } 
+44. } 
+45. return true; 
+46. } 
+47. 
+
+/* 检测表单中所有输入项的正确性，一般用于表单的onsubmit事件 */ 
+Java代码 
+1. function checkForm(myform) 
+2. { 
+3. var i; 
+4. for (i=0;i<myform.elements.length;i++) 
+5. { 
+6. /* 非自定义属性的元素不予理睬 */ 
+7. if (myform.elements[i].eos_displayname + "" == "undefined") continue; 
+8. /* 非空校验 */ 
+9. if (myform.elements[i].eos_isnull=="false" && isnull(myform.elements[i].value)){ 
+10. f_alert(myform.elements[i],"不能为空"); 
+11. return false; 
+12. } 
+13. /* 数据类型校验 */ 
+14. if (checkInput(myform.elements[i])==false) 
+15. return false; 
+16. } 
+17. return true; 
+18. } 
+19. 
+
+/** 
+* 校验两个表单域数据的大小，目前只允许比较日期和数字。 
+* @param obj1 小值表单域 
+* @param obj2 大值表单域 
+*/ 
+
+1. function checkIntervalObjs(obj1 , obj2) 
+2. { 
+3. var caption1 = obj1.getAttribute("eos_displayname"); 
+4. var caption2 = obj2.getAttribute("eos_displayname"); 
+5. var val1 = parseFloat(obj1.value); 
+6. var val2 = parseFloat(obj2.value); 
+7. // 非自定义属性的元素不予理睬 
+8. if (obj1.eos_displayname + "" == "undefined" || obj2.eos_displayname + "" == "undefined") { 
+9. return false; 
+10. } 
+11. // 日期类型的比较 
+12. if(f_check_date(obj1) == true && f_check_date(obj2) == true){ 
+13. var dtype = obj1.eos_datatype; 
+14. var format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+15. val1 = getDateByFormat(obj1.value, format); 
+16. dtype = obj2.eos_datatype; 
+17. format = dtype.substring(dtype.indexOf("(")+1,dtype.indexOf(")")); //日期格式 
+18. val2 = getDateByFormat(obj2.value, format); 
+19. if(val1 > val2){ 
+20. obj2.select(); 
+21. if(isVisible(obj) && checkPrVis(obj)) 
+22. obj2.focus(); 
+23. alert(caption1 + "的起始日期不能大于其终止日期！"); 
+24. return false; 
+25. } 
+26. } 
+27. // 数字类型的比较 
+28. if((isNaN(val1) && !isnull(val1)) || (isNaN(val2) && !isnull(val2))){ 
+29. alert(caption1 + "的值不全为数字则不能比较！"); 
+30. return false; 
+31. } 
+32. if(val1 > val2){ 
+33. obj2.select(); 
+34. if(isVisible(obj) && checkPrVis(obj)) 
+35. obj2.focus(); 
+36. alert(caption1 + "的起始值不能大于其终止值！"); 
+37. return false; 
+38. } 
+39. return true; 
+40. } 
+41. 
+/*根据日期格式，将字符串转换成Date对象。 
+格式：yyyy-年，MM-月，dd-日，HH-时，mm-分，ss-秒。 
+（格式必须写全，例如:yy-M-d，是不允许的，否则返回null；格式与实际数据不符也返回null。） 
+默认格式：yyyy-MM-dd HH:mm:ss,yyyy-MM-dd。*/ 
+
+1. function getDateByFormat(str){ 
+2. var dateReg,format; 
+3. var y,M,d,H,m,s,yi,Mi,di,Hi,mi,si; 
+4. if((arguments[1] + "") == "undefined") format = "yyyy-MM-dd HH:mm:ss"; 
+5. else format = arguments[1]; 
+6. yi = format.indexOf("yyyy"); 
+7. Mi = format.indexOf("MM"); 
+8. di = format.indexOf("dd"); 
+9. Hi = format.indexOf("HH"); 
+10. mi = format.indexOf("mm"); 
+11. si = format.indexOf("ss"); 
+12. if(yi == -1 || Mi == -1 || di == -1) return null; 
+13. else{ 
+14. y = parseInt(str.substring(yi, yi+4)); 
+15. M = parseInt(str.substring(Mi, Mi+2)); 
+16. d = parseInt(str.substring(di, di+2)); 
+17. } 
+18. if(isNaN(y) || isNaN(M) || isNaN(d)) return null; 
+19. if(Hi == -1 || mi == -1 || si == -1) return new Date(y, M-1, d); 
+20. else{ 
+21. H = str.substring(Hi, Hi+4); 
+22. m = str.substring(mi, mi+2); 
+23. s = str.substring(si, si+2); 
+24. } 
+25. if(isNaN(parseInt(y)) || isNaN(parseInt(M)) || isNaN(parseInt(d))) return new Date(y, M-1, d); 
+26. else return new Date(y, M-1, d,H, m, s); 
+27. } 
+28. 
+/*LTrim(string):去除左边的空格*/ 
+
+1. function LTrim(str){ 
+2. var whitespace = new String(" \t\n\r"); 
+3. var s = new String(str); 
+4. 
+5. if (whitespace.indexOf(s.charAt(0)) != -1){ 
+6. var j=0, i = s.length; 
+7. while (j < i && whitespace.indexOf(s.charAt(j)) != -1){ 
+8. j++; 
+9. } 
+10. s = s.substring(j, i); 
+11. } 
+12. return s; 
+13. } 
+/*RTrim(string):去除右边的空格*/ 
+
+1. function RTrim(str){ 
+2. var whitespace = new String(" \t\n\r"); 
+3. var s = new String(str); 
+4. 
+5. if (whitespace.indexOf(s.charAt(s.length-1)) != -1){ 
+6. var i = s.length - 1; 
+7. while (i >= 0 && whitespace.indexOf(s.charAt(i)) != -1){ 
+8. i--; 
+9. } 
+10. s = s.substring(0, i+1); 
+11. } 
+12. return s; 
+13. } 
+/*Trim(string):去除字符串两边的空格*/ 
+
+1. function Trim(str){ 
+2. return RTrim(LTrim(str)); 
+3. } 
+本文的讨论也很精彩，浏览讨论>> 
+
+
+JavaEye推荐 
+
+搜狐网站诚聘Java、PHP和C++工程师 
+JavaEye问答大赛开始了！ 从6月23日 至 7月6日，奖品丰厚 ！ 
+Oracle专区上线，有Oracle最新文章，重要下载及知识库等精彩内容，欢迎访问。 
+立刻报名，免费获取门票，参加SOA技术论坛(广州6月19日) 
+北京: 千橡集团暨校内网诚聘软件研发工程师
+
+
+
+js页面传值 
+
+作者: dd350356750  链接： http://dd350356750.javaeye.com/blog/241475  发表时间: 2008年09月13日 
+
+声明：本文系JavaEye网站发布的原创博客文章，未经作者书面许可，严禁任何网站转载本文，否则必将追究法律责任！ 
+
+
+
+<!--将弹出来的子窗口的值传给父窗体
+父窗口
+
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  
+	<script type="text/javascript">
+		
+		function openWindow() {
+			var result  = window.showModalDialog("childen.html","DialogHeigth=40,DialogWidth:100px,location:no,menubar:no,toolbar:no,status:no");
+			
+			if(result)
+				document.getElementsByName("content")[0].value=result;
+		}
+
+	</script>
+
+ </HEAD>
+
+ <BODY>
+	<input type="button" value="打开新窗口" onclick="openWindow()">
+	<hr>
+	这是父窗口<br>
+	<input type="text" name="content" >
+ </BODY>
+</HTML>
+
+
+
+
+
+
+<!--子窗口-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  
+	<script type="text/javascript">
+		function execute() {
+			window.returnValue = document.getElementsByName("content")[0].value;
+			window.close();
+		}
+	</script>
+ </HEAD>
+
+ <BODY>
+	<input type="text" name="content" value="这是子窗口">
+	<input type="button" value="确定" onclick="execute()">
+ </BODY>
+</HTML>
+
+
+已有 0 人发表留言，猛击->> 这里<<-参与讨论 
+
+
+JavaEye推荐 
+
+辉煌盛会-微软WinHec 2008 邀您共赴卓越 
+搜狐网站诚聘Java、PHP和C++工程师
+
+
+

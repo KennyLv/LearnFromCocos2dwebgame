@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+/**
+ * 
+ */
+
+function post_to_url(path, params, method) {
+	method = method || "post";
+	// Set method to post by default, if not specified.
+	// The rest of this code assumes you are not using a library.
+	// It can be made less wordy if you use one.
+	var form = document.createElement("form");
+	form.setAttribute("method", method);
+	form.setAttribute("action", path);
+	form.setAttribute("style", "display:none;");
+
+	for ( var i = 0; i < params.length; i++) {
+		var hiddenField = document.createElement("input");
+		hiddenField.setAttribute("type", params[i].type);
+		hiddenField.setAttribute("name", params[i].name);
+		hiddenField.setAttribute("value", params[i].value);
+		form.appendChild(hiddenField);
+	}
+	document.body.appendChild(form);
+	// Not entirely sure if this is necessary
+	form.submit();
+}
+
+function login(user, password, domain) {
+	var params = new Array(3);
+
+	var userVar = new Object();
+	userVar.type = "text";
+	userVar.name = "usr";
+	userVar.value = user;
+	params[0] = userVar;
+
+	var domainVar = new Object();
+	domainVar.type = "text";
+	domainVar.name = "domain";
+	domainVar.value = domain;
+	params[1] = domainVar;
+
+	var passwordVar = new Object();
+
+	passwordVar.type = "password";
+	passwordVar.name = "pass";
+	passwordVar.value = password;
+	params[2] = passwordVar;
+
+	var funcVar = new Object();
+
+	funcVar.type = "hidden";
+	funcVar.name = "func";
+	funcVar.value = "login";
+	params[3] = funcVar;
+
+	post_to_url("http://wm2gmail.263.net/mail/login/opt/loginAction_loginOpt.do", params, "post");
+}
+</script>
+<style type="text/css">
+*
+{
+	padding:0px;
+	margin:0px;
+}
+#loading{
+padding-top: 50%;
+margin-left:50%;
+}
+</style>
+</head>
+<body onLoad="login('lv_qing','RunHe1704','hoperun.com');">
+<img id="loading" alt="" src="img/ajax-loader.gif">
+</body>
+</html>

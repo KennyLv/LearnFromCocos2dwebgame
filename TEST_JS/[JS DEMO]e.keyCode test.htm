@@ -1,0 +1,55 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script type="text/javascript"> 
+//By 枫岩@IECN.Net 
+function $(s){ 
+  return document.getElementById(s)?document.getElementById(s):s; 
+} 
+function viewKeyInfo(e){   
+  var currKey=0,CapsLock=0; 
+  var e=e||event; 
+  currKey=e.keyCode||e.which||e.charCode; 
+  CapsLock=currKey >=65 && currKey <=90; 
+  $("type").innerHTML=e['type']; 
+  $("currKey").innerHTML=String.fromCharCode(currKey); 
+  $("Decimal").innerHTML=currKey; 
+  $("keyCode").innerHTML=e['keyCode']; 
+  $("charCode").innerHTML=e['charCode']; 
+  $("caps").innerHTML=CapsLock; 
+  $("shiftKey").innerHTML=e['shiftKey']; 
+  $("ctrlKey").innerHTML=e['ctrlKey']; 
+  $("repeat").innerHTML=e['repeat']; 
+  $("which").innerHTML=e['which']; 
+} 
+
+document.onkeypress= viewKeyInfo; 
+</script> 
+</head><body><p>请按下任意键看测试效果：</p> 
+type:<span id="type">keypress</span>
+ 
+当前Key:<span id="currKey"> </span>
+ 
+Decimal:<span id="Decimal">32</span>
+ 
+keyCode:<span id="keyCode">0</span> <strong>注：在FF下,keyCode始终为0</strong>
+ 
+which:<span id="which">32</span> <strong>注：在IE下,which始终为undefined ； 在Opera下，keyCode和charCode二者的值相同</strong>
+ 
+charCode:<span id="charCode">32</span> <strong>注：在IE、Opera下,charCode始终为undefined ; 在FF下，which和charCode二者的值相同</strong>
+ 
+大写:<span id="caps">false</span>
+ 
+altKey:<span id="altKey"></span>
+ 
+ctrlKey:<span id="ctrlKey">false</span>
+ 
+shiftKey:<span id="shiftKey">false</span>
+ 
+repeat:<span id="repeat">undefined</span>
+ 
+<style type="text/css" media="all"> 
+body {color:#999;font:normal 14px tahoma,宋体,Geneva,Arial,sans-serif;} 
+span {color:#f00;font-weight:bold;padding:0 5px;} 
+strong {color:#090;font-weight:normal;padding:0 5px;} 
+</style> 
+
+</body></html>

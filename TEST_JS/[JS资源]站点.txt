@@ -1,0 +1,27 @@
+﻿http://www.zaixiandaili.net/
+
+http://blog.csdn.net/redvalley/article/list/5(牛人)
+
+http://kb.cnblogs.com/page/79308/( html5设计原理——英语演讲)
+
+http://kb.cnblogs.com/zt/(博客园专题)
+
+http://kb.cnblogs.com/page/50214/(59款游戏Windows 7兼容性测试汇总)
+
+
+http://news.cnblogs.com/n/111776/(神奇的图像处理算法)
+http://www.ruanyifeng.com/blog/2011/07/principle_of_similar_image_search.html
+
+http://news.cnblogs.com/n/104563/(开源   Node.js)
+
+js继承    AOP  画图
+http://kb.cnblogs.com/page/105708/  (闭包)
+http://kb.cnblogs.com/page/106499/ (继承)
+http://kb.cnblogs.com/page/106950/ (10个设计缺陷)
+
+http://kb.cnblogs.com/page/106198/ (只有你想不到)
+http://kb.cnblogs.com/page/97564/ (javascript 动态插入技术)
+http://kb.cnblogs.com/page/97277/ (能说明你的Javascript技术很烂的五个原因)
+
+
+

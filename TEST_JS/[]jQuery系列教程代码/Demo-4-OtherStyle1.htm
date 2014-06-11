@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>innerHeight, height, innerWidth, width 示例</title>
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+    <script type="text/javascript">
+        $(function()
+        {
+            var innerHeight = $("#testDiv").innerHeight();
+            var height = $("#testDiv").height();
+
+            var innerWidth = $("#testDiv").innerWidth();
+            var width = $("#testDiv").width();
+
+            alert("innerHeight:" + innerHeight + ",height:" + height);
+            alert("innerWidth:" + innerWidth + ",width:" + width);
+        })
+    </script>
+</head>
+<body>
+    <br />
+    <div id="testDiv" style="border:solid 10px #FF0000; height:20px; padding:20px; margin:30px;">测试文本</div>
+</body>
+</html>

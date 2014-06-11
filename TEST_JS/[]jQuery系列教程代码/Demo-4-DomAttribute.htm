@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>动态创建对象</title>
+
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(function()
+        {
+
+            $("#btnTestAttr1").bind("click", testAttr1);
+            $("#btnTestAttr2").bind("click", testAttr2);
+
+            $("#hibiscus")[0].className = "classB";
+
+            //var img1 = document.getElementById("hibiscus");
+            //            alert(img1.alt);
+            //            img1.alt = "Change the alt element attribute";
+            //            alert(img1.alt);
+            //            img1.className = "classB";
+            //            alert(img1.className);
+            //            $("img").each(function(index) {
+            //                alert("index:" + index + ", id:" + this.id + ", alt:" + this.alt);
+            //                this.alt = "changed";
+            //                alert("index:" + index + ", id:" + this.id + ", alt:" + this.alt);
+            //            });
+
+        })
+
+        function testAttr1(event)
+        {
+            alert($("#hibiscus").attr("class"));
+        }
+
+        function testAttr2(event)
+        {
+            $("#hibiscus")[0].className = "classC";
+        }
+
+        var aaa = new Array();
+        aaa.push();
+    </script>
+
+</head>
+<body>
+    <div>
+        <input id="btnTestAttr1" type="button" value="测试attr(name)" /><br />
+        <input id="btnTestAttr2" type="button" value="测试attr( key, value )" /><br />
+    </div>
+    <div>
+        <img src="images/image.1.jpg" id="hibiscus" alt="Hibiscus" class="classA" /></div>
+</body>
+</html>

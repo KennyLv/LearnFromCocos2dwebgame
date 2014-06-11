@@ -1,0 +1,434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>不唐突的JavaScript的七条准则 - Web前端 - JavaEye新闻</title>
+    <meta name="description" content="英文原文：The seven rules of Unobtrusive JavaScript 原文作者：Chris Heilmann 经过多年的开发、教学和编写不唐突的JavaScript， 我发现了下面的一些准则。我希望它们可以帮助你对“为什么这样设计和执行JavaScript比较好”有一点理解。这些规则曾经帮助我更快地交付产品，并且产品的质量更高，也更容易维护。 1.不要做任何假设 （JavaS ..." />
+    <meta name="keywords" content="javascript的七条准则 web Web前端" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="" rel="alternate" title="JavaEye新闻" type="application/rss+xml" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="JavaEye" />
+    <link href="http://www.javaeye.com/stylesheets/news.css?1291166836" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://js.javaeye.com/javascripts/application.js?1285465576" type="text/javascript"></script>
+      <link href="http://www.javaeye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1268040798" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1238329845" type="text/javascript"></script>
+<script src="http://www.javaeye.com/javascripts/hotkey.js?1238403289" type="text/javascript"></script>
+  <link href="http://www.javaeye.com/javascripts/editor/css/ui.css?1222156967" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/editor/compress.js?1265622452" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id="page">
+      <div id="header">
+        <div class="clearfix"><div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://www.javaeye.com/all" style="color:red">我的应用</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div></div>
+        <div class="clearfix">
+          <div id="branding">
+            <a href="http://www.javaeye.com"><img alt="JavaEye3.0" src="http://www.javaeye.com/images/logo.gif?1268015091" title="JavaEye-最棒的软件开发交流社区" /></a>
+          </div>
+          <div id="gg"><a href='/clicks/476' target='_blank'><img src="http://info-database.csdn.net/Upload/2010-11-25/728_90sd1124.jpg?2010-11-25" /></a></div>
+        </div>
+      </div>
+
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+          
+
+
+<div class="crumbs" style="margin:10px 0;">
+  <a href="/news">新闻频道</a> <span class="arrow">&rarr;</span>
+  <a href="/news/category/web">Web前端新闻</a>
+  
+</div>
+
+<div class="news_main">
+  <div class="news">
+    <div class="clearfix">
+      <div class="news_digg"> 
+        <div class='digg' id='d3754'><h3><a href='#' onclick='digg("news", 3754, false);return false;' class='digg'>14顶</a><br/><a href='#' onclick='digg("news", 3754, true);return false;' class='bury'>3踩</a></h3></div>
+      </div>
+      <div id="news_icon"><a href="/news/category/web" title="查看Web前端分类新闻" target="_blank"><img alt="2" class="icon" src="http://www.javaeye.com/images/icon/2.gif?1239249989" /></a></div>
+      <div class="title">
+        <h3><img alt="转载新闻" src="http://www.javaeye.com/images/news/zz.gif?1248098283" /> <a href='/news/3754' title="不唐突的JavaScript的七条准则">不唐突的JavaScript的七条准则</a></h3>
+        <div class="news_info" style="background-color: transparent;">
+          <span class='date'>2008-10-10 13:24</span> by 资深编辑 <a href='http://wutao0603.javaeye.com' target='_blank'>wutao0603</a> <br/>
+          <span class="comment"><a href="#comments">评论(16)</a></span>
+          <span class='view'>有8058人浏览</span>
+          <span class='tag'>javascript的七条准则</span>
+          
+        </div>
+      </div>
+    </div>
+        
+    
+      
+          <script type="text/javascript">
+      var hunters = ["\u003Ca href='/jobs/520' target='_blank' style='color:#000;'\u003E\u003Cspan style='font-weight:bold;'\u003E\u5b89\u5fbd: \u003C/span\u003E \u5408\u80a5,\u676d\u5dde\uff1a\u9ad8\u85aa\u8bda\u8058\u524d\u7aef\u5f00\u53d1\u5de5\u7a0b\u5e08\u003C/a\u003E"]
+      var hunter_id = Math.ceil(Math.random() * hunters.length) - 1;
+      if(hunter_id == -1) hunter_id = 0;
+    </script>
+    <div id="hunter_recommended" style="background:#fff;border: 1px solid #ccc; padding: 4px;margin-bottom: 10px;">
+      <span id="hunters_nav" style="margin-right:5px;">
+        <a href="#" onclick="hunter_id <= 0 ? hunter_id = hunters.length - 1 : hunter_id--; $('hunters').update(hunters[hunter_id]);return false;" style="border:1px solid #ccc;padding: 0 3px;size: 13px;text-decoration: none;">&lt;</a>
+        <a href="#" onclick="hunter_id >= hunters.length - 1 ? hunter_id = 0 : hunter_id++; $('hunters').update(hunters[hunter_id]);return false;" style="border:1px solid #ccc;padding: 0 3px;size :13px;text-decoration: none;">&gt;</a>
+      </span>
+      猎头职位: <span id="hunters"><script type="text/javascript">document.write(hunters[hunter_id]);</script></span>
+    </div>
+
+      <div id="news_content">
+        英文原文：<a href="http://icant.co.uk/articles/seven-rules-of-unobtrusive-javascript/" target="_blank">The seven rules of Unobtrusive JavaScript</a><br />原文作者：<a href="http://www.wait-till-i.com/" target="_blank">Chris Heilmann</a><br /><br />经过多年的开发、教学和编写不唐突的JavaScript， 我发现了下面的一些准则。我希望它们可以帮助你对“为什么这样设计和执行JavaScript比较好”有一点理解。这些规则曾经帮助我更快地交付产品，并且产品的质量更高，也更容易维护。<br /><br /><strong><span style="font-size: medium">1.不要做任何假设</span></strong><br />（JavaScript是一个不可靠的助手）<br /><br />可能不唐突的JavaScript 的最重要的一个特性就是——你要停止任何假设：<br /><br />&nbsp;&nbsp;&nbsp; * 不要假设JavaScript是可用的，你最好认为它很有可能是不可用的，而不是直接依赖于它。<br />&nbsp;&nbsp;&nbsp; * 在你经过测试确认一些方法和属性可以使用之前，不要假设浏览器支持它们。<br />&nbsp;&nbsp;&nbsp; * 不要假设HTML代码如你想象的那样正确，每次都要进行检查，并且当其不可用的时候就什么也不要做。<br />&nbsp;&nbsp;&nbsp; * 让JavaScript的功能独立于输入设备<br />&nbsp;&nbsp;&nbsp; * 要记住其他的脚本可能会影响你的JavaScript的功能，所以要保证你的脚本的作用域尽可能地安全。<br /><br />在开始设计你的脚本之前，要考虑的第一件事情就是检查一下你要为其编写脚本的HTML代码，看看有什么东西可以帮助你达到目的。<br /><br /><strong><span style="font-size: medium">2.找出钩子和节点关系</span></strong><br />（HTML是脚本的基石）<br /><br />在开始编写脚本之前，要先看一下你要为之编写JavaScript的HTML。如果HTML是未经组织的或者未知的，那么你几乎不可能有一个好的脚本编写方案——很可能就会出现下面的情况：要么是会用JavaScript创建太多标记，要么就是应用太依赖于JavaScript。<br /><br />在HTML中有一些东西需要考虑，那就是钩子和节点关系。<br /><br /><span style="color: darkblue">&lt;1&gt;.HTML 钩子</span><br /><br />HTML最初的和最重要的钩子就是ID，而且ID可以通过最快的DOM方法——getElementById 访问到。如果在一个有效的HTML文档中所有的ID都是独一无二的话（在IE中关于name 和 ID 有一个bug，不过有些好的类库解决了这个问题），使用ID就是安全可靠的，并且易于测试。<br /><br />其他一些钩子就是是HTML元素和CSS类，HTML元素可以通过getElementsByTagName方法访问，而在多数浏览器中都还不能通过原生的DOM方法来访问CSS类。不过，有很多外部类库提供了可以访问CSS类名（类似于 getElementsByClassName） 的方法。<br /><br /><span style="color: darkblue">&lt;2&gt;.HTML 节点关系</span><br /><br />关于HTML的另外比较有意思的一点就是标记之间的关系，思考下面的问题：<br /><br />&nbsp;&nbsp;&nbsp; * 要怎样才可以最容易地、通过最少的DOM遍历来到达目标节点？<br />&nbsp;&nbsp;&nbsp; * 通过修改什么标记，可以尽可能多地访问到需要修改的子节点？<br />&nbsp;&nbsp;&nbsp; * 一个给定的元素有什么属性或信息可以用来到达另外一个元素？<br /><br />遍历DOM很耗资源而且速度很慢，这就是为什么要尽量使用浏览器中已经在使用的技术来做这件事情。<br /><br /><strong><span style="font-size: medium">3.把遍历交给专家来做</span></strong><br />（CSS，更快地遍历DOM）<br /><br />有关DOM的脚本和使用方法或属性（getElementsByTagName, nextSibling, previousSibling, parentNode以及其它）来遍历DOM似乎迷惑了很多人，这点很有意思。而有趣的是，我们其实早已经通过另外一种技术—— CSS ——做了这些事情。<br /><br />CSS 是这样一种技术，它使用CSS选择器，通过遍历DOM来访问目标元素并改变它们的视觉属性。一段复杂的使用DOM的JavaScript可以用一个CSS选择器取代：<br /><pre name="code" class="java">
+var n = document.getElementById('nav');
+if(n){
+var as = n.getElementsByTagName('a');
+if(as.length &gt; 0){
+for(var i=0;as[i];i++){
+as[i].style.color = ‘#369′;
+as[i].style.textDecoration = ‘none’;
+}
+}
+}
+
+/* 下面的代码与上面功能一样 */
+
+#nav a{
+color:#369;
+text-decoration:none;
+}</pre><br /><br />这是一个可以好好利用的很强大的技巧。你可以通过动态为DOM中高层的元素添加class 或者更改元素ID来实现这一点。如果你使用DOM为文档的body添加了一个CSS类，那么设计师就很可以容易地定义文档的静态版本和动态版本。<br /><br /><pre name="code" class="java">JavaScript:
+
+var dynamicClass = 'js';
+var b = document.body;
+b.className = b.className ? b.className + ' js' : 'js';
+
+CSS:
+
+/* 静态版本 */
+
+#nav {
+....
+}
+
+/* 动态版本 */
+
+body.js #nav {
+....
+}</pre><br /><br /><strong><span style="font-size: medium">4.理解浏览器和用户</span></strong><br />（在既有的使用模式上创建你所需要的东西）<br /><br />不唐突的JavaScript 中很重要的一部分就是理解浏览器是如何工作的（尤其是浏览器是如何崩溃的）以及用户期望的是什么。不考虑浏览器你也可以很容易地使用JavaScript 创建一个完全不同的界面。拖拽界面，折叠区域，滚动条和滑动块都可以使用JavaScript创建，但是这个问题并不是个简单的技术问题，你需要思考下面的问题：<br /><br />&nbsp;&nbsp;&nbsp; * 这个新界面可以独立于输入设备么？如果不能，那么可以依赖哪些东西？<br />&nbsp;&nbsp;&nbsp; * 我创建的这个新界面是否遵循了浏览器或者其它富界面的准则（你可以通过鼠标在多级菜单中直接切换吗？还是需要使用tab键？）<br />&nbsp;&nbsp;&nbsp; * 我需要提供什么功能但是这个功能是依赖于JavaScript的?<br /><br />最后一个问题其实不是问题，因为如果需要你就可以使用DOM来凭空创建HTML。关于这点的一个例子就是“打印”链接，由于浏览器没有提供一个非 JavaScript的打印文档功能，所以你需要使用DOM来创建这类链接。同样地，一个实现了展开和收缩内容模块的、可以点击的标题栏也属于这种情况。标题栏不能被键盘激活，但是链接可以。所以为了创建一个可以点击的标题栏你需要使用JavaScript将链接加入进去，然后所有使用键盘的用户就可以收缩和展开内容模块了。<br /><br />解决这类问题的极好的资源就是设计模式库。至于要知道浏览器中的哪些东西是独立于输入设备的，那就要靠经验的积累了。首先你要理解的就是事件处理机制。<br /><br /><span style="font-size: medium"><strong>5.理解事件</strong></span><br />（事件处理会引起改变）<br /><br />事件处理是走向不唐突的JavaScript的第二步。重点不是让所有的东西都变得可以拖拽、可以点击或者为它们添加内联处理，而是理解事件处理是一个可以完全分离出来的东西。我们已经将HTML,CSS和JavaScript分离开来，但是在事件处理的分离方面却没有走得很远。<br /><br />事件处理器会监听发生在文档中元素上的变化，如果有事件发生，处理器就会找到一个很奇妙的对象（一般会是一个名为e的参数），这个对象会告诉元素发生了什么以及可以用它做什么。<br /><br />对于大多数事件处理来说，真正有趣的是它不止发生在你想要访问的元素上，还会在DOM中较高层级的所有元素上发生（但是并不是所有的事件都是这样，focus和blur事件是例外）。举例来说，利用这个特性你可以为一个导航列表只添加一个事件处理器，并且使用事件处理器的方法来获取真正触发事件的元素。这种技术叫做事件委托，它有几点好处：<br /><br />&nbsp;&nbsp;&nbsp; * 你只需要检查一个元素是否存在，而不需要检查每个元素<br />&nbsp;&nbsp;&nbsp; * 你可以动态地添加或者删除子节点而并不需要删除相应的事件处理器<br />&nbsp;&nbsp;&nbsp; * 你可以在不同的元素上对相同的事件做出响应<br /><br />需要记住的另一件事是，在事件向父元素传播的时候你可以停止它而且你可以覆写掉HTML元素（比如链接）的缺省行为。不过，有时候这并不是个好主意，因为浏览器赋予HTML元素那些行为是有原因的。举个例子，链接可能会指向页面内的某个目标，不去修改它们能确保用户可以将页面当前的脚本状态也加入书签。<br /><br /><span style="font-size: medium"><strong>6.为他人着想</strong></span><br />（命名空间，作用域和模式）<br /><br />你的代码几乎从来不会是文档中的唯一的脚本代码。所以保证你的代码里没有其它脚本可以覆盖的全局函数或者全局变量就显得尤为重要。有一些可用的模式可以来避免这个问题，最基础的一点就是要使用 var 关键字来初始化所有的变量。假设我们编写了下面的脚本：<br /><br /><pre name="code" class="java">var nav = document.getElementById('nav');
+function init(){
+// do stuff
+}
+function show(){
+// do stuff
+}
+function reset(){
+// do stuff
+}
+</pre><br />上面的代码中包含了一个叫做nav的全局变量和名字分别为 init,show 和 reset 的三个函数。这些函数都可以访问到nav这个变量并且可以通过函数名互相访问：<br /><br /><pre name="code" class="java">var nav = document.getElementById('nav');
+function init(){
+show();
+if(nav.className === 'show'){
+reset();
+}
+// do stuff
+}
+function show(){
+var c = nav.className;
+// do stuff
+}
+function reset(){
+// do stuff
+}</pre><br /><br />你可以将代码封装到一个对象中来避免上面的那种全局式编码，这样就可以将函数变成对象中的方法，将全局变量变成对象中的属性。 你需要使用“名字+冒号”的方式来定义方法和属性，并且需要在每个属性或方法后面加上逗号作为分割符。<br /><br /><pre name="code" class="java">var myScript = {
+nav:document.getElementById('nav'),
+init:function(){
+// do stuff
+},
+show:function(){
+// do stuff
+},
+reset:function(){
+// do stuff
+}
+}</pre><br /><br />所有的方法和属性都可以通过使用“类名+点操作符”的方式从外部和内部访问到。<br /><pre name="code" class="java">
+var myScript = {
+nav:document.getElementById('nav'),
+init:function(){
+myScript.show();
+if(myScript.nav.className === 'show'){
+myScript.reset();
+}
+// do stuff
+},
+show:function(){
+var c = myScript.nav.className;
+// do stuff
+},
+reset:function(){
+// do stuff
+}
+}</pre><br /><br />这种模式的缺点就是，你每次从一个方法中访问其它方法或属性都必须在前面加上对象的名字，而且对象中的所有东西都是可以从外部访问的。如果你只是想要部分代码可以被文档中的其他脚本访问，可以考虑下面的模块（module）模式：<br /><pre name="code" class="java">
+var myScript = function(){
+//这些都是私有方法和属性
+var nav = document.getElementById('nav');
+function init(){
+// do stuff
+}
+function show(){
+// do stuff
+}
+function reset(){
+// do stuff
+}
+//公有的方法和属性被使用对象语法包装在return 语句里面
+return {
+public:function(){
+
+},
+foo:'bar'
+}
+}();</pre><br /><br />你可以使用和前面的代码同样的方式访问返回的公有的属性和方法，在本示例中可以这么访问：myScript.public() 和 myScript.foo 。但是这里还有一点让人觉得不舒服：当你想要从外部或者从内部的一个私有方法中访问公有方法的时候，还是要写一个冗长的名字（对象的名字可以非常长）。为了避免这一点，你需要将它们定义为私有的并且在return语句中只返回一个别名：<br /><pre name="code" class="java">
+var myScript = function(){
+// 这些都是私有方法和属性
+var nav = document.getElementById('nav');
+function init(){
+// do stuff
+}
+function show(){
+// do stuff
+// do stuff
+}
+function reset(){
+// do stuff
+}
+var foo = 'bar';
+function public(){
+
+}</pre><br /><br />//只返回指向那些你想要访问的私有方法和属性的指针<br /><pre name="code" class="java">return {
+public:public,
+foo:foo
+}
+}();</pre><br /><br />这就保证了代码风格一致性，并且你可以使用短一点的别名来访问其中的方法或属性。<br /><br />如果你不想对外部暴露任何的方法或属性，你可以将所有的代码封装到一个匿名方法中，并在它的定义结束后立刻执行它：<br /><br /><pre name="code" class="java">(function(){
+// these are all private methods and properties
+var nav = document.getElementById('nav');
+function init(){
+// do stuff
+show(); // 这里不需要类名前缀
+}
+function show(){
+// do stuff
+}
+function reset(){
+// do stuff
+}
+})();</pre><br /><br />对于那些只执行一次并且对其它函数没有依赖的代码模块来说，这种模式非常好。<br /><br />通过遵循上面的那些规则，你的代码更好地为用户工作，也可以使你的代码在机器上更好地运行并与其他开发者的代码和睦相处。不过，还有一个群体需要考虑到。<br /><br /><strong><span style="font-size: medium">7.为接手的开发者考虑</span></strong><br />（使维护更加容易）<br /><br />使你的脚本真正地unobtrusive的最后一步是在编写完代码之后仔细检查一遍，并且要照顾到一旦脚本上线之后要接手你的代码的开发者。考虑下面的问题：<br /><br />&nbsp;&nbsp;&nbsp; * 所有的变量和函数名字是否合理并且易于理解？<br />&nbsp;&nbsp;&nbsp; * 代码是否经过了合理的组织？从头到尾都很流畅吗？<br />&nbsp;&nbsp;&nbsp; * 所有的依赖都显而易见吗？<br />&nbsp;&nbsp;&nbsp; * 在那些可能引起混淆的地方都添加了注释吗？<br /><br />最重要的一点是：要认识到文档中的HTML和CSS代码相对于JavaScript来说更有可能被改变（因为它们负责视觉效果）。所以不要在脚本代码中包含任何可以让终端用户看到的class和ID，而是要将它们分离出来放到一个保存配置信息的对象中。<br /><br /><pre name="code" class="java">myscript = function(){
+var config = {
+navigationID:'nav',
+visibleClass:'show'
+};
+var nav = document.getElementById(config.navigationID);
+function init(){
+show();
+if(nav.className === config.visibleClass){
+reset();
+};
+// do stuff
+};
+function show(){
+var c = nav.className;
+// do stuff
+};
+function reset(){
+// do stuff
+};
+}();</pre><br /><br />这样维护者就知道去哪里修改这些属性，而不需要改动其他代码。<br /><br /><br /><strong>更多信息</strong><br /><br />以上就是我发现的七条准则。如果你想要了解更多与上面所探讨的主题相关的东西，可以看看下面的链接：<br /><br />&nbsp;&nbsp;&nbsp; *<a href="http://developer.yahoo.com/ypatterns/" target="_blank"> Yahoo! Design Pattern Library </a><br />&nbsp;&nbsp;&nbsp; * <a href="http://icant.co.uk/sandbox/eventdelegation/" target="_blank">Event Delegation </a><br />&nbsp;&nbsp;&nbsp; * <a href="http://yuiblog.com/blog/2007/01/17/event-plan/" target="_blank">Event Driven JavaScript Application Design </a><br />&nbsp;&nbsp;&nbsp; * <a href="http://www.klauskomenda.com/code/javascript-programming-patterns/" target="_blank">JavaScript Programming Patterns</a> <br />&nbsp;&nbsp;&nbsp; * <a href="http://www.wait-till-i.com/2006/02/16/show-love-to-the-object-literal/" target="_blank">Show love to the Object Literal</a> <br />&nbsp;&nbsp;&nbsp; * <a href="http://yuiblog.com/blog/2007/06/12/module-pattern/" target="_blank">A JavaScript Module Pattern</a> <br /><br />
+      </div>
+
+      <div id="news_recommended_n2"><script type="text/javascript"><!--
+google_ad_client = "pub-1076724771190722";
+/* JE新闻文章468x60 */
+google_ad_slot = "7161188490";
+google_ad_width = 468;
+google_ad_height = 60;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+
+      
+
+      <div>
+                  来自: <a href="http://www.zhuoqun.net/html/y2008/1103.html">zhuoqun.net</a>
+              </div>
+    </div>
+
+    <div id="digg_bottom" class="clearfix"><a href='#' onclick='digg("news", 3754, false);return false;'><div><strong>14</strong> <br/>顶</div></a><a href='#' onclick='digg("news", 3754, true);return false;'><div><strong>3</strong> <br/>踩</div></a></div>
+
+    <div class="comments">
+      <span style="font-weight:bold; font-size:16px;margin-right:14px;">评论</span> 共 16 条 <a href="#" onclick="$('editor_body').focus();return false;">发表评论</a>
+      <a id="comments" name="comments"></a>
+      <h5>16 楼 <a href='http://wangdun686.javaeye.com' target='_blank'>wangdun686</a> 2010-11-14 21:15 <a href="#" onclick="quote_comment(76649);return false;">引用</a> </h5>
+<div>嗯，受益匪浅呵呵，谢谢</div>
+<h5>15 楼 <a href='http://soku.javaeye.com' target='_blank'>Elvis_Wu</a> 2010-10-30 15:31 <a href="#" onclick="quote_comment(75700);return false;">引用</a> </h5>
+<div>我认为，翻译为《和谐的javascript》更合适</div>
+<h5>14 楼 <a href='http://hjqcan.javaeye.com' target='_blank'>hjqcan</a> 2010-02-25 12:48 <a href="#" onclick="quote_comment(58404);return false;">引用</a> </h5>
+<div>[flash=200,200][/flash]大法官<div class="quote_title">引用</div><div class="quote_div"></div><pre name="code" class="java"></pre></div>
+<h5>13 楼 <a href='http://lianjie1229.javaeye.com' target='_blank'>lianjie1229</a> 2009-10-20 13:33 <a href="#" onclick="quote_comment(46914);return false;">引用</a> </h5>
+<div>dtyghnjdgyhdfg<div class="quote_title">引用</div><div class="quote_div"></div></div>
+<h5>12 楼 <a href='http://tianjie1987.javaeye.com' target='_blank'>tianjie1987</a> 2009-09-09 14:27 <a href="#" onclick="quote_comment(44012);return false;">引用</a> </h5>
+<div><img src="/images/smiles/icon_lol.gif"/>&nbsp;<img src="/images/smiles/icon_biggrin.gif"/>&nbsp;<img src="/images/smiles/icon_biggrin.gif"/>&nbsp;<img src="/images/smiles/icon_biggrin.gif"/>&nbsp;<img src="/images/smiles/icon_biggrin.gif"/> </div>
+<h5>11 楼 <a href='http://echelon.javaeye.com' target='_blank'>Echelon</a> 2009-09-02 22:05 <a href="#" onclick="quote_comment(43492);return false;">引用</a> </h5>
+<div><img src="/images/smiles/icon_idea.gif"/> </div>
+<h5>10 楼 <a href='http://xiao2009.javaeye.com' target='_blank'>xiao2009</a> 2009-08-07 14:29 <a href="#" onclick="quote_comment(41005);return false;">引用</a> </h5>
+<div>文章写得不错，刚刚大量使用js，我相信这是对我会有很大帮助！</div>
+<h5>9 楼 <a href='http://xiaoming686.javaeye.com' target='_blank'>xiaoming686</a> 2009-05-11 14:22 <a href="#" onclick="quote_comment(30892);return false;">引用</a> </h5>
+<div><img src="/images/smiles/icon_smile.gif"/>&nbsp;<img src="/images/smiles/icon_sad.gif"/>&nbsp;<img src="/images/smiles/icon_surprised.gif"/>&nbsp;<img src="/images/smiles/icon_lol.gif"/> </div>
+<h5>8 楼 <a href='http://xiaoming686.javaeye.com' target='_blank'>xiaoming686</a> 2009-05-11 14:21 <a href="#" onclick="quote_comment(30891);return false;">引用</a> </h5>
+<div>[b][/b]<u>[/u][u]</u><div class="quote_title">引用</div><div class="quote_div"></div><div class="quote_title">引用</div><div class="quote_div"></div><div class="quote_title">引用</div><div class="quote_div"></div><pre name="code" class="java"></pre>但是是打发阿斯顿阿斯顿</div>
+<h5>7 楼 <a href='http://walkman.javaeye.com' target='_blank'>walkman</a> 2008-11-19 17:31 <a href="#" onclick="quote_comment(17552);return false;">引用</a> </h5>
+<div>“不唐突的JavaScript“，这个翻译太叫人唐突了，即使我也不知道如何翻译更恰当</div>
+<h5>6 楼 <a href='http://chengj.javaeye.com' target='_blank'>chengj</a> 2008-10-14 14:02 <a href="#" onclick="quote_comment(14833);return false;">引用</a> </h5>
+<div>深有同感，所以我倾向于在一个比较强大的js库的基础上使用，比如jquery，这样或许更好一些，各位以为如何？</div>
+<h5>5 楼 <a href='http://helllad.javaeye.com' target='_blank'>咖啡刀</a> 2008-10-13 14:00 <a href="#" onclick="quote_comment(14770);return false;">引用</a> </h5>
+<div>文章不错！js是个很好的东西！很爱很爱他！<br /><br />并非上面大家留言的那么恐怖！正如佛家有云：魔由心生，心生万象。<br /><br /></div>
+<h5>4 楼 <a href='http://basara.javaeye.com' target='_blank'>BaSaRa</a> 2008-10-11 20:38 <a href="#" onclick="quote_comment(14681);return false;">引用</a> </h5>
+<div>写得很有道理，用了这么久JS,深有感触<br />对作用域的理解很有道理，不过我一般都不这样写&nbsp;<img src="/images/smiles/icon_lol.gif"/> </div>
+<h5>3 楼 <a href='http://allenny.javaeye.com' target='_blank'>allenny</a> 2008-10-11 17:18 <a href="#" onclick="quote_comment(14675);return false;">引用</a> </h5>
+<div>看完此篇，我不用JS了</div>
+<h5>2 楼 <a href='http://fornever.javaeye.com' target='_blank'>fornever</a> 2008-10-11 11:02 <a href="#" onclick="quote_comment(14665);return false;">引用</a> </h5>
+<div>很有道理，收藏了。。。</div>
+<h5>1 楼 <a href='http://bohemia.javaeye.com' target='_blank'>bohemia</a> 2008-10-10 14:21 <a href="#" onclick="quote_comment(14616);return false;">引用</a> </h5>
+<div>没有严格的语法规定,就容易出现兼容问题;<br /><br />哎.想到JS就想到了恐怖的代码; Flex吧.</div>
+
+      
+      
+    </div>
+    <div class="comments"><h3>发表评论</h3></div>
+    <form action="/news/3754" id="comment_form" method="post" onsubmit="return false;">      
+
+
+  <input type="hidden" id="editor_bbcode_flag"/>
+
+
+
+<div id="editor_main"><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="news_comment[body]" rows="20" style="width: 480px; height: 200px;"></textarea></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+      <div style="text-align:right;width:97%;">您还没有登录，请<a href='/login'>登录</a>后发表评论(快捷键 Alt+S / Ctrl+Enter) <input class="submit" id="quick_reply_button" name="commit" type="submit" value="提交" /></div>
+    </form>    <script type="text/javascript">
+      new HotKey("s",function() {$('quick_reply_button').click();},{altKey: true, ctrlKey: false});
+      new HotKey(new Number(13),function() {$('quick_reply_button').click();},{altKey: false, ctrlKey: true});
+
+      new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+          
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+          
+          }});
+</script>
+</div>
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+  fix_image_size($$('div#news_content img'), 650);
+  function quote_comment(id) {
+    new Ajax.Request('/editor/quote', {
+parameters: {'id':id, 'type':'NewsComment'},
+onSuccess:function(response){editor.bbcode_editor.textarea.insertAfterSelection(response.responseText);}
+});
+}
+</script>
+
+
+
+
+        </div>
+        <div id="local">
+          <a href='/clicks/488' target='_blank'><img src="http://dl.javaeye.com/upload/picture/pic/76103/16c3ea63-ac4d-39e5-9411-41fcb4b3d627.png" alt="" title="" /></a>            <div style="margin-top: 10px;">
+  <form action="/news/search" method="get">    <input class="text" id="query" name="query" size="15" style="width: 135px;" type="text" />
+    <input class="submit" type="submit" value="搜索新闻" style="width: 70px;" />
+  </form></div>
+
+
+
+      <div>
+      <h3>相关新闻</h3>
+      <ul><li><a href='/news/3968-gamejs-cool-game-canvas-library' title="GameJS：超酷的Canvas游戏库" target='_blank'>GameJS：超酷的Canvas游戏库</a></li><li><a href='/news/9721-w3c-file-api' title="W3C发布File API的第一个草案" target='_blank'>W3C发布File API的第一个草案</a></li><li><a href='/news/9297-pyramidom-javascript' title="PyramiDOM:光谱DOM分析器" target='_blank'>PyramiDOM:光谱DOM分析器</a></li></ul>
+    </div>
+      <div>
+    <h3>相关讨论</h3>
+  <ul><li><a href="/topic/442603" target="_blank">初学Jquery</a></li><li><a href="/topic/214321" target="_blank">GT-Grid 1.0 基础教程(三)</a></li><li><a href="/topic/14347" target="_blank">prototype 源码解读</a></li><li><a href="/topic/200401" target="_blank">注意!  JavaScript中的&quot;陷阱&quot;</a></li><li><a href="/topic/40309" target="_blank">我对prototype1.4.0的注解</a></li></ul>
+  </div>
+<div>
+  <h3>相关博客</h3>
+<ul><li><a href="http://floger.javaeye.com/blog/444605" target="_blank">不唐突的JavaScript的七条准则(转载)</a></li><li><a href="http://wallimn.javaeye.com/blog/446628" target="_blank">不唐突的JavaScript的七条准则</a></li><li><a href="http://redsoft.javaeye.com/blog/442603" target="_blank">初学Jquery</a></li><li><a href="http://sky-uck.javaeye.com/blog/419115" target="_blank">css+js写的二级菜单</a></li><li><a href="http://just4you.javaeye.com/blog/76533" target="_blank">导航菜单横排</a></li></ul>
+</div>
+            <div style="height: 100px;">
+      <h3>推荐圈子</h3>
+      <div class='logo'><a href='http://jquery.group.javaeye.com' target='_blank'><img src='/upload/logo/group/62114/e2976f7c-9026-38f0-803f-b60d45bf8379.jpg' alt='Jquery圈子' title='Jquery: 讨论Jquery的最新动态和相关问题。'/></a></div>
+      <span class="left" style="padding-left: 10px;">
+        <a href="http://jquery.group.javaeye.com" target="_blank"><strong>Jquery</strong></a><br/>
+        成员: 1191<br/>
+        访问: 107352
+      </span>
+    </div>
+  
+
+        </div>
+        <div id="nav">
+  <div class="wrapper">
+    <ul>
+            <li><a href="http://www.javaeye.com/">首页</a></li>
+      <li><a href="http://www.javaeye.com/news" class='selected'>新闻</a></li>
+      <li><a href="http://www.javaeye.com/forums">论坛</a></li>
+      <li><a href="http://www.javaeye.com/ask">问答</a></li>
+      <li><a href="http://www.javaeye.com/wiki">专栏</a></li>
+      <li><a href="http://www.javaeye.com/blogs">博客</a></li>
+      <!--<li><a href="http://www.javaeye.com/articles">文摘</a></li>//-->
+      <li><a href="http://www.javaeye.com/groups">圈子</a></li>
+      <li><a href="http://www.javaeye.com/job">招聘</a></li>
+      <li><a href="http://www.javaeye.com/index/service">服务</a></li>
+      <li class="last"><a href="http://www.javaeye.com/search">搜索</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="channel_nav">
+  <ul>
+    <li><a href="http://java.javaeye.com" >Java</a></li>
+    <li><a href="http://webapp.javaeye.com" >Web</a></li>
+    <li><a href="http://ruby.javaeye.com" >Ruby</a></li>
+    <li><a href="http://python.javaeye.com" >Python</a></li>
+    <li><a href="http://agile.javaeye.com" >敏捷</a></li>
+    <li><a href="http://mysql.javaeye.com" >MySQL</a></li>
+    <li><a href="http://runqian.javaeye.com" >润亁报表</a></li>
+    <li class="last"><a href="http://book.javaeye.com" >图书</a></li>
+  </ul>
+</div>
+
+      </div>
+      <div id="footer">
+  <div id="site_nav">
+    <ul>
+      <li><a href="/index/service">广告服务</a></li>
+      <li><a href="http://webmaster.javaeye.com">JavaEye黑板报</a></li>
+      <li><a href="/index/aboutus">关于我们</a></li>
+      <li><a href="/index/contactus">联系我们</a></li>
+      <li class="last"><a href="/index/friend_links">友情链接</a></li>
+    </ul>
+  </div>
+  <div id="copyright">
+    &copy; 2003-2010 JavaEye.com.   上海炯耐计算机软件有限公司版权所有 [ <a href="http://www.miibeian.gov.cn">                                                                                           沪ICP备05023328号</a> ]
+  </div>
+</div>
+
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.javaeye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&logged_in=no" + "' width='0' height='0' />");
+</script>
+  </body>
+</html>

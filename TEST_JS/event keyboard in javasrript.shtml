@@ -1,0 +1,776 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml" lang="en"><head>
+
+
+<title>Keyboard and Mouse buttons events</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta name="description" content="Click here for a complete JavaScript Reference, including array, string, document. window, and more. Also included are documentation on JavaScript operators, statements, loops, global functions, reserved words etc">
+<meta name="keywords" content="JavaScript reference, documentation"> 
+<link rel="stylesheet" type="text/css" href="eventkeyboardmouse_files/jsref.css">
+
+
+<link rel="shortcut icon" href="http://www.javascriptkit.com/favicon.ico">
+
+<style type="text/css">
+
+.unicodechart{
+width: 100px;
+float: left;
+font-weight: bold;
+list-style-type: none;
+margin: 0 20px 10px 0;
+padding: 0;
+font-size: 14px;
+}
+
+.unicodechart li{
+padding: 2px 5px;
+clear: left;
+color: darkred;
+}
+
+.unicodechart div{
+background: navy;
+float: left;
+margin-right: 5px;
+padding: 1px 0;
+width: 30px;
+color: white;
+text-align: center;
+}
+
+.unicodechart div.uppercase{
+background: #ACCCFD;
+color: black;
+}
+
+</style>
+
+<script async="async" src="eventkeyboardmouse_files/s_dd6e9fbb78d92ec298f6119b05509777.js" id="_bsap_js_dd6e9fbb78d92ec298f6119b05509777" type="text/javascript"></script></head><body>
+
+<div id="topsection">
+
+ <!--ZOOMSTOP-->
+
+<script type="text/javascript" src="eventkeyboardmouse_files/dropdowntabs.js">
+</script>
+
+
+<div id="topsection">
+
+<!--begin topbar-->
+<div id="topbar">
+<div id="toprightdiv">
+
+<form id="jksitesearch" method="get" action="http://www.javascriptkit.com/cgi-bin/search/search.cgi" class="zoom_searchform">
+<input name="zoom_query" id="zoom_query" size="20" value="Search JavaScript Kit" class="zoom_searchbox" type="text"> 
+<input value="Submit" class="zoom_button" type="submit">
+<input name="zoom_per_page" id="zoom_per_page" value="10" type="hidden">
+<input name="zoom_and" id="zoom_and" value="1" type="hidden">
+<input name="zoom_sort" value="0" type="hidden">
+
+<div id="jksitesearch_cat">
+<b>Categories:</b> <input name="zoom_cat[]" value="-1" id="searchall" style="margin-left: 5px;" type="checkbox"><label for="searchall">All</label> <input name="zoom_cat[]" id="javascriptssearch" value="0" type="checkbox"><label for="javascriptssearch">Free JavaScripts/ Applets</label> <input name="zoom_cat[]" id="tutorialsearch" value="1" type="checkbox"><label for="tutorialsearch">Tutorials</label> <input checked="checked" name="zoom_cat[]" id="referencesearch" value="2" type="checkbox"><label for="referencesearch">References</label>
+</div>
+
+</form>
+
+<script type="text/javascript">
+setdefaultcategory()
+togglecategories()
+disabledefaultsearch()
+cleardefaultdata()
+</script>
+
+</div>
+
+<a href="http://www.javascriptkit.com/" title="JavaScript Kit"><img id="jklogo" src="eventkeyboardmouse_files/jksitelogo.gif" alt="JavaScript Kit" border="0"></a>
+
+
+<div id="bluemenu" class="bluetabs">
+<ul>
+<li><a href="http://www.javascriptkit.com/">Home</a></li>
+<li><a href="http://www.javascriptkit.com/cutpastejava.shtml">Free JavaScripts</a></li>
+<li><a href="http://www.javascriptkit.com/javatutors/" rel="tutorialdropdown">Tutorials &#9660;</a></li>
+<li><a href="http://www.javascriptkit.com/jsref/" rel="refdropdown">References &#9660;</a></li>
+<li><a href="http://www.javascriptkit.com/java/">Applets</a></li>
+<li><a href="http://www.codingforums.com/">Coding Forums</a></li>
+<li><a href="http://www.freewarejava.com/">Freewarejava</a></li>
+</ul>
+</div>
+
+
+<!--1st drop down menu -->                                                   
+<div id="tutorialdropdown" class="dropmenudiv_b">
+<a href="http://www.javascriptkit.com/javatutors/" title="JavaScript Tutorials">JavaScript Tutorials</a>
+<a href="http://www.javascriptkit.com/dhtmltutors/" title="DHTML and CSS Tutorials">DHTML/ CSS</a>
+<a href="http://www.javascriptkit.com/howto/" title="Web Building Tutorials">Web Building Tutorials</a>
+</div>
+
+
+<!--2nd drop down menu -->                                                
+<div id="refdropdown" class="dropmenudiv_b" style="width: 150px;">
+<a href="http://www.javascriptkit.com/jsref/" title="JavaScript Reference">JS Reference</a>
+<a href="http://www.javascriptkit.com/domref/" title="DOM Reference">DOM Reference</a>
+<a href="http://www.javascriptkit.com/filters/" title="IE Filters Reference">IE Filters Reference</a>
+<a href="http://www.javascriptkit.com/dhtmltutors/cssreference.shtml" title="CSS Reference">CSS Reference</a>
+</div>
+
+<script type="text/javascript">
+//SYNTAX: tabdropdown.init("menu_id", [integer OR "auto"])
+tabdropdown.init("bluemenu")
+</script>
+
+</div>
+<!--end #topbar -->
+
+
+<div id="topbanner">
+<script type="text/javascript" src="eventkeyboardmouse_files/adbanner.js"></script><script type="text/javascript">
+e9 = new Object();
+e9.size = "728x90,468x60";
+e9.noAd = 1;
+</script><script type="text/javascript" src="eventkeyboardmouse_files/tags.js"></script><script type="text/javascript" src="eventkeyboardmouse_files/displayAd.js"></script><center><script type="text/javascript" src="eventkeyboardmouse_files/j.js"></script><center><a target="_blank" href="http://a.tribalfusion.com/h.click/admMvfXGfnpaBW3rQ2WbZbGWPYTQEY2QVZbtQH7N1dvsVPYx2VB40UQDT6mp4AvgQmbJ3HZbr0drLnt2u36YY5cjcTVnjWGF6SPYoUWFRTFn33rIuWEjpVaU8SaMLRcZbZdPrmvtVEEn9yVoABTUtqEZcTJxLE/http://a.tribalfusion.com"><img src="eventkeyboardmouse_files/37536.gif" border="0" height="1" width="1"></a></center><iframe src="eventkeyboardmouse_files/frm.html" style="display: none; visibility: hidden;" frameborder="0" height="0" width="0"></iframe></center>
+
+
+</div>
+
+</div>
+
+ <!--ZOOMRESTART-->
+
+</div>
+
+
+<div class="maincontainer">
+
+<div id="contentwrapper">
+<div id="middlecolumn">
+
+<h3 class="headers"><a href="http://www.javascriptkit.com/">JavaScript Kit</a> &gt; <a href="http://www.javascriptkit.com/jsref/">JavaScript Reference</a>  &gt; Here</h3>
+
+<h2>Keyboard and Mouse buttons events</h2>
+<div id="lastupdated">Created: April 29th, 2008</div>
+<p>The Event object keeps track and lets you react to keyboard and mouse events, 
+such as when a particular keyboard or mouse button is pressed. This is realized 
+through 4 event handlers and a few Event object properties.</p>
+<h3>
+      <img src="eventkeyboardmouse_files/bullet.gif" border="0" height="16" width="16"> 
+      Related Tutorials</h3>
+<ul>
+  <li><a href="http://www.javascriptkit.com/javatutors/javascriptkey.shtml">
+	Scripting the keyboard in JavaScript</a></li>
+</ul>
+<form action="#" id="quicksearch" class="quicksearch"><label for="qs36231" class="qs_label">Filter by Property/ Method:</label> <input rel="qs36231" class="qs_input" id="qs36231" type="text"> <span style="display: none;" id="loader" class="loader">Loading...</span></form><h3>
+      <img src="eventkeyboardmouse_files/bullet.gif" border="0" height="16" width="16"> 
+      Keyboard/ Mouse event handlers</h3>
+      <table border="1" cellpadding="2" cellspacing="0" width="100%">
+        <tbody>
+          <tr>
+            <th class="captions" valign="top" width="25%">
+            Event Handler</th>
+            <th class="captions" width="75%">Description</th>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onkeypress</b></td>
+            <td width="75%">Fires when the user presses a key on the associated 
+			element (ie: document, DIV etc). A combination of <code>onkeydown</code> 
+			and <code>onkeyup</code>.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onkeydown</b></td>
+            <td width="75%">Fires when the user depresses a key (but not yet 
+			released) on the associated element.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onkeyup</b></td>
+            <td width="75%">Fires when the user releases a key after having 
+			depressed it on the associated element.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onclick</b></td>
+            <td width="75%">Fires when the user clicks on an element. A 
+			combination of <code>onmousedown</code> and <code>onmouseup</code>.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onmousedown</b></td>
+            <td width="75%">FIres when the user holds the mouse down over an 
+			element.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>onmouseup</b></td>
+            <td width="75%">Fires when the user releases the mouse after having 
+			hold it down over the element.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%"><b>ondblclick</b></td>
+            <td width="75%">Fires when the user double clicks the mouse over an 
+			element.</td>
+          </tr>
+        </tbody>
+      </table>
+      
+<h3>
+      <img src="eventkeyboardmouse_files/bullet.gif" border="0" height="16" width="16"> 
+      Keyboard Event object properties</h3>
+<p>Below lists the relevant properties within the
+<a href="http://www.javascriptkit.com/jsref/event.shtml">Event Object</a> that 
+cater to keyboard actions. Recall that in IE, the event object is accessed 
+directly via <code>window.event</code>, while in Firefox and other browsers, it 
+is indirectly passed as the first parameter the callback function associated 
+with this event.</p>
+      <table border="1" cellpadding="2" cellspacing="0" width="100%">
+        <tbody>
+          <tr>
+            <th class="captions" valign="top" width="25%">
+            Properties</th>
+            <th class="captions" width="75%">Description</th>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">altKey, ctrlKey, shiftKey</td>
+            <td width="75%"><b>Boolean</b> properties that indicate 
+            whether the Alt, Ctrl, or Shift keys were pressed at time of the 
+            event.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">charCode</td>
+            <td width="75%">Returns the <b>character code</b> of the key pressed during 
+			an <b><code>onkeypress</code></b> event. and is only set 
+			for keys in which a character is associated with it (ie: "a", 
+			"b", or "z"). Keys with no character association like "Shift" 
+			or "Ctrl" do not qualify. Other points:<ul>
+				<li>Different values are returned for upper and lowercase 
+				characters (ie: "a" versus "A").</li>
+				<li>To convert the Unicode value returned to the actual 
+				character, use <code>String.fromCharCode(returned_charCode)</code>.</li>
+				<li>This property is <b>NOT</b> set during <code>onkeydown</code> 
+				and <code>onkeyup</code> events. For these two events, the <code>
+				keyCode</code> property below is set instead.</li>
+				<li>This property is <font color="#ff0000">NOT available in IE</font>, 
+				and always returns "<code>undefined</code>". In IE, only the
+				<code>keyCode</code> property is supported.</li>
+			</ul>
+			<p><b>Example:</b></p>
+			<p class="samplecode">document.onkeypress=function(e){<br>
+&nbsp;var e=window.event || e<br>
+&nbsp;alert("CharCode value: "+e.charCode)<br>
+&nbsp;alert("Character: "+String.fromCharCode(e.charCode))<br>
+			}</p></td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">isChar</td>
+            <td width="75%"><b>Boolean</b> property that indicates if the key 
+			pressed has a character associated with it. If the user pressed "F1" 
+			for example, the property returns false. Buggy as of Firefox 2.x,
+			<font color="#ff0000">not supported</font> in most other browsers 
+			(ie: IE, Opera 9 etc).</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">keyCode</td>
+            <td width="75%">Property indicating the <b>key code</b> pressed during an <b><code>onkeydown</code></b> and <b>
+			<code>onkeyup</code></b> event, and in IE, <code><b>onkeypress</b></code> 
+			as well. The <code>keyCode</code> property is set whenever a key is pressed, 
+			including non character keys like "Shift" or "Ctrl".<ul>
+				<li>IE only supports the <code>keyCode</code> property and <b>
+				NOT</b> the <code>charCode</code> property. It is set during all 
+				three keyboard events in that browser- <code>onkeypress</code>,
+				<code>onkeyup</code>, and <code>onkeydown</code>.</li>
+				<li><code>keyCode</code> is only set during the <code>onkeypress</code> 
+				event in Firefox and other browsers, while for <code>onkeydown</code> 
+				and <code>onkeyup</code>, the <code>charCode</code> property is set instead. The two are always mutually exclusive.</li>
+				<li>To convert the key code value returned to the actual 
+				character pressed, use <code>String.fromCharCode(returned_keyCode)</code>.</li>
+				<li>Despite the fact that Firefox doesn't set the <code>keyCode</code> 
+				property during the <code>onkeypress </code>event, <code>e.which</code> 
+				(see below) is always set, which you can use on all three 
+				keyboard event handlers.</li>
+			</ul>
+			<p>Be careful when accessing the <code>keyCode</code> property during an <code>
+			onkeydown</code> or <code>onkeyup</code> event, as it is set 
+			whenever any key is pressed, including non character keys like 
+			"Shift". This means if you try to press "Shift+a" to try and get the 
+			<code>keyCode</code> for "A", you will always end up getting two
+			<code>keyCodes</code> 
+			instead, one for "Shift" and one for "A" in that order. What you 
+			won't get regardless is the <code>keyCode</code> for "a", as <code>
+			keyCode</code> always returns the unicode value of the <b>uppercase 
+			version</b> of a character. To derive the <code>keyCode</code> for "a" 
+			(lowercase), you must probe the <code>keyCode</code> returned during 
+			the <code>onkeypress</code> event in IE, and since Firefox doesn't 
+			set <code>keyCode</code> during <code>onkeypress</code>, switch to
+			<code>e.charCode</code> or <code>e.which</code> instead for that 
+			browser. Sounds confusing? Yes it is. Check out the below two 
+			examples for a more hands on explanation:</p>
+			<p><b>Compare this example (try pressing "a" or "Shift a" in the 
+			"char" field):</b></p>
+			<p class="samplecode">&lt;form&gt;<br>
+			Char: &lt;input type="text" id="char" size="15" /&gt; Keycode: &lt;input 
+			type="text" id="keycode" size="15" /&gt;<br>
+			&lt;/form&gt;<br>
+			<br>
+			&lt;script type="text/javascript"&gt;<br>
+			<br>
+			var charfield=document.getElementById("char")<br>
+			charfield.onkeydown=function(e){<br>
+			var e=window.event || e<br>
+			document.getElementById("keycode").value=e.keyCode<br>
+			}<br>
+			<br>
+			&lt;/script&gt;</p>
+			<p><!--webbot bot="HTMLMarkup" startspan --></p><form>
+Char: <input id="char" size="15" type="text"> Keycode: <input id="keycode" size="15" type="text">
+</form>
+
+<script type="text/javascript">
+
+var charfield=document.getElementById("char")
+charfield.onkeydown=function(e){
+var e=window.event || e
+document.getElementById("keycode").value=e.keyCode
+}
+
+</script><!--webbot bot="HTMLMarkup" endspan i-checksum="34890" --><p><b>to this 
+			example (try pressing "a" or "Shift a" in the "char" field):</b></p>
+			<p class="samplecode">&lt;form&gt;<br>
+			Char: &lt;input type="text" id="char" size="15" /&gt; Keycode: &lt;input 
+			type="text" id="unicode" size="15" /&gt;<br>
+			&lt;/form&gt;<br>
+			<br>
+			&lt;script type="text/javascript"&gt;<br>
+			<br>
+			var charfield=document.getElementById("char")<br>
+			charfield.onkeypress=function(e){<br>
+			var e=window.event || e<br>
+			var keyunicode=e.charCode || e.keyCode<br>
+			document.getElementById("unicode").value=keyunicode<br>
+			}<br>
+			<br>
+			&lt;/script&gt;</p>
+			<p><!--webbot bot="HTMLMarkup" startspan --></p><form>
+Char: <input id="charalt" size="15" type="text"> Keycode: <input id="unicode" size="15" type="text">
+</form>
+
+<script type="text/javascript">
+
+var charfieldalt=document.getElementById("charalt")
+charfieldalt.onkeypress=function(e){
+var e=window.event || e
+var keyunicode=e.charCode || e.keyCode
+document.getElementById("unicode").value=keyunicode
+}
+
+</script><!--webbot bot="HTMLMarkup" endspan i-checksum="22067" --></td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">metaKey</td>
+            <td width="75%">Boolean property indicating whether the META key was 
+			pressed. <font color="#ff0000">NOT supported in IE</font>.</td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">returnValue</td>
+            <td width="75%">Set to false to cancel any default 
+            action for the event. </td>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">which</td>
+            <td width="75%">Returns the unicode value of the key pressed whether 
+			it has a character associated with it or not. Behaves similar to IE's 
+			version of the <code>
+			keyCode</code> property and supported in Firefox/ Opera.
+			<font color="#ff0000">NOT supported in IE</font>.</td>
+          </tr>
+        </tbody>
+      </table>
+      
+<p>The below table lists the Unicode <b>character code</b> value of the primary keys on your keyboard:</p>
+<p><!--webbot bot="HTMLMarkup" startspan --><script type="text/javascript">
+
+var keychars=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+var numchars=[0,1,2,3,4,5,6,7,8,9]
+var fchars=['F1:112','F2:113','F3:114','F4:115','F5:116','F6:117','F7:118','F8:119','F9:120','F10:121','F11:122','F12:123']
+var miscchars=['Space:32','BackSpace:8','Enter:13','Shift:16','Ctrl:17','Alt:18']
+
+function alphanumericchart(arr, start, limit){
+	document.write('<ul class="unicodechart">\n')
+	for (var i=start; i<(start+limit) && i<arr.length; i++){
+		var char=arr[i].toString()
+		document.write('<li><div>'+char+'</div> '+char.charCodeAt(0)+'</li>\n')
+		if (/[a-z]/.test(char))
+			document.write('<li><div class="uppercase">'+char.toUpperCase()+'</div> '+char.toUpperCase().charCodeAt(0)+'</li>\n')
+	}
+	document.write('</ul>')
+}
+
+function miscchart(arr, start, limit){
+	document.write('<ul class="unicodechart">\n')
+	for (var i=start; i<(start+limit) && i<arr.length; i++){
+		var char=arr[i].split(":")[0]
+		var charCode=arr[i].split(":")[1]
+		document.write('<li><div>'+char+'</div> '+charCode+'</li>\n')
+	}
+	document.write('</ul>')
+}
+
+function miscchart2(arr, start, limit){
+	document.write('<ul class="unicodechart" style="width: 170px">\n')
+	for (var i=start; i<(start+limit) && i<arr.length; i++){
+		var char=arr[i].split(":")[0]
+		var charCode=arr[i].split(":")[1]
+		document.write('<li><div style="width: 100px">'+char+'</div> '+charCode+'</li>\n')
+	}
+	document.write('</ul>')
+}
+
+alphanumericchart(keychars, 0, 6)
+alphanumericchart(keychars, 6, 6)
+alphanumericchart(keychars, 12, 6)
+alphanumericchart(keychars, 18, 6)
+alphanumericchart(keychars, 24, 6)
+
+document.write('<br style="clear: left" /></br />')
+
+alphanumericchart(numchars, 0, 6)
+alphanumericchart(numchars, 6, 6)
+
+miscchart(fchars, 0, 6)
+miscchart(fchars, 6, 6)
+
+miscchart2(miscchars, 0, 6)
+</script></p><ul class="unicodechart">
+<li><div>a</div> 97</li>
+<li><div class="uppercase">A</div> 65</li>
+<li><div>b</div> 98</li>
+<li><div class="uppercase">B</div> 66</li>
+<li><div>c</div> 99</li>
+<li><div class="uppercase">C</div> 67</li>
+<li><div>d</div> 100</li>
+<li><div class="uppercase">D</div> 68</li>
+<li><div>e</div> 101</li>
+<li><div class="uppercase">E</div> 69</li>
+<li><div>f</div> 102</li>
+<li><div class="uppercase">F</div> 70</li>
+</ul><ul class="unicodechart">
+<li><div>g</div> 103</li>
+<li><div class="uppercase">G</div> 71</li>
+<li><div>h</div> 104</li>
+<li><div class="uppercase">H</div> 72</li>
+<li><div>i</div> 105</li>
+<li><div class="uppercase">I</div> 73</li>
+<li><div>j</div> 106</li>
+<li><div class="uppercase">J</div> 74</li>
+<li><div>k</div> 107</li>
+<li><div class="uppercase">K</div> 75</li>
+<li><div>l</div> 108</li>
+<li><div class="uppercase">L</div> 76</li>
+</ul><ul class="unicodechart">
+<li><div>m</div> 109</li>
+<li><div class="uppercase">M</div> 77</li>
+<li><div>n</div> 110</li>
+<li><div class="uppercase">N</div> 78</li>
+<li><div>o</div> 111</li>
+<li><div class="uppercase">O</div> 79</li>
+<li><div>p</div> 112</li>
+<li><div class="uppercase">P</div> 80</li>
+<li><div>q</div> 113</li>
+<li><div class="uppercase">Q</div> 81</li>
+<li><div>r</div> 114</li>
+<li><div class="uppercase">R</div> 82</li>
+</ul><ul class="unicodechart">
+<li><div>s</div> 115</li>
+<li><div class="uppercase">S</div> 83</li>
+<li><div>t</div> 116</li>
+<li><div class="uppercase">T</div> 84</li>
+<li><div>u</div> 117</li>
+<li><div class="uppercase">U</div> 85</li>
+<li><div>v</div> 118</li>
+<li><div class="uppercase">V</div> 86</li>
+<li><div>w</div> 119</li>
+<li><div class="uppercase">W</div> 87</li>
+<li><div>x</div> 120</li>
+<li><div class="uppercase">X</div> 88</li>
+</ul><ul class="unicodechart">
+<li><div>y</div> 121</li>
+<li><div class="uppercase">Y</div> 89</li>
+<li><div>z</div> 122</li>
+<li><div class="uppercase">Z</div> 90</li>
+</ul><br style="clear: left;"><ul class="unicodechart">
+<li><div>0</div> 48</li>
+<li><div>1</div> 49</li>
+<li><div>2</div> 50</li>
+<li><div>3</div> 51</li>
+<li><div>4</div> 52</li>
+<li><div>5</div> 53</li>
+</ul><ul class="unicodechart">
+<li><div>6</div> 54</li>
+<li><div>7</div> 55</li>
+<li><div>8</div> 56</li>
+<li><div>9</div> 57</li>
+</ul><ul class="unicodechart">
+<li><div>F1</div> 112</li>
+<li><div>F2</div> 113</li>
+<li><div>F3</div> 114</li>
+<li><div>F4</div> 115</li>
+<li><div>F5</div> 116</li>
+<li><div>F6</div> 117</li>
+</ul><ul class="unicodechart">
+<li><div>F7</div> 118</li>
+<li><div>F8</div> 119</li>
+<li><div>F9</div> 120</li>
+<li><div>F10</div> 121</li>
+<li><div>F11</div> 122</li>
+<li><div>F12</div> 123</li>
+</ul><ul class="unicodechart" style="width: 170px;">
+<li><div style="width: 100px;">Space</div> 32</li>
+<li><div style="width: 100px;">BackSpace</div> 8</li>
+<li><div style="width: 100px;">Enter</div> 13</li>
+<li><div style="width: 100px;">Shift</div> 16</li>
+<li><div style="width: 100px;">Ctrl</div> 17</li>
+<li><div style="width: 100px;">Alt</div> 18</li>
+</ul>
+
+<br style="clear: left;"><!--webbot bot="HTMLMarkup" endspan i-checksum="27773" -->
+      
+<h3>
+      <img src="eventkeyboardmouse_files/bullet.gif" border="0" height="16" width="16"> 
+      Mouse Event object properties</h3>
+<p>Below lists the relevant properties within the
+<a href="http://www.javascriptkit.com/jsref/event.shtml">Event Object</a> that 
+cater to which mouse button(s) was pressed.</p>
+      <table border="1" cellpadding="2" cellspacing="0" width="100%">
+        <tbody>
+          <tr>
+            <th class="captions" valign="top" width="25%">
+            Properties</th>
+            <th class="captions" width="75%">Description</th>
+          </tr>
+          <tr>
+            <td valign="top" width="25%">button</td>
+            <td width="75%">An integer indicating which mouse button was 
+			pressed:<ul>
+				<li>0 = left button</li>
+				<li>2 = right button</li>
+				<li>1 = middle button</li>
+			</ul>
+			<p>You should not count on this order across browsers and different 
+			mouse devices. In IE6 and lower for example, 1 is used to indicate 
+			left button instead, for example.</p></td>
+          </tr>
+        </tbody>
+      </table>
+      
+<h3>
+      <img src="eventkeyboardmouse_files/bullet.gif" border="0" height="16" width="16"> 
+      Example- Live validation of a text field to only allow alphabetical (upper 
+		and lower case), SPACE and 
+		the BACKSPACE keys.</h3>
+<p>The following example uses the Event Object and keyboard related properties 
+to only allow alphabetical keys plus BACKSPACE and SPACE in a form field.</p>
+<p class="samplecode">&lt;form&gt;<br>
+&lt;input type="text" id="alphanumeric" size="25"&gt;&lt;/textarea&gt;<br>
+&lt;/form&gt;<br>
+<br>
+&lt;script type="text/javascript"&gt;<br>
+<br>
+document.getElementById("alphanumeric").onkeypress=function(e){<br>
+var e=window.event || e<br>
+var keyunicode=e.charCode || e.keyCode<br>
+//Allow alphabetical keys, plus BACKSPACE and SPACE<br>
+return (keyunicode&gt;=65 &amp;&amp; keyunicode&lt;=122 || keyunicode==8 || keyunicode==32)? 
+true : false<br>
+}<br>
+<br>
+&lt;/script&gt;</p>
+<p><b>Demo:</b></p>
+<p><!--webbot bot="HTMLMarkup" startspan --></p><form>
+<input id="alphanumeric" size="25" type="text">
+</form>
+
+<script type="text/javascript">
+
+document.getElementById("alphanumeric").onkeypress=function(e){
+var e=window.event || e
+var keyunicode=e.charCode || e.keyCode
+//Allow alphanumeric keys, plus BACKSPACE and SPACE
+return (keyunicode>=65 && keyunicode<=122 || keyunicode==8 || keyunicode==32)? true : false
+}
+
+</script><!--webbot bot="HTMLMarkup" endspan i-checksum="15926" -->
+            
+<hr>
+
+<script type="text/javascript"><!--
+google_ad_client = "pub-3356683755662088";
+/* JK footer ad 728x90, created 4/10/11 */
+google_ad_slot = "6831910560";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript" src="eventkeyboardmouse_files/show_ads.js">
+</script><ins style="border: medium none ; margin: 0pt; padding: 0pt; display: inline-table; height: 90px; position: relative; visibility: visible; width: 728px;"><ins id="aswift_0_anchor" style="border: medium none ; margin: 0pt; padding: 0pt; display: block; height: 90px; position: relative; visibility: visible; width: 728px;"><iframe allowtransparency="true" hspace="0" marginwidth="0" marginheight="0" onload="var i=this.id,s=window.google_iframe_oncopy,H=s&amp;&amp;s.handlers,h=H&amp;&amp;H[i],w=this.contentWindow,d;try{d=w.document}catch(e){}if(h&amp;&amp;d&amp;&amp;(!d.body||!d.body.firstChild)){if(h.call){i+='.call';setTimeout(h,0)}else if(h.match){i+='.nav';w.location.replace(h)}s.log&amp;&amp;s.log.push(i)}" vspace="0" id="aswift_0" name="aswift_0" style="left: 0pt; position: absolute; top: 0pt;" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins>
+
+</div>
+</div>
+
+<div id="leftcolumn">
+
+<div class="bsacontainer nomargin">
+<script type="text/javascript">
+Vertical1438 = false;
+ShowAdHereBanner1438 = false;
+RepeatAll1438 = false;
+NoFollowAll1438 = false;
+BannerStyles1438 = new Array(
+	"a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin-bottom:12px;padding:0;text-align:center;text-decoration:none;overflow:hidden;position:relative;left:-6px}",
+	"img{border:0;clear:right;}",
+	"a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;}",
+	"a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;}"
+);
+
+document.write(unescape("%3Cscript src='"+document.location.protocol+"//s3.buysellads.com/1438/1438.js?v="+Date.parse(new Date())+"' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="eventkeyboardmouse_files/1438.js" type="text/javascript"></script><style type="text/css">div.bsap_1438 {width:100%;display:block;} div.bsap_1438 a{width:165px;} div.bsap_1438 a img{padding:0;} div.bsap_1438 a em{font-style:normal;} div.bsap_1438 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin-bottom:12px;padding:0;text-align:center;text-decoration:none;overflow:hidden;position:relative;left:-6px} div.bsap_1438 img{border:0;clear:right;} div.bsap_1438 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;} div.bsap_1438 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;} div.bsap_1438 a.adhere{width:165px;height:90px;line-height:720%;} html>body div.bsap_1438 a.adhere{width:163px;height:88px;} div.bsap_1438 img.s{height:0;width:0;}div#bsap_1438 {width:100%;display:block;} div#bsap_1438 a{width:165px;} div#bsap_1438 a img{padding:0;} div#bsap_1438 a em{font-style:normal;} div#bsap_1438 a{display:block;font-size:11px;color:#888;font-family:verdana,sans-serif;margin-bottom:12px;padding:0;text-align:center;text-decoration:none;overflow:hidden;position:relative;left:-6px} div#bsap_1438 img{border:0;clear:right;} div#bsap_1438 a.adhere{color:#666;font-weight:bold;font-size:12px;border:1px solid #ccc;background:#e7e7e7;text-align:center;} div#bsap_1438 a.adhere:hover{border:1px solid #999;background:#ddd;color:#333;} div#bsap_1438 a.adhere{width:165px;height:90px;line-height:720%;} html>body div#bsap_1438 a.adhere{width:163px;height:88px;} div#bsap_1438 img.s{height:0;width:0;}</style><script type="text/javascript" src="eventkeyboardmouse_files/bsa.js" id="bsap_js"></script><div id="bsap_1438" class="bsap_1438 bsap"><a href="http://stats.buysellads.com/click.go?z=1438&amp;b=1188731&amp;g=&amp;s=&amp;sw=1274&amp;sh=943&amp;br=firefox,0,linux&amp;r=0.396182372122025&amp;link=http://www.freshdesk.com" onmouseover="window.status = 'http://www.freshdesk.com'; return true;" onmouseout="window.status=''; return true;" class="ad1 odd" title="Freshdesk - On Demand customer support software" id="bsa_1188731" target="_blank"><img src="eventkeyboardmouse_files/64269-1307944583.gif" alt="Freshdesk - On Demand customer support software" height="90" width="165"></a><a href="http://stats.buysellads.com/click.go?z=1438&amp;b=412129&amp;g=&amp;s=&amp;sw=1274&amp;sh=943&amp;br=firefox,0,linux&amp;r=0.5171718254596616&amp;link=http://www.kvcwebhosting.com/187.html" onmouseover="window.status = 'http://www.kvcwebhosting.com/187.html'; return true;" onmouseout="window.status=''; return true;" class="ad2 even" title="web hosting" id="bsa_412129" target="_blank"><img src="eventkeyboardmouse_files/25816-1273606867.jpg" alt="web hosting" height="90" width="165"></a><a href="http://stats.buysellads.com/click.go?z=1438&amp;b=744663&amp;g=&amp;s=&amp;sw=1274&amp;sh=943&amp;br=firefox,0,linux&amp;r=0.3040390515019884&amp;link=http://mediatemple.net/webhosting/ve/?utm_source=Javascriptkit&amp;utm_medium=banner&amp;utm_content=165x90velinux&amp;utm_campaign=velaunch" onmouseover="window.status = 'http://mediatemple.net/webhosting/ve/?utm_source=Javascriptkit&amp;utm_medium=banner&amp;utm_content=165x90velinux&amp;utm_campaign=velaunch'; return true;" onmouseout="window.status=''; return true;" class="ad3 odd" title="(mt) Media Temple (ve) Server" id="bsa_744663" target="_blank"><img src="eventkeyboardmouse_files/46890-1294188074.png" alt="(mt) Media Temple (ve) Server" height="90" width="165"></a><a href="http://stats.buysellads.com/click.go?z=1438&amp;b=1215680&amp;g=&amp;s=&amp;sw=1274&amp;sh=943&amp;br=firefox,0,linux&amp;r=0.8188841121235265&amp;link=http://thn.cm/ICW" onmouseover="window.status = 'http://thn.cm/ICW'; return true;" onmouseout="window.status=''; return true;" class="ad4 even" title="Trustwave" id="bsa_1215680" target="_blank"><img src="eventkeyboardmouse_files/68399-1310463701.gif" alt="Trustwave" height="90" width="165"></a></div>
+</div>
+
+<div>
+<script language="JavaScript" type="text/javascript">
+ord=Math.random();
+ord=ord*10000000000000000000;
+document.write('');
+document.write('<\/scr'+'ipt>');
+document.write('');
+</script>
+<!--
+<a href="http://ad.za.doubleclick.net/jump/N3643.CodingForums/B5373585.3;dcadv=2074920;sz=165x90;ord=0123456789?" target="_blank">
+<img src="http://ad.za.doubleclick.net/ad/N3643.CodingForums/B5373585.3;dcadv=2074920;sz=165x90;ord=0123456789?" width="165" height="90" border="0" alt="Advertisement"></a>
+-->
+</div>
+
+<div style="margin: -2px 0pt 1em; text-align: center;">
+
+</div>
+
+
+<div class="categoryheader">Reference List</div>
+     <ul id="reflistmore">
+       <li>JavaScript Operators<ul class="nestedlist" style="font-size: 90%;">
+         <li><a href="http://www.javascriptkit.com/jsref/arithmetic_operators.shtml">Arithmetic operators</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/assignment_operators.shtml">Assignment operators</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/bitwise_operators.shtml">Bitwise operators</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/comparison_operators.shtml">Comparison/ Logic</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/other_operators.shtml">Other operators</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/precedence_operators.shtml">Operator Precedence</a></li>
+							</ul></li>
+       <li style="margin-top: 5px;"><a href="http://www.javascriptkit.com/jsref/statements.shtml">JavaScript Statements</a><ul class="nestedlist" style="font-size: 90%;">
+       <li><a href="http://www.javascriptkit.com/jsref/conditionals.shtml">Conditionals</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/looping.shtml">Looping</a></li>
+       </ul>
+       </li>
+       <li style="margin-top: 5px;"><a href="http://www.javascriptkit.com/jsref/globalfunctions.shtml">Global functions</a></li>
+       <li style="margin-top: 5px;"><a href="http://www.javascriptkit.com/jsref/events.shtml">JavaScript Events</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/escapesequence.shtml">Escape Sequences</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/reserved.shtml">Reserved Words</a></li>
+       </ul>
+<hr width="95%" align="left">
+     <ul id="reflist"><li><a href="http://www.javascriptkit.com/jsref/ajax.shtml">Ajax (XMLHttpRequest)</a></li>
+		<li><a href="http://www.javascriptkit.com/jsref/anchor.shtml">Anchor</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/applet.shtml">Applet</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/link.shtml">Area</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/arrays.shtml">Array</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/boolean.shtml">Boolean</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/date.shtml">Date</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/document.shtml">Document</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/event.shtml">Event</a><ul class="nestedlist" style="font-size: 90%;">
+         <li><a href="http://www.javascriptkit.com/jsref/eventkeyboardmouse.shtml">Keyboard/ mouse buttons</a></li>
+							</ul></li>
+       <li><a href="http://www.javascriptkit.com/jsref/form.shtml">Form</a><ul class="nestedlist" style="font-size: 90%;">
+         <li><a href="http://www.javascriptkit.com/jsref/button.shtml">Button</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/checkbox.shtml">Checkbox</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/elements.shtml">elements</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/fileupload.shtml">FileUpload</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/hidden.shtml">Hidden</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/select.shtml#section2">Option</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/password.shtml">Password</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/radio.shtml">Radio</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/select.shtml">Select</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/submit.shtml">Submit</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/text.shtml">Text</a></li>
+         <li><a href="http://www.javascriptkit.com/jsref/textarea.shtml">Textarea</a></li>
+       </ul></li>
+       <li><a href="http://www.javascriptkit.com/jsref/reset.shtml">Reset</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/window.shtml">Frame</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/function.shtml">Function</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/history.shtml">History</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/image.shtml">Image</a></li>
+	<li><a href="http://www.javascriptkit.com/jsref/json.shtml">JSON object</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/link.shtml">Link</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/location.shtml">Location</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/math.shtml">Math</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/navigator.shtml">Navigator</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/number.shtml">Number</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/object.shtml">Object</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/regexp.shtml">RegExp</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/screen.shtml">Screen</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/string.shtml">String</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/style.shtml">Style</a></li>
+       <li><a href="http://www.javascriptkit.com/jsref/window.shtml">window</a></li></ul>
+
+<div class="categoryheader" style="margin-top: 0.6em;">Partners</div>
+
+<div class="partnersarea">
+  <a href="http://www.webdesigners-directory.com/">Web Design</a>
+  <a href="http://www.dynamicdrive.com/dynamicindex1/">DHTML Menus</a>
+  <a href="http://www.freedomain.co.nr/">Free Domain Name</a>
+  <a href="http://www.highervisibility.com/">HigherVisibility</a>
+  <a href="http://www.downloadtube.com/dhtml-scripts-library/">DHTML Scripts</a>
+<a href="http://www.easyalgo.com/eaflashupload.aspx" title="Upload multiple files">Flash uploader</a>
+</div>
+
+	<script type="text/javascript" src="eventkeyboardmouse_files/jquery_002.js"></script>
+	<script type="text/javascript" src="eventkeyboardmouse_files/jquery.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('div#middlecolumn > table > tbody > tr > td:first-child').quicksearch({
+				position: 'before',
+				attached: $('div#middlecolumn > table:first').prevAll(':header:eq(0)').get(0),
+				hideElement: 'parent',
+				labelText: 'Filter by Property/ Method:'
+			});
+		});
+	</script>
+
+<script type="text/javascript" src="eventkeyboardmouse_files/scrolltopcontrol.js">
+
+/***********************************************
+* Scroll To Top Control script- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Project Page at http://www.dynamicdrive.com for full source code
+***********************************************/
+
+</script>
+
+</div>
+
+<div id="rightcolumn">
+
+Right column
+
+</div>
+
+<div class="clearfix"></div>
+
+</div>
+
+<div id="footerarea">
+
+<p align="center">CopyRight © 1998-2010 <a href="http://www.javascriptkit.com/">JavaScript Kit</a>. NO PART may be reproduced without author's permission.</p>
+
+<script src="eventkeyboardmouse_files/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-55377-1";
+urchinTracker();
+</script>
+</div>
+
+
+<div title="Scroll Back to Top" style="position: fixed; bottom: 5px; right: 5px; opacity: 1; cursor: pointer;" id="topcontrol"><img src="eventkeyboardmouse_files/up.png" style="width: 32px; height: 32px;"></div></body></html>

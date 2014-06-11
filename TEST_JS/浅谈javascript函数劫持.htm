@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>浅谈javascript函数劫持</title>
+<meta name="keywords" content="函数 function var return // if" />
+<meta name="description" content="一、概述 javascript函数劫持，也就是老外提到的javascript hijacking技术。最早还是和剑心同学讨论问题时偶然看到的一段代码，大概这样写的： window.alert = function(s) {}; 觉得这种用法很巧妙新颖，和API Hook异曲同工，索性称之为javascript function hook，也就" />
+<link href="/info/templets/style/dedecms.css" rel="stylesheet" media="screen" type="text/css" />
+<script language="javascript" type="text/javascript" src="/info/include/dedeajax2.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+	function CheckLogin(){
+	  var taget_obj = document.getElementById('_ajax_feedback');
+	  myajax = new DedeAjax(taget_obj,false,false,'','','');
+	  myajax.SendGet2("/info/member/ajax_feedback.php");
+	  DedeXHTTP = null;
+	}
+	function checkSubmit(){
+		if(document.feedback.msg.value!='') document.feedback.submit();
+		else alert("评论内容不能为空！");
+	}
+function postBadGood(ftype,fid)
+{
+	var taget_obj = document.getElementById(ftype+fid);
+	var saveid = GetCookie('badgoodid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==fid && hasid) continue;
+			else {
+				if(saveids[i]==fid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==10 && hasid) break;
+				if(j==9 && !hasid) break;
+			}
+		}
+		if(hasid) { alert('您刚才已表决过了喔！'); return false;}
+		else saveid += ','+fid;
+		SetCookie('badgoodid',saveid,1);
+	}
+	else
+	{
+		SetCookie('badgoodid',fid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/info/plus/feedback.php?aid="+fid+"&action="+ftype+"&fid="+fid);
+	DedeXHTTP = null;
+}
+function postDigg(ftype,aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	var saveid = GetCookie('diggid');
+	if(saveid != null)
+	{
+		var saveids = saveid.split(',');
+		var hasid = false;
+		saveid = '';
+		j = 1;
+		for(i=saveids.length-1;i>=0;i--)
+		{
+			if(saveids[i]==aid && hasid) continue;
+			else {
+				if(saveids[i]==aid && !hasid) hasid = true;
+				saveid += (saveid=='' ? saveids[i] : ','+saveids[i]);
+				j++;
+				if(j==20 && hasid) break;
+				if(j==19 && !hasid) break;
+			}
+		}
+		if(hasid) { alert("您已经顶过该帖，请不要重复顶帖 ！"); return; }
+		else saveid += ','+aid;
+		SetCookie('diggid',saveid,1);
+	}
+	else
+	{
+		SetCookie('diggid',aid,1);
+	}
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	var url = "/info/plus/digg_ajax.php?action="+ftype+"&id="+aid;
+	myajax.SendGet2(url);
+	DedeXHTTP = null;
+}
+function getDigg(aid)
+{
+	var taget_obj = document.getElementById('newdigg');
+	myajax = new DedeAjax(taget_obj,false,false,'','','');
+	myajax.SendGet2("/info/plus/digg_ajax.php?id="+aid);
+	DedeXHTTP = null;
+}
+
+-->
+</script>
+</head>
+<body class="articleview">
+<div class="header">
+    <div class="top w960 center">
+      <div class="title">
+        <h1> <a href="http://www.abc188.com/info">站长资讯中心</a> </h1>
+      </div>
+      <!-- /title -->
+      <div class="banner"><script language="javascript" src="http://ads.west263.com/vcp/getJScode/getJScode.asp?ReferenceID=46061&No=460x60"></script></div>
+      <!-- /banner -->
+      <div class="rlink">
+        <ul>
+          <li class="r3"><a href="http://www.west263.com" target="_blank">虚拟主机</a></li>
+          <li class="r4"><a href="http://www.west263.com" target="_blank">域名注册</a></li>
+        </ul>
+      </div>
+      <!-- /banner -->
+    </div>
+    <!-- /top -->
+    <div class="nav mt1">
+      <div class="w960 center">
+        <ul>
+          <li><a href='/info/'>主页</a></li>
+          
+          <li><a href='/info/html/IDCzixun/index.html'>IDC资讯</a></li>
+          <li><a href='/info/html/wangzhanyunying/index.html'>网站运营</a></li>
+          <li><a href='/info/html/wangzhanlianmeng/index.html'>网站联盟</a></li>
+          <li><a href='/info/html/xingyezixun/index.html'>行业资讯</a></li>
+          <li><a href='/info/html/wangluobiancheng/index.html'>网络编程</a></li>
+          <li><a href='/info/html/fuwuqijishu/index.html'>服务器技术</a></li>
+          <li><a href='/info/html/ruanjianjiqiao/index.html'>软件技巧</a></li>
+          <li><a href='/info/html/wangyezhizuo/index.html'>网页制作</a></li>
+          <li><a href='/info/html/chengxusheji/index.html'>程序设计</a></li><li class='thisclass'><a href='/info/html/wangluozhishi/index.html'>网络知识</a> </li>
+          <li><a href='/info/html/caozuoxitong/index.html'>操作系统</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /nav -->
+    <!-- /search -->
+  </div>
+<!-- /header -->
+<!-- /header -->
+
+<div class="channel-nav w960 center clear">
+	<ul>
+              
+          <li><a href='/info/html/wangluozhishi/wangluoxieyi/index.html'><span>网络协议</span></a></li><li class='thisclass'><a href='/info/html/wangluozhishi/wangluoanquan/index.html'><span>网络安全</span></a> </li>
+          <li><a href='/info/html/wangluozhishi/wangluoguanli/index.html'><span>网络管理</span></a></li>
+          <li><a href='/info/html/wangluozhishi/zuwangfangan/index.html'><span>组网方案</span></a></li>
+          <li><a href='/info/html/wangluozhishi/Ciscojishu/index.html'><span>Cisco技术</span></a></li>
+	</ul>
+	<span class="back">
+		<a href="/info/">返回首页</a>
+	</span>
+</div><!-- /channel-nav -->
+
+<div class="w960 center clear mt1">
+	<div class="pleft">
+      <div class="flashadv">        <object id="FlashID" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="712" height="109">
+          <param name="movie" value="/info/flash/FlashViewer.swf" />
+          <param name="quality" value="high" />
+          <param name="wmode" value="opaque" />
+          <param name="swfversion" value="8.0.35.0" />
+        </object>
+</div>
+		<div class="place">
+			<strong>当前位置:</strong> <a href='http://www.abc188.com/info/'>主页</a>><a href='/info/html/wangluozhishi/index.html'>网络知识</a>><a href='/info/html/wangluozhishi/wangluoanquan/index.html'>网络安全</a>>
+		</div><!-- /place -->
+		<div class="viewbox">
+			<div class="title">
+				<h2>浅谈javascript函数劫持</h2>
+			</div><!-- /title -->
+			<div class="info">
+				<small>时间:</small>2008-03-05 03:13<small>来源:</small>互联网</div><!-- /info -->
+            	<div class="intro">一、概述 javascript函数劫持，也就是老外提到的javascript hijacking技术。最早还是和剑心同学讨论问题时偶然看到的一段代码，大概这样写的： window.alert = function(s) {}; 觉得这种用法很巧妙新颖，和API Hook异曲同工，索性称之为javascript function hook，也就</div>
+			<div class="content">
+			　　一、概述<br /><br />javascript函数劫持，也就是老外提到的javascript hijacking技术。最早还是和剑心同学讨论问题时偶然看到的一段代码，大概这样写的：<br /><br />window.alert = function(s) {};<br /><br />觉得这种用法很巧妙新颖，和API Hook异曲同工，索性称之为javascript function hook，也就是函数劫持。通过替换js函数的实现来达到劫持这个函数调用的目的，一个完整的hook alert函数例子如下：<br /><br />&lt;!--1.htm--&gt;<br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />var _alert = alert;<br />window.alert = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (confirm(&quot;是否要弹框框，内容是\&quot;&quot; + s + &quot;\&quot;？&quot;)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_alert(s);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />//--&gt;<br />&lt;/script&gt;<br />&lt;html&gt;<br />&lt;body&gt;<br />&lt;input type=&quot;button&quot; onclick=&quot;javascript: alert('Hello World!')&quot; value=&quot;test&quot; /&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br />搞过API Hook的同学们看到这个代码一定会心的一笑，先保存原函数实现，然后替换为我们自己的函数实现，添加我们自己的处理逻辑后最终再调用原来的函数实现，这样这个alert函数就被我们劫持了。原理非常简单，下面举些典型的应用来看看我们能利用它来做些什么。<br /><br /><br />二、应用举例<br /><br />1. 实现一个简易的javascript debugger，这里说是debugger比较标题党，其实只是有点类似于debugger的功能，主要利用js函数劫持来实现函数的break point，来看看个简单的例子：<br /><br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />var _eval = eval;<br />eval = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (confirm(&quot;eval被调用\n\n调用函数\n&quot; + eval.caller + &quot;\n\n调用参数\n&quot; + s)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_eval(s);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br />//--&gt;<br />&lt;/script&gt;<br />&lt;html&gt;<br />&lt;head&gt;<br />&lt;/head&gt;<br />&lt;body&gt;<br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />function test() {<br />&nbsp;&nbsp;&nbsp;&nbsp;var a = &quot;alert(1)&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;eval(a);<br />}<br /><br />function t() {<br />&nbsp;&nbsp;&nbsp;&nbsp;test();<br />}<br /><br />t();<br />//--&gt;<br />&lt;/script&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br />通过js函数劫持中断函数执行，并显示参数和函数调用者代码，来看一个完整例子的效果：<br /><br />&gt;help<br />debug commands:<br /><br />bp &lt;function name&gt; - set a breakpoint on a function, e.g. &quot;bp window.alert&quot;.<br />bl - list all breakpoints.<br />bc &lt;breakpoint number&gt; - remove a breakpoint by specified number, e.g. &quot;bc 0&quot;.<br />help - help information.<br /><br />&gt;bp window.alert<br />* breakpoint on function &quot;window.alert&quot; added successfully.<br /><br />&gt;bl<br />* 1 breakpoints:<br />0 - window.alert<br /><br />&gt;bc 0<br />* breakpoint on function &quot;window.alert&quot; deleted successfully.<br /><br />这里演示设置断点，察看断点和删除断点，完整代码在本文附录[1]给出。<br /><br />2. 设置陷阱实时捕捉跨站测试者，搞跨站的人总习惯用alert来确认是否存在跨站，如果你要监控是否有人在测试你的网站xss的话，可以在你要监控的页面里hook alert函数，记录alert调用情况：<br /><br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />function log(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var img = new Image();<br />&nbsp;&nbsp;&nbsp;&nbsp;img.style.width = img.style.height = 0;<br />&nbsp;&nbsp;&nbsp;&nbsp;img.src = &quot;<a href="http://yousite.com/log.php?caller=&quot;" target="_blank">http://yousite.com/log.php?caller=&quot;</a> + encodeURIComponent(s);<br />}<br /><br />var _alert = alert;<br />window.alert = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;log(alert.caller);<br />&nbsp;&nbsp;&nbsp;&nbsp;_alert(s);<br />}<br />//--&gt;<br />&lt;/script&gt;<br /><br />当然，你这个函数要加到页面的最开始，而且还要比较隐蔽一些，赫赫，你甚至可以使alert不弹框或者弹个警告框，让测试者抓狂一把。<br /><br />3. 实现DOM XSS自动化扫描，目前一般的XSS自动化扫描的方法是从http返回结果中搜索特征来确定是否存在漏洞，但是这种方法不适用于扫描DOM XSS，因为DOM XSS是由客户端脚本造成的，比如前段时间剑心发现的google的跨站(见附录[2])原理如下：<br /><br />document.write(document.location.hash);<br /><br />这样的跨站无法反映在http response里，所以传统扫描方法没法扫描出来。但是如果你从上个例子里受到启发的话，一定会想到设置陷阱的办法，DOM XSS最终导致alert被执行，所以我们hook alert函数设置陷阱，如果XSS成功则会去调用alert函数，触发我们的陷阱记录结果，这样就可以实现DOM XSS的自动化扫描，陷阱代码类似于上面。<br /><br />4. 灵活的使用js劫持辅助你的页面代码分析工作，比如分析网页木马时，经常会有通过eval或者document.write来进行加密的情况，于是我们编写段hook eval和document.write的小工具，辅助解密：<br /><br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />var _eval = eval;<br />eval = window.execScript = window.document.write = window.document.writeln = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;document.getElementById(&quot;output&quot;).value = s;<br />}<br />//--&gt;<br />&lt;/script&gt;<br />&lt;html&gt;<br />&lt;body&gt;<br />input:<br />&lt;textarea id=&quot;input&quot; cols=&quot;80&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;<br />&lt;input type=&quot;button&quot; onclick=&quot;javascript: _eval(document.getElementById('input').value);&quot; value=&quot;decode&quot; /&gt;<br />&lt;br /&gt;<br />output:<br />&lt;textarea id=&quot;output&quot; cols=&quot;80&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br />在input框里输入加密的代码：<br /><br />eval(unescape(&quot;%61%6C%65%72%74%28%31%29%3B&quot;));<br /><br />在output框里输出解码后的代码：<br /><br />alert(1);<br /><br />当然你还能想到更多的灵活应用：）<br /><br /><br />三、反劫持<br /><br />谈到劫持也就必然要谈谈反劫持的话题，假设你要写一个健壮的xss playload，就需要考虑反劫持，有两个问题要解决：<br /><br />如何判断是否被劫持了？<br />如果发现被劫持了，如何反劫持？<br /><br />1. 判断某个函数是否被劫持，这个好办，写个小程序对比一下一个函数被hook前后，有什么差别：<br /><br />&lt;textarea id=&quot;tb1&quot; cols=&quot;80&quot; rows=&quot;8&quot;&gt;&lt;/textarea&gt;<br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />document.getElementById(&quot;tb1&quot;).value = eval + &quot;\n&quot;;<br />var _eval = eval;<br />eval = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;alert(s);<br />&nbsp;&nbsp;&nbsp;&nbsp;_eval(s);<br />}<br />document.getElementById(&quot;tb1&quot;).value += eval;<br />//--&gt;<br />&lt;/script&gt;<br /><br />结果：<br /><br />function eval() {<br />&nbsp;&nbsp;&nbsp;&nbsp;[native code]<br />}<br /><br />function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;alert(s);<br />&nbsp;&nbsp;&nbsp;&nbsp;_eval(s);<br />}<br /><br />我们发现那些内置函数是[native code]，而自定义的则是具体的函数定义，用这个特征就可以简单的检测函数是否被劫持：<br /><br />function checkHook(proc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (proc.toString().indexOf(&quot;[native code]&quot;) &gt; 0) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />2. 如何反劫持，第一个想法就是恢复被劫持的函数，如果劫持的人把原函数保存在某个变量里那还好办，直接调用原函数就可以了，但是劫持者自己也没保存副本怎么办，只能自己创建个新的环境，然后用新环境里的干净的函数来恢复我们这里被hook了的，怎么创建新环境？整个新的iframe好了，里面就是个全新的环境。ok，动手吧：<br /><br />function unHook(proc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var f = document.createElement(&quot;iframe&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.border = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.width = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.height = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;document.body.appendChild(f);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;var d = f.contentWindow.document;<br />&nbsp;&nbsp;&nbsp;&nbsp;d.write(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;window.parent.escape = escape;&lt;\/script&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;d.close();<br />}<br /><br />综合1、2节，整个测试代码如下：<br /><br />&lt;!--antihook.htm--&gt;<br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />escape = function(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;return s;<br />}<br />//--&gt;<br />&lt;/script&gt;<br />&lt;html&gt;<br />&lt;body&gt;<br />&lt;input type=&quot;button&quot; onclick=&quot;javascript: test();&quot; value=&quot;test&quot; /&gt;<br />&lt;script type=&quot;text/javascript&quot;&gt;<br />&lt;!--<br />function test() {<br />&nbsp;&nbsp;&nbsp;&nbsp;alert(escape(&quot;s y&quot;));<br />&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;if (checkHook(escape)) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unHook(escape);<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;alert(escape(&quot;s y&quot;));<br />}<br /><br />function checkHook(proc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;if (proc.toString().indexOf(&quot;[native code]&quot;) &gt; 0) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return false;<br />&nbsp;&nbsp;&nbsp;&nbsp;} else {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return true;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />}<br /><br />function unHook(proc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var f = document.createElement(&quot;iframe&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.border = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.width = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;f.style.height = &quot;0&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;document.body.appendChild(f);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;var d = f.contentWindow.document;<br />&nbsp;&nbsp;&nbsp;&nbsp;d.write(&quot;&lt;script type=\&quot;text/javascript\&quot;&gt;window.parent.escape = escape;&lt;\/script&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;d.close();<br />}<br />//--&gt;<br />&lt;/script&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br />3. 不是上面两个问题都解决了么，为什么要有第3节？因为那不是个最好的解决办法，既然我们可以创建全新的iframe，何不把代码直接放到全新iframe里执行呢，这样做的话绿色环保，既不用考虑当前context里的hook问题，也不用改动当前context，不会影响本身的程序执行。给出两个比较通用点的函数：<br /><br />function createIframe(w) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var d = w.document;<br />&nbsp;&nbsp;&nbsp;&nbsp;var newIframe = d.createElement(&quot;iframe&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;newIframe.style.width = 0;<br />&nbsp;&nbsp;&nbsp;&nbsp;newIframe.style.height = 0;<br />&nbsp;&nbsp;&nbsp;&nbsp;d.body.appendChild(newIframe);<br />&nbsp;&nbsp;&nbsp;&nbsp;newIframe.contentWindow.document.write(&quot;&lt;html&gt;&lt;body&gt;&lt;/body&gt;&lt;/html&gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;return newIframe;<br />}<br /><br />function injectScriptIntoIframe(f, proc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var d = f.contentWindow.document;<br />&nbsp;&nbsp;&nbsp;&nbsp;var s = &quot;&lt;script&gt;\n(&quot; + proc.toString() + &quot;)();\n&lt;/script&gt;&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;d.write(s);<br />}<br /><br />把你的payload封装进一个函数，然后调用这两个方法来在iframe里执行：<br /><br />function payload() {<br />&nbsp;&nbsp;&nbsp;&nbsp;// your code goes here<br />}<br /><br />var f = createIframe(top);<br />injectScriptIntoIframe(f, payload);<br /><br /><br />四、最后<br /><br />由于国内很少有见文章提及这个东西，所以才草成这篇，希望能够抛砖引玉。由于本人水平有限，难免有错误或者疏漏之处请谅解，没有说清楚的地方，欢迎和我交流。<br /><br />还有就是一些不得不感谢的人，感谢剑心一直以来毫无保留的交流，感谢黑锅多次鼓励我把自己的心得体会写成文字，感谢幻影所有的朋友们、B.C.T的朋友们以及群里那帮经常一起扯淡的朋友们。<br /><br />广告一下，没法幻影blog的朋友，可以添加hosts来突破：<br />72.14.219.190 pstgroup.blogspot.com<br /><br />五、附录<br /><br />[1] 简易的javascript inline debugger代码<br /><br />&lt;!--test.htm--&gt;<br />&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;" target="_blank">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a><br />&lt;html xmlns=&quot;<a href="http://www.w3.org/1999/xhtml&quot;&gt;" target="_blank">http://www.w3.org/1999/xhtml&quot;&gt;</a><br />&lt;head&gt;&lt;title&gt;Javascript Inline Debugger&lt;/title&gt;&lt;/head&gt;<br />&lt;body&gt;<br />&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;js_inline_debugger.js&quot;&gt;&lt;/script&gt;<br />&lt;input type=&quot;button&quot; value=&quot;hahaha&quot; onclick=&quot;javascript: alert(this.value);&quot; style=&quot;margin-left: 300px;&quot; /&gt;<br />&lt;/body&gt;<br />&lt;/html&gt;<br /><br /><br />/*<br />&nbsp;&nbsp;&nbsp;&nbsp;FileName:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;js_inline_debugger.js<br />&nbsp;&nbsp;&nbsp;&nbsp;Author:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;luoluo<br />&nbsp;&nbsp;&nbsp;&nbsp;Contact:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;luoluonet_at_yahoo.cn<br />&nbsp;&nbsp;&nbsp;&nbsp;Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2007-6-27<br />&nbsp;&nbsp;&nbsp;&nbsp;Version:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0.1<br />&nbsp;&nbsp;&nbsp;&nbsp;Usage:&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;<a href="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;" target="_blank">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;html xmlns=&quot;<a href="http://www.w3.org/1999/xhtml&quot;&gt;" target="_blank">http://www.w3.org/1999/xhtml&quot;&gt;</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;head&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/head&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;body&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;js_inline_debugger.js&quot;&gt;&lt;/script&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/body&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/html&gt;<br />&nbsp;&nbsp;&nbsp;&nbsp;Instruction:&nbsp;&nbsp;&nbsp;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;It is a simple javascript inline debugger. You must add xhtml1-transitional dtd to your<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;html document if you wanna to use the script.<br />*/<br /><br />//--------------------------------------------------------------------------//<br />// 公用的函数<br />//--------------------------------------------------------------------------//<br />// 判断是否是IE<br />function isIE() {<br />&nbsp;&nbsp;&nbsp;&nbsp;return document.all &amp;&amp; window.external;<br />}<br /><br />// 去除字符串两边的空格<br />String.prototype.trim = function() {<br />&nbsp;&nbsp;&nbsp;&nbsp;var re = /(^\s*)|(\s*)$/g;<br />&nbsp;&nbsp;&nbsp;&nbsp;return this.replace(re, &quot;&quot;);<br />}<br /><br />// 删除数组中某个元素<br />Array.prototype.remove = function(i) {<br />&nbsp;&nbsp;&nbsp;&nbsp;var o = this[i];<br />&nbsp;&nbsp;&nbsp;&nbsp;for (var j = i; j &lt; this.length - 1; j ++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this[j] = this[j + 1];<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;-- this.length; <br />&nbsp;&nbsp;&nbsp;&nbsp;return o;<br />}<br /><br />// 判断一个数组中是否存在相同的元素<br />Array.prototype.search = function(o) {<br />&nbsp;&nbsp;&nbsp;&nbsp;for (var i = 0; i &lt; this.length; i ++) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (this[i] == o) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return i;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return -1;<br />}<br /><br />// html编码<br />function htmlEncode(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/&amp;/g, &quot;&amp;amp;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/&lt;/g, &quot;&amp;lt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/&gt;/g, &quot;&amp;gt;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\&quot;/g, &quot;&amp;quot;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\'/g, &quot;&amp;#34;&quot;);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;return s;<br />}<br /><br />// js编码<br />function jsEncode(s) {<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\\/g, &quot;\\\\&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\n/g, &quot;\\n&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\&quot;/g, &quot;\\\&quot;&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;s = s.replace(/\'/g, &quot;\\\'&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;return s;<br />}<br /><br />//--------------------------------------------------------------//<br />// 命令行窗口工具<br />//--------------------------------------------------------------//<br />function Console(parentNode, processInputProc) {<br />&nbsp;&nbsp;&nbsp;&nbsp;// 窗口<br />&nbsp;&nbsp;&nbsp;&nbsp;var panel = document.createElement(&quot;div&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.width = &quot;250px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.height = &quot;250px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.borderColor = &quot;#666666&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.borderWidth = &quot;1px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.backgroundColor = &quot;#ffffff&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.borderStyle = &quot;solid&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.position = &quot;absolute&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.style.zIndex = 100;<br />&nbsp;&nbsp;&nbsp;&nbsp;parentNode.appendChild(panel);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;// 标题栏<br />&nbsp;&nbsp;&nbsp;&nbsp;var title = document.createElement(&quot;div&quot;);<br />&nbsp;&nbsp;&nbsp;&nbsp;title.style.width = &quot;250px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;title.style.height = &quot;15px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;title.style.backgroundColor = &quot;#dddddd&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;title.style.fontSize = &quot;12px&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;title.style.fontFamily = &quot;verdana,tahoma&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;panel.appendChild(title);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;// 标题栏拖动窗口功能<br />&nbsp;&nbsp;&nbsp;&nbsp;var isDragging = false;<br />&nbsp;&nbsp;&nbsp;&nbsp;var startPos = new Position(panel.offsetLeft, panel.offsetTop);<br />&nbsp;&nbsp;&nbsp;&nbsp;var startMousePos = new Position(0, 0);<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;title.onmouseover = function(evt) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;this.style.cursor = &quot;pointer&quot;;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;title.onmousedown = function(evt) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isDragging == true) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;var event = evt || window.event;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startMousePos.x = event.clientX;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startMousePos.y = event.clientY;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;isDragging = true;<br />&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />&nbsp;&nbsp;&nbsp;&nbsp;title.onmousemove = function(evt) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (isDragging == false) {<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+			  </div><!-- /content -->
+			<div class="dede_pages">
+				<ul class="pagelist">
+                    <li><a>共3页: </a></li><li><a href='#'>上一页</a></li><li class="thisclass"><a href='#'>1</a></li><li><a href='50983_2.html'>2</a></li><li><a href='50983_3.html'>3</a></li><li><a href='50983_2.html'>下一页</a></li>
+				</ul>
+			</div><!-- /pages -->
+			
+			<div class="boxoff">
+				<strong>------分隔线----------------------------</strong>
+			</div>
+            
+
+
+			<div class="handle">
+				<div class="context">
+					<ul>
+						<li>上一篇：<a href='/info/html/wangluozhishi/wangluoanquan/20080305/50982.html'>系统进程攻略</a> </li>
+						<li>下一篇：<a href='/info/html/wangluozhishi/wangluoanquan/20080311/51094.html'>管理员的进阶知识 VPN技术的全面介绍</a> </li>
+					</ul>
+				</div><!-- /context -->
+				<div class="actbox">
+					<ul>
+					  <li id="act-pnt"><a href="#" onClick="window.print();">打印</a></li>
+					</ul>
+				</div><!-- /actbox -->
+			</div>
+            
+<div class="picnews">
+      <dl class="tbox">
+        <dt><strong>相关文章</strong></dt>
+        <dd>
+                  <ul class="d1 ico3">
+
+                    <li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/55116.html'>上网不用防火墙 一招克死所有病毒
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080331/51394.html'>网络安全 解析路由器维护与设置</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54895.html'>关注15个电子邮件使用细节
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54889.html'>通过“鼠洞”控制你的电脑
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54545.html'>国际信息系统审计的发展史
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54725.html'>全网可视的安全
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54741.html'>计算机应急响应与我国互联网应急处理体系
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/55353.html'>实例讲解Oracle监听口令及监听器安全
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54957.html'>园区网建设中的分层安全控制方案
+				</a></li>
+<li class="date" style="height:26px"><a href='/info/html/wangluozhishi/wangluoanquan/20080403/54757.html'>深度包检测技术的演进历程和技术反思
+				</a></li>
+   
+                    </ul>       
+        </dd>
+      </dl>
+    </div>            
+            <!-- /handle -->
+		</div><!-- /viewbox --><!-- /comment -->
+	</div><!-- /pleft -->
+
+	<div class="pright">
+	  <div class="commend mt1">
+	  <dl class="tbox">
+				<dt><strong>推荐内容</strong></dt>
+				<dd>
+					<ul class="d4">
+           
+					</ul>
+				</dd>
+			</dl>
+		</div><!-- /commend -->
+
+		<div class="hot mt1">
+			<dl class="tbox">
+				<dt><strong>热点内容</strong></dt>
+				<dd>
+					<ul class="c1 ico2">
+                    
+					</ul>
+				</dd>
+			</dl>
+		</div>
+    <div class="hot mt1">
+      <dl>
+        <dd>
+          <ul class="c1 ico2 center"><center><script language="javascript" src="http://ads.west263.com/vcp/getJScode/getJScode.asp?ReferenceID=46061&No=150x300"></script></center>
+          </ul>
+        </dd>
+      </dl>
+    </div>
+		
+	</div><!-- /pright -->
+</div>
+
+<div class="footer w960 center mt1 clear">
+	<!-- 
+		为了支持织梦团队的发展,请您保留织梦内容管理系统的链接信息.
+		我们对支持织梦团队发展的朋友表示真心的感谢!织梦因您更精彩!
+	-->
+	<p class="powered">
+		Powered by <strong>ABC188<span>.COM</span></strong> &copy; 2004-2009 All Rights Reserved.	</p>
+<!-- /powered -->
+  <p class="copyright">
+		站长资讯中心-互联网最全面，最专业的行业资讯网站！<br />蜀ICP备05000045号
+  </p>
+</div>
+<!-- /footer -->
+
+</body>
+</html>

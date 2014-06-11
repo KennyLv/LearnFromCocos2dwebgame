@@ -1,0 +1,133 @@
+
+function Login(){
+
+    var name = $("#txt_loginname").val();
+    var pwd = $("#txt_pwd").val();
+    
+    if(name == '') {
+        $("#login_msg").html("请输入用户名");
+        return;      
+    }
+    
+    if(pwd == '') {
+        $("#login_msg").html("请输入密码");
+        return;      
+    }
+
+    try
+    {
+    $.ajax({
+        url: '/ws/UserService.asmx/Login',
+            data: '{loginName:"' + name + '",password:"' + pwd +'"}',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf8',
+            cache: false,
+            success: function(data) {
+                if (data.d == '1') {                     
+                    ShowLogined();
+                }
+                else if(data.d == '0'){
+                    $("#login_msg").html("用户名或密码错误");
+                } 
+                else{
+                    ToLoginPage();
+                }
+                
+            },
+            error: function(xhr) {
+                alert(xhr.responseText);
+            }
+        });
+        }
+        catch(e){
+        //alert(e);
+        }
+    
+}
+
+function ToRegPage(){
+    window.location.href="http://passport.cnblogs.com/register.aspx";
+}
+
+function ShowLogin(){
+           var str = "<div id='login_block'>用户名：<input id='txt_loginname' type='text' class='login_input'/>"+
+           " 密码：<input id='txt_pwd' type='password' class='login_input'/>"+
+           " <input id='btn_login' type='button' value='登录' onclick='Login()'/>"+
+           " <input id='btn_reg' type='button' value='注册' onclick='ToRegPage()'/><span id='login_msg' style='color:red'></span></div>";
+            if(!document.getElementById("user_block"))
+             {
+                alert('<div id="user_block"></div>不存在');
+             }
+             else
+             {
+                $("#user_block").html(str);
+             }
+}
+
+function ToLoginPage(){
+    window.location.href="http://passport.cnblogs.com/login.aspx?fail=1&ReturnUrl=http://dotnet.cnblogs.com/page/92423/";
+}
+
+
+function ShowLogined(){    
+      $.ajax({
+        url: '/ws/UserService.asmx/GetDisplayName',
+        data: '{}',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf8',
+        cache: false,
+        success: function(data) {      
+            if (data.d) { 
+               ShowLoginedInfo(data.d);              
+            }
+            else{
+                document.write("<span style='color:red'>登录失败</span>");
+            }
+        },
+        error: function(xhr) {
+            if(xht.responseText != '')
+            {
+                alert(xhr.responseText);
+            }
+            
+        }        
+    });  
+}
+
+
+function Logout(){
+    $.ajax({
+        url: '/ws/UserService.asmx/Logout',
+        data: '{}',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf8',
+        success: function(data) {      
+            ShowLogin();
+        },
+        error: function(xhr) {
+            alert(xhr.responseText);
+        }
+    }); 
+
+}
+
+
+function ShowLoginedInfo(displayName)
+{    
+     var str = "<div id='logined_block'> 欢迎您！<a href='http://home.cnblogs.com' class='link_logined'>"+displayName+"</a>"+
+     " · <a href='#' class='link_logined' onclick='Logout();return false;'>退出</a></div>";
+    if(!document.getElementById("user_block"))
+     {
+        alert('<div id="user_block"></div>不存在');
+     }
+     else
+     {
+        $("#user_block").html(str);
+     }
+}
+
+
+ShowLogin();

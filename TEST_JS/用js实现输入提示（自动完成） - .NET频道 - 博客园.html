@@ -1,0 +1,414 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<title>
+	用js实现输入提示（自动完成） - .NET频道 - 博客园
+</title><meta content="text/html; charset=UTF-8" http-equiv="Content-Type"><link href="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/base.css" rel="stylesheet" type="text/css">    
+    <script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/common.js" type="text/javascript"></script>
+    <script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/jquery-1.js" type="text/javascript"></script>
+    <script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/flash.js" type="text/javascript"></script>
+    <script type="text/javascript" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/google_service.js">
+    </script>
+    <script type="text/javascript">
+      GS_googleAddAdSenseService("ca-pub-4210569241504288");
+      GS_googleEnableAllServices();
+    </script><script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/google_ads.js"></script>
+    <script type="text/javascript">
+      GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_channel_dotnet_side_right");
+      GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_channel_dotnet_top_banner");
+    </script>
+    <script type="text/javascript">
+      GA_googleFetchAds();
+    </script>
+    
+   
+    <meta name="keywords" content="Javascript,自动完成,用js实现输入提示,自动完成">
+    <meta name="Description" content="　　以前也写过一个jQuery的这种插件，但是很多地方根本不用jQuery，这个功能也有很多其它库支持，但是为了用这个功能而加载很多j">
+    <link href="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/detail.css" rel="stylesheet" type="text/css">
+</head><body>
+    <!--头部信息开始-->
+    <div id="hd_info">
+        <div id="cnts">
+            <div id="site_nav">
+                « <a class="gray" href="http://www.cnblogs.com/">博客园首页</a>|
+		        <a class="gray" href="http://home.cnblogs.com/">我的园子</a>|
+		        <a class="gray" href="http://kb.cnblogs.com/">知识库</a>|
+                <a class="gray" href="http://news.cnblogs.com/">新闻</a>|
+                <a class="gray" href="http://home.cnblogs.com/q/">博问</a>|
+                <a class="gray" href="http://job.cnblogs.com/">招聘</a>       
+            </div>
+            <div id="login_area" style="height: 25px;">
+                
+                <div id="ctl00_panel_logout" class="log_info">
+	
+                <div id="user_block"><div id="login_block">用户名：<input id="txt_loginname" class="login_input" type="text"> 密码：<input id="txt_pwd" class="login_input" type="password"> <input id="btn_login" value="登录" onclick="Login()" type="button"> <input id="btn_reg" value="注册" onclick="ToRegPage()" type="button"><span id="login_msg" style="color: red;"></span></div></div>
+                <script type="text/javascript" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/scriptLogin.html"></script> 
+                
+</div>
+                <div id="log_info"> 
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--头部信息结束-->
+    
+    <div id="wrapper">
+        
+        <!--logo开始-->
+        <div id="header">
+           <div class="logo"><a href="http://dotnet.cnblogs.com/"><img src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/logo.gif" alt=".NET频道"></a></div>
+           <div class="banner">
+            <script type="text/javascript">
+                GA_googleFillSlot("cnblogs_channel_dotnet_top_banner");
+            </script><script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ads"></script><div id="google_ads_div_cnblogs_channel_dotnet_top_banner_ad_container">
+<ins style="border: 0pt none ; width: 728px; height: 90px; display: inline-table; position: relative;"><ins style="border: 0pt none ; width: 728px; height: 90px; display: block; position: relative;"><iframe style="border: 0pt none ; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_cnblogs_channel_dotnet_top_banner" id="google_ads_iframe_cnblogs_channel_dotnet_top_banner" frameborder="0" height="90" scrolling="no" width="728"></iframe></ins></ins></div>
+<script>GA_googleCreateDomIframe("google_ads_div_cnblogs_channel_dotnet_top_banner_ad_container" ,"cnblogs_channel_dotnet_top_banner");</script>
+	        </div>          
+           <div class="clear"></div>
+        </div>
+        
+        <!--导航开始-->
+        <div id="nav_zone">
+            <span class="nav">
+                <a id="ctl00_hl1" class="nobg" href="http://dotnet.cnblogs.com/">频道首页</a>
+                <a id="ctl00_hl6" href="http://dotnet.cnblogs.com/start">新手上路</a>               
+                <a id="ctl00_hl2" href="http://dotnet.cnblogs.com/expert">专家博客 </a>
+                <a id="ctl00_hl3" class="current" href="http://dotnet.cnblogs.com/techlib">技术文库 </a>
+                <a id="ctl00_hl5" href="http://dotnet.cnblogs.com/books">学习书籍 </a>
+               
+                <a id="ctl00_hl4" href="http://dotnet.cnblogs.com/faq">常见问题 </a>
+                <a id="ctl00_hl7" href="http://dotnet.cnblogs.com/download">资源下载 </a>
+                
+            </span>
+            <div id="order">
+                <div class="rss"><a href="http://dotnet.cnblogs.com/rss" title="订阅rss" target="_blank"><img src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/rss1.gif" alt="rss订阅"></a></div>
+                
+            </div>
+        </div>
+        
+        <!--搜索区域-->
+        <div id="sch_zone">
+            <div id="zzk">
+                <ul class="sch_tabs">
+                    <li id="sch1" onclick="setTab('sch',1,6)"><a href="javascript:;">新闻</a></li>
+                    <li id="sch2" class="current" onclick="setTab('sch',2,6)"><a href="javascript:;">全部</a></li>
+                    <li id="sch3" onclick="setTab('sch',3,6)"><a href="javascript:;">博客</a></li>
+                    <li id="sch4" onclick="setTab('sch',4,6)"><a href="javascript:;">评论</a></li>
+                    <li id="sch5" onclick="setTab('sch',5,6)"><a href="javascript:;">小组</a></li>
+                    <li id="sch6" onclick="setTab('sch',6,6)"><a href="javascript:;">博问</a></li>
+                </ul>
+                <div id="con_sch_1" class="sch_input" style="display: none;">
+                    <form id="form1" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q1" class="sch_text" onblur="if(value==''){value='新闻'}" onfocus="if(value=='新闻'){value=''}" value="新闻" name="w" type="text">
+                        <input name="t" value="n" type="hidden">
+                        <input id="btn1" class="sch_btn" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" type="image">
+                    </form>
+                    <div id="hot_sch1" class="hot_sch">
+                        <div class="nukelite_hotkeys">
+                            <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="con_sch_2" class="sch_input" style="display: block;">  
+                    <form id="form2" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q2" class="sch_text" name="w" onblur="if(value==''){value='ASP.NET MVC'}" onfocus="if(value=='ASP.NET MVC'){value=''}" value="ASP.NET MVC" type="text">
+                        <input id="btn2" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" class="sch_btn" type="image">
+                    </form>
+                    <div id="hot_sch2" class="hot_sch">
+                        <div class="nukelite_hotkeys">
+                           <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="con_sch_3" class="sch_input" style="display: none;">       
+                    <form id="form3" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q3" class="sch_text" name="w" onblur="if(value==''){value='博客'}" onfocus="if(value=='博客'){value=''}" value="博客" type="text">
+                        <input name="t" value="b" type="hidden">
+                        <input id="btn3" class="sch_btn" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" type="image">
+                    </form>
+                    
+                    <div id="hot_sch3" class="hot_sch">
+                        <div class="nukelite_hotkeys">
+                            <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="con_sch_4" class="sch_input" style="display: none;">
+                    <form id="form4" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q4" class="sch_text" onblur="if(value==''){value='评论'}" onfocus="if(value=='评论'){value=''}" value="评论" name="w" type="text">
+                        <input name="t" value="c" type="hidden">
+                        <input id="btn4" class="sch_btn" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" type="image">
+                    </form>
+                    <div id="hot_sch4" class="hot_sch">
+                        <div class="nukelite_hotkeys">
+                            <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="con_sch_5" class="sch_input" style="display: none;">
+                   <form id="form5" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q5" class="sch_text" onblur="if(value==''){value='小组'}" onfocus="if(value=='小组'){value=''}" value="小组" name="w" type="text">
+                        <input name="t" value="g" type="hidden">
+                        <input id="btn5" class="sch_btn" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" type="image">
+                    </form> 
+                    <div id="hot_sch5" class="hot_sch">
+                        <div class="nukelite_hotkeys">
+                            <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+                <div id="con_sch_6" class="sch_input" style="display: none;">
+                    <form id="form6" target="_blank" method="get" name="f" action="http://zzk.cnblogs.com/s" class="search_form_block">
+                        <input id="q6" class="sch_text" onblur="if(value==''){value='博问'}" onfocus="if(value=='博问'){value=''}" value="博问" name="w" type="text">
+                        <input name="t" value="q" type="hidden">
+                        <input id="btn6" class="sch_btn" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/btn_zzk.gif" type="image">
+                    </form>
+                    <div id="hot_sch6" class="hot_sch">
+                        <div id="nukelite_hotkeys">
+                            <a href="http://zzk.cnblogs.com/s?w=ASP,NET" target="_blank">ASP.NET</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Silverlight" target="_blank">Silverlight</a>
+                            <a href="http://zzk.cnblogs.com/s?w=Linq" target="_blank">Linq</a>
+                            <a href="http://zzk.cnblogs.com/s?w=JQuery" target="_blank">JQuery</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+        
+        <div class="clear"></div>
+        
+        
+        
+<div id="guide_detail">
+    
+<div id="guide_de"><strong style="color: rgb(69, 69, 69); font-size: 12px;">您的位置：</strong>
+<a href="http://dotnet.cnblogs.com/">.NET频道</a> »<a href="http://dotnet.cnblogs.com/list/1002"> Web前端</a> </div>
+</div>
+
+<div id="main_content">
+    <div id="left_content">
+        <div id="left_content_pages">
+            <!-- 文章title -->
+            <h1 class="contents_header">用js实现输入提示（自动完成）</h1>
+            <!-- 作者信息等 -->
+            <div class="contents_info">
+				作者：<a href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;&nbsp;来源：<a href="http://www.cnblogs.com/" target="_blank">博客园</a>&nbsp;&nbsp;时间：2011-03-06&nbsp;&nbsp;阅读：291 次&nbsp;&nbsp;<a href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html" target="_blank">原文链接</a>&nbsp;&nbsp;
+				<a href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(keyit=window.open('http://wz.cnblogs.com/create?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t)+'&amp;i=0','keyit','scrollbars=no,width=460,height=353,left=75,top=20,menu=yes,status=no,resizable=yes'));keyit.focus();" class="graylink">[收藏]</a>&nbsp;&nbsp;
+		        <a href="javascript:window.location='';"></a>
+			    
+			    <p class="tipoff">
+			        <a title="我知道了，点击关闭提示" href="javascript:void(0);">小提示：点击可切换浏览</a>
+			    </p>
+			    <script type="text/javascript">
+                    $(document).ready(function() {
+                        $(".tip").click(function() {
+                            $(".tip").remove();
+		                    $.cookie('close_tip_c','hidden',{path: '/'});
+	                    });
+                    });
+
+                    //if ($.cookie('close_tip_c')) $(".tip").remove();
+			    </script>
+			</div>
+			<!-- 页码和简介 -->
+			<center><div class="TopPage"><div class="toptitle"><span class="topinfo">摘要：</span>以前也写过一个jQuery的这种插件，但是很多地方根本不用jQuery，这个功能也有很多其它库支持，但是为了用这个功能而加载很多js插件，这样效率明显下降了很多，而且......<br></div> </div></center>
+			<div class="contents_main">
+			    <div style="font-size: 14px;" id="ArticleCnt" class="content_words">
+			        
+					<p>　　以前也写过一个<a href="http://www.cnblogs.com/jaiho/archive/2011/02/01/autocomplete.html">jQuery的这种插件</a>，但是很多地方根本不用jQuery，这个功能也有很多其它库支持，但是为了用这个功能而加载很多js插件，这样效率明显下降了很多，而且这个东西平时也很常用，所以一决心自己写了个相对比较独立的。</p>
+<p><strong>　　完成有以下功能：</strong></p>
+<ul>
+<li>输入字符会把以输入字符开头的提示出来。</li>
+<li>支持上下方向键选择提示选项，支持循环</li>
+<li>支持绑定一个数组提示，支持ajax传递输入框值请求数据。</li>
+<li>支持多个选择的dom元素一块绑定数据实现输入提示。各dom元素也可以单独绑定自己的数据实现输入提示，互不影响。</li>
+<li>支持中文。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 首先是js的核心部分，其各部分都有较详细的说明，代码如下： </p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:javascript;gutter:true;">;(function(window){<br>/* 插件开始 */<br>var autoComplete=function(o){<br>    var handler=(function(){<br>        var handler=function(e,o){ return new handler.prototype.init(e,o); };/* 为每个选择的dom都创建一个相对应的对象，这样选择多个dom时可以很方便地使用 */<br>        handler.prototype={<br>            e:null, o:null, timer:null, show:0, input:null, popup:null,<br>            init:function(e,o){/* 设置初始对象 */<br>                this.e=e, this.o=o,<br>                this.input=this.e.getElementsByTagName(this.o.input)[0],<br>                this.popup=this.e.getElementsByTagName(this.o.popup)[0],<br>                this.initEvent();/* 初始化各种事件 */<br>            },<br>            match:function(quickExpr,value,source){/* 生成提示 */<br>                var li = null;<br>                for(var i in source){<br>                    if( value.length&gt;0 &amp;&amp; quickExpr.exec(source[i])!=null ){<br>                        li = document.createElement('li');<br>                        li.innerHTML = '&lt;a href="javascript:;"&gt;'+source[i]+'&lt;/a&gt;';<br>                        this.popup.appendChild(li);<br>                    }<br>                }<br>                if(this.popup.getElementsByTagName('a').length)<br>                    this.popup.style.display='block';<br>                else<br>                    this.popup.style.display='none';<br>            },<br>            ajax:function(type,url,quickExpr,search){/* ajax请求远程数据 */<br>                var xhr = window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new XMLHttpRequest();<br>                xhr.open(type,url,true);/* 同异步在此修改 */<br>                xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");<br>                var that=this;<br>                xhr.onreadystatechange = function(){<br>                    if(xhr.readyState==4) {<br>                        if(xhr.status==200) {<br>                            var data = eval(xhr.responseText);<br>                            that.match(quickExpr,search,data);/* 相同于成功的回调函数 */<br>                        }else{<br>                            alert("请求页面异常!");/* 请求失败 */<br>                        }<br>                    }<br>                };<br>                xhr.send(null);<br>            },<br>            fetch:function(ajax,search,quickExpr){<br>                var that=this;<br>                this.ajax(ajax.type,ajax.url+search,quickExpr,search);<br>            },<br>            initEvent:function(){/* 各事件的集合 */<br>                var that=this;<br>                this.input.onfocus = function(){<br>                    var value=this.value, quickExpr=RegExp('^'+value,'i'), self=this;<br>                    that.timer=setInterval(function(){<br>                        if(value!=self.value){/* 判断输入内容是否改变，兼容中文 */<br>                            value=self.value;<br>                            that.popup.innerHTML='';<br>                            if(value!=''){<br>                                quickExpr=RegExp('^'+value);<br>                                if(that.o.source) that.match(quickExpr,value,that.o.source);<br>                                else if(that.o.ajax) that.fetch(that.o.ajax,value,quickExpr);<br>                            }<br>                        }<br>                    },200);<br>                };<br>                this.input.onblur = function(){/*  输入框添加事件 */<br>                    clearInterval(that.timer);<br>                    var current=-1;/* 记住当前有焦点的选项 */<br>                    var els = that.popup.getElementsByTagName('a');<br>                    var len = els.length-1;<br>                    var aClick = function(){<br>                        that.input.value=this.firstChild.nodeValue;<br>                        that.popup.innerHTML='';<br>                        that.popup.style.display='none';<br>                    };<br>                    var aFocus = function(){<br>                        for(var i=len; i&gt;=0; i--){<br>                            if(this.parentNode===that.popup.children[i]){<br>                                current = i;<br>                                break;<br>                            }<br>                        }<br>                        for(var k in that.o.elemCSS.focus)<br>                            this.style[k] = that.o.elemCSS.focus[k];<br>                    };<br>                    var aBlur= function(){<br>                        for(var k in that.o.elemCSS.blur)<br>                            this.style[k] = that.o.elemCSS.blur[k];<br>                    };<br>                    var aKeydown = function(event){<br>                        event = event || window.event;/* 兼容IE */<br>                        if(event.keyCode==40){/* 处理上下方向键事件方便选择提示的选项 */<br>                            current++;<br>                            if(current&lt;0) current=len;/* 处理循环 */<br>                            if(current&gt;len) current=0;<br>                            that.popup.getElementsByTagName('a')[current].focus();<br>                        }else if(event.keyCode==38){<br>                            current--;<br>                            if(current&gt;len) current=0;<br>                            if(current&lt;0) current=len;<br>                            that.popup.getElementsByTagName('a')[current].focus();<br>                        }<br>                    };<br>                    for(var i=0; i&lt;els.length; i++){/* 为每个选项添加事件 */<br>                        els[i].onclick = aClick;<br>                        els[i].onfocus = aFocus;<br>                        els[i].onblur = aBlur;<br>                        els[i].onkeydown = aKeydown;<br>                    }<br>                };<br>                this.input.onkeydown = function(event){<br>                    event = event || window.event;/* 兼容IE */<br>                    if(event.keyCode==40){<br>                        that.popup.blur();<br>                        if(that.popup.getElementsByTagName('a')[0])<br>                            that.popup.getElementsByTagName('a')[0].focus();<br>                    }<br>                };<br>                this.e.onmouseover = function(){ that.show=1; };<br>                this.e.onmouseout = function(){ that.show=0; };<br>                addEvent.call(document,'click',function(){ if(that.show==0) that.popup.style.display='none'; });/* 处理提示框dom元素不支持onblur的情况 */<br>            }<br>        };<br>        handler.prototype.init.prototype=handler.prototype;/* JQuery style，这样我们在处的时候就不用每个dom元素都用new来创建对象了 */<br>        return handler;/* 把内部的处理函数传到外部 */<br>    })();<br>    if(this.length){/* 处理选择多个dom元素 */<br>        for(var a=this.length-1; a&gt;=0; a--){/* 调用方法为每个选择的dom生成一个处理对象，使它们不互相影响 */<br>            handler(this[a],o);<br>        }<br>    }else{/* 处理选择一个dom元素 */<br>        handler(this,o);<br>    }<br>    return this;<br>};<br>return window.autoComplete = autoComplete;/* 暴露方法给全局对象 */<br>/* 插件结束 */<br>})(window);<br></pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其中了一些全局的自定义函数，如addEvent和在例子中将要用到的getElementsByClassName函数如下：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:javascript;gutter:true;">var getElementsByClassName = function (searchClass, node, tag) {/* 兼容各浏览器的选择class的方法；(写法参考了博客园：http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html，想了解更多请看这个地址) */<br>    node = node || document, tag = tag ? tag.toUpperCase() : "*";<br>    if(document.getElementsByClassName){/* 支持getElementsByClassName的浏览器 */<br>        var temp = node.getElementsByClassName(searchClass);<br>        if(tag=="*"){<br>            return temp;<br>        } else {<br>            var ret = new Array();<br>            for(var i=0; i&lt;temp.length; i++)<br>                if(temp[i].nodeName==tag)<br>                    ret.push(temp[i]);<br>            return ret;<br>        }<br>    }else{/* 不支持getElementsByClassName的浏览器 */<br>        var classes = searchClass.split(" "),<br>            elements = (tag === "*" &amp;&amp; node.all)? node.all : node.getElementsByTagName(tag),<br>            patterns = [], returnElements = [], current, match;<br>        var i = classes.length;<br>        while(--i &gt;= 0)<br>            patterns.push(new RegExp("(^|\\s)" + classes[i] + "(\\s|$)"));<br>        var j = elements.length;<br>        while(--j &gt;= 0){<br>            current = elements[j], match = false;<br>            for(var k=0, kl=patterns.length; k&lt;kl; k++){<br>                match = patterns[k].test(current.className);<br>                if(!match) break;<br>            }<br>            if(match) returnElements.push(current);<br>        }<br>        return returnElements;<br>    }<br>};<br>var addEvent=(function(){/* 用此函数添加事件防止事件覆盖 */<br>    if(document.addEventListener){<br>        return function(type, fn){ this.addEventListener(type, fn, false); };<br>    }else if(document.attachEvent){<br>        return function(type,fn){<br>            this.attachEvent('on'+type, function () {<br>                return fn.call(this, window.event);/* 兼容IE */<br>            });<br>        };<br>    }<br>})();<br></pre>
+</div>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 最后是调用的部分，调用和每个参数的部分都有说明和注意事项，再说一个其中source和ajax参数是二选一，如果二者都写只有source是有用的，调用代码如下：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:javascript;gutter:true;">addEvent.call(null,'load',function(){<br>    autoComplete.call( getElementsByClassName('autoComplete'), {/* 使用call或apply调用此方法 */<br>            source:['0123','023',123,1234,212,214,'033333','0352342',1987,17563,20932],/* 提示时在此数组中搜索 */<br>            //ajax:{ type:'post',url:'./php/fetch.php?search=' },/* 如果使用ajax则返回的数据格式要与source相同，如为字符串"[111,222,333,444]"等形式。*/<br>            elemCSS:{ focus:{'color':'#00ff00','background':'red'}, blur:{'color':'#ff0000','background':'transparent'} },/* 些对象中的key要js对象中的style属性支持 */<br>            input:'input',/* 输入框使用input元素 */<br>            popup:'ul'/* 提示框使用ul元素 */<br>    });<br>});<br></pre>
+</div>
+<p>　　代码比较多，但是测试的比较完整，基本没有什么大毛病了，如果有什么毛病请大家指正，谢谢！</p>
+<script type="text/javascript">// <![CDATA[
+                 var runCode = function(code){
+                 if (code!=''){
+                 var newwin = window.open('','_blank','');
+                 newwin.document.open('text/html','replace');
+                 newwin.opener = null;
+                 newwin.document.write(code);
+                 newwin.document.close();
+                 } 
+                 };
+                 document.getElementById('runBtn').onclick = function(){
+                 runCode(document.getElementById('runcode').value)
+                 };
+// ]]></script>
+				</div>
+				<p style="margin-bottom: 0px;" align="right"></p>
+				
+			</div>
+			
+
+			
+			<!-- 标签 -->
+			<div class="bgFFF">
+			
+			</div>
+			    <div id="ctl00_ContentPlaceHolder1_panelTags">
+	<div class="tag"><strong>标签：</strong> <a href="http://dotnet.cnblogs.com/tag/Javascript/" class="catalink">Javascript</a>&nbsp;<a href="http://dotnet.cnblogs.com/tag/%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90/" class="catalink">自动完成</a>&nbsp; &nbsp;&nbsp;</div>
+</div>
+			</div>
+        </div>
+    </div>
+    <div id="right_content">
+        
+
+<div class="rt_cnt">
+    <div class="list_rt_top">
+    <h3>Google广告</h3>
+    </div>
+    <div class="list_rt_mid" style="text-align: center;">
+    <script type="text/javascript">
+        GA_googleFillSlot("cnblogs_channel_dotnet_side_right");
+    </script><script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/ads.html"></script>
+    </div>
+    <div class="list_rt_bt"></div> 
+</div>
+
+<div class="rt_cnt">
+    <div class="list_rt_top">
+        <h3>相关文章</h3>
+    </div>
+	<div class="list_rt_mid">
+	    
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/106722/" target="_blank">《Effective C#中文版：改善C#程序的50种方法》读书笔记</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/103828/" target="_blank">JAVA与.NET的相互调用——利用JNBridge桥接模式实现远程通讯</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/103827/" target="_blank">JAVA与.NET的相互调用——通过Web服务实现相互调用</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/102541/" target="_blank">VS2010自定义新建文件模版</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/102225/" target="_blank">C#中字符串的内存分配与驻留池</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/102191/" target="_blank">ASP.NET MVC 3和Razor中的@helper 语法</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/104182/" target="_blank">Visual Studio 2010 中的代码约定设置</a>
+            </div>
+        
+            <div class="detail_pages_list">
+                <a href="http://kb.cnblogs.com/page/107117/" target="_blank">[WCF权限控制]从两个重要的概念谈起：Identity与Principal[下篇]</a>
+            </div>
+        
+	</div>
+	<div class="list_rt_bt"></div>    
+</div>
+
+<div class="rt_cnt">
+    <div class="list_rt_top">
+        <h3>专家博客</h3>
+    </div>
+	<div class="list_rt_mid">
+	    
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/zhuqil/archive/2011/07/15/2106973.html" title="一个LBS应用的想法" target="_blank">一个LBS应用的想法</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/dodolook/archive/2011/07/15/2106804.html" title="我也要学C++_第一章：CodeLite的安装配置和第一个C++程序的阅读" target="_blank">我也要学C++_第一章：CodeLite的安装配置和第一个C++程序的阅读</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/lhb25/archive/2011/07/15/2106006.html" title="19个非常有用的 jQuery 图片滑动插件和教程" target="_blank">19个非常有用的 jQuery 图片滑动插件和教程</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/TerryBlog/archive/2011/07/14/2106785.html" title="Android Ap 开发 设计模式第六篇：原型模式" target="_blank">Android Ap 开发 设计模式第六篇：原型模式</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/HuntSoul/archive/2011/07/14/2106700.html" title="ExtJS &amp; ASP.NET MVC3.0 学习笔记一" target="_blank">ExtJS &amp; ASP.NET MVC3.0 学习笔记一</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/chenxizhang/archive/2011/07/14/2106767.html" title="如何在RIA应用中实现用户授权" target="_blank">如何在RIA应用中实现用户授权</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/chenxizhang/archive/2011/07/14/2106673.html" title="SQL SERVER本地管理员和SA帐号都无法访问的问题和解决方案" target="_blank">SQL SERVER本地管理员和SA帐号都无法访问的问题和解决方案</a>
+	            </div>
+	        
+	            <div class="detail_pages_list">
+	                <a href="http://www.cnblogs.com/graphics/archive/2011/07/14/2105195.html" title="数组面试题-子数组之和" target="_blank">数组面试题-子数组之和</a>
+	            </div>
+	        
+	    
+	</div>
+	<div class="list_rt_bt"></div>
+</div>
+
+    </div>
+    
+    <div id="col_words">
+		<img title="博客园技术文库，专业的技术文章" alt="博客园技术文库，专业的技术文章" src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/col2.gif" height="200px" width="20px">
+	</div>
+	<div class="clear"></div>
+</div>
+
+        
+        <div class="clear"></div>
+         <!--第三屏内容-->
+         
+        
+        
+         <div class="clear"></div>
+        <div id="copyright">
+  <a href="http://www.cnblogs.com/AboutUS.aspx">关于博客园</a>　<a href="http://www.cnblogs.com/SiteMap.aspx">站点地图</a>　<a href="http://www.cnblogs.com/ad.aspx">广告服务</a>　<!--<a href="http://help.cnblogs.com">帮助中心</a>--><a href="http://www.cnblogs.com/ContactUs.aspx">联系我们</a>　<a href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备09004260号</a>　© 2009 <a href="http://www.cnblogs.com/">博客园</a>　原创.NET技术门户
+  <div style="display: none;">
+    <script src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/stat.html" type="text/javascript" charset="gb2312"></script><a href="http://www.cnzz.com/stat/website.php?web_id=1712029" target="_blank" title="站长统计">站长统计</a><img src="%E7%94%A8js%E5%AE%9E%E7%8E%B0%E8%BE%93%E5%85%A5%E6%8F%90%E7%A4%BA%EF%BC%88%E8%87%AA%E5%8A%A8%E5%AE%8C%E6%88%90%EF%BC%89%20-%20.NET%E9%A2%91%E9%81%93%20-%20%E5%8D%9A%E5%AE%A2%E5%9B%AD_files/stat.gif" border="0" height="0" width="0">
+  </div>
+</div>
+
+    
+    
+</body></html>

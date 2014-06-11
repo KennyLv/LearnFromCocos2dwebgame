@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0042)http://www.2solo.cn/log/article.asp?id=316 -->
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="Content-Language" content="UTF-8">
+	<meta name="robots" content="all">
+	<meta name="author" content=",Frank">
+	<meta name="Copyright" content="PJBlog3 CopyRight 2008">
+	<meta name="keywords" content="PuterJam,Blog,ASP,designing,with,web,standards,xhtml,css,graphic,design,layout,usability,accessibility,w3c,w3,w3cn">
+	<meta name="description" content="2S-Blog - 探索未来[X&#39;Plore thE FuTure]">
+	<meta name="generator" content="PJBlog3">
+	<link rel="service.post" type="application/atom+xml" title="2S-Blog - Atom" href="http://www.2solo.cn/log/xmlrpc.asp">
+	<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.2solo.cn/log/rsd.asp">
+	<title>一个利用javascript使用XPath的实例 - 2S-Blog</title>
+
+	
+	<link rel="alternate" type="application/rss+xml" href="http://www.2solo.cn/log/feed.asp?cateID=12" title="订阅 2S-Blog - 鸳歌-Ria应用 所有文章(rss2)">
+	<link rel="alternate" type="application/atom+xml" href="http://www.2solo.cn/log/atom.asp?cateID=12" title="订阅 2S-Blog - 鸳歌-Ria应用 所有文章(atom)">
+	
+	
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/global.css" type="text/css" media="all"><!--全局样式表-->
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/layout.css" type="text/css" media="all"><!--层次样式表-->
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/typography.css" type="text/css" media="all"><!--局部样式表-->
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/link.css" type="text/css" media="all"><!--超链接样式表-->
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/editor.css" type="text/css" media="all"><!--UBB编辑器代码-->
+	<link rel="stylesheet" rev="stylesheet" href="./一个利用javascript使用XPath的实例 - 2S-Blog_files/Dphighlighter.css" type="text/css" media="all"><!--FCK块引用&代码样式-->
+	<link rel="icon" href="http://www.2solo.cn/log/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="http://www.2solo.cn/log/favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/common.js"></script>
+	<!--<script type="text/javascript" src="common/nicetitle.js"></script>-->
+	<style type="text/css"> 
+		.ownerClassLog{display:none}
+		.ownerClassComment{display:none;}
+		/*全局的提示框样式*/
+		h5.tips{
+			background:#FFCC00;border:1px solid #FFCC00;background-image:url(images/bg_tips.png);color:#990000;padding:3px;margin:0;font-size:13px
+		}
+		h5.tips img{
+			border:0;background:transparent none !important;
+		}
+		.tips_body{
+			background:#FFFFCC;border:1px solid #FFCC00;padding:4px;
+		}
+		.tips_body form{
+			margin:0;
+		}
+		.tips_body a:link,.tips_body a:visited,.tips_body a:hover{
+			color:#990000;
+		}
+		.tips_body .input{
+			height:17px;
+			border:1px solid #BD5B21
+		}
+		.tips_body .hints{
+				margin:3px 0 0 3px;
+				padding:2px 2px 2px 18px;
+				background:url(images/notify.gif) no-repeat left 4px
+		}
+		.tips_body .error{
+			border:1px solid #CC0033;
+			padding:1px 3px 1px 21px;
+			color:#990000;
+			margin-bottom:2px;
+			background:#FF9F88 url(images/tips.gif) no-repeat 3px 4px
+		}
+	</style>
+<script type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/UBBCode_Gecko.js"></script></head>
+<body onload="initJS()" onkeydown="PressKey()">
+<a href="http://www.2solo.cn/log/default.asp" accesskey="i"></a>
+<a href="javascript:history.go(-1)" accesskey="z"></a>
+
+ <div id="container">
+ <!--顶部-->
+  <div id="header">
+   <div id="blogname">2S-Blog
+    <div id="blogTitle">探索未来[X'Plore thE FuTure]</div>
+   </div>
+   		<div id="menu"><div id="Left"></div><div id="Right"></div><ul><li class="menuL"></li><li><a class="menuA" href="http://www.2solo.cn/log/default.asp" title="日志首页">日志首页</a></li><li class="menuDiv"></li><li><a class="menuA" href="http://www.2solo.cn/log/tag.asp" title="">Tag合集</a></li><li class="menuDiv"></li><li><a class="menuA" href="http://www.2solo.cn/log/LoadMod.asp?plugins=AboutMeForPJBlog" title="个人档案">个人档案</a></li><li class="menuR"></li></ul></div>
+  </div>
+
+ <!--内容-->
+  <div id="Tbody">
+  <div id="mainContent">
+   <div id="innermainContent">
+       <div id="mainContent-topimg"></div>
+	   
+					   <div id="Content_ContentList" class="content-width"><a name="body" accesskey="B" href="http://www.2solo.cn/log/article.asp?id=316#body"></a>
+					   <div class="pageContent">
+						   <div style="float:right;width:auto">
+						   <a href="http://www.2solo.cn/log/article.asp?id=315" title="上一篇日志: 最近有点懒" accesskey=","><img border="0" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/Cprevious.gif" alt=""> 上一篇</a> | <a href="http://www.2solo.cn/log/article.asp?id=317" title="下一篇日志: 一个RIA的应用" accesskey="."><img border="0" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/Cnext.gif" alt=""> 下一篇</a>
+						   </div>
+ 						   <img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" style="margin:0px 2px -4px 0px" alt=""> <strong><a href="http://www.2solo.cn/log/default.asp?cateID=12" title="查看所有鸳歌-Ria应用的日志">鸳歌-Ria应用</a></strong> <a href="http://www.2solo.cn/log/feed.asp?cateID=12" target="_blank" title="订阅所有鸳歌-Ria应用的日志" accesskey="O"><img border="0" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" alt="订阅所有鸳歌-Ria应用的日志" style="margin-bottom:-1px"></a>
+					   </div>
+					   <div class="Content">
+					   <div class="Content-top"><div class="ContentLeft"></div><div class="ContentRight"></div>
+					     <h1 class="ContentTitle"><strong>
+							 一个利用javascript使用XPath的实例
+							 </strong> 
+							 
+							 </h1>
+					     <h2 class="ContentAuthor">作者:frank 日期:2005-01-17</h2>
+					   </div>
+					    <div class="Content-Info">
+						  <div class="InfoOther">字体大小: <a href="javascript:SetFont('12px')" accesskey="1">小</a> <a href="javascript:SetFont('14px')" accesskey="2">中</a> <a href="javascript:SetFont('16px')" accesskey="3">大</a></div>
+						  <div class="InfoAuthor"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/hn2_sunny.gif" style="margin:0px 2px -6px 0px" alt=""><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/hn2_t_sunny.gif" alt=""> <img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/level3.gif" style="margin:0px 2px -1px 0px" alt="">
+						    
+						  </div>
+						</div>
+						
+					  <div id="logPanel" class="Content-body">
+						<a href="http://mcc.id.au/xpathjs/" target="_blank"><font color="#666666">原文</font></a><br><br>这位老兄的js类有够强的.<br>一下是我的一些翻译和夹着点自己的理解.<br>下载类文件:<a href="http://mcc.id.au/xpathjs/xpath.js" target="_blank"><font color="#666666">xpath.js</font></a><br><br>一个实例:<br>
+<table style="BORDER-RIGHT: #999999 1px dotted; BORDER-TOP: #999999 1px dotted; BORDER-LEFT: #999999 1px dotted; BORDER-BOTTOM: #999999 1px dotted" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tbody>
+        <tr bgcolor="#d2eeff">
+            <td width="5">&nbsp;</td>
+            <td><br>引用:<br><br>var parser = new XPathParser();<br><br>var xpath = parser.parse("count(//svg:rect)");<br><br>var context = new XPathContext();<br>context.expressionContextNode = document.documentElement;<br><br>var result = xpath.evaluate(context);<br><br>window.alert("There " + (result == 1 ? "is " : "are ") + result<br>+ "SVG rect elements in the document.");<br><br></td>
+        </tr>
+    </tbody>
+</table>
+<br><br>XPath文本(XPathContext)构造器需要变量解析器,命名空间解析器和功能解析器.<br>如果不特别指定,就会使用默认的对象.默认的变量解析器不会解析任何变量,默认的命名空间解析器会解析表达式的节点.下面是个解析器的实例.<br><br>
+<table style="BORDER-RIGHT: #999999 1px dotted; BORDER-TOP: #999999 1px dotted; BORDER-LEFT: #999999 1px dotted; BORDER-BOTTOM: #999999 1px dotted" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tbody>
+        <tr bgcolor="#d2eeff">
+            <td width="5">&nbsp;</td>
+            <td><br>引用:<br><br>// MyVariableResolver<br><br>MyVariableResolver.prototype = new VariableResolver();<br>MyVariableResolver.prototype.constructor = MyVariableResolver;<br>MyVariableResolver.superclass = VariableResolver.prototype;<br><br>function MyVariableResolver() {<br>}<br><br>MyVariableResolver.prototype.getVariableWithName = function(ns, ln, c) {<br>if (ns == null &amp;&amp; ln == "doc") {<br>// Make the $doc variable return a nodeset containing the<br>// document element.<br>var ns = new XNodeSet();<br>ns.add(c.contextNode.ownerDocument.documentElement);<br>return ns;<br>}<br>return null;<br>};<br><br>// MyNamespaceResolver<br><br>MyNamespaceResolver.prototype = new NamespaceResolver();<br>MyNamespaceResolver.prototype.constructor = MyNamespaceResolver;<br>MyNamespaceResolver.superclass = NamespaceResolver.prototype;<br><br>function MyNamespaceResolver() {<br>}<br><br>MyNamespaceResolver.prototype.getNamespace = function(prefix, n) {<br>// Always resolve the prefix "ex".<br>if (prefix == "ex") {<br>return "http://example.org/functions";<br>}<br>return this.superclass.getNamespace(prefix, n);<br>};<br><br>// Extension function<br><br>var doubleString = function() {<br>// Extension functions always have the XPathContext as the first<br>// argument.<br>var c = arguments[0];<br>if (arguments.length != 2) {<br>throw new Error("Function ex:double-string expects (string)");<br>}<br><br>// We take the first real argument to the extension function,<br>// evaluate it, and get its string value.<br>var s = arguments[1].evaluate(c).stringValue();<br><br>// Then we return a new string object for the doubled string.<br>return new XString(s + s);<br>};<br><br>var varRes = new MyVariableResolver();<br>var nsRes = new MyNamespaceResolver();<br>var funRes = new FunctionResolver();<br><br>funRes.addFunction("http://example.org/functions",<br>"double-string", doubleString);<br><br>var parser = new XPathParser();<br>var context = new XPathContext(varRes, nsRes, funRes);<br>var xpath = new XPath("ex:double-string($doc/@width)");<br>var result = xpath.evaluate(context);<br><br></td>
+        </tr>
+    </tbody>
+</table>
+<br><br>解析任何表达式,都会返回XBoolean, XNumber, XString or XNodeSet中的一种对象,这四种类都用称做booleanValue, numberValue 和 stringValue的方法来把他们转换成javascript的方法.XNodeSet具有toArray方法,来返回一个包含了节点集中的DOM节点的数组.<br><br>因为的数据模型把邻近的节点或者CDATA部分看成一个纯文本节点,会导致解析的出错,下面的方法可以顺利的避免:<br>
+<table style="BORDER-RIGHT: #999999 1px dotted; BORDER-TOP: #999999 1px dotted; BORDER-LEFT: #999999 1px dotted; BORDER-BOTTOM: #999999 1px dotted" cellspacing="0" cellpadding="0" width="100%" border="0">
+    <tbody>
+        <tr bgcolor="#d2eeff">
+            <td width="5">&nbsp;</td>
+            <td><br>引用:<br>Utilities.coalesceText(document);</td>
+        </tr>
+    </tbody>
+</table>
+					   <br><br>
+
+					   </div>
+					   <div class="Content-body">
+					    
+						<img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/From.gif" style="margin:4px 2px -4px 0px" alt=""><strong>文章来自:</strong> <a href="http://www.2solo.cn/log/" target="_blank">本站原创</a><br>
+						<img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/icon_trackback.gif" style="margin:4px 2px -4px 0px" alt=""><strong>引用通告:</strong> <a href="http://www.2solo.cn/log/trackback.asp?tbID=316&action=view" target="_blank">查看所有引用</a> | <a href="javascript:;" title="获得引用文章的链接" onclick="getTrackbackURL(316)">我要引用此文章</a><br>
+					   	
+						 <img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/tag.gif" style="margin:4px 2px -4px 0px" alt=""><strong>Tags:</strong> <a href="http://www.2solo.cn/log/default.asp?tag=javascript">javascript</a><a href="http://technorati.com/tag/javascript" rel="tag" style="display:none">javascript</a> <a href="http://www.2solo.cn/log/default.asp?tag=xpath">xpath</a><a href="http://technorati.com/tag/xpath" rel="tag" style="display:none">xpath</a> <br>
+					   </div>
+					   <div class="Content-bottom"><div class="ContentBLeft"></div><div class="ContentBRight"></div>评论: 0 | 引用: 0 | 查看次数: 3275
+					   </div></div>
+					   </div>
+<a name="comm_top" href="http://www.2solo.cn/log/article.asp?id=316#comm_top" accesskey="C"></a>
+<div id="MsgContent" style="width:94%;"><div id="MsgHead">发表评论</div><div id="MsgBody">
+
+		      <script type="text/javascript">
+		      		function checkCommentPost(){
+		      			if (!CheckPost) return false
+						// 备用方法
+		      			return true
+		      		}
+		      </script>
+		      <form name="frm" action="http://www.2solo.cn/log/blogcomm.asp" method="post" onsubmit="return checkCommentPost()" style="margin:0px;">	  
+			  <table width="100%" cellpadding="0" cellspacing="0">	  
+			  <tbody><tr><td align="right" width="70"><strong>昵　称:</strong></td><td align="left" style="padding:3px;"><input name="username" type="text" size="18" class="userpass" maxlength="24"></td></tr>
+		      <tr><td align="right" width="70"><strong>密　码:</strong></td><td align="left" style="padding:3px;"><input name="password" type="password" size="18" class="userpass" maxlength="24"> 游客发言不需要密码.</td></tr>
+			  <tr><td align="right" width="70" valign="top"><strong>内　容:</strong><br>
+			  </td><td style="padding:2px;">
+			   <script language="javascript" type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/UBBCode.js"></script><script language="javascript" type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/UBBCode_help.js"></script><div id="UBBSmiliesPanel" class="UBBSmiliesPanel"></div><textarea id="editMask" class="editTextarea" style="width:99%;height:100px" onfocus="loadUBB(&#39;Message&#39;)"></textarea><div id="editorbody" style="display:none"><div id="editorHead">正在加载编辑器...</div><div class="editorContent"><textarea name="Message" class="editTextarea" style="height:150px;;" cols="1" rows="1" accesskey="R"></textarea></div></div><script language="javascript" type="text/javascript">initUBB("Message")</script>
+			  </td></tr>
+			  <tr><td align="right" width="70"><strong>验证码:</strong></td><td align="left" style="padding:3px;"><input name="validate" type="text" size="4" class="userpass" maxlength="4" onfocus="this.select()"> <img id="vcodeImg" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/getcode.asp" onerror="this.onerror=null;this.src=&#39;common/getcode.asp?s=&#39;+Math.random();" alt="验证码" title="看不清楚?换一张" style="margin-right:40px;cursor:pointer;width:40px;height:18px;margin-bottom:-4px;margin-top:3px;" onclick="src=&#39;common/getcode.asp?s=&#39;+Math.random()"></td></tr>
+			  <tr><td align="right" width="70" valign="top"><strong>选　项:</strong></td><td align="left" style="padding:3px;">
+		             <label for="label5"><input name="log_DisSM" type="checkbox" id="label5" value="1">禁止表情转换</label>
+		             <label for="label6"><input name="log_DisURL" type="checkbox" id="label6" value="1">禁止自动转换链接</label>
+		             <label for="label7"><input name="log_DisKey" type="checkbox" id="label7" value="1">禁止自动转换关键字</label>
+			  </td></tr>
+		          <tr>
+		            <td colspan="2" align="center" style="padding:3px;">
+					  <input name="logID" type="hidden" value="316">
+		              <input name="action" type="hidden" value="post">
+					  <input name="submit2" type="submit" class="userbutton" value="发表评论" accesskey="S">
+		              <input name="button" type="reset" class="userbutton" value="重写"></td>
+		          </tr>
+		          <tr>
+		            <td colspan="2" align="right">
+					 
+					 	虽然发表评论不用注册，但是为了保护您的发言权，建议您<a href="http://www.2solo.cn/log/register.asp">注册帐号</a>. <br>
+					 
+			  字数限制 <b>1000 字</b> |
+			  UBB代码 <b>开启</b> |
+			  [img]标签 <b>关闭</b>
+		
+					</td>
+		          </tr>		  
+			  </tbody></table></form>
+	</div></div>
+       <div id="mainContent-bottomimg"></div>
+   </div>
+   </div>
+   
+   <div id="sidebar">
+	   <div id="innersidebar">
+		     <div id="sidebar-topimg"><!--工具条顶部图象--></div>
+			  <div id="Side_Category" class="sidepanel"><h4 class="Ptitle">Category</h4><div class="Pcontent"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/22.gif" border="0" style="margin:3px 4px -4px 0px;" alt="日志首页"><a class="CategoryA" href="http://www.2solo.cn/log/default.asp" title="日志首页">日志首页</a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/10.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/tag.asp" title="">Tag合集</a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=21" title="">行空-Air应用 [1]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=21" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=12" title="">鸳歌-Ria应用 [183]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=12" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=17" title="">无象-Dev [132]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=17" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=18" title="">清音-Graphic [33]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=18" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=11" title="">何处-资料收藏 [24]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=11" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=13" title="">奔渊-eBusiness [4]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=13" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=14" title="">追风-In IT [84]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=14" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=19" title="">瑞行-eLearning [1]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=19" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=15" title="">凡生-Life [121]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=15" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt=""><a class="CategoryA" href="http://www.2solo.cn/log/default.asp?cateID=22" title="">摄魂-摄影 [6]</a> <a href="http://www.2solo.cn/log/feed.asp?cateID=22" title="订阅该分类内容"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss.png" border="0" style="margin:3px 4px -1px 0px;" alt=""></a><br><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/1.gif" border="0" style="margin:3px 4px -4px 0px;" alt="个人档案"><a class="CategoryA" href="http://www.2solo.cn/log/LoadMod.asp?plugins=AboutMeForPJBlog" title="个人档案">个人档案</a><br></div><div class="Pfoot"></div></div><div id="Side_Calendar" class="sidepanel"><h4 class="Ptitle">Calendar</h4><div class="Pcontent"><div id="Calendar_Body"><div id="Calendar_Top"><div id="LeftB" onclick="location.href=&#39;default.asp?log_Year=2011&amp;log_Month=1&#39;"></div><div id="RightB" onclick="location.href=&#39;default.asp?log_Year=2011&amp;log_Month=3&#39;"></div>2011年2月</div><div id="Calendar_week"><ul class="Week_UL"><li><font color="#FF0000">日</font></li><li>一</li><li>二</li><li>三</li><li>四</li><li>五</li><li>六</li></ul></div><div class="Calendar_Day"><ul class="Day_UL"><li class="DayA"><a class="otherday">30</a></li><li class="DayA"><a class="otherday">31</a></li><li class="DayA"><a>1</a></li><li class="DayA"><a>2</a></li><li class="DayA"><a>3</a></li><li class="DayA"><a>4</a></li><li class="DayA"><a>5</a></li></ul></div><div class="Calendar_Day"><ul class="Day_UL"><li class="DayA"><a>6</a></li><li class="DayA"><a>7</a></li><li class="DayA"><a>8</a></li><li class="DayA"><a>9</a></li><li class="DayA"><a>10</a></li><li class="DayA"><a>11</a></li><li class="DayA"><a>12</a></li></ul></div><div class="Calendar_Day"><ul class="Day_UL"><li class="DayA"><a>13</a></li><li class="DayA"><a>14</a></li><li class="DayA"><a>15</a></li><li class="DayA"><a>16</a></li><li class="DayA"><a>17</a></li><li class="DayA"><a>18</a></li><li class="DayA"><a>19</a></li></ul></div><div class="Calendar_Day"><ul class="Day_UL"><li class="DayA"><a>20</a></li><li class="DayA"><a>21</a></li><li class="DayA"><a class="today">22</a></li><li class="DayA"><a>23</a></li><li class="DayA"><a>24</a></li><li class="DayA"><a>25</a></li><li class="DayA"><a>26</a></li></ul></div><div class="Calendar_Day"><ul class="Day_UL"><li class="DayA"><a>27</a></li><li class="DayA"><a>28</a></li><li class="DayA"><a class="otherday">1</a></li><li class="DayA"><a class="otherday">2</a></li><li class="DayA"><a class="otherday">3</a></li><li class="DayA"><a class="otherday">4</a></li><li class="DayA"><a class="otherday">5</a></li></ul></div></div></div><div class="Pfoot"></div></div><div id="Side_popcorn" class="sidepanel"><h4 class="Ptitle">爆米花杂志</h4><div class="Pcontent">爆米花增刊第三期<br>
+<a href="http://www.mag06.com/blog/article/10.htm" target="_blank"><img src="http://www.mag06.com/blog/attachments/month_1004/k201049152513.jpg" width="50%" height="50%" border="0" align="left/"></a>
+</div><div class="Pfoot"></div></div><div id="Side_Flickr" class="sidepanel"><h4 class="Ptitle">我的Flickr</h4><div class="Pcontent"><script type="text/javascript">
+var zg_nsids = '8423703@N08';
+</script>
+<script src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/badge.js.gne" type="text/javascript"></script><script type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/fpi.js"></script><script type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/badge_code.js"></script><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="151" height="197" id="zg" align=""><param name="movie" value="http://www.flickr.com/fun/zeitgeist/badge.swf?host=http://www.flickr.com&amp;bg_color=ffffff&amp;cols=3&amp;rows=4&amp;wh=37&amp;swapInterv=3&amp;loadInterv=120&amp;transition=bigThenSmall&amp;nsids=8423703@N08&amp;scope=0&amp;v=35740&amp;magisterLudi=40a0355d24013c47c567a2abb4e48294&amp;flickr_secret=87f8a3d8a2363466&amp;auth_token=&amp;auth_hash="><param name="quality" value="high"><param name="bgcolor" value="#ffffff"><embed src="http://www.flickr.com/fun/zeitgeist/badge.swf?host=http://www.flickr.com&amp;bg_color=ffffff&amp;cols=3&amp;rows=4&amp;wh=37&amp;swapInterv=3&amp;loadInterv=120&amp;transition=bigThenSmall&amp;nsids=8423703@N08&amp;scope=0&amp;v=35740&amp;magisterLudi=40a0355d24013c47c567a2abb4e48294&amp;flickr_secret=87f8a3d8a2363466&amp;auth_token=&amp;auth_hash=" quality="high" bgcolor="#ffffff" width="151" height="197" name="photo" align="" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></object>
+</div><div class="Pfoot"></div></div><div id="Side_Union" class="sidepanel"><h4 class="Ptitle">Union</h4><div class="Pcontent"><a href="http://www.2solo.cn/" target="_blank"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/logo.gif" border="0" align="left/"></a><br>
+<a href="http://www.mag06.com/" target="_blank"><img src="http://www.mag06.com/image/logo.gif" border="0" align="left/"></a><br>
+<a href="http://www.sutang.net/" target="_blank"><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/linklogo1.gif" border="0" align="left/"></a><br>
+
+<a href="http://www.2solo.cn/blog" target="_blank">已经废弃的老博客</a>
+</div><div class="Pfoot"></div></div><div id="Side_User" class="sidepanel"><h4 class="Ptitle">User Panel</h4><div class="Pcontent"><a href="http://www.2solo.cn/log/login.asp" class="sideA" accesskey="L">登录</a><a href="http://www.2solo.cn/log/register.asp" class="sideA" accesskey="U">用户注册</a></div><div class="Pfoot"></div></div><div id="Side_Comment" class="sidepanel"><h4 class="Ptitle">Recent Comments</h4><div class="Pcontent">		 <div class="commentTable">
+		  <a class="sideA" href="http://www.2solo.cn/log/article.asp?id=59#comm_1606" title="111 于 06/01/2011 11:06:30 发表评论
+喝糗">喝糗</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=50#comm_1605" title="路过 于 14/10/2010 09:41:10 发表评论
+flash的计时本来就存在误差，即便是timer或者setInterval都是这样。不过lizi说的很对，trace语句是有时间消耗的，你可以换个测试方法。 而且Flash8文档中没这个接口，但fl...">flash的计时本来就存在误差，即便是timer或...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=564#comm_1604" title="Jet 于 27/09/2010 11:00:56 发表评论
+很牛逼啊[eek]">很牛逼啊[eek]</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=59#comm_1603" title="hanamichi 于 26/09/2010 21:17:46 发表评论
+错勒，as3还用来做网页勒，很多极好的air，不久你就会发现了">错勒，as3还用来做网页勒，很多极好的air，不久...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=59#comm_1602" title="HAHA 于 05/09/2010 13:32:19 发表评论
+AS3是面向对象编程，而不是面向对象设计，当然designer会疯掉。  C#, JAVA都是面向对象编程呵。">AS3是面向对象编程，而不是面向对象设计，当然de...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=571#comm_1601" title="niuxiaoming26 于 15/06/2010 05:30:01 发表评论
+那个德国的乐队让我想起了 山羊皮和PLACEBO ">那个德国的乐队让我想起了 山羊皮和PLACEBO ...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=580#comm_1600" title="frank 于 08/04/2010 21:09:35 发表评论
+恩,四象.一般来说博弈系数存在于任何一份交易中的.生活中并不是所有交易都由乙方来控制的,甲方也应该占据主动,比如货比三家或详细了解产品信息.那么现在看来,准备工作不充分的甲方由于会增加乙方沟通的工作量...">恩,四象.一般来说博弈系数存在于任何一份交易中的....</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=580#comm_1599" title="两仪四象 于 07/04/2010 06:25:23 发表评论
+提个想法，关于IT的。对于甲方，从提需求的角度说，自然是越丰富越好，从成本的角度说，自然是越廉价越好。对于乙方，没有做过纯粹的乙方，就不说了。甲乙双方肯定是存在博弈的。撇开对产品价值的客观认识，因为这...">提个想法，关于IT的。对于甲方，从提需求的角度说，...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=59#comm_1598" title="frank 于 25/02/2010 21:50:55 发表评论
+TO 暗泪,你好,首先这个是07年的帖子.但是,就算过了这么些年了,我仍然不认为我的看法是错误的.一个你永远掌握不了核心技术,牵着你鼻子走的国外软件.难道你们的世界就是如此狭隘的?规范又如何,mvc又...">TO 暗泪,你好,首先这个是07年的帖子.但是,就...</a><a class="sideA" href="http://www.2solo.cn/log/article.asp?id=59#comm_1597" title="暗泪 于 25/02/2010 15:29:25 发表评论
+Webgame知道不？">Webgame知道不？</a>
+	     </div></div><div class="Pfoot"></div></div><div id="Side_Archive" class="sidepanel"><h4 class="Ptitle">Archive</h4><div class="Pcontent"><a class="sideA" style="margin:0px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010" title="查看2010年的日志">2010</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=1" title="2010年1月有2篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=2" title="2010年2月有1篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=3" title="2010年3月有4篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=4" title="2010年4月有5篇日志">04月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=5" title="2010年5月有3篇日志">05月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=6" title="2010年6月有1篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=8" title="2010年8月有1篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2010&log_Month=10" title="2010年10月有2篇日志">10月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009" title="查看2009年的日志">2009</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=1" title="2009年1月有3篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=2" title="2009年2月有3篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=3" title="2009年3月有1篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=6" title="2009年6月有1篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=7" title="2009年7月有2篇日志">07月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2009&log_Month=9" title="2009年9月有1篇日志">09月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008" title="查看2008年的日志">2008</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=1" title="2008年1月有16篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=2" title="2008年2月有21篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=3" title="2008年3月有6篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=4" title="2008年4月有3篇日志">04月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=5" title="2008年5月有6篇日志">05月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=6" title="2008年6月有3篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=7" title="2008年7月有6篇日志">07月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=8" title="2008年8月有2篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=9" title="2008年9月有1篇日志">09月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=10" title="2008年10月有2篇日志">10月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=11" title="2008年11月有1篇日志">11月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2008&log_Month=12" title="2008年12月有2篇日志">12月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007" title="查看2007年的日志">2007</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=1" title="2007年1月有2篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=2" title="2007年2月有4篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=3" title="2007年3月有4篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=5" title="2007年5月有7篇日志">05月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=6" title="2007年6月有6篇日志">06月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=7" title="2007年7月有11篇日志">07月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=8" title="2007年8月有1篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=9" title="2007年9月有2篇日志">09月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=10" title="2007年10月有1篇日志">10月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=11" title="2007年11月有1篇日志">11月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2007&log_Month=12" title="2007年12月有15篇日志">12月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006" title="查看2006年的日志">2006</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=1" title="2006年1月有17篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=2" title="2006年2月有5篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=3" title="2006年3月有5篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=4" title="2006年4月有2篇日志">04月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=5" title="2006年5月有8篇日志">05月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=6" title="2006年6月有5篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=7" title="2006年7月有6篇日志">07月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=8" title="2006年8月有8篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=9" title="2006年9月有12篇日志">09月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=10" title="2006年10月有3篇日志">10月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=11" title="2006年11月有6篇日志">11月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2006&log_Month=12" title="2006年12月有1篇日志">12月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005" title="查看2005年的日志">2005</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=1" title="2005年1月有14篇日志">01月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=2" title="2005年2月有7篇日志">02月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=3" title="2005年3月有21篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=4" title="2005年4月有8篇日志">04月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=5" title="2005年5月有9篇日志">05月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=6" title="2005年6月有10篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=7" title="2005年7月有17篇日志">07月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=8" title="2005年8月有8篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=9" title="2005年9月有5篇日志">09月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=10" title="2005年10月有17篇日志">10月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=11" title="2005年11月有10篇日志">11月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2005&log_Month=12" title="2005年12月有20篇日志">12月</a><a class="sideA" style="margin:6px 0px 0px -2px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004" title="查看2004年的日志">2004</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=3" title="2004年3月有16篇日志">03月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=4" title="2004年4月有15篇日志">04月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=5" title="2004年5月有78篇日志">05月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=6" title="2004年6月有13篇日志">06月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=7" title="2004年7月有14篇日志">07月</a><br><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=8" title="2004年8月有20篇日志">08月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=9" title="2004年9月有13篇日志">09月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=10" title="2004年10月有13篇日志">10月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=11" title="2004年11月有13篇日志">11月</a><a style="margin-right:5px;" href="http://www.2solo.cn/log/default.asp?log_Year=2004&log_Month=12" title="2004年12月有17篇日志">12月</a><br></div><div class="Pfoot"></div></div><div id="Side_Support" class="sidepanel"><h4 class="Ptitle">Support</h4><div class="Pcontent"><div style="PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 4px; PADDING-TOP: 4px; TEXT-ALIGN: left"><a href="http://validator.w3.org/check/referer" target="_blank"><img alt="XHTML 1.0 Transitional" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/xhtml.png" border="0"></a> <a href="http://jigsaw.w3.org/css-validator/validator-uri.html" target="_blank"><img alt="Css Validator" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/css.png" border="0"></a> <a href="http://www.2solo.cn/log/feed.asp" target="_blank"><img alt="RSS 2.0" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/rss2.png" border="0"></a>&nbsp;<a href="http://www.2solo.cn/log/atom.asp" target="_blank"><img alt="Atom 1.0" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/atom.png" border="0"></a> <a href="http://www.mozilla.org/products/firefox/" target="_blank"><img alt="Get firefox" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/firefox.gif" border="0"></a> <a href="http://www.creativecommons.cn/licenses/by-nc-sa/1.0/" target="_blank"><img alt="Creative Commons" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/cc.png" border="0"></a> </div></div><div class="Pfoot"></div></div>
+		     <div id="sidebar-bottomimg"></div>
+	   </div>
+   </div>
+   <div style="clear: both;height:1px;overflow:hidden;margin-top:-1px;"></div>
+  </div>
+  
+ <!--底部-->
+  <div id="foot">
+    <p>Powered By <a href="http://www.pjhome.net/" target="_blank"><strong>PJBlog3 v2.8.5.150</strong></a> CopyRight 2004 - 2009, <strong>2S-Blog</strong> <a href="http://validator.w3.org/check/referer" target="_blank">xhtml</a> | <a href="http://jigsaw.w3.org/css-validator/validator-uri.html">css</a></p>
+    <p style="font-size:11px;">Processed in <b>0.109375</b> second(s) , <b>6</b> queriess.
+    <br><a href="http://www.miibeian.gov.cn/" style="font-size:12px"><b></b></a>
+    </p>
+   </div>
+ </div>
+<script type="text/javascript">initAccessKey()  //转换AccessKey For IE</script>
+<script type="text/javascript" src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/tongji.js"></script><img src="./一个利用javascript使用XPath的实例 - 2S-Blog_files/tongji.do" border="0" width="1" height="1">
+
+
+</body></html>

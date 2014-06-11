@@ -1,0 +1,40 @@
+最近事比较多，几天没有更新日志了，介绍一个简单但很实用的效果，看效果
+Highslide JS
+
+JS部分说明:
+  // 可以自己设定偏移值
+   xOffset = 10;
+   yOffset = 30;  
+
+//鼠标经过触发:
+$("a.preview").hover(function(e){
+   $("body").append("<div id='preview'>jquery实现简单文字提示</div>");        
+   $("#preview")
+    .css("top",(e.pageY - xOffset) + "px")
+    .css("left",(e.pageX + yOffset) + "px")
+    .fadeIn("slow");      
+    },
+function(){
+   $("#preview").fadeOut("fast");
+    });
+$("a.preview").mousemove(function(e){
+   $("#preview")
+    .css("top",(e.pageY - xOffset) + "px")
+    .css("left",(e.pageX + yOffset) + "px");
+});  
+};
+
+// 页面加载完执行
+$(document).ready(function(){
+imagePreview();
+});
+
+
+
+
+
+
+
+
+
+

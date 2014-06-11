@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>动态创建对象</title>
+
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(function()
+        {
+
+            $("#btnTestAttr1").bind("click", testAttr1);
+            $("#btnTestAttr2").bind("click", testAttr2);
+            $("#btnTestAttr3").bind("click", testAttr3);
+
+        })
+
+        function testAttr1(event)
+        {
+            alert($("img").attr("alt"));
+        }
+
+        function testAttr2(event)
+        {
+            $("img").attr("alt", "修改后的alt属性");
+            $("img").attr({title:"修改后的title", alt: "同时修改alt属性"});
+        }
+
+        function testAttr3(event)
+        {
+            $("#inputTest").removeAttr("readonly");
+        }
+    </script>
+
+</head>
+<body>
+    <div>
+        <input id="btnTestAttr1" type="button" value="测试attr(name)" /><br /><br />
+        <input id="btnTestAttr2" type="button" value="测试attr( key, value )" /><br /><br />
+        <input id="btnTestAttr3" type="button" value="删除input的readonly属性" /><br /><br />
+    </div>
+    <div>
+        <img src="images/image.1.jpg" id="hibiscus" alt="Hibiscus" />
+        <img src="images/image.2.jpg" id="littleBear" alt="A dog named Little Bear" />
+        <img src="images/image.3.jpg" id="verbena" alt="Verbena" />
+        <img src="images/image.4.jpg" id="cozmo" alt="A puppy named Cozmo" />
+        <img src="images/image.5.jpg" id="tigerLily" alt="Tiger Lily" />
+        <img src="images/image.6.jpg" id="coffeePot" />
+    </div>
+    <div>
+        <input id="inputTest" name="inputTest" readonly="readonly" type="text" value="只读的input" />
+    </div>
+</body>
+</html>

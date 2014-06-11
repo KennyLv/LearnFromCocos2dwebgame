@@ -1,0 +1,1840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0062)http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>Web开发系列 - VML - peterzb - 博客园</title>
+<meta name="keywords" content="JavaScript,Chart,Java,C#,Asp.Net,Report,UI,Web">
+<meta name="description" content="VML相当于IE里面的画笔，能实现你所想要的图形，而且结合脚本，可以让图形产生动态的效果。VML是微软1999年9月附带IE5.0发布的，在我认为， VML其实是Word和HTML结合的产物。可以将Word文档另存为HTML，其中的文本和图片可以很容易的转换，但如果是手绘制的图形在以往的IE里面就无">
+<link type="text/css" rel="stylesheet" href="./Web开发系列 - VML - peterzb - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./Web开发系列 - VML - peterzb - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./Web开发系列 - VML - peterzb - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./Web开发系列 - VML - peterzb - 博客园_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="./Web开发系列 - VML - peterzb - 博客园_files/shThemeDefault.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/peterzb/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/peterzb/rsd.xml"> 
+<script src="./Web开发系列 - VML - peterzb - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script src="./Web开发系列 - VML - peterzb - 博客园_files/common.js" type="text/javascript"></script>
+<script src="./Web开发系列 - VML - peterzb - 博客园_files/jquery.json-2.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./Web开发系列 - VML - peterzb - 博客园_files/shCore.js"></script>
+<script type="text/javascript" src="./Web开发系列 - VML - peterzb - 博客园_files/shLanguage.js"></script>
+</head>
+<body>
+    <a name="top"></a>
+    <form method="post" action="./Web开发系列 - VML - peterzb - 博客园_files/Web开发系列 - VML - peterzb - 博客园.htm" id="Form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+</div>
+
+        
+<table class="Framework" cellspacing="0" cellpadding="0" width="100%">
+	<tbody><tr>
+		<td colspan="3">
+			
+<div id="top">
+<table cellpadding="10" cellspacing="0">
+	<tbody><tr>
+		<td nowrap="">
+			<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/peterzb/">个人开发历程知识库</a></h1>
+			关注C++/Java/C#技术, 致力于安防监控/移动应用/WEB方面开发 <br>
+------------------------------------
+业精于勤,荒于嬉;行成于思,毁于随
+		</td>
+	</tr>
+</tbody></table>
+</div>
+<div id="sub">
+	<div id="sub-right">
+<div class="BlogStats">posts - 164, comments - 505, trackbacks - 0, articles - 18</div></div>
+	
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a>&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/peterzb/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/peterzb/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/peterzb">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/peterzb/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/peterzb/rss"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/peterzb/admin/EditPosts.aspx">管理</a>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="LeftCell">
+			<div id="leftmenu">
+	
+		
+		
+	
+	
+<script type="text/javascript">
+    var blogapp = 'peterzb';
+</script>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3 class="catListTitle">搜索</h3>
+
+</div>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>常用链接</h3>
+<ul>
+
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/peterzb/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/peterzb/">我的空间</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/peterzb/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_0" href="http://www.cnblogs.com/peterzb/MyArticles.html">我的文章</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/peterzb/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/peterzb/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_3" href="http://www.cnblogs.com/peterzb/tag/">我的标签</a></li>
+	</ul>
+</div>
+</div>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>我参与的团队</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_0" href="http://www.cnblogs.com/team/WMAP/">Windows Phone 应用开发(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_1" href="http://www.cnblogs.com/team/HomeOfGraduates/">应届毕业生之家(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_2" href="http://www.cnblogs.com/team/DotNetOfFJFZ/">福州.NET俱乐部(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_3" href="http://www.cnblogs.com/team/reportcontrol/">报表与图表团队(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_4" href="http://www.cnblogs.com/team/wpf_sl/">WPF/Silverlight深蓝团队(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_5" href="http://www.cnblogs.com/team/android/">Android开发团队(0/0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/peterzb/tag/C%23/">C#(63)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/WinForm/">WinForm(52)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Mobile/">Mobile(51)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Asp.Net/">Asp.Net(25)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Java/">Java(23)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Symbian/">Symbian(23)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Windows%20Mobile/">Windows Mobile(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Socket/">Socket(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Database/">Database(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/%E6%B5%81%E5%AA%92%E4%BD%93/">流媒体(19)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/">更多</a></li>
+</ul>
+</div>
+</div>
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔分类<span style="font-size:11px;font-weight:normal">(387)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/248678.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/peterzb/category/248678.html">Android开发(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55906.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/peterzb/category/55906.html">ASP.NET(32)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55905.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/peterzb/category/55905.html">C#(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190751.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/peterzb/category/190751.html">C++(30)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190752.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/peterzb/category/190752.html">Java(28)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190280.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/peterzb/category/190280.html">Mobile(48)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_6" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/195137.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/peterzb/category/195137.html">Symbian(24)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_7" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55904.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/peterzb/category/55904.html">VB/VB.NET(18)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_8" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/197936.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/peterzb/category/197936.html">Windows Mobile(17)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56054.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/peterzb/category/56054.html">XML(15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_10" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190749.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/peterzb/category/190749.html">安防监控(30)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_11" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/194697.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/peterzb/category/194697.html">程序人生(13)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_12" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/192953.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/peterzb/category/192953.html">电脑知识(6)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_13" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/119804.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/peterzb/category/119804.html">数据库技术(18)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_14" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55916.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/peterzb/category/55916.html">转载(38)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔档案<span style="font-size:11px;font-weight:normal">(163)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/peterzb/archive/2010/12.html">2010年12月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/peterzb/archive/2010/11.html">2010年11月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/peterzb/archive/2010/10.html">2010年10月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/peterzb/archive/2010/06.html">2010年6月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/peterzb/archive/2010/02.html">2010年2月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/peterzb/archive/2009/12.html">2009年12月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/peterzb/archive/2009/11.html">2009年11月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/peterzb/archive/2009/10.html">2009年10月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/peterzb/archive/2009/08.html">2009年8月 (5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/peterzb/archive/2009/07.html">2009年7月 (43)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/peterzb/archive/2009/06.html">2009年6月 (48)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/peterzb/archive/2009/05.html">2009年5月 (44)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/peterzb/archive/2006/04.html">2006年4月 (9)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>文章分类<span style="font-size:11px;font-weight:normal">(39)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56226.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/peterzb/category/56226.html">ASP.NET(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56053.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/peterzb/category/56053.html">C#</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190435.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/peterzb/category/190435.html">C/C++(15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/192954.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_3" href="http://www.cnblogs.com/peterzb/category/192954.html">Java</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56052.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_4" href="http://www.cnblogs.com/peterzb/category/56052.html">XML(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56051.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_5" href="http://www.cnblogs.com/peterzb/category/56051.html">网文(18)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>文章档案<span style="font-size:11px;font-weight:normal">(18)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_0" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2009/05.html">2009年5月 (15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_1" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2008/09.html">2008年9月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_2" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2006/04.html">2006年4月 (2)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>收藏夹<span style="font-size:11px;font-weight:normal">(2013)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207836.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_0" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207836.html">ADO.NET (36)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/206943.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_1" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/206943.html">Android(45)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198324.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_2" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198324.html">Asp.Net(78)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198410.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_3" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198410.html">Blog使用帮助(23)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/180912.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_4" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/180912.html">C/C++(174)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198710.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_5" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198710.html">Chart(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_6" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/129707.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_6" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/129707.html">CSS/HTML/XML(50)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_7" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/184925.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_7" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/184925.html">Database(155)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_8" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/206946.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_8" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/206946.html">Google(10)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/191309.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_9" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/191309.html">Java/J2ME(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_10" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/223116.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_10" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/223116.html">JavaScript(70)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_11" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/160357.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_11" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/160357.html">Other(75)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_12" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198709.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_12" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198709.html">Report(45)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_13" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/193419.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_13" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/193419.html">Symbian(71)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_14" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207835.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_14" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207835.html">Web Services(31)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_15" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/56855.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_15" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/56855.html">WinForm(265)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_16" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/181277.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_16" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/181277.html">WM/WCE(378)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_17" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207834.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_17" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207834.html">多线程(55)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_18" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/199436.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_18" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/199436.html">开发与实用工具(28)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_19" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/128968.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_19" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/128968.html">美文集锦(34)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_20" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/199435.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_20" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/199435.html">软件测试(14)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_21" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207896.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_21" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207896.html">软件工程(59)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_22" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/190877.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_22" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/190877.html">视频监控(103)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_23" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207838.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_23" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207838.html">网络通信(61)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_24" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/191438.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_24" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/191438.html">站点架构&amp;网络技术(23)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>C++</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_0" href="http://hi.baidu.com/mikenoodle/blog/category/Wince" target="_blank">mikenoodle</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_1" href="http://hi.baidu.com/banwusan/blog/category/%BF%AA%B7%A2%BB%B7%BE%B3" target="_blank">OK·兔</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_2" rel="nofollow" href="http://www.cnblogs.com/shipfi/" target="_blank">Shipfi </a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_3" rel="nofollow" href="http://www.stlchina.org/twiki/bin/view.pl/Main/STLTechArticles" target="_blank">STL</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_4" rel="nofollow" href="http://symbianblog.com/" target="_blank">Symbian Blog</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_5" href="http://blog.csdn.net/dongfengsun/category/269437.aspx" target="_blank">Symbian技术</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_6" rel="nofollow" href="http://www.vckbase.com/" target="_blank">VC知识库</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_7" href="http://blog.csdn.net/gehantao/category/226568.aspx" target="_blank">葛涵涛</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>Java</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_0" rel="nofollow" href="http://www.blogjava.net/" target="_blank">BlogJava</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_1" rel="nofollow" href="http://www.javaeye.com/" target="_blank">JavaEye</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_2" rel="nofollow" href="http://www.open-open.com/" target="_blank">Java开源大全</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_3" rel="nofollow" href="http://spring.jactiongroup.net/" target="_blank">SpringFramework中文论坛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_4" href="http://blog.csdn.net/Mailbomb/category/77473.aspx" target="_blank">陈跃峰</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_5" rel="nofollow" href="http://blog.csdn.net/java2000_net" target="_blank">老紫竹</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_6" rel="nofollow" href="http://blog.csdn.net/zhengyun_ustc" target="_blank">郑昀</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_7" rel="nofollow" href="http://www.eclipseworld.org/bbs/index.php" target="_blank">中国Eclipse社区</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>编程技术※IT资讯</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_0" rel="nofollow" href="http://www.cnbeta.com/">cnBeta中文IT资讯站</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_1" rel="nofollow" href="http://www.devdiv.net/" target="_blank">DevDiv论坛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_2" rel="nofollow" href="http://www.msproject.cn/">MSProject开源技术</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_3" rel="nofollow" href="http://www.codeproject.com/" target="_blank">The Code Project</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_4" rel="nofollow" href="http://www.syncfusion.com/FAQ/WindowsForms/Default.aspx#44">Windows Forms FAQ</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_5" rel="nofollow" href="http://www.ibook8.com/">爱书吧</a>
+				</li>
+			<li class="c_b_p_link_desc">下载技术书籍、资料</li>
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_6" rel="nofollow" href="http://hi.baidu.com/chinasjy/blog" target="_blank">电脑知识</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_7" rel="nofollow" href="http://caipiao.163.com/i/20110304484839" target="_blank">网易彩票碰运气</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>关注博客</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_0" rel="nofollow" href="http://www.codeproject.com/KB/mobile/" target="_blank">CodeProject</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_1" rel="nofollow" href="http://www.cnblogs.com/JeffreyZhao/" target="_blank">Jeffrey Zhao</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_2" href="http://blog.csdn.net/lius1984/category/443694.aspx" target="_blank">K歌之王</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_3" rel="nofollow" href="http://blog.csdn.net/jobchanceleo" target="_blank">Leo</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_4" rel="nofollow" href="http://www.cnblogs.com/Terrylee/" target="_blank">TerryLee </a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_5" rel="nofollow" href="http://www.cnblogs.com/jerryge/" target="_blank">葛涵涛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_6" rel="nofollow" href="http://blog.csdn.net/sunshine1314" target="_blank">李世平</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_7" href="http://www.cnblogs.com/del/category/131625.html" target="_blank">万一</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_8" rel="nofollow" href="http://www.cnblogs.com/JustinYoung/" target="_blank">杨正祎</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_9" href="http://www.cnblogs.com/abob/category/74434.html?Show=All" target="_blank">移动开发</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>视频监控</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_0" rel="nofollow" href="http://www.ffmpeg.com.cn/index.php" target="_blank">Ffmpeg工程组</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_1" rel="nofollow" href="http://www.bairuitech.com/html/xingyezixun/list_13_1.html" target="_blank">佰锐科技</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_2" rel="nofollow" href="http://www.dahuatech.com/" target="_blank">大华科技</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_3" rel="nofollow" href="http://www.hikvision.com/" target="_blank">海康威视</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_4" rel="nofollow" href="http://www.lmtw.com/" target="_blank">流媒体网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_5" rel="nofollow" href="http://www.secu.com.cn/" target="_blank">中国安防产品网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_6" rel="nofollow" href="http://www.c-ps.net/" target="_blank">中国安防网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_7" rel="nofollow" href="http://www.chinavideo.org/" target="_blank">中华视频网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_8" rel="nofollow" href="http://www.zhongsou.net/" target="_blank">中搜行业</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		522902
+	</li><li>
+		排名 -
+		111
+	</li>
+</ul>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>阅读排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_0" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491891.html">1.&nbsp;C# WinForm开发系列 - DataGridView(51207)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_1" href="http://www.cnblogs.com/peterzb/archive/2009/06/14/1502918.html">2.&nbsp;C# WinForm开发系列 - 文章索引(29487)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_2" href="http://www.cnblogs.com/peterzb/archive/2009/06/30/1514336.html">3.&nbsp;C# WinForm开发系列 - Form/Window(17978)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_3" href="http://www.cnblogs.com/peterzb/archive/2009/06/07/1498173.html">4.&nbsp;C# WinForm开发系列 - CheckBox/Button/Label/ProgressBar(15712)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_4" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491629.html">5.&nbsp;C# WinForm开发系列 - DataGrid/DataGridView(13899)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_5" href="http://www.cnblogs.com/peterzb/archive/2009/05/30/1491923.html">6.&nbsp;C# WinForm开发系列 - ComboBox(13075)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_6" href="http://www.cnblogs.com/peterzb/archive/2009/06/18/1505424.html">7.&nbsp;C# WinForm开发系列 - ListBox/ListView/Panel(12613)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_7" href="http://www.cnblogs.com/peterzb/archive/2009/06/21/1507880.html">8.&nbsp;C# WinForm开发系列 - Open-Source Controls(11870)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_8" href="http://www.cnblogs.com/peterzb/archive/2009/06/12/1501921.html">9.&nbsp;Symbian开发系列 - 入门篇(11042)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1528246.html">10.&nbsp;C# WinForm开发系列 - Chart Controls(11031)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>评论排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_0" href="http://www.cnblogs.com/peterzb/archive/2009/06/14/1502918.html">1.&nbsp;C# WinForm开发系列 - 文章索引(90)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_1" href="http://www.cnblogs.com/peterzb/archive/2009/06/10/1500273.html">2.&nbsp;C# WinForm开发系列 - Thread/Delegate/Event(30)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/02/1515114.html">3.&nbsp;Windows Mobile 开发系列文章收藏 - 开篇(25)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_3" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491891.html">4.&nbsp;C# WinForm开发系列 - DataGridView(24)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_4" href="http://www.cnblogs.com/peterzb/archive/2009/08/09/1542451.html">5.&nbsp;Windows Mobile开发总结(21)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_5" href="http://www.cnblogs.com/peterzb/archive/2009/06/13/1502771.html">6.&nbsp;Windows Mobile开发文章收藏(19)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_6" href="http://www.cnblogs.com/peterzb/archive/2009/06/07/1498173.html">7.&nbsp;C# WinForm开发系列 - CheckBox/Button/Label/ProgressBar(18)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_7" href="http://www.cnblogs.com/peterzb/archive/2009/06/01/1493311.html">8.&nbsp;手机视频监控系统小结(17)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_8" href="http://www.cnblogs.com/peterzb/archive/2009/06/08/1499131.html">9.&nbsp;C# WinForm开发系列 - TreeView(16)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_9" href="http://www.cnblogs.com/peterzb/archive/2009/05/30/1491923.html">10.&nbsp;C# WinForm开发系列 - ComboBox(15)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+</div>
+		</td>
+		<td class="MainCell">
+			<div id="main">
+				
+					
+	<div class="post">
+		<div class="posthead">
+			<h2>
+				<a id="ctl02_TitleUrl" class="singleposttitle" href="./Web开发系列 - VML - peterzb - 博客园_files/Web开发系列 - VML - peterzb - 博客园.htm">Web开发系列 - VML</a>
+			</h2>
+ 			Posted on 2009-07-22 23:56 <a href="http://www.cnblogs.com/peterzb/">peterzb</a> 阅读(2932) <a href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#commentform">评论(0)</a>  <a href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="open_link(&#39;http://www.cnblogs.com/peterzb/admin/EditPosts.aspx?postid=1529021&#39;)" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="AddToWz(1529021);return false;">收藏</a>
+			<img src="./Web开发系列 - VML - peterzb - 博客园_files/1529021.html" width="1px" height="1px" alt="">
+			
+		</div>
+		<div class="postbody"><div id="cnblogs_post_body"><p>&nbsp;&nbsp; VML相当于IE里面的画笔，能实现你所想要的图形，而且结合脚本，可以让图形产生动态的效果。VML是微软1999年9月附带IE5.0发布的，在我认为， VML其实是Word和HTML结合的产物。可以将Word文档另存为HTML，其中的文本和图片可以很容易的转换，但如果是手绘制的图形在以往的IE里面就无法解释了，如果都转换成图形文件又不太现实。于是微软把Word里面的图形控件结合到IE里面，使IE也具备了绘图功能。<br>&nbsp;&nbsp; VML的全称是Vector Markup Language(矢量可标记语言)，矢量的图形，意味着图形可以任意放大缩小而不损失图形的质量，这在制作地图上有很大用途。但由于VML只被IE支持, 如果想在其它浏览器实现此效果, 最好采用Flash这类技术去实现. (文章及相关代码搜集自网络,仅供学习参考,版权属于原作者! )</p>
+<p><a href="http://www.cnblogs.com/listhome/articles/1313833.html"><font color="#669966">VML</font></a></p>
+<p><a href="http://www.cnblogs.com/ycbfish333/archive/2009/05/02/1447797.html"><font color="#669966">VML初识</font></a>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/CNWei/archive/2009/03/01/1400753.html"><font color="#669966">有关VML</font></a></p>
+<p><a href="http://www.cnblogs.com/anan/articles/337493.html"><font color="#669966">VML笔记</font></a></p>
+<p><a href="http://www.cnblogs.com/light169/archive/2007/08/21/864298.html"><font color="#669966">VML 工作流</font></a></p>
+<p><a href="http://www.cnblogs.com/cocoSmile/archive/2009/02/06/1385092.html"><font color="#669966">放大缩小VML</font></a></p>
+<p><a href="http://blog.csdn.net/shaily/archive/2007/08/22/1754064.aspx" target="_blank"><font color="#669966">VML简明教程</font></a></p>
+<p><a href="http://blog.csdn.net/operfume/archive/2007/09/02/1769146.aspx" target="_blank"><font color="#669966">封装VML统计图</font></a></p>
+<p><a href="http://www.cnblogs.com/lhb25/archive/2009/02/28/1400253.html"><font color="#669966">IE支持的VML简介</font></a></p>
+<p><a href="http://www.cnblogs.com/cocoSmile/archive/2009/02/05/1384933.html"><font color="#669966">VML学习笔记（一）</font></a></p>
+<p><a href="http://blog.csdn.net/KillerAwp/archive/2007/01/31/1498725.aspx" target="_blank"><font color="#669966">VML MSDN网站与入门</font></a></p>
+<p><a href="http://www.cnblogs.com/redfox241/archive/2009/03/02/1401557.html"><font color="#669966">gml vml svg 三者的介绍（转）</font></a></p>
+<p><a href="http://www.cnblogs.com/3echo/archive/2009/02/19/1394399.html"><font color="#669966">GML、SVG、VML的比较(转载)</font></a>&nbsp;<br></p>
+<p><a href="http://blog.csdn.net/srym/articles/1637083.aspx"><font color="#669966">漂亮的饼图 </font></a></p>
+<p><a href="http://blog.csdn.net/srym/articles/1637080.aspx"><font color="#669966">漂亮的折线图</font></a></p>
+<p><a href="http://blog.csdn.net/srym/articles/1637060.aspx"><font color="#669966">漂亮的柱状图 </font></a></p>
+<p><a href="http://blog.csdn.net/neonicholasi/archive/2007/06/14/1652857.aspx"><font color="#669966">柱状图和饼图js控件</font></a></p>
+<p style="font-weight: bold; text-align: center">效果展示</p>
+<p>1. 饼图</p>
+<p><img height="753" alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/pie1.jpg" width="648" border="0"></p>
+<p>2. 柱状图</p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/bar1.jpg" border="0"></p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/bar2.jpg" border="0"></p>
+<p>3. 曲线图</p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/line1.jpg" border="0"></p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/line2.jpg" border="0"></p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/line3.jpg" border="0"></p>
+<p>4. 其它应有</p>
+<p><img alt="" src="./Web开发系列 - VML - peterzb - 博客园_files/other1.jpg" border="0"></p>
+<p><a href="http://www.cnblogs.com/cstded/archive/2006/11/08/554075.html"><font color="#669966">VML图表控件</font></a></p>
+<p><a href="http://www.cnblogs.com/KissKnife/archive/2007/05/12/744087.html"><font color="#669966">用VML绘制中国地图</font></a></p>
+<p><a href="http://www.cnblogs.com/xiaoshatian/archive/2007/07/06/808521.html"><font color="#669966">浅尝VML</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/o_tryVML.png" alt=""></font>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/jiangwei2099/archive/2007/04/06/702723.html"><font color="#669966">2007年4月3号修改后的工作流流程图</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/liu.JPG" alt=""></font> </p>
+<p><a href="http://www.cnblogs.com/light169/archive/2007/08/28/873414.html"><font color="#669966">VML 统计图</font></a></p>
+<p><a href="http://www.cnblogs.com/MaxIE/archive/2007/11/06/950662.html"><font color="#669966">Vml图像画板</font></a></p>
+<p><a href="http://www.cnblogs.com/nosnowwolf/archive/2008/10/17/1313700.html"><font color="#669966">VML实现铅笔功能</font></a></p>
+<p><a href="http://www.cnblogs.com/ringnet/articles/527132.html"><font color="#669966">vml怎样做柱状图及曲线图 </font></a></p>
+<p><a href="http://www.cnblogs.com/cocoSmile/archive/2009/02/06/1385120.html"><font color="#669966">利用vml制作统计图全攻略</font></a></p>
+<p><a href="http://www.cnblogs.com/cuihongyu3503319/archive/2007/09/22/902605.html"><font color="#669966">用VML画图(一些基本的矢量图)</font></a></p>
+<p><a href="http://www.cnblogs.com/MicroSystem/archive/2007/03/06/665424.html"><font color="#669966">VML 画图 统计图、柱状图、饼图、折线图（部分具有交互性）</font></a></p>
+<p><a href="http://www.cnblogs.com/savageworld/archive/2006/07/18/453707.html"><font color="#669966">Vml:美洲豹系列教程之一(vml入门基础)</font></a></p>
+<p><a href="http://www.cnblogs.com/savageworld/"><font color="#669966">榻榻米好香</font></a>&nbsp; <a href="http://www.cnblogs.com/savageworld/category/64342.html" target="_blank"><font color="#669966">VML图形应用系列</font></a></p>
+<p style="font-weight: bold; text-align: center">Asp.Net</p>
+<p>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/seebook/archive/2007/07/29/835703.html"><font color="#669966">asp.net中用VML动态的画出数据分析图表详解</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/aa.gif" alt=""></font></p>
+<p><font color="#669966"></font></p>
+<p><a href="http://www.cnblogs.com/jiangwei2099/archive/2007/03/28/690810.html"><font color="#669966">web图形化流程图基于.net2003+vml+javascript</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/1.JPG" alt=""></font></p>
+<p><a href="http://www.cnblogs.com/ocoogo/archive/2007/05/14/743700.html"><font color="#669966">由于项目原因看了一下vml，写了一个Web工作流的设计器雏形！</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/o_wft.GIF" alt=""></font> </p>
+<p><a href="http://www.cnblogs.com/Infinity/archive/2006/03/02/340941.html"><font color="#669966">利用Javascript 结合 VML 生成三维报表（饼图）[原创]</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/三维图表.JPG" alt=""></font> </p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/houfeng/archive/2009/06/25/1511278.html"><font color="#669966">js+vml流程设计器</font></a></p>
+<p><a href="http://www.cnblogs.com/anson/archive/2006/05/09/395280.html"><font color="#669966">用VML实现画流程图！</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/ff.jpg" alt=""></font> </p>
+<p><a href="http://www.cnblogs.com/onlytiancai/archive/2005/08/06/208907.html"><font color="#669966">如何把xml文件转换成vml图形</font></a></p>
+<p><a href="http://www.cnblogs.com/xiarugu/archive/2009/04/24/1443014.html"><font color="#669966">VML一游戏类应用，赛车轨迹</font></a></p>
+<p><a href="http://www.cnblogs.com/hjcook/archive/2009/06/04/1496376.html"><font color="#669966">使用VML在地图上绘制轨迹</font></a></p>
+<p><a href="http://www.cnblogs.com/onlytiancai/archive/2008/10/17/vml_mind.html"><font color="#669966">蛙蛙推荐：用VML做思维管理工具</font></a></p>
+<p><font color="#669966"><img src="./Web开发系列 - VML - peterzb - 博客园_files/vmlmind.GIF" alt=""></font>&nbsp;</p>
+<p><a href="http://www.cnblogs.com/yechuan/archive/2005/08/25/222972.html"><font color="#669966">用asp+vml实现的立体统计图（二）-----饼状图<br></font></a></p>
+<p><br>另外附上C# WinForm开发系列相关文章如下: 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/19/1526555.html"><font color="#669966">C# WinForm开发系列 - GDI+</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/19/1526726.html"><font color="#669966">C# WinForm开发系列&nbsp;–ZedGraph</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1527415.html"><font color="#669966">C# WinForm开发系列&nbsp;–OWC</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1528246.html"><font color="#669966">C# WinForm开发系列 - Chart Controls</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/11/1521331.html"><font color="#669966">C# WinForm开发系列 - Report</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/07/12/1522142.html"><font color="#669966">C# WinForm开发系列 –Print</font></a> 
+</p><p><a href="http://www.cnblogs.com/peterzb/archive/2009/06/14/1502918.html"><font color="#669966">C# WinForm开发系列 - 文章索引</font></a></p></div><div id="MySignature"><p style="border: 1px dashed #e0e0e0; padding: 10px 10px 10px 60px; background: #fffeee url(http://www.cnblogs.com/images/cnblogs_com/lyj/o_info.png) no-repeat scroll 1% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; font-family: 微软雅黑;" id="LyjSignature">作者：<a title="欢迎访问peterzb的技术博客" target="_blank" href="http://peterzb.cnblogs.com/">peterzb</a>（<a title="欢迎访问peterzb的技术博客" target="_blank" href="http://peterzb.cnblogs.com/">个人开发历程知识库 -
+博客园</a>）<br>
+出处：<a title="欢迎访问peterzb的技术博客" target="_blank" href="http://www.cnblogs.com/peterzb/">http://peterzb.cnblogs.com/</a><br>
+文章版权归本人所有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出原文连接，否则保留追究法律责任的权利。 </p></div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 18333;
+var cb_entryId = 1529021;
+var cb_blogApp = "peterzb";
+var cb_blogUserGuid = "0454360b-63cf-dd11-9e4d-001cf0cd104b";
+var cb_entryCreatedDate = '2009/7/22 23:56:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/peterzb/category/56054.html">XML</a>, <a href="http://www.cnblogs.com/peterzb/category/55904.html">VB/VB.NET</a>, <a href="http://www.cnblogs.com/peterzb/category/190752.html">Java</a>, <a href="http://www.cnblogs.com/peterzb/category/55905.html">C#</a>, <a href="http://www.cnblogs.com/peterzb/category/55906.html">ASP.NET</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/peterzb/tag/JavaScript/">JavaScript</a>, <a href="http://www.cnblogs.com/peterzb/tag/Chart/">Chart</a>, <a href="http://www.cnblogs.com/peterzb/tag/Java/">Java</a>, <a href="http://www.cnblogs.com/peterzb/tag/C%23/">C#</a>, <a href="http://www.cnblogs.com/peterzb/tag/Asp.Net/">Asp.Net</a>, <a href="http://www.cnblogs.com/peterzb/tag/Report/">Report</a>, <a href="http://www.cnblogs.com/peterzb/tag/UI/">UI</a>, <a href="http://www.cnblogs.com/peterzb/tag/Web/">Web</a></div>
+<div id="green_channel" style="">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(1529021);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/peterzb" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info"><a href="http://home.cnblogs.com/u/peterzb/" target="_blank"><img src="./Web开发系列 - VML - peterzb - 博客园_files/u14775.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/peterzb/">peterzb</a><br><a href="http://home.cnblogs.com/u/peterzb/followees">关注 - 18</a><br><a href="http://home.cnblogs.com/u/peterzb/followers">粉丝 - 191</a></div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow"><a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a></div>
+</div>
+<div id="div_digg" style="">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count">1</span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">(请您对文章做出评价)</div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1528246.html" class="p_n_p_prefix">« </a> 博主前一篇：<a href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1528246.html" title="发布于2009-07-21 23:59">C# WinForm开发系列 - Chart Controls</a><br><a href="http://www.cnblogs.com/peterzb/archive/2009/07/25/1531087.html" class="p_n_p_prefix">» </a> 博主后一篇：<a href="http://www.cnblogs.com/peterzb/archive/2009/07/25/1531087.html" title="发布于2009-07-25 23:54">Web开发系列 - FusionCharts</a><br></div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+</script>
+
+
+
+</div>
+	</div>
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 0;
+        comment.blogId = 0;
+        comment.sourceUrl = '';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = '';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl03_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+
+<div id="ctl03_divLoginPannel">
+<div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fpeterzb%2farchive%2f2009%2f07%2f22%2f1529021.html%3flogin%3d1%23commentform" class="underline">登录</a> 或 <a rel="nofollow" href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fpeterzb%2farchive%2f2009%2f07%2f22%2f1529021.html%23Bottom2" class="underline">注册</a>，<a href="http://www.cnblogs.com/" target="_blank">返回博客园首页</a>。</div>
+</div>
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br>
+
+          ·  <a href="http://news.cnblogs.com/n/112287/" target="_blank">李一男加盟金沙江创投出任合伙人</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112286/" target="_blank">新 Xbox 360 泄漏版本暗示 Skype 以及“配套设备”支持</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112285/" target="_blank">小米手机首批量产1万部 米聊或成雷军着力点</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112284/" target="_blank">开心网副总裁郭巍：流量下降说与事实不符</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112283/" target="_blank">陈一舟：移动互联网比拼速度 将现快鱼吃慢鱼局面</a><br>
+	
+» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<b>最新知识库文章</b>:<br>
+<div id="kb_recent">
+
+·  <a href="http://kb.cnblogs.com/page/108524/" target="_blank">如何辨别优秀的程序员</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/104475/" target="_blank">IT项目管理的六种错误思维</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/107415/" target="_blank">我的10个开发原则</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/109493/" target="_blank">为什么编程是独一无二的职业</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/104736/" target="_blank">分享8年开发经验，浅谈个人发展经历，明确自己发展方向</a><br>
+
+</div>
+» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a>
+</div>
+
+<script type="text/javascript" src="./Web开发系列 - VML - peterzb - 博客园_files/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script><script src="./Web开发系列 - VML - peterzb - 博客园_files/google_ads.js"></script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_C2");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_C2");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/STATIC07/1107/2011chinapub_6810_110718/2011chinapub_6810_110718.asp" target="_blank" rel="nofollow"><img src="./Web开发系列 - VML - peterzb - 博客园_files/china-pub.jpg" alt="" style="border:0px;"></a><br>
+<a href="http://www.china-pub.com/STATIC07/1107/zh_autumntb_110725/zh_autumntb_110725.asp" target="_blank" rel="nofollow">China-pub 2011秋季教材巡展</a><br>
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank" rel="nofollow">China-Pub 计算机绝版图书按需印刷服务</a><br>
+</div>
+<div id="clear_reader_link">
+
+</div>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">网站首页</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a><a href="http://news.cnblogs.com/" target="_blank">IT新闻</a><a href="http://home.cnblogs.com/" target="_blank">我的园子</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+
+
+
+
+
+</div>
+
+
+				
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="FooterCell">
+			
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © peterzb
+</p>
+
+		</td>
+	</tr>
+</tbody></table>
+<div id="lefttemp" style="display:none">
+	
+		
+		
+	
+	
+<script type="text/javascript">
+    var blogapp = 'peterzb';
+</script>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3 class="catListTitle">搜索</h3>
+
+</div>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>常用链接</h3>
+<ul>
+
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/peterzb/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/peterzb/">我的空间</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/peterzb/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_0" href="http://www.cnblogs.com/peterzb/MyArticles.html">我的文章</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/peterzb/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/peterzb/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="Singlecolumn2_ctl01_repeaterLinks_lnkLinkItem_3" href="http://www.cnblogs.com/peterzb/tag/">我的标签</a></li>
+	</ul>
+</div>
+</div>
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>我参与的团队</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_0" href="http://www.cnblogs.com/team/WMAP/">Windows Phone 应用开发(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_1" href="http://www.cnblogs.com/team/HomeOfGraduates/">应届毕业生之家(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_2" href="http://www.cnblogs.com/team/DotNetOfFJFZ/">福州.NET俱乐部(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_3" href="http://www.cnblogs.com/team/reportcontrol/">报表与图表团队(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_4" href="http://www.cnblogs.com/team/wpf_sl/">WPF/Silverlight深蓝团队(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff11200dc5985cb0_TeamList_lnkTeam_5" href="http://www.cnblogs.com/team/android/">Android开发团队(0/0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2">
+<h3>我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/peterzb/tag/C%23/">C#(63)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/WinForm/">WinForm(52)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Mobile/">Mobile(51)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Asp.Net/">Asp.Net(25)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Java/">Java(23)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Symbian/">Symbian(23)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Windows%20Mobile/">Windows Mobile(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Socket/">Socket(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/Database/">Database(20)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/%E6%B5%81%E5%AA%92%E4%BD%93/">流媒体(19)</a></li><li><a href="http://www.cnblogs.com/peterzb/tag/">更多</a></li>
+</ul>
+</div>
+</div>
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔分类<span style="font-size:11px;font-weight:normal">(387)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/248678.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/peterzb/category/248678.html">Android开发(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55906.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/peterzb/category/55906.html">ASP.NET(32)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55905.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/peterzb/category/55905.html">C#(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190751.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/peterzb/category/190751.html">C++(30)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190752.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/peterzb/category/190752.html">Java(28)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190280.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/peterzb/category/190280.html">Mobile(48)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_6" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/195137.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/peterzb/category/195137.html">Symbian(24)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_7" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55904.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/peterzb/category/55904.html">VB/VB.NET(18)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_8" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/197936.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/peterzb/category/197936.html">Windows Mobile(17)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56054.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/peterzb/category/56054.html">XML(15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_10" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190749.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/peterzb/category/190749.html">安防监控(30)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_11" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/194697.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/peterzb/category/194697.html">程序人生(13)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_12" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/192953.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/peterzb/category/192953.html">电脑知识(6)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_13" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/119804.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/peterzb/category/119804.html">数据库技术(18)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_0_RssLink_14" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/55916.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/peterzb/category/55916.html">转载(38)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>随笔档案<span style="font-size:11px;font-weight:normal">(163)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_0" href="http://www.cnblogs.com/peterzb/archive/2010/12.html">2010年12月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_1" href="http://www.cnblogs.com/peterzb/archive/2010/11.html">2010年11月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_2" href="http://www.cnblogs.com/peterzb/archive/2010/10.html">2010年10月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_3" href="http://www.cnblogs.com/peterzb/archive/2010/06.html">2010年6月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_4" href="http://www.cnblogs.com/peterzb/archive/2010/02.html">2010年2月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_5" href="http://www.cnblogs.com/peterzb/archive/2009/12.html">2009年12月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_6" href="http://www.cnblogs.com/peterzb/archive/2009/11.html">2009年11月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_7" href="http://www.cnblogs.com/peterzb/archive/2009/10.html">2009年10月 (3)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_8" href="http://www.cnblogs.com/peterzb/archive/2009/08.html">2009年8月 (5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_9" href="http://www.cnblogs.com/peterzb/archive/2009/07.html">2009年7月 (43)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_10" href="http://www.cnblogs.com/peterzb/archive/2009/06.html">2009年6月 (48)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_11" href="http://www.cnblogs.com/peterzb/archive/2009/05.html">2009年5月 (44)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_1_Link_12" href="http://www.cnblogs.com/peterzb/archive/2006/04.html">2006年4月 (9)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>文章分类<span style="font-size:11px;font-weight:normal">(39)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56226.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_0" href="http://www.cnblogs.com/peterzb/category/56226.html">ASP.NET(1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56053.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_1" href="http://www.cnblogs.com/peterzb/category/56053.html">C#</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/190435.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_2" href="http://www.cnblogs.com/peterzb/category/190435.html">C/C++(15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/192954.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_3" href="http://www.cnblogs.com/peterzb/category/192954.html">Java</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56052.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_4" href="http://www.cnblogs.com/peterzb/category/56052.html">XML(5)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_2_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/category/56051.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_2_Link_5" href="http://www.cnblogs.com/peterzb/category/56051.html">网文(18)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>文章档案<span style="font-size:11px;font-weight:normal">(18)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_0" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2009/05.html">2009年5月 (15)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_1" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2008/09.html">2008年9月 (1)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_3_Link_2" rel="nofollow" href="http://www.cnblogs.com/peterzb/archives/2006/04.html">2006年4月 (2)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>收藏夹<span style="font-size:11px;font-weight:normal">(2013)</span></h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_0" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207836.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_0" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207836.html">ADO.NET (36)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_1" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/206943.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_1" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/206943.html">Android(45)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198324.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_2" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198324.html">Asp.Net(78)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_3" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198410.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_3" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198410.html">Blog使用帮助(23)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_4" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/180912.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_4" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/180912.html">C/C++(174)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_5" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198710.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_5" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198710.html">Chart(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_6" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/129707.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_6" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/129707.html">CSS/HTML/XML(50)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_7" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/184925.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_7" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/184925.html">Database(155)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_8" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/206946.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_8" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/206946.html">Google(10)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/191309.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_9" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/191309.html">Java/J2ME(65)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_10" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/223116.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_10" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/223116.html">JavaScript(70)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_11" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/160357.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_11" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/160357.html">Other(75)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_12" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/198709.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_12" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/198709.html">Report(45)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_13" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/193419.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_13" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/193419.html">Symbian(71)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_14" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207835.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_14" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207835.html">Web Services(31)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_15" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/56855.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_15" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/56855.html">WinForm(265)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_16" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/181277.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_16" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/181277.html">WM/WCE(378)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_17" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207834.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_17" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207834.html">多线程(55)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_18" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/199436.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_18" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/199436.html">开发与实用工具(28)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_19" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/128968.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_19" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/128968.html">美文集锦(34)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_20" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/199435.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_20" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/199435.html">软件测试(14)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_21" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207896.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_21" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207896.html">软件工程(59)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_22" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/190877.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_22" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/190877.html">视频监控(103)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_23" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/207838.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_23" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/207838.html">网络通信(61)</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_4_RssLink_24" href="http://www.cnblogs.com/peterzb/archive/2009/07/22/1529021.html#" onclick="return open_link(&#39;http://www.cnblogs.com/peterzb/favorite/191438.html/rss&#39;);"><img src="./Web开发系列 - VML - peterzb - 博客园_files/xmlsmall.gif" alt=""></a><a id="Singlecolumn2_Categories_CatList_LinkList_4_Link_24" rel="nofollow" href="http://www.cnblogs.com/peterzb/favorite/191438.html">站点架构&amp;网络技术(23)</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>C++</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_0" href="http://hi.baidu.com/mikenoodle/blog/category/Wince" target="_blank">mikenoodle</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_1" href="http://hi.baidu.com/banwusan/blog/category/%BF%AA%B7%A2%BB%B7%BE%B3" target="_blank">OK·兔</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_2" rel="nofollow" href="http://www.cnblogs.com/shipfi/" target="_blank">Shipfi </a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_3" rel="nofollow" href="http://www.stlchina.org/twiki/bin/view.pl/Main/STLTechArticles" target="_blank">STL</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_4" rel="nofollow" href="http://symbianblog.com/" target="_blank">Symbian Blog</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_5" href="http://blog.csdn.net/dongfengsun/category/269437.aspx" target="_blank">Symbian技术</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_6" rel="nofollow" href="http://www.vckbase.com/" target="_blank">VC知识库</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_5_Link_7" href="http://blog.csdn.net/gehantao/category/226568.aspx" target="_blank">葛涵涛</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>Java</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_0" rel="nofollow" href="http://www.blogjava.net/" target="_blank">BlogJava</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_1" rel="nofollow" href="http://www.javaeye.com/" target="_blank">JavaEye</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_2" rel="nofollow" href="http://www.open-open.com/" target="_blank">Java开源大全</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_3" rel="nofollow" href="http://spring.jactiongroup.net/" target="_blank">SpringFramework中文论坛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_4" href="http://blog.csdn.net/Mailbomb/category/77473.aspx" target="_blank">陈跃峰</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_5" rel="nofollow" href="http://blog.csdn.net/java2000_net" target="_blank">老紫竹</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_6" rel="nofollow" href="http://blog.csdn.net/zhengyun_ustc" target="_blank">郑昀</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_6_Link_7" rel="nofollow" href="http://www.eclipseworld.org/bbs/index.php" target="_blank">中国Eclipse社区</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>编程技术※IT资讯</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_0" rel="nofollow" href="http://www.cnbeta.com/">cnBeta中文IT资讯站</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_1" rel="nofollow" href="http://www.devdiv.net/" target="_blank">DevDiv论坛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_2" rel="nofollow" href="http://www.msproject.cn/">MSProject开源技术</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_3" rel="nofollow" href="http://www.codeproject.com/" target="_blank">The Code Project</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_4" rel="nofollow" href="http://www.syncfusion.com/FAQ/WindowsForms/Default.aspx#44">Windows Forms FAQ</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_5" rel="nofollow" href="http://www.ibook8.com/">爱书吧</a>
+				</li>
+			<li class="c_b_p_link_desc">下载技术书籍、资料</li>
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_6" rel="nofollow" href="http://hi.baidu.com/chinasjy/blog" target="_blank">电脑知识</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_7_Link_7" rel="nofollow" href="http://caipiao.163.com/i/20110304484839" target="_blank">网易彩票碰运气</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>关注博客</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_0" rel="nofollow" href="http://www.codeproject.com/KB/mobile/" target="_blank">CodeProject</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_1" rel="nofollow" href="http://www.cnblogs.com/JeffreyZhao/" target="_blank">Jeffrey Zhao</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_2" href="http://blog.csdn.net/lius1984/category/443694.aspx" target="_blank">K歌之王</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_3" rel="nofollow" href="http://blog.csdn.net/jobchanceleo" target="_blank">Leo</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_4" rel="nofollow" href="http://www.cnblogs.com/Terrylee/" target="_blank">TerryLee </a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_5" rel="nofollow" href="http://www.cnblogs.com/jerryge/" target="_blank">葛涵涛</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_6" rel="nofollow" href="http://blog.csdn.net/sunshine1314" target="_blank">李世平</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_7" href="http://www.cnblogs.com/del/category/131625.html" target="_blank">万一</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_8" rel="nofollow" href="http://www.cnblogs.com/JustinYoung/" target="_blank">杨正祎</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_8_Link_9" href="http://www.cnblogs.com/abob/category/74434.html?Show=All" target="_blank">移动开发</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+		<div id="cell">
+		<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>视频监控</h3>
+		
+				<ul>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_0" rel="nofollow" href="http://www.ffmpeg.com.cn/index.php" target="_blank">Ffmpeg工程组</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_1" rel="nofollow" href="http://www.bairuitech.com/html/xingyezixun/list_13_1.html" target="_blank">佰锐科技</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_2" rel="nofollow" href="http://www.dahuatech.com/" target="_blank">大华科技</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_3" rel="nofollow" href="http://www.hikvision.com/" target="_blank">海康威视</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_4" rel="nofollow" href="http://www.lmtw.com/" target="_blank">流媒体网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_5" rel="nofollow" href="http://www.secu.com.cn/" target="_blank">中国安防产品网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_6" rel="nofollow" href="http://www.c-ps.net/" target="_blank">中国安防网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_7" rel="nofollow" href="http://www.chinavideo.org/" target="_blank">中华视频网</a>
+				</li>
+			
+				<li><a id="Singlecolumn2_Categories_CatList_LinkList_9_Link_8" rel="nofollow" href="http://www.zhongsou.net/" target="_blank">中搜行业</a>
+				</li>
+			
+				</ul>
+			</div>
+	
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		522902
+	</li><li>
+		排名 -
+		111
+	</li>
+</ul>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>阅读排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_0" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491891.html">1.&nbsp;C# WinForm开发系列 - DataGridView(51207)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_1" href="http://www.cnblogs.com/peterzb/archive/2009/06/14/1502918.html">2.&nbsp;C# WinForm开发系列 - 文章索引(29487)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_2" href="http://www.cnblogs.com/peterzb/archive/2009/06/30/1514336.html">3.&nbsp;C# WinForm开发系列 - Form/Window(17978)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_3" href="http://www.cnblogs.com/peterzb/archive/2009/06/07/1498173.html">4.&nbsp;C# WinForm开发系列 - CheckBox/Button/Label/ProgressBar(15712)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_4" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491629.html">5.&nbsp;C# WinForm开发系列 - DataGrid/DataGridView(13899)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_5" href="http://www.cnblogs.com/peterzb/archive/2009/05/30/1491923.html">6.&nbsp;C# WinForm开发系列 - ComboBox(13075)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_6" href="http://www.cnblogs.com/peterzb/archive/2009/06/18/1505424.html">7.&nbsp;C# WinForm开发系列 - ListBox/ListView/Panel(12613)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_7" href="http://www.cnblogs.com/peterzb/archive/2009/06/21/1507880.html">8.&nbsp;C# WinForm开发系列 - Open-Source Controls(11870)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_8" href="http://www.cnblogs.com/peterzb/archive/2009/06/12/1501921.html">9.&nbsp;Symbian开发系列 - 入门篇(11042)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ffa16383ed08c421_TopList_Hyperlink1_9" href="http://www.cnblogs.com/peterzb/archive/2009/07/21/1528246.html">10.&nbsp;C# WinForm开发系列 - Chart Controls(11031)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+<div id="cell">
+<img src="./Web开发系列 - VML - peterzb - 博客园_files/icon-group.jpg" hspace="5" align="left" vspace="2"><h3>评论排行榜</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_0" href="http://www.cnblogs.com/peterzb/archive/2009/06/14/1502918.html">1.&nbsp;C# WinForm开发系列 - 文章索引(90)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_1" href="http://www.cnblogs.com/peterzb/archive/2009/06/10/1500273.html">2.&nbsp;C# WinForm开发系列 - Thread/Delegate/Event(30)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_2" href="http://www.cnblogs.com/peterzb/archive/2009/07/02/1515114.html">3.&nbsp;Windows Mobile 开发系列文章收藏 - 开篇(25)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_3" href="http://www.cnblogs.com/peterzb/archive/2009/05/29/1491891.html">4.&nbsp;C# WinForm开发系列 - DataGridView(24)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_4" href="http://www.cnblogs.com/peterzb/archive/2009/08/09/1542451.html">5.&nbsp;Windows Mobile开发总结(21)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_5" href="http://www.cnblogs.com/peterzb/archive/2009/06/13/1502771.html">6.&nbsp;Windows Mobile开发文章收藏(19)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_6" href="http://www.cnblogs.com/peterzb/archive/2009/06/07/1498173.html">7.&nbsp;C# WinForm开发系列 - CheckBox/Button/Label/ProgressBar(18)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_7" href="http://www.cnblogs.com/peterzb/archive/2009/06/01/1493311.html">8.&nbsp;手机视频监控系统小结(17)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_8" href="http://www.cnblogs.com/peterzb/archive/2009/06/08/1499131.html">9.&nbsp;C# WinForm开发系列 - TreeView(16)</a>
+			</li>
+		
+			<li>
+				<a id="Singlecolumn2__ff0e885a9c70c999_TopList_Hyperlink1_9" href="http://www.cnblogs.com/peterzb/archive/2009/05/30/1491923.html">10.&nbsp;C# WinForm开发系列 - ComboBox(15)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+</div>
+
+</div>
+
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="./Web开发系列 - VML - peterzb - 博客园_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10020481-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+<!--PageEndHtml Block End-->
+
+    </form> 
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="./Web开发系列 - VML - peterzb - 博客园_files/ShowHidden.js"></script>
+    
+
+
+</body></html>

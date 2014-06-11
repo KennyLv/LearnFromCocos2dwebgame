@@ -1,0 +1,44 @@
+﻿《JavaScript验证正则表达式大全》说的是javascript中使用的正则表达式的例子，但是没有说这些正则表达式如何使用，现在给大家几个例子，大家可以看看。
+利用正则表达式判断是否是0-9的阿拉伯数字
+function regIsDigit(fData)
+{
+    var reg = new RegExp("^[0-9]$");
+    return (reg.test(fData));
+}
+利用这则表达式获取字符串的长度
+function regDataLength(fData)
+{
+    var valLength = fData.length;
+    var reg = new RegExp("^[\u0391-\uFFE5]$");
+    var result = 0;
+    for(i=0; i< valLength; i++)
+    {
+        if(reg.test(fData.charAt(i)))
+        {
+            result += 2;
+        }
+        else
+        {
+            result ++;
+        }
+    }
+    return result;
+}
+应用扩展判断是否是数值
+function regIsNumber(fData)
+{
+    var reg = new RegExp("^[-]?[0-9]+[\.]?[0-9]+$");
+    return reg.test(fData)
+}
+验证Email是否正确
+    function regIsEmail(fData)
+    {
+        var reg = new RegExp("^[0-9a-zA-Z]+@[0-9a-zA-Z]+[\.]{1}[0-9a-zA-Z]+[\.]?[0-9a-zA-Z]+$");
+        return reg.test(fData);
+    }
+判断手机号是否正确
+    function regIsPhone(fData)
+    {
+        var reg = /^(\+86)?(1[0-9]{10})$/;
+        return reg.test(fData);
+    }

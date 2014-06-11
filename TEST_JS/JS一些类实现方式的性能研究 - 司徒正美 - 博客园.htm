@@ -1,0 +1,1488 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0065)http://www.cnblogs.com/rubylouvre/archive/2009/08/19/1550088.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>JS一些类实现方式的性能研究 - 司徒正美 - 博客园</title>
+<meta name="keywords" content="javascript">
+<link type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/brown.css">
+<link type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/shThemeDefault.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/rubylouvre/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/rubylouvre/rsd.xml"> 
+<script src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/common.js" type="text/javascript"></script>
+<script src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/jquery.json-2.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/shCore.js"></script>
+<script type="text/javascript" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/shLanguage.js"></script>
+</head>
+<body>
+    <a name="top"></a>
+    <form method="post" action="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/JS一些类实现方式的性能研究 - 司徒正美 - 博客园.htm" id="Form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+        
+<!--PageBeginHtml Block Begin-->
+<link href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/mystyle3.css" rel="stylesheet" type="text/css"> 
+
+<script src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/myjs2.js" type="text/javascript"></script>
+
+
+<!-- 198 --->
+<!--245210 --->
+<!-- 10881959 -->
+<script type="text/javascript">
+     var addClock = function(){
+     var indigene = document.getElementById("Calendar1_entryCal");
+     var html = '\
+        <object height="180" width="180" align="center" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0">\
+        <param value="/images/cnblogs_com/csharp/clock.swf" name="movie"/>\
+        <param value="high" name="quality"/>\
+        <param value="transparent" name="wmode"/>\
+        <embed height="180" width="180" align="center" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://images.cnblogs.com/cnblogs_com/csharp/clock.swf"/></object>\
+        ';
+        var color =  document.createElement("div");
+        color.innerHTML = html;
+        indigene.parentNode.insertBefore(color,indigene);
+            var rsshtml = [];
+    rsshtml.push('<strong>RSS</strong><br /> ');
+    rsshtml.push('<!-- Feedsky FEED发布代码开始 --> ');
+    rsshtml.push('<!-- FEED自动发现标记开始 --> ');
+    rsshtml.push('<link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/rubylouvre" rel="alternate" />');
+    rsshtml.push('<!-- FEED自动发现标记结束 -->');
+    rsshtml.push('<a href="http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_sub_c1s16.gif" alt="feedsky" vspace="2"  style="margin-bottom:3px" ></a><br /> ');
+    rsshtml.push('<a href="http://www.zhuaxia.com/add_channel.php?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_zhuaxia.gif" alt="&#25235;&#34430;" vspace="2" style="margin-bottom:3px" ></a><br />');
+    rsshtml.push('<a href="http://fusion.google.com/add?feedurl=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_google.gif" alt="google reader" vspace="2" style="margin-bottom:3px" ></a><br />');
+    rsshtml.push('<a href="http://www.bloglines.com/sub/http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_bloglines.gif" alt="bloglines" vspace="2" style="margin-bottom:3px" ></a><br />');
+    rsshtml.push('<a href="http://www.xianguo.com/subscribe.php?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_xianguo.gif" alt="&#40092;&#26524;" vspace="2" style="margin-bottom:3px" ></a><br /> ');
+    rsshtml.push('<a href="http://inezha.com/add?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_nazha.gif" alt="&#21738;&#21522;" vspace="2" style="margin-bottom:3px" ></a><br />');
+    rsshtml.push('<a href="http://reader.youdao.com/b.do?keyfrom=feedsky&url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_youdao.gif" alt="&#26377;&#36947;" vspace="2" style="margin-bottom:3px" ></a><br />');
+    rsshtml.push('<a href="http://9.douban.com/reader/subscribe?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="http://img.feedsky.com/images/icon_subshot01_douban.gif" alt="&#20061;&#28857;" vspace="2" style="margin-bottom:3px" ></a><br />');
+
+    rsshtml.push('<!-- Feedsky FEED发布代码结束 --> ');
+
+<!-- 国家统计  //-->
+rsshtml.push('<a href="http://s03.flagcounter.com/more/dM5">');
+rsshtml.push('<img src="http://s03.flagcounter.com/count/dM5/bg=DDDDCC');
+rsshtml.push('/txt=000000/border=DDDDCC/columns=2/maxflags=20/viewers=0');
+rsshtml.push('/labels=0/pageviews=1/" alt="free counters" border="0"></a>');
+
+
+    var rss = document.createElement("div");
+    rss.innerHTML = rsshtml.join('');
+    indigene.parentNode.insertBefore(rss,indigene);
+}
+loadEvent(function(){
+addClock();
+});
+</script>
+<!--PageBeginHtml Block End-->
+
+
+<div id="top">
+
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/rubylouvre/">Ruby's Louvre</a></h1>
+<p id="tagline">The Crankiness of Belief achieves Great , not the Trick of Regulation. </p>
+</div>
+
+<div id="leftmenu" style="display: inline; ">
+
+	
+<h3>导航</h3>
+<ul>
+	<li>
+		<a id="MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a>
+	</li><li><a id="MyLinks1_MyHomeLink" href="http://www.cnblogs.com/rubylouvre/">首页</a></li>
+	<li><a id="MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/admin/EditPosts.aspx?opt=1">新随笔</a></li>
+	<li>
+		<a id="MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/%e5%8f%b8%e5%be%92%e6%ad%a3%e7%be%8e">联系</a>
+	</li><li>
+		<a id="MyLinks1_Syndication" href="http://www.cnblogs.com/rubylouvre/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/rubylouvre/rss"><img src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/xml.gif" alt="订阅"></a>
+	</li><li>
+		<a id="MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/admin/EditPosts.aspx">管理</a></li>
+</ul>
+
+	<div>        <object height="180" width="180" align="center" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0">        <param value="/images/cnblogs_com/csharp/clock.swf" name="movie">        <param value="high" name="quality">        <param value="transparent" name="wmode">        <embed height="180" width="180" align="center" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" quality="high" src="http://images.cnblogs.com/cnblogs_com/csharp/clock.swf"></object>        </div><div><strong>RSS</strong><br> <!-- Feedsky FEED发布代码开始 --> <!-- FEED自动发现标记开始 --> <link title="RSS 2.0" type="application/rss+xml" href="http://feed.feedsky.com/rubylouvre" rel="alternate"><!-- FEED自动发现标记结束 --><a href="http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_sub_c1s16.gif" alt="feedsky" vspace="2" style="margin-bottom:3px"></a><br> <a href="http://www.zhuaxia.com/add_channel.php?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_zhuaxia.gif" alt="抓虾" vspace="2" style="margin-bottom:3px"></a><br><a href="http://fusion.google.com/add?feedurl=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_google.gif" alt="google reader" vspace="2" style="margin-bottom:3px"></a><br><a href="http://www.bloglines.com/sub/http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_bloglines.gif" alt="bloglines" vspace="2" style="margin-bottom:3px"></a><br><a href="http://www.xianguo.com/subscribe.php?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_xianguo.gif" alt="鲜果" vspace="2" style="margin-bottom:3px"></a><br> <a href="http://inezha.com/add?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_nazha.gif" alt="哪吒" vspace="2" style="margin-bottom:3px"></a><br><a href="http://reader.youdao.com/b.do?keyfrom=feedsky&url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_youdao.gif" alt="有道" vspace="2" style="margin-bottom:3px"></a><br><a href="http://9.douban.com/reader/subscribe?url=http://feed.feedsky.com/rubylouvre" target="_blank"><img border="0" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/icon_subshot01_douban.gif" alt="九点" vspace="2" style="margin-bottom:3px"></a><br><!-- Feedsky FEED发布代码结束 --> <a href="http://s03.flagcounter.com/more/dM5"><img src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/saved_resource" alt="free counters" border="0"></a></div><table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" style="border-width:1px;border-style:solid;border-collapse:collapse;">
+	<tbody><tr><td colspan="7" style="background-color:Silver;"><table class="CalTitle" cellspacing="0" style="width:100%;border-collapse:collapse;">
+		<tbody><tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3469')" style="color:Black" title="Go to the previous month">&lt;</a></td><td align="center" style="width:70%;">2009年8月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V3531')" style="color:Black" title="Go to the next month">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">26</td><td class="CalOtherMonthDay" align="center" style="width:14%;">27</td><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td class="CalOtherMonthDay" align="center" style="width:14%;">31</td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/1.html"><u>1</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/2.html"><u>2</u></a></td><td align="center" style="width:14%;">3</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/4.html"><u>4</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/5.html"><u>5</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/6.html"><u>6</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/7.html"><u>7</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/8.html"><u>8</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/9.html"><u>9</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/10.html"><u>10</u></a></td><td align="center" style="width:14%;">11</td><td align="center" style="width:14%;">12</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/13.html"><u>13</u></a></td><td align="center" style="width:14%;">14</td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/15.html"><u>15</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/16.html"><u>16</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/17.html"><u>17</u></a></td><td align="center" style="width:14%;">18</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/19.html"><u>19</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/20.html"><u>20</u></a></td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/21.html"><u>21</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/22.html"><u>22</u></a></td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">23</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/24.html"><u>24</u></a></td><td align="center" style="width:14%;">25</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/26.html"><u>26</u></a></td><td align="center" style="width:14%;">27</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/28.html"><u>28</u></a></td><td class="CalWeekendDay" align="center" style="width:14%;">29</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/8/30.html"><u>30</u></a></td><td align="center" style="width:14%;">31</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td></tr>
+</tbody></table>
+
+	
+	
+<h3>公告</h3>
+	除特别声明外，本站所有内容皆为原创，且基于创作共享的<a href="http://creativecommons.org/licenses/by-nc-sa/2.5/cn/">署名-非商业使用-相同方式分享 2.5</a>发布。转载时请务必以超链接形式标明文章出处和作者信息。<br>
+JS交流群：请移步<a href="http://www.cnblogs.com/rubylouvre/archive/2010/03/12/1684774.html">这里</a>。<br>
+
+<div id="profile_block">昵称：<a href="http://www.cnblogs.com/rubylouvre/">司徒正美</a><br>园龄：<a href="http://home.cnblogs.com/u/rubylouvre/">2年</a><br>荣誉：<a href="http://www.cnblogs.com/expert/">推荐博客</a><br>粉丝：<a href="http://home.cnblogs.com/u/rubylouvre/followers/">458</a><br>关注：<a href="http://home.cnblogs.com/u/rubylouvre/followees/">44</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;2e47a4b1-de3e-de11-9510-001cf0cd104b&#39;)">+加关注</a></div><script type="text/javascript">cnblogs.UserManager.GetFollowStatus('2e47a4b1-de3e-de11-9510-001cf0cd104b')</script></div>
+
+	
+<div id="side_ing_block">
+<h3 class="catListTitle">最新闪存</h3>
+<ul><li>你错了，走掉的都是精华，只靠贪污发财的人才不舍得走呢，为什么要走啊，除非事情曝光要被抓起来才会想着走，不然到了外国也没活路.走掉的都是那些干干净净赚钱发财的人，他们在国内活不下去，过得憋屈，去了外国能更好的发展，反正有本事到哪都能赚钱，不靠权利不靠贿赂就能发财的人为什么不走 <a href="http://home.cnblogs.com/ing/180614/" class="ing_lnk">04-21 09:28</a></li><li>想一想国内，清华和北大这两所中国的一流高校却在争论谁录取的高考状元更多。我们一味地关注分数，而忘记了培养有创造力的人才。这是有几千年文化大国极其可悲的事情。 <a href="http://home.cnblogs.com/ing/167673/" class="ing_lnk">03-09 13:05</a></li><li>Facebook出生在哈佛，而Google 出生在斯坦福。他们都是由几个学生创立的，如今成为占全球访问量 16.3%的两家互联网企业（“Google的访问量占全球总量的9.3%，而Facebook还是7%”）。 <a href="http://home.cnblogs.com/ing/167672/" class="ing_lnk">03-09 13:05</a></li><li>一切只谈发展不谈涨工资的行为都是耍流氓，天天画饼是没有用的，关键是现在也要填满肚子 <a href="http://home.cnblogs.com/ing/164598/" class="ing_lnk">02-23 18:28</a></li><li><a href="http://home.cnblogs.com/rubylouvre/ing/" class="ing_lnk">更多闪存...</a></li></ul>
+</div>
+
+
+<script type="text/javascript">
+var blogapp = 'rubylouvre';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+
+</div>
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/rubylouvre/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/rubylouvre/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/rubylouvre/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/rubylouvre/archive/2009/08/19/1550088.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_0" title="我发表过评论的随笔" href="http://www.cnblogs.com/rubylouvre/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/rubylouvre/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/rubylouvre/tag/">我的标签</a></li>
+	</ul>
+</div>
+
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/rubylouvre/tag/javascript/">javascript</a>(395)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/css/">css</a>(47)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/html/">html</a>(33)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/ruby/">ruby</a>(32)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/dom.js/">dom.js</a>(27)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/python/">python</a>(19)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/%E6%80%9D%E8%80%83/">思考</a>(18)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/node.js/">node.js</a>(7)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/c%2B%2B/">c++</a>(3)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/HTML5/">HTML5</a>(1)</li><li><a href="http://www.cnblogs.com/rubylouvre/tag/">更多</a></li>
+</ul>
+</div>
+		<h3>随笔档案<span style="font-size:11px;font-weight:normal">(549)</span></h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08.html">2011年8月 (8)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/rubylouvre/archive/2011/07.html">2011年7月 (15)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/rubylouvre/archive/2011/06.html">2011年6月 (34)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/rubylouvre/archive/2011/05.html">2011年5月 (22)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/rubylouvre/archive/2011/04.html">2011年4月 (17)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/rubylouvre/archive/2011/03.html">2011年3月 (19)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/rubylouvre/archive/2011/02.html">2011年2月 (12)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_7" href="http://www.cnblogs.com/rubylouvre/archive/2011/01.html">2011年1月 (19)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_8" href="http://www.cnblogs.com/rubylouvre/archive/2010/12.html">2010年12月 (13)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_9" href="http://www.cnblogs.com/rubylouvre/archive/2010/11.html">2010年11月 (9)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_10" href="http://www.cnblogs.com/rubylouvre/archive/2010/10.html">2010年10月 (13)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_11" href="http://www.cnblogs.com/rubylouvre/archive/2010/09.html">2010年9月 (13)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_12" href="http://www.cnblogs.com/rubylouvre/archive/2010/08.html">2010年8月 (6)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_13" href="http://www.cnblogs.com/rubylouvre/archive/2010/07.html">2010年7月 (12)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_14" href="http://www.cnblogs.com/rubylouvre/archive/2010/06.html">2010年6月 (17)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_15" href="http://www.cnblogs.com/rubylouvre/archive/2010/05.html">2010年5月 (22)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_16" href="http://www.cnblogs.com/rubylouvre/archive/2010/04.html">2010年4月 (23)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_17" href="http://www.cnblogs.com/rubylouvre/archive/2010/03.html">2010年3月 (27)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_18" href="http://www.cnblogs.com/rubylouvre/archive/2010/02.html">2010年2月 (31)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_19" href="http://www.cnblogs.com/rubylouvre/archive/2010/01.html">2010年1月 (28)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_20" href="http://www.cnblogs.com/rubylouvre/archive/2009/12.html">2009年12月 (34)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_21" href="http://www.cnblogs.com/rubylouvre/archive/2009/11.html">2009年11月 (34)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_22" href="http://www.cnblogs.com/rubylouvre/archive/2009/10.html">2009年10月 (20)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_23" href="http://www.cnblogs.com/rubylouvre/archive/2009/09.html">2009年9月 (31)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_24" href="http://www.cnblogs.com/rubylouvre/archive/2009/08.html">2009年8月 (27)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_25" href="http://www.cnblogs.com/rubylouvre/archive/2009/07.html">2009年7月 (43)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>文章档案<span style="font-size:11px;font-weight:normal">(64)</span></h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_0" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/12.html">2010年12月 (2)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_1" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/11.html">2010年11月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_2" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/09.html">2010年9月 (6)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_3" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/08.html">2010年8月 (4)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_4" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/07.html">2010年7月 (2)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_5" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/06.html">2010年6月 (3)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_6" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/05.html">2010年5月 (2)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_7" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/04.html">2010年4月 (14)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_8" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/03.html">2010年3月 (10)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_9" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/02.html">2010年2月 (7)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_1_Link_10" rel="nofollow" href="http://www.cnblogs.com/rubylouvre/archives/2010/01.html">2010年1月 (13)</a> </li>
+			
+				</ul>
+			
+	
+		<h3>css3</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_2_Link_0" rel="nofollow" href="http://css.doyoe.com/">css手册</a> </li>
+			<li class="c_b_p_link_desc">css手册</li>
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_2_Link_1" rel="nofollow" href="http://mugtug.com/sketchpad/">sketchpad</a> </li>
+			
+				</ul>
+			
+	
+		<h3>javascript</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_0" rel="nofollow" href="http://www.ajaxian.com/">ajaxian</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_1" rel="nofollow" href="http://www.alistapart.com/articles/">alistapart</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_2" rel="nofollow" href="http://closure-compiler.appspot.com/home">closure-compiler</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_3" rel="nofollow" href="https://developer.mozilla.org/en/CSS_Reference">developer.mozilla.org</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_4" rel="nofollow" href="http://diveintohtml5.org/everything.html">diveintohtml5</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_5" rel="nofollow" href="http://www.ecmascript.org/">ecmascript</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_6" rel="nofollow" href="http://meyerweb.com/">Eric Meyer </a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_7" rel="nofollow" href="http://es5conform.codeplex.com/">es5</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_8" rel="nofollow" href="http://nanto.asablo.jp/blog/2009/08/">nanto</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_9" rel="nofollow" href="http://perfectionkills.com/">perfectionkills</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_10" rel="nofollow" href="http://www.quirksmode.org/">ppk</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_11" rel="nofollow" href="http://www.sitepoint.com/">sitepoint</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_12" rel="nofollow" href="http://webfx.eae.net/">webfx</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_13" rel="nofollow" href="http://www.webkit.org/">webkit系的文档</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_3_Link_14" rel="nofollow" href="http://www.stevesouders.com/blog/">高性能网站建设</a> </li>
+			
+				</ul>
+			
+	
+		<h3>Rails</h3>
+		
+				<ul>
+			
+				</ul>
+			
+	
+		<h3>工具</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_0" rel="nofollow" href="http://www.cleancss.com/index.php">cleancss</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_1" rel="nofollow" href="http://closure-compiler.appspot.com/home">closure-compiler</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_2" rel="nofollow" href="http://jigsaw.w3.org/css-validator/">css-validator</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_3" rel="nofollow" href="http://jsbeautifier.org/">jsbeautifier</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_4" rel="nofollow" href="http://www.jslint.com/">jslint</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_5" rel="nofollow" href="http://www.yaohaixiao.com/effects/Packer-Decoder.html">Packer-Decoder</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_6" rel="nofollow" href="http://stackoverflow.com/questions/2349378/new-programming-jargon-you-coined">stackoverflow</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_7" rel="nofollow" href="http://www.useragentstring.com/">User Agent </a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_5_Link_8" rel="nofollow" href="http://infohound.net/tidy/">在线格式化HTML</a> </li>
+			
+				</ul>
+			
+	
+		<h3>好友链接</h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_0" rel="nofollow" href="http://www.piscean.net/labs/">abcdreamer</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_1" rel="nofollow" href="http://www.cnblogs.com/binyong/">Biny</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_2" rel="nofollow" href="http://www.cnblogs.com/cloudgamer/">cloudgamer</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_3" rel="nofollow" href="http://typeof.net/">corodidea.infinte</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_4" rel="nofollow" href="http://www.cnblogs.com/bluedream2009/">LC</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_5" rel="nofollow" href="http://www.fangyuqiang.com/">肉包子</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_6_Link_6" rel="nofollow" href="http://www.beiju123.cn/blog/">小haha</a> </li>
+			
+				</ul>
+			
+	
+
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		842814
+	</li><li>
+		排名 -
+		53
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新随笔</h3>
+<div class="RecentComment" id="RecentPosts">
+<ul style="word-break:break-all">
+	
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_0_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html">1.&nbsp;javascript String.indexOf实现</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_1_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/16/2140208.html">2.&nbsp;dom Framework lang模块 v2</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_2_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/15/2138744.html">3.&nbsp;dom Framework attr模块</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_3_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/08/2129951.html">4.&nbsp;我的模块加载系统 v8</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_4_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/06/2129430.html">5.&nbsp;dom Framework class模块 v6</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_5_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/05/2127400.html">6.&nbsp;获取href属性</a></li>
+		
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_5_Hyperlink1_1" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/05/2127791.html">7.&nbsp;我的模块加载系统 v7</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_6_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/03/2125803.html">8.&nbsp;创建纯空Object</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_7_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/07/27/2117862.html">9.&nbsp;dom Framework ecma模块</a></li>
+		
+		
+	
+			<li><a id="SingleColumn1_ctl05_RecentPostsList_RecentPostsList2_8_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/07/26/2117239.html">10.&nbsp;python 批量修改文件后缀</a></li>
+		
+	
+</ul>
+</div>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__2d0638_CommentList_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html#2181027">1.&nbsp;Re:javascript String.indexOf实现</a>
+			</li>
+			<li>
+				
+String.prototype.indexOf = function( str ) {
+	var len = this.length, len2 = str.length-1, tag = 0, ...
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--JaiHo</li>
+		
+			<li>
+				<a id="SingleColumn1__2d0638_CommentList_Hyperlink1_1" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html#2180975">2.&nbsp;Re:javascript String.indexOf实现</a>
+			</li>
+			<li>
+				
+        String.prototype.indexOf = function(sub){
+            var pos = 0, len = this.length, suble...
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--蛙蛙王子</li>
+		
+			<li>
+				<a id="SingleColumn1__2d0638_CommentList_Hyperlink1_2" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html#2180806">3.&nbsp;Re:javascript String.indexOf实现</a>
+			</li>
+			<li>
+				我那个有问题唉……array.join应该加个参数的，无参时join返回的还是Array……
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--Gray Zhang</li>
+		
+			<li>
+				<a id="SingleColumn1__2d0638_CommentList_Hyperlink1_3" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html#2180734">4.&nbsp;Re:javascript String.indexOf实现</a>
+			</li>
+			<li>
+				为啥 不用reg.exec?
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--sohighthesky</li>
+		
+			<li>
+				<a id="SingleColumn1__2d0638_CommentList_Hyperlink1_4" href="http://www.cnblogs.com/rubylouvre/archive/2011/08/19/2144894.html#2180730">5.&nbsp;Re:javascript String.indexOf实现</a>
+			</li>
+			<li>
+				嗯，学习了~~~
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--IGod接口</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2010/01/28/1658006.html">1.&nbsp;全世界最短的IE判定(12090)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_1" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/28/1575294.html">2.&nbsp;纯CSS多级菜单2(6647)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_2" href="http://www.cnblogs.com/rubylouvre/archive/2009/10/01/1577219.html">3.&nbsp;javascript无缝滚动(6641)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_3" href="http://www.cnblogs.com/rubylouvre/archive/2009/10/14/1583523.html">4.&nbsp;javascript contains方法(6199)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_4" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/27/1575220.html">5.&nbsp;纯CSS多级菜单(6051)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_5" href="http://www.cnblogs.com/rubylouvre/archive/2009/08/08/1541914.html">6.&nbsp;一步步教你实现纯CSS的柱形图(5947)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_6" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/02/1558998.html">7.&nbsp;javascript十个最常用的自定义函数(5589)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_7" href="http://www.cnblogs.com/rubylouvre/archive/2009/07/01/1512895.html">8.&nbsp;一个带完整的RBAC授权系统的rails应用（第一部分）(5577)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_8" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/18/1568794.html">9.&nbsp;JavaScript trim函数大赏(5345)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_9" href="http://www.cnblogs.com/rubylouvre/archive/2010/07/15/1778403.html">10.&nbsp;node.js入门(5301)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_10" href="http://www.cnblogs.com/rubylouvre/archive/2009/08/24/1552862.html">11.&nbsp;javascript  鼠标事件总结(5123)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_11" href="http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html">12.&nbsp;document.getElementsByClassName的理想实现(4994)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_12" href="http://www.cnblogs.com/rubylouvre/archive/2010/03/12/1684774.html">13.&nbsp;有关加QQ群的问题(4934)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_13" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/14/1566157.html">14.&nbsp;一个很简单的淡入淡出相册(4776)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_14" href="http://www.cnblogs.com/rubylouvre/archive/2009/08/01/1536710.html">15.&nbsp;iframe元素用法总结(4749)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_0" href="http://www.cnblogs.com/rubylouvre/archive/2010/02/26/1673098.html">1.&nbsp;原来jQuery的性能是如此差的(73)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_1" href="http://www.cnblogs.com/rubylouvre/archive/2010/01/28/1658006.html">2.&nbsp;全世界最短的IE判定(62)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_2" href="http://www.cnblogs.com/rubylouvre/archive/2010/03/12/1684774.html">3.&nbsp;有关加QQ群的问题(54)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_3" href="http://www.cnblogs.com/rubylouvre/archive/2009/09/28/1575294.html">4.&nbsp;纯CSS多级菜单2(53)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_4" href="http://www.cnblogs.com/rubylouvre/archive/2009/08/08/1541914.html">5.&nbsp;一步步教你实现纯CSS的柱形图(51)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+
+</div>
+
+<div id="main">
+	
+					
+	<div class="post">
+		<h2>
+			<a id="ctl03_TitleUrl" href="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/JS一些类实现方式的性能研究 - 司徒正美 - 博客园.htm">JS一些类实现方式的性能研究</a>
+		</h2>
+		<div id="cnblogs_post_body"><style type="text/css">
+    .ex {
+        background:#479AC7; width:700px; height:50px;border:1px dashed #F54F15; color:#fff;
+    }
+</style>
+<p>从javaeye看到一贴，探讨如何实现计时器，集思广益，最后竟然提出了十多种的实现。这再次证明了JS的写法很灵活（举个反面的例子，如Python，其哲学原则是one way to go!）。这里整理一下，研究一下各种实现的性能问题。现在JS越来越向富客户端发展，UI组件乃至网页游戏，对性能问题是相当重视的。</p>
+<h3>实现1</h3>
+<div id="highlighter_927868" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.begin = </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">.id, count)();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">.id, count-1),1000);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show = </code><code class="keyword">function</code><code class="plain">(id, count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(id).innerHTML = count &lt; 0 ? </code><code class="string">"over"</code> <code class="plain">:count;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">count--;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+    function Timer1(id){
+        this.id = id;
+        this.begin = function(count){
+            this.show(this.id, count)();
+            setInterval(this.show(this.id, count-1),1000);
+        }
+        this.show = function(id, count){
+            return function(){
+                document.getElementById(id).innerHTML = count<0 ? "over" :count;
+                count--;
+            }
+        }
+    }
+    var $ = function(id){return document.getElementById(id);}
+    function start1(){
+        var t1 = new Timer1("time1");
+        t1.begin(50);
+
+        var  t2 = new Timer1("time2");
+        t2.begin(10);
+    }
+</script>
+<div class="ex">
+    <div id="time1">over</div>
+    <div id="time2">over</div>
+</div>
+<p><button type="button" onclick="start1()">开始</button></p>
+<p class="notice">点评：采用最经典的构造函数来实现类。好处是明快易懂，缺点是多个实例都是独立的内存，数据与方法都不共享。而且还存在一个明显的缺陷，计时完成之后，setInterval没有被clear，严重影响了性能。</p>
+<h3>实现2</h3>
+<div id="highlighter_115060" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.begin = </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">),1000);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show = </code><code class="keyword">function</code><code class="plain">(obj){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+  function Timer2(id){
+    this.id = id;
+    this.timer = null;
+    this.count = 0;
+    this.begin = function(count){
+      this.count = count;
+      this.show(this)();
+      this.timer = setInterval(this.show(this),1000);
+    }
+    this.show = function(obj){
+      return function(){
+        if(obj.count < 0){
+          document.getElementById(obj.id).innerHTML = "over";
+          clearInterval(obj.timer);
+          return ;
+        }
+        document.getElementById(obj.id).innerHTML = obj.count;
+        obj.count--;
+      }
+    }
+  }
+  function start2(){
+    var t1 = new Timer2("time3");
+    t1.begin(50);
+
+    var  t2 = new Timer2("time4");
+    t2.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time3">over</div>
+  <div id="time4">over</div>
+</div>
+<p><button type="button" onclick="start2()">开始</button></p>
+<p class="notice">点评：解决了实现1的setInterval未被clear的问题，但依然是利用构造函数来实现类，因此Timer每个实例都复制了一份show和begin，而不是共享同一份。</p>
+<h3>实现3</h3>
+<div id="highlighter_853799" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.begin = </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.show(</code><code class="keyword">this</code><code class="plain">)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(Timer.show(</code><code class="keyword">this</code><code class="plain">),1000);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.show = </code><code class="keyword">function</code><code class="plain">(obj){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer3(id){
+    this.id = id;
+    this.timer = null; //用于清除自身
+    this.count = 0;
+    this.begin = function(count){
+        this.count = count;
+        Timer3.show(this)();
+        this.timer = setInterval(Timer3.show(this),1000);//递归调用自身
+    }
+    Timer3.show = function(obj){//渲染UI
+        return function(){
+            if(obj.count < 0){
+                document.getElementById(obj.id).innerHTML = "over";
+                clearInterval(obj.timer);
+                return ;
+            }
+            document.getElementById(obj.id).innerHTML = obj.count;
+            obj.count--;
+        }
+    }
+}
+
+function start3(){
+    var t5 = new Timer3("time5");
+    t5.begin(50);
+
+    var  t6 = new Timer3("time6");
+    t6.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time5">over</div>
+  <div id="time6">over</div>
+</div>
+<p><button type="button" onclick="start3()">开始</button></p>
+<p class="notice">点评：把show()弄成类的静态方法，让所有实例共享此方法。注意，show()是个currying函数，这就解决了各实例的数据互相污染的问题。</p>
+<h3>实现4</h3>
+<div id="highlighter_837876" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.begin = </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">)();</code><code class="comments">//注意和实现三的区别：这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">),1000);</code><code class="comments">//注意和实现三的区别：这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype.show = </code><code class="keyword">function</code><code class="plain">(obj){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}&nbsp; </code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer4(id){
+    this.id = id;
+    this.timer = null;
+    this.count = 0;
+    this.begin = function(count){
+        this.count = count;
+        this.show(this)();//注意和实现三的区别：这里不是Timer.show(this)();
+        this.timer = setInterval(this.show(this),1000);//注意和实现三的区别：这里不是Timer.show(this)();
+    }
+}
+Timer4.prototype.show = function(obj){
+    return function(){
+        if(obj.count < 0){
+            document.getElementById(obj.id).innerHTML = "over";
+            clearInterval(obj.timer);
+            return ;
+        }
+        document.getElementById(obj.id).innerHTML = obj.count;
+        obj.count--;
+    }
+}  
+  function start4(){
+    var t7 = new Timer4("time7");
+    t7.begin(50);
+
+    var  t8 = new Timer4("time8");
+    t8.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time7">over</div>
+  <div id="time8">over</div>
+</div>
+<p><button type="button" onclick="start4()">开始</button></p>
+<p class="notice">点评：这次把show()做成原型方法，由于所有实例都是共享原型，当实例在其成员中找不到此方法，它就会沿着原型链往上找。这个运用了很经典的类实现方式——混合的构造函数 /原型方式。</p>
+<h3>实现5</h3>
+<div id="highlighter_896028" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype.begin = </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">)();</code><code class="comments">//注意这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">),1000);</code><code class="comments">//注意这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype.show = </code><code class="keyword">function</code><code class="plain">(obj){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer5(id){
+    this.id = id;
+    this.timer = null;
+    this.count = 0;
+
+}
+Timer5.prototype.begin = function(count){
+    this.count = count;
+    this.show(this)();//注意这里不是Timer.show(this)();
+    this.timer = setInterval(this.show(this),1000);//注意这里不是Timer.show(this)();
+}
+Timer5.prototype.show = function(obj){
+    return function(){
+        if(obj.count < 0){
+            document.getElementById(obj.id).innerHTML = "over";
+            clearInterval(obj.timer);
+            return ;
+        }
+        document.getElementById(obj.id).innerHTML = obj.count;
+        obj.count--;
+    }
+}
+  function start5(){
+    var t7 = new Timer5("time9");
+    t7.begin(50);
+
+    var  t8 = new Timer5("time10");
+    t8.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time9">over</div>
+  <div id="time10">over</div>
+</div>
+<p><button type="button" onclick="start5()">开始</button></p>
+<p class="notice">点评：这次把bigin()也做成原型方法。</p>
+<h3>实现6</h3>
+<div id="highlighter_680450" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype = {&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin : </code><code class="keyword">function</code><code class="plain">(count){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">)();</code><code class="comments">//注意这里不是Timer.show(this)();&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">),1000);</code><code class="comments">//注意这里不是Timer.show(this)();&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">},&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">show : </code><code class="keyword">function</code><code class="plain">(obj){&nbsp;&nbsp;&nbsp;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">} </code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer6(id){  
+    this.id = id;  
+    this.timer = null;  
+    this.count = 0;  
+}  
+Timer6.prototype = {  
+    begin : function(count){  
+        this.count = count;  
+        this.show(this)();//注意这里不是Timer.show(this)();  
+        this.timer = setInterval(this.show(this),1000);//注意这里不是Timer.show(this)();  
+    },  
+    show : function(obj){     
+        return function(){  
+            if(obj.count < 0){  
+                document.getElementById(obj.id).innerHTML = "over";  
+                clearInterval(obj.timer);  
+                return ;  
+            }  
+            document.getElementById(obj.id).innerHTML = obj.count;  
+            obj.count--;  
+        }  
+    }   
+} 
+function start6(){
+    var t9 = new Timer6("time11");
+    t9.begin(50);
+
+    var  t10 = new Timer6("time12");
+    t10.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time11">time1</div>
+  <div id="time12">time2</div>
+</div>
+<p><button type="button" onclick="start6()">开始</button></p>
+<p class="notice">点评：把原型方法整到一个对象中去。</p>
+<h3>实现7</h3>
+<div id="highlighter_513643" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.prototype.begin = </code><code class="keyword">function</code><code class="plain">(count){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">)();</code><code class="comments">//主要这里不是Timer.show(this)();&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">this</code><code class="plain">.show(</code><code class="keyword">this</code><code class="plain">),1000);</code><code class="comments">//主要这里不是Timer.show(this)();&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.prototype.show = </code><code class="keyword">function</code><code class="plain">(obj){&nbsp;&nbsp;&nbsp;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj.count &lt; 0){&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = </code><code class="string">"over"</code><code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj.timer);&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj.id).innerHTML = obj.count;&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj.count--;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp; </code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}&nbsp;&nbsp; </code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}&nbsp; </code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer7(id){  
+    this.id = id;  
+    this.timer = null;  
+    this.count = 0;  
+    Timer7.prototype.begin = function(count){  
+        this.count = count;  
+        this.show(this)();//主要这里不是Timer.show(this)();  
+        this.timer = setInterval(this.show(this),1000);//主要这里不是Timer.show(this)();  
+    }  
+    Timer7.prototype.show = function(obj){     
+        return function(){  
+            if(obj.count < 0){  
+                document.getElementById(obj.id).innerHTML = "over";  
+                clearInterval(obj.timer);  
+                return ;  
+            }  
+            document.getElementById(obj.id).innerHTML = obj.count;  
+            obj.count--;  
+        }  
+    }   
+}  
+  function start7(){
+    var t11 = new Timer7("time13");
+    t11.begin(50);
+
+    var  t12 = new Timer7("time14");
+    t12.begin(10);
+  }
+</script>
+<div class="ex">
+  <div id="time13">time1</div>
+  <div id="time14">time2</div>
+</div>
+<p><button type="button" onclick="start7()">开始</button></p>
+<p class="notice">点评：把原型方法整到构造函数中去，但千万不要弄成这个样子：</p>
+<div id="highlighter_191179" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.id = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.prototype= {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin:</code><code class="keyword">function</code><code class="plain">(count){</code><code class="comments">/*……*/</code><code class="plain">},</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">show : </code><code class="keyword">function</code><code class="plain">(obj){ </code><code class="comments">/*……*/</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">} </code></td></tr></tbody></table></div></div></div>
+<p>因为直接为prototype 赋值，会使得自动添加的 constructor 成员丢失！</p>
+<h3>实现8</h3>
+<div id="highlighter_925874" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">var</code> <code class="plain">Timer = {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin : </code><code class="keyword">function</code><code class="plain">(id,count){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">obj = {};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"id"</code><code class="plain">] = id;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"count"</code><code class="plain">] = count;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.show(obj)();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"timer"</code><code class="plain">] = setInterval(Timer.show(obj),1000);</code><code class="comments">//注意这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">},</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">show : </code><code class="keyword">function</code><code class="plain">(obj){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj[</code><code class="string">"count"</code><code class="plain">] &lt; 0){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj[</code><code class="string">"id"</code><code class="plain">]).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj[</code><code class="string">"timer"</code><code class="plain">]);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj[</code><code class="string">"id"</code><code class="plain">]).innerHTML = obj[</code><code class="string">"count"</code><code class="plain">] ;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"count"</code><code class="plain">]--;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+var Timer8 = {
+    begin : function(id,count){
+        var obj = {};
+        obj["id"] = id;
+        obj["count"] = count;
+        Timer8.show(obj)();
+        obj["timer"] = setInterval(Timer8.show(obj),1000);//注意这里不是Timer.show(this)();
+    },
+    show : function(obj){
+        return function(){
+            if(obj["count"] < 0){
+                document.getElementById(obj["id"]).innerHTML = "over";
+                clearInterval(obj["timer"]);
+                return ;
+            }
+            document.getElementById(obj["id"]).innerHTML = obj["count"] ;
+            obj["count"]--;
+        }
+    }
+}
+function start8(){
+   Timer8.begin("time15", 50);
+   Timer8.begin("time16", 10);
+  }
+</script>
+<div class="ex">
+  <div id="time15">time1</div>
+  <div id="time16">time2</div>
+</div>
+<p><button type="button" onclick="start8()">开始</button></p>
+<p class="notice">点评：这次采用字面量构造对象。Timer成了一个全局对象（当我们第一次调用begin方法才产生此全局对象），类似于window，生成实例方法不再是new，而是采用工厂方式的方法，每begin一次就生成一个实例，数据是独立的，方法是共享的。</p>
+<h3>实现9</h3>
+<div id="highlighter_699490" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">var</code> <code class="plain">Timer = (</code><code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">items = {};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">function</code> <code class="plain">begin(id,count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">obj = {};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"id"</code><code class="plain">] = id;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"count"</code><code class="plain">] = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.show(obj)();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"timer"</code><code class="plain">] = setInterval(Timer.show(obj),1000);</code><code class="comments">//注意这里不是Timer.show(this)();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">Timer.items[id] = obj;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">function</code> <code class="plain">show(obj){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(obj[</code><code class="string">"count"</code><code class="plain">] &lt; 0){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj[</code><code class="string">"id"</code><code class="plain">]).innerHTML = </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">clearInterval(obj[</code><code class="string">"timer"</code><code class="plain">]);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">document.getElementById(obj[</code><code class="string">"id"</code><code class="plain">]).innerHTML = obj[</code><code class="string">"count"</code><code class="plain">] ;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">obj[</code><code class="string">"count"</code><code class="plain">]--;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">return</code> <code class="plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">items : items,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin : begin,</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">show : show</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">})()</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+  var Timer9 = (function(){
+    var items = {};
+    function begin(id,count){
+      var obj = {};
+      obj["id"] = id;
+      obj["count"] = count;
+      Timer9.show(obj)();
+      obj["timer"] = setInterval(Timer9.show(obj),1000);//注意这里不是Timer.show(this)();
+      Timer9.items[id] = obj;
+    };
+    function show(obj){
+      return function(){
+        if(obj["count"] < 0){
+          document.getElementById(obj["id"]).innerHTML = "over";
+          clearInterval(obj["timer"]);
+          return ;
+        }
+        document.getElementById(obj["id"]).innerHTML = obj["count"] ;
+        obj["count"]--;
+      }
+    }
+    return {
+      items : items,
+      begin : begin,
+      show : show
+    }
+  })()
+  function start9(){
+    Timer9.begin("time19", 60);
+    Timer9.begin("time20", 10);
+  }
+</script>
+<div class="ex">
+  <div id="time19">time1</div>
+  <div id="time20">time2</div>
+</div>
+<p><button type="button" onclick="start9()">开始</button></p>
+<p class="notice">点评：利用闭包，和上面的有点类似，但此全局变量是DOM树完成后就立即生成的，它拥有以下三个方法items : begin 与 show。许多类库也采用此方式实现，不过它们称之为命名空间而已……</p>
+<h3>实现10</h3>
+<div id="highlighter_529998" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.element = document.getElementById(id);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = </code><code class="keyword">null</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = 0;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype = {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin : </code><code class="keyword">function</code><code class="plain">(count){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.count = count;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.show();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">_this = </code><code class="keyword">this</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.timer = setInterval(</code><code class="keyword">function</code><code class="plain">(){_this.show();}, 1000);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">show : </code><code class="keyword">function</code><code class="plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.element.innerHTML = </code><code class="keyword">this</code><code class="plain">.count &lt; 0 ? clearInterval(</code><code class="keyword">this</code><code class="plain">.timer) || </code><code class="string">"over"</code> <code class="plain">: </code><code class="keyword">this</code><code class="plain">.count--;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer10(id){
+    this.element = document.getElementById(id);
+    this.timer = null;
+    this.count = 0;
+}
+Timer10.prototype = {
+    begin : function(count){
+        this.count = count;
+        this.show();
+        var _this = this;
+        this.timer = setInterval(function(){_this.show();}, 1000);
+    }
+    ,
+    show : function(){
+        this.element.innerHTML = this.count < 0 ? clearInterval(this.timer) || "over" : this.count--;
+    }
+}
+function start10(){
+    var t21 = new Timer10("time21");
+    t21.begin(50)
+    var t22 =  new Timer10("time22");
+    t22.begin(10)
+  }
+</script>
+<div class="ex">
+  <div id="time21">time1</div>
+  <div id="time22">time2</div>
+</div>
+<p><button type="button" onclick="start10()">开始</button></p>
+<p class="notice">点评：这是实现3的改进版，改进了每调用一次show就遍历DOM树的缺点（document.getElementById），而是第一次找到的元素放入实例的成员。利用三元表达式与短路运算使得代码更加内敛。保存this，免去每次都往上层的作用域寻找。</p>
+<h3>实现11</h3>
+<div id="highlighter_355356" class="syntaxhighlighter nogutter  "><div class="lines"><div class="line alt1"><table><tbody><tr><td class="content"><code class="keyword">function</code> <code class="plain">Timer(id) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">this</code><code class="plain">.container = document.getElementById(id);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">Timer.prototype = {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">constructor: Timer,</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">begin: </code><code class="keyword">function</code><code class="plain">(count) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">var</code> <code class="plain">container = </code><code class="keyword">this</code><code class="plain">.container;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">setTimeout(</code><code class="keyword">function</code><code class="plain">() {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">container.innerHTML = count &gt; 0 ? count-- : </code><code class="string">"over"</code><code class="plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="keyword">if</code><code class="plain">(count + 1) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">setTimeout(arguments.callee, 1000);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}, 1000);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="content">&nbsp;</td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="content"><code class="plain">};</code></td></tr></tbody></table></div></div></div>
+<script type="text/javascript">
+function Timer11(id) {
+    this.container = document.getElementById(id);
+}
+
+Timer11.prototype = {
+    constructor: Timer11,
+    begin: function(count) {
+        var container = this.container;
+        setTimeout(function() {
+            container.innerHTML = count > 0 ? count-- : "over";
+            if(count + 1) {
+                setTimeout(arguments.callee, 1000);
+            }
+        }, 1000);
+    }
+
+};
+  function start11(){
+    var t21 = new Timer11("time23");
+    t21.begin(50)
+    var t22 =  new Timer11("time24");
+    t22.begin(10)
+  }
+</script>
+<div class="ex">
+  <div id="time23">time1</div>
+  <div id="time24">time2</div>
+</div>
+<p><button type="button" onclick="start11()">开始</button></p>
+<p class="notice">点评：YUI风格的实现方式，该类库大量使用arguments ，callee等内部属性。现在Timer类的成员很小，内部私有属性也很少，性能明显比以上所有实现要好得多。</p></div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 57731;
+var cb_entryId = 1550088;
+var cb_blogApp = "rubylouvre";
+var cb_blogUserGuid = "2e47a4b1-de3e-de11-9510-001cf0cd104b";
+var cb_entryCreatedDate = '2009/8/19 23:25:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/rubylouvre/tag/javascript/">javascript</a></div>
+<div id="green_channel" style="">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(1550088);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/%e5%8f%b8%e5%be%92%e6%ad%a3%e7%be%8e" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info"><a href="http://home.cnblogs.com/u/rubylouvre/" target="_blank"><img src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/u65123.jpg" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rubylouvre/">司徒正美</a><br><a href="http://home.cnblogs.com/u/rubylouvre/followees">关注 - 44</a><br><a href="http://home.cnblogs.com/u/rubylouvre/followers">粉丝 - 458</a></div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor">荣誉：<a href="http://www.cnblogs.com/expert/" target="_blank">推荐博客</a></div>
+<div id="author_profile_follow"><a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a></div>
+</div>
+<div id="div_digg" style="">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">(请您对文章做出评价)</div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/17/1547956.html" class="p_n_p_prefix">« </a> 博主前一篇：<a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/17/1547956.html" title="发布于2009-08-17 11:05">爱因斯坦：三篇著名演讲</a><br><a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/20/1550264.html" class="p_n_p_prefix">» </a> 博主后一篇：<a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/20/1550264.html" title="发布于2009-08-20 01:40">（转）setTimeout与js引擎的异步执行</a><br></div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+</script>
+
+
+
+
+		<p class="postfoot">
+			posted on 2009-08-19 23:25 <a href="http://www.cnblogs.com/rubylouvre/">司徒正美</a> 阅读(623) <a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/19/1550088.html#commentform">评论(0)</a>  <a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/19/1550088.html#" onclick="open_link(&#39;http://www.cnblogs.com/rubylouvre/admin/EditPosts.aspx?postid=1550088&#39;)" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/rubylouvre/archive/2009/08/19/1550088.html#" onclick="AddToWz(1550088);return false;">收藏</a>
+		</p>
+	</div>
+	<img src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/1550088.html" width="1px" height="1px" alt="">
+	
+
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 0;
+        comment.blogId = 0;
+        comment.sourceUrl = '';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = '';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl04_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+
+<div id="ctl04_divLoginPannel">
+<div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2frubylouvre%2farchive%2f2009%2f08%2f19%2f1550088.html%3flogin%3d1%23commentform" class="underline">登录</a> 或 <a rel="nofollow" href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2frubylouvre%2farchive%2f2009%2f08%2f19%2f1550088.html%23Bottom2" class="underline">注册</a>，<a href="http://www.cnblogs.com/" target="_blank">返回博客园首页</a>。</div>
+</div>
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br>
+
+          ·  <a href="http://news.cnblogs.com/n/112394/" target="_blank">.NET解决方案范围的依赖管理</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112393/" target="_blank">Jim Zemlin认为自由是Linux现在和未来的关键</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112392/" target="_blank">诺基亚宣布Symbian Anna系统开放免费下载</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112391/" target="_blank">腾讯Q4将推出电子商务开放平台产品 针对B2B2C</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112390/" target="_blank">美博客建议Facebook收购webOS弥补自身短板</a><br>
+	
+» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<b>最新知识库文章</b>:<br>
+<div id="kb_recent">
+
+·  <a href="http://kb.cnblogs.com/page/106296/" target="_blank">人们最初厌恶编程的10个原因</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/108524/" target="_blank">如何辨别优秀的程序员</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/104475/" target="_blank">IT项目管理的六种错误思维</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/107415/" target="_blank">我的10个开发原则</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/109493/" target="_blank">为什么编程是独一无二的职业</a><br>
+
+</div>
+» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a>
+</div>
+
+<script type="text/javascript" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script><script src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/google_ads.js"></script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_C2");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_C2");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/STATIC07/1107/2011chinapub_6810_110718/2011chinapub_6810_110718.asp" target="_blank" rel="nofollow"><img src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/china-pub.jpg" alt="" style="border:0px;"></a><br>
+<a href="http://www.china-pub.com/STATIC07/1107/zh_autumntb_110725/zh_autumntb_110725.asp" target="_blank" rel="nofollow">China-pub 2011秋季教材巡展</a><br>
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank" rel="nofollow">China-Pub 计算机绝版图书按需印刷服务</a><br>
+</div>
+<div id="clear_reader_link">
+
+</div>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">网站首页</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a><a href="http://news.cnblogs.com/" target="_blank">IT新闻</a><a href="http://home.cnblogs.com/" target="_blank">我的园子</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+
+
+
+
+
+</div>
+
+
+				
+</div>
+
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family:Verdana;font-size:12px;">博客园</a>
+	<br>
+	Copyright © 司徒正美
+</p>
+    </form> 
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="./JS一些类实现方式的性能研究 - 司徒正美 - 博客园_files/ShowHidden.js"></script>
+    
+
+
+</body></html>

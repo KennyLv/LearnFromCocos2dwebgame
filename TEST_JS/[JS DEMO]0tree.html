@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8' />
+<title>Tree</title>
+</head>
+<body>
+<canvas id="pad" width='1000' height='500'><a href='http://www.cssass.com'>cssass.com</a>提醒您：ie9以下用户请一边惭愧去吧</canvas>
+</body>
+<script>
+var con=document.getElementById("pad").getContext('2d');
+	con.strokeStyle = '#000';
+	con.lineWidth=0.8;
+function dw(ax, ay, bx, by) {
+	con.beginPath()
+	con.moveTo(ax, ay);
+	con.lineTo(bx, by);
+	con.stroke();
+}
+function lzh(x, y, l, angle, n) {
+	if (n>0) {
+		var a_l, a_r, x1, y1, x2, y2, y2_l;
+		x1 = x+0.5*l*Math.cos(angle*Math.PI/180);
+		y1 = y-0.5*l*Math.sin(angle*Math.PI/180);
+		x2 = x+l*Math.cos(angle*Math.PI/180);
+		y2 = y-l*Math.sin(angle*Math.PI/180);
+		dw(x, y, x2, y2);
+		a_l = angle+30;
+		a_r = angle-30;
+		l=l*2/3
+		lzh(x2, y2, l, angle+rand, n-1);
+		lzh(x1, y1, l*2/3, a_l+rand/2, n-1);
+		lzh(x1, y1, l*2/3, a_r+rand/2, n-1);
+		lzh(x2, y2, l*2/3, a_l+rand/2, n-1);
+		lzh(x2, y2, l*2/3, a_r+rand/2, n-1);
+		}
+	}
+var rand=2-Math.random()*10
+lzh(300, 400, 100, 90, 6);
+</script>
+</html>

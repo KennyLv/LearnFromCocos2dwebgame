@@ -1,0 +1,283 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=x-gbk">
+<title>JS正则_匹配字符串（1） - karen的个人空间 - 51Testing软件测试网 51Testing软件测试网-中国软件测试人的精神家园 - Powered by X-Space</title>
+<meta name="keywords" content="测试,java,web,test 软件测试,软件测试论坛,软件测试资料下载,软件测试工具,软件测试报告,软件测试方法,自动化测试,软件测试招聘">
+<meta name="description" content="*********** 正则表达式对象**************使用正则表达式匹配一个字符串，需要创建一个正则表达式对象，然后调用相应的方法，完成匹配过程。1、JavaScript正则表达式对象：RegExp(1) 创建对象方法1： re=/pat. 51Testing软件测试网，人气最旺的软件测试技术门户，提供软件测试社区交流，软件测试博客，人才服务，测试沙龙，测试杂志，测试资料下载等全方位信息服务，是国内最专业的软件测试就业培训、企业服务供应商... ">
+<link rel="alternate" type="application/rss+xml" href="http://www.51testing.com/?uid-252512-action-rss-type-blog" title="karen的个人空间">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://www.51testing.com/xmlrpc.php?rsd=252512">
+<link id="commonstyle" rel="stylesheet" type="text/css" href="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/space.css">
+<link id="themestyle" rel="stylesheet" type="text/css" href="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/css_252512.css">
+<script type="text/javascript">
+var siteUrl = "http://www.51testing.com";
+</script>
+<script type="text/javascript" language="javascript" src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/ajax.js"></script>
+<script type="text/javascript" language="javascript" src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/common.js"></script>
+</head><body>
+
+<div id="wrap">
+	<div id="header">
+		<div id="spacename">
+			<div id="xspace-spacename">
+				<strong>karen的个人空间</strong>
+								<p>
+					<a href="javascript:;" class="xspace-copyurl" onclick="javascript:setCopy('http://www.51testing.com/?252512');" title="复制地址">copy</a>
+					<a href="http://www.51testing.com/?252512" title="加入收藏" class="xspace-add2fav" onclick="javascript:addBookmark('karen的个人空间','http://www.51testing.com/?252512');return false;">Bookmark</a>
+					http://www.51testing.com/?252512				</p>
+			</div>
+		</div>
+		<div id="menu">
+			<ul id="xspace-menu">
+				<li class="xspace-active"><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog" class="xspace-blog">日志</a></li>				<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-image" class="xspace-image">相册</a></li>								<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-file" class="xspace-file">文件</a></li>				<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-link" class="xspace-link">书签</a></li>				<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-video" class="xspace-video">影音</a></li>								<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-friend" class="xspace-friend">好友</a></li>				<li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-bbs" class="xspace-mybbs">论坛</a></li>				<li><a href="http://www.51testing.com/?uid-252512-action-viewpro" class="xspace-guestbook">留言</a></li>							</ul>
+		</div>
+	</div>
+
+	<div id="content" class="xspace-layout1">
+
+		
+		<div id="mainarea" class="mainarea-side">
+			<div id="xspace-guide">
+				<a href="http://www.51testing.com/batch.manage.php?uid=252512" class="xspace-spacecp" target="_blank">空间管理</a>
+				您的位置:
+				<a href="http://www.51testing.com/" target="_blank">51Testing软件测试网</a>
+				&#187; <a href="http://www.51testing.com/?uid-252512">karen的个人空间</a>
+				&#187; <a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog">日志</a>			</div>
+
+						<div id="announcement">
+				工作经验交流群：125473976 ，欢迎大家加入！			</div>
+			
+			
+						<div id="show"><h1 class="xspace-title">JS正则_匹配字符串（1）</h1>
+<p class="xspace-smalltxt">
+<a href="http://www.51testing.com/batch.common.php?action=viewspace&amp;op=up&amp;itemid=223823&amp;uid=252512">上一篇</a> / 
+<a href="http://www.51testing.com/batch.common.php?action=viewspace&amp;op=next&amp;itemid=223823&amp;uid=252512">下一篇</a> &nbsp;2010-11-22 23:38:59
+
+
+
+
+/ 个人分类：<a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-16404">正则表达式</a>
+</p>
+
+<div class="xspace-itemdata">
+<a href="#xspace-tracks">查看( 32 )</a> / 
+<a href="#xspace-itemreply">评论( 0 )</a> / 
+<a href="#xspace-itemform">评分( <span class="xspace-rategood" title="好评">0</span> / <span class="xspace-ratebad" title="差评">0</span> )</a>
+</div>
+<div id="xspace-showmessage" class="xspace-itemmessage">
+<p>*********** 正则表达式对象**************<br>使用正则表达式匹配一个字符串，需要创建一个正则表达式对象，然后调用相应的方法，完成匹配过程。</p><p>1、JavaScript正则表达式对象：RegExp</p><p>(1) 创建对象<br>方法1： re=/pattern/[flags]<br>方法2:&nbsp; re= new RegExp("pattern",["flags"])</p><p>参数说明：<br>re ：必填，即创建好了的正在表达式对象</p><p>pattern：必填，即要使用的正则表达式模式，如： abc*</p><p>flags：选填项。标志可以组合使用，可用的有：<br>g ：全文查找出现得所有 pattern<br>i ：忽略大小写<br>m ：多行查找</p><p>***********匹配的方法******************<br>1、exec 方法</p><p>用正则表达式模式在字符串中运行查找，并返回包含该查找结果的一个数组</p><p>调用方法：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rgExp.exec(str)</p><p>参数说明：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; rgExp: 必填，正则表达式对象，即前面创建的re；<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; str：必填，要在其中执行查找的String对象或字符串文字，即要进行匹配的串</p><p>返回结果：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1、如果exec方法没有找到匹配，则它返回null<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2、如果它找到匹配，则返回一个数组，并更新全局RegExp对象的属性，以反映匹配结果。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 返回数组第0个元素是与正则表达式相匹配的文本；第2个元素是与rgExp的第1个子表达式相匹配的文本（如果有的话），第2个元</p><p>素是与rgExp第2个子表达式相匹配的文本（如果有的话），以此类推。【由于没弄懂 rgExp子表达式是什么，所有返回的数组没有第1、2</p><p>个值】<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果匹配成功，exec()还返回了两个属性：a、index--匹配文本的第一个字符的位置；b、input--配匹配的文本，即str。这两个属性通</p><p>过如果方式可以取得：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result.index 、result.input 【注：result变量，其值是exec()的返回数组】</p><p><a href="javascript:;" onclick="javascript:tagshow(event, '%B2%E2%CA%D4');" target="_self"><u><strong>测试</strong></u></a>代码：</p><p></p><table style="border: 1px solid rgb(153, 153, 153); font-size: 12px; width: 98%; background-color: rgb(221, 221, 221);" align="center"><tbody><tr><td><p>&lt;html&gt;<br>&lt;body&gt;</p><p>&lt;script. type="text/javascript"&gt;</p><p>var str = "Visit W3School, W3School is a place to study <a href="javascript:;" onclick="javascript:tagshow(event, 'web');" target="_self"><u><strong>web</strong></u></a> technology.";<br>var patt = new RegExp("W3School","g");<br>var result;</p><p>&nbsp; result=patt.exec(str);<br>&nbsp; document.write("result[0]:&nbsp; "+result[0]);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; document.write("result[1] "+result[1]);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; document.write("input： "+ result.input);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; document.write("index： "+result.index);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; document.write("patt.lastIndex: "+patt.lastIndex);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; &lt;/script&gt;</p><p>&lt;/body&gt;<br>&lt;/html&gt;</p></td></tr></tbody></table><p>返回结果：<br>result[0]: W3School<br>result[1] undefined<br>input： Visit W3School, W3School is a place to study web technology.<br>index： 6<br>patt.lastIndex: 14</p><p>注意：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+当rgExp是全局正则表达式时，即定义reExp时，加了g标志。exec()会在 RegExpObject 的 lastIndex
+属性指定的字符处开始检索字符串 string。当 exec() 找到了与表达式相匹配的文本时，在匹配后，它将把 RegExpObject 的
+lastIndex
+属性设置为匹配文本的最后一个字符的下一个位置。这也就是说，可以通过此时可以通过反复调用exec()方法来遍历字符串中的所有匹配文本。当
+exec()再也找不到匹配文本的内容时，它将返回null，并把lastIndex属性重置为0。</p><p>测试代码：<br></p><table style="border: 1px solid rgb(153, 153, 153); font-size: 12px; width: 98%; background-color: rgb(221, 221, 221);" align="center"><tbody><tr><td><p>&lt;html&gt;<br>&lt;body&gt;</p><p>&lt;script. type="text/javascript"&gt;</p><p>var str = "Visit W3School, W3School is a place to study web technology.";<br>var patt = new RegExp("W3School","g");<br>var result;</p><p>while ((result = patt.exec(str)) != null)&nbsp; {<br>&nbsp; document.write(result);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp; document.write(patt.lastIndex);<br>&nbsp; document.write("&lt;br /&gt;");<br>&nbsp;}<br>&lt;/script&gt;</p><p>&lt;/body&gt;<br>&lt;/html&gt;</p></td></tr></tbody></table><br>返回结果：<br>W3School<br>14<br>W3School<br>24<p>2、<a href="javascript:;" onclick="javascript:tagshow(event, 'test');" target="_self"><u><strong>test</strong></u></a>方法</p><p>调用方法：<br>&nbsp;&nbsp;&nbsp; rgExp.test(str)</p><p>参数说明：<br>&nbsp;&nbsp; rgExp: 必填，正则表达式对象，即前面创建的re；<br>&nbsp;&nbsp; str：必填，要在其中执行查找的String对象或字符串文字，即要进行匹配的串</p><p>返回结果：<br>&nbsp;&nbsp; 1、true：str中含有与rgExp匹配的文本<br>&nbsp;&nbsp; 2、false：str中没有与rgExp匹配的文本</p><p>测试代码：<br></p><table style="border: 1px solid rgb(153, 153, 153); font-size: 12px; width: 98%; background-color: rgb(221, 221, 221);" align="center"><tbody><tr><td><p>&lt;html&gt;<br>&lt;body&gt;</p><p>&lt;script. type="text/javascript"&gt;<br>var str = "defdasdff";<br>var patt1 = new RegExp("abc");</p><p>var result = patt1.test(str);</p><p>document.write("Result: " + result);<br>&lt;/script&gt;</p><p><br>&lt;/body&gt;<br>&lt;/html&gt;</p></td></tr></tbody></table><p>返回结果：<br>&nbsp;&nbsp;&nbsp; Result: false</p><p>如下compile方法，在匹配的过程中不用，但它是正则表达式的一个方法，所以也简单记录一下：</p><p>compile 方法<br>&nbsp;&nbsp;&nbsp; compile方法在不是用于匹配正则表达式的，它的主要作用是：在脚本执行过程中编译正则表达式 或者 正则表达式改变后，进行重新编译。<br>调用方法：<br>regExp.compile(regexp,modifier)</p><p>参数说明：<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; regexp：正则表达式对象<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; modifier：匹配类型，可选有：g-- 全局匹配，i--区分大小写，gi--全局区分大小写</p><p>以上参考：</p><p>1、http://www.w3school.com.cn/js/jsref_obj_regexp.asp</p><p>2、http://blog.sina.com.cn/s/blog_550ffb0b0100adsl.html</p><div></div><br>
+<div class="xspace-imginlog">
+</div>
+</div><div id="xspace-tracks" class="xspace-msgmodule">
+<h5>
+<a href="http://www.51testing.com/batch.track.php?itemid=223823" target="_blank" title="查看全部脚印" style="float: right;" class="xspace-smalltxt">全部脚印</a>
+<a href="javascript:;" onclick="javascript:deletetrack(223823);" target="_self" title="清除我的脚印" style="float: right; margin-right: 0.5em;" class="xspace-smalltxt">不留脚印</a>
+留下脚印:
+</h5>
+<ul class="xspace-list">
+<li class="xspace-avatarlist xspace-imgstyle"><a href="http://www.51testing.com/?uid-403587" title="403587曾经在2011-6-20访问过该主题" target="_blank"><img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/avatar_002.gif" alt="403587曾经在2011-6-20访问过该主题"></a><p><a href="http://www.51testing.com/?uid-403587" target="_blank">403587</a></p></li>
+</ul>
+</div>
+
+<p class="xspace-itemlinks">
+<a href="http://bbs.51testing.com/post.php?action=import&amp;itemid=223823" target="_blank">导入论坛</a>
+<a href="javascript:;" onclick="joinfavorite(223823);">收藏</a>
+<a href="javascript:;" onclick="showajaxdiv('http://www.51testing.com/batch.common.php?action=emailfriend&amp;itemid=223823', 400);">分享给好友</a>
+<a href="http://www.51testing.com/batch.manage.php?itemid=223823" target="_blank">管理</a>
+<a href="javascript:;" onclick="report(223823);">举报</a>
+</p>
+
+<p class="xspace-itemtag">TAG: 
+</p>
+
+<div id="xspace-itemreply">
+<div id="xspace-multipage-div" class="xspace-multipage"><a href="javascript:;" onclick="javascript:showcomment(1);">查看全部评论</a></div>
+</div>
+
+<div id="xspace-itemform">
+<form id="xspace-commentform" action="http://www.51testing.com/batch.comment.php" method="post" target="xspace-phpframe">
+<fieldset id="xspace-rates">
+<div id="xspace-rates-bg">
+<div id="xspace-rates-star" class="xspace-rates0">&nbsp;</div>
+<div id="xspace-rates-a">
+<a href="javascript:;" onmouseover="rateHover(-5);" onmouseout="rateOut();" onclick="setRate('-5', '223823');">-5</a>
+<a href="javascript:;" onmouseover="rateHover(-3);" onmouseout="rateOut();" onclick="setRate('-3', '223823');">-3</a>
+<a href="javascript:;" onmouseover="rateHover(-1);" onmouseout="rateOut();" onclick="setRate('-1', '223823');">-1</a>
+<a href="javascript:;" onmouseover="rateHover(0);" onmouseout="rateOut();" onclick="setRate('0', '223823');">-</a>
+<a href="javascript:;" onmouseover="rateHover(1);" onmouseout="rateOut();" onclick="setRate('1', '223823');">+1</a>
+<a href="javascript:;" onmouseover="rateHover(3);" onmouseout="rateOut();" onclick="setRate('3', '223823');">+3</a>
+<a href="javascript:;" onmouseover="rateHover(5);" onmouseout="rateOut();" onclick="setRate('5', '223823');">+5</a>
+</div>
+<input id="xspace-rates-value" name="rates" value="0" type="hidden">
+</div>
+<p>评分：<span id="xspace-rates-tip">0</span></p>
+</fieldset>
+<fieldset>
+<legend>我来说两句</legend>
+<p>
+<span onclick="moresmilies();" class="xspace-moresmilies">显示全部</span>
+</p><div id="xspace-smilies">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/loveliness.gif" alt=":loveliness:" id="smilie_0" onclick="insertSmilies(0)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/handshake.gif" alt=":handshake" id="smilie_1" onclick="insertSmilies(1)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/victory.gif" alt=":victory:" id="smilie_2" onclick="insertSmilies(2)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/funk.gif" alt=":funk:" id="smilie_3" onclick="insertSmilies(3)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/time.gif" alt=":time:" id="smilie_4" onclick="insertSmilies(4)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/kiss.gif" alt=":kiss:" id="smilie_5" onclick="insertSmilies(5)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/call.gif" alt=":call:" id="smilie_6" onclick="insertSmilies(6)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/hug.gif" alt=":hug:" id="smilie_7" onclick="insertSmilies(7)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/lol.gif" alt=":lol" id="smilie_8" onclick="insertSmilies(8)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/cry.gif" alt=":'(" id="smilie_9" onclick="insertSmilies(9)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/mad.gif" alt=":Q" id="smilie_10" onclick="insertSmilies(10)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/sweat.gif" alt=":L" id="smilie_11" onclick="insertSmilies(11)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/titter.gif" alt=";P" id="smilie_12" onclick="insertSmilies(12)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/shy.gif" alt=":$" id="smilie_13" onclick="insertSmilies(13)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/tongue.gif" alt=":P" id="smilie_14" onclick="insertSmilies(14)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/shocked.gif" alt=":o" id="smilie_15" onclick="insertSmilies(15)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/huffy.gif" alt=":@" id="smilie_16" onclick="insertSmilies(16)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/biggrin.gif" alt=":D" id="smilie_17" onclick="insertSmilies(17)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/sad.gif" alt=":(" id="smilie_18" onclick="insertSmilies(18)" border="0">
+<img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/smile.gif" alt=":)" id="smilie_19" onclick="insertSmilies(19)" border="0">
+</div>
+
+<p>
+<label for="xspace-commentmsg">内容</label>
+<textarea id="xspace-commentmsg" name="message"></textarea>
+</p>
+<p>
+<label for="xspace-nickname">昵称</label>
+<input size="20" id="xspace-nickname" name="nickname" type="text">
+</p>
+<p id="xspace-seccodeline">
+<label for="xspace-seccode">验证</label>
+<input size="10" id="xspace-seccode" name="seccode" type="text">
+<label for="xspace-seccode"><img id="xspace-imgseccode" src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/batch.png" onclick="javascript:newseccode(this);" alt="seccode" title="看不清？点击换一个"></label>
+</p>
+<p>
+<input name="itemid" value="223823" type="hidden">
+<button value="true" type="submit" name="submitcomment" id="xspace-btncomment">提交评论</button>
+</p>
+</fieldset>
+</form>
+</div>
+
+<script language="javascript" type="text/javascript">
+<!--
+function showcomment(page) {
+var x = new Ajax('statusid', 'XML');
+x.get('http://www.51testing.com/batch.comment.php?action=view&itemid=223823&page='+page, function(s) {
+getbyid("xspace-itemreply").innerHTML = s.lastChild.firstChild.nodeValue;
+});
+}
+function deletecomment(cid) {
+var x = new Ajax('statusid', 'XML');
+x.get('http://www.51testing.com/batch.comment.php?action=delete&cid='+cid, function(s) {
+alert(s.lastChild.firstChild.nodeValue);
+});
+}
+
+function moresmilies() {
+var smilies = document.getElementById('xspace-smilies');
+if (smilies.style.height=='auto') {
+smilies.style.height = '';
+} else {
+smilies.style.height = 'auto';
+}
+}
+addImgLink("xspace-showmessage");
+addMediaAction('xspace-showmessage');
+//-->
+</script>
+<iframe id="xspace-phpframe" name="xspace-phpframe" marginwidth="0" src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/a.html" frameborder="0" height="0" width="0"></iframe></div>
+					</div>
+
+				<div id="sideleft" class="sidearea">
+			<div id="avatar" class="xspace-sideblock"><div id="xspace-avatar"><img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/avatar.gif" alt="地下森林" class="xspace-imgstyle"><p><a href="http://www.51testing.com/?uid-252512-action-viewpro-showpro-1">地下森林</a></p><p class="xspace-selfintro">重回测试，加油！</p></div></div><div id="action" class="xspace-sideblock">
+			<h3 class="xspace-blocktitle">用户菜单</h3>
+			<ul id="xspace-action">
+			<li><a class="xspace-message" href="http://www.51testing.com/?uid-252512-action-viewpro">给我留言</a></li>
+			<li><a class="xspace-addfriend" href="javascript:;" onclick="javascript:joinfriend('252512');">加入好友</a></li>
+			<li><a class="xspace-sendpm" href="http://bbs.51testing.com/pm.php?action=send&amp;uid=252512" target="_blank">发短消息</a></li>
+			<li><a class="xspace-profile" href="http://www.51testing.com/?uid-252512-action-viewpro-showpro-1">我的介绍</a></li>
+			<li><a class="xspace-profile" href="http://bbs.51testing.com/viewpro.php?uid=252512">论坛资料</a></li>
+			<li><a class="xspace-ctrlpannel" href="http://www.51testing.com/batch.manage.php?uid=252512">空间管理</a></li>
+			</ul>
+			</div><div id="itemtype" class="xspace-sideblock">
+				<h3 class="xspace-blocktitle">我的栏目</h3>
+				<ul class="xspace-list"><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13092" target="_blank">Jmeter相关</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13198" target="_blank">Oracle相关</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13406" target="_blank">案例编写</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13420" target="_blank">书籍阅读</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13718" target="_blank">Junit</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13737" target="_blank">NUint</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-13817" target="_blank">小知识点</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-14277" target="_blank">资料收集</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-14291" target="_blank">web相关</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-14415" target="_blank">LoadRunner相关</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-14788" target="_blank">TestDirector</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-14929" target="_blank">测试管理</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-15288" target="_blank">java</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-15330" target="_blank">收藏</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-15397" target="_blank">系统监听工具</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-15399" target="_blank">测试理论</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-16404" target="_blank">正则表达式</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-type-blog-itemtypeid-19245" target="_blank">手机测试</a></li></ul></div><div id="search" class="xspace-sideblock">
+			<h3 class="xspace-blocktitle">标题搜索</h3>
+			<form id="xspace-search" action="http://www.51testing.com/index.php?uid/252512/action/spacelist/php/1" method="post">
+			<input id="xspace-searchkey" name="searchkey" type="text">
+			<input name="searchsubmit" value="yes" type="hidden">
+			<input name="xspace-dosearch" id="xspace-dosearch" value="搜索" type="submit">
+			</form>
+			</div><div id="calendar" class="xspace-sideblock">
+				<h3 class="xspace-blocktitle">日历</h3>
+<table id="xspace-calendar" summary="xspace-Calendar" border="0" cellpadding="2" cellspacing="2" width="100%">
+<tbody><tr>
+	<td colspan="7" align="center">
+		<table class="xspace-datenav" summary="xspace-Date nav" cellpadding="3" cellspacing="3">
+			<tbody><tr>
+				<td align="center"><a href="http://www.51testing.com/?action-spacelist-uid-252512-type-blog-itemtypeid-16404-starttime-1306857600-endtime-1309449600">&#171;</a></td>
+				<td nowrap="nowrap" align="center"><a href="http://www.51testing.com/?action-spacelist-uid-252512-type-blog-itemtypeid-16404-starttime-1309449600-endtime-1312128000">2011-07-11</a></td>
+				<td align="center">&nbsp;</td>
+			</tr>
+		</tbody></table>
+	</td>
+</tr>
+<tr class="xspace-week" align="center">
+	<td>日</td>
+	<td>一</td>
+	<td>二</td>
+	<td>三</td>
+	<td>四</td>
+	<td>五</td>
+	<td>六</td>
+</tr>
+<tr align="center"><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>1</td><td>2</td></tr><tr align="center"><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td></tr><tr align="center"><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td></tr><tr align="center"><td>17</td><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td></tr><tr align="center"><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td></tr><tr align="center"><td>31</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</tbody></table>
+</div><div id="archive" class="xspace-sideblock">
+			<h3 class="xspace-blocktitle">我的存档</h3>
+			<ul class="xspace-list"><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1306857600-endtime-1309449600">2011年06月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1304179200-endtime-1306857600">2011年05月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1301587200-endtime-1304179200">2011年04月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1298908800-endtime-1301587200">2011年03月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1296489600-endtime-1298908800">2011年02月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1293811200-endtime-1296489600">2011年01月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1291132800-endtime-1293811200">2010年12月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1288540800-endtime-1291132800">2010年11月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1285862400-endtime-1288540800">2010年10月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1283270400-endtime-1285862400">2010年09月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1280592000-endtime-1283270400">2010年08月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1277913600-endtime-1280592000">2010年07月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1275321600-endtime-1277913600">2010年06月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1272643200-endtime-1275321600">2010年05月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1270051200-endtime-1272643200">2010年04月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1267372800-endtime-1270051200">2010年03月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1264953600-endtime-1267372800">2010年02月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1262275200-endtime-1264953600">2010年01月</a></li><li><a href="http://www.51testing.com/?uid-252512-action-spacelist-starttime-1259596800-endtime-1262275200">2009年12月</a></li></ul></div><div id="infomation" class="xspace-sideblock">
+			<h3 class="xspace-blocktitle">数据统计</h3>
+			<ul class="xspace-list">
+			<li>访问量: 6642</li><li>日志数: 81</li><li>建立时间: 2009-12-04</li>
+			<li>更新时间: 2011-06-07</li>
+			</ul></div><div id="rss" class="xspace-sideblock">
+			<h3 class="xspace-blocktitle">RSS订阅</h3>
+			<ul class="xspace-list">
+			<li class="xspace-logo"><a href="http://www.51testing.com/?uid-252512-action-rss-type-blog"><img src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/rss.gif" alt="RSS订阅" border="0"></a></li>
+			</ul>
+			</div>		</div>
+		
+		
+	</div>
+</div>
+
+<div id="xspace-footer">
+	<p id="xspace-footer-ad">
+			</p>
+	<p id="xspace-footer_menu">
+		<a href="http://www.51testing.com/batch.login.php?action=logout">清空Cookie</a> -
+		<a href="mailto:webmaster@51testing.com">联系我们</a> -
+		<a href="http://www.51testing.com/" target="_blank">51Testing软件测试网</a> -
+		<a href="http://bbs.51testing.com/" target="_blank">交流论坛</a> -
+		<a href="http://www.51testing.com/?action/spaces">空间列表</a> -
+		<a href="http://www.51testing.com/archiver/" target="_blank">站点存档</a> -
+		<a href="http://www.51testing.com/?action/register" target="_blank">升级自己的空间</a>
+	</p>
+	<p id="xspace-copyright">
+		Powered by <a href="http://www.supesite.com/" target="_blank"><strong>X-Space</strong></a>
+		<em>4.0.1 UC</em>
+		&#169; 2001-2008 <a href="http://www.comsenz.com/" target="_blank">Comsenz Inc.</a>
+		<br>
+		<a href="http://www.miibeian.gov.cn/" target="_blank">沪ICP备05003035号</a><br>	</p>
+</div>
+<div id="toolbarshowbtn"><a href="javascript:;" onmouseover="showtoolbar();">Open Toolbar</a></div>
+<div id="toolbarframe"><iframe src="JS%E6%AD%A3%E5%88%99_%E5%8C%B9%E9%85%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%881%EF%BC%89%20-%20karen%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%A9%BA%E9%97%B4%20-%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91%2051Testing%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E7%BD%91-%E4%B8%AD%E5%9B%BD%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95%E4%BA%BA%E7%9A%84%E7%B2%BE%E7%A5%9E%E5%AE%B6%E5%9B%AD%20-%20Powered%20by%20X-Space_files/batch.html" frameborder="0" scrolling="no" width="100%"></iframe></div>
+</body></html>

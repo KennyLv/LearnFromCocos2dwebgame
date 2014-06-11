@@ -1,0 +1,551 @@
+JS数组方法汇总 array数组元素的添加和删除
+
+js数组元素的添加和删除一直比较迷惑，今天终于找到详细说明的资料了，先给个我测试的代码^-^
+var arr = new Array();
+arr[0] = "aaa";
+arr[1] = "bbb";
+arr[2] = "ccc";
+//alert(arr.length);//3
+arr.pop();
+//alert(arr.length);//2
+//alert(arr[arr.length-1]);//bbb
+arr.pop();
+//alert(arr[arr.length-1]);//aaa
+//alert(arr.length);//1
+
+var arr2 = new Array();
+//alert(arr2.length);//0
+arr2[0] = "aaa";
+arr2[1] = "bbb";
+//alert(arr2.length);//2
+arr2.pop();
+//alert(arr2.length);//1
+arr2 = arr2.slice(0,arr2.length-1);
+//alert(arr2.length);//0
+arr2[0] = "aaa";
+arr2[1] = "bbb";
+arr2[2] = "ccc";
+arr2 = arr2.slice(0,1);
+alert(arr2.length);//1
+alert(arr2[0]);//aaa
+alert(arr2[1]);//undefined
+
+shift：删除原数组第一项，并返回删除元素的值；如果数组为空则返回undefined
+var a = [1,2,3,4,5];
+var b = a.shift(); //a：[2,3,4,5]   b：1
+
+unshift：将参数添加到原数组开头，并返回数组的长度
+var a = [1,2,3,4,5];
+var b = a.unshift(-2,-1); //a：[-2,-1,1,2,3,4,5]   b：7
+注：在IE6.0下测试返回值总为undefined，FF2.0下测试返回值为7，所以这个方法的返回值不可靠，需要用返回值时可用splice代替本方法来使用。
+
+pop：删除原数组最后一项，并返回删除元素的值；如果数组为空则返回undefined
+var a = [1,2,3,4,5];
+var b = a.pop(); //a：[1,2,3,4]   b：5 //不用返回的话直接调用就可以了
+
+push：将参数添加到原数组末尾，并返回数组的长度
+var a = [1,2,3,4,5];
+var b = a.push(6,7); //a：[1,2,3,4,5,6,7]   b：7
+
+concat：返回一个新数组，是将参数添加到原数组中构成的
+var a = [1,2,3,4,5];
+var b = a.concat(6,7); //a：[1,2,3,4,5]   b：[1,2,3,4,5,6,7]
+
+splice(start,deleteCount,val1,val2,...)：从start位置开始删除deleteCount项，并从该位置起插入val1,val2,...
+var a = [1,2,3,4,5];
+var b = a.splice(2,2,7,8,9); //a：[1,2,7,8,9,5]   b：[3,4]
+var b = a.splice(0,1); //同shift
+a.splice(0,0,-2,-1); var b = a.length; //同unshift
+var b = a.splice(a.length-1,1); //同pop
+a.splice(a.length,0,6,7); var b = a.length; //同push
+
+reverse：将数组反序
+var a = [1,2,3,4,5];
+var b = a.reverse(); //a：[5,4,3,2,1]   b：[5,4,3,2,1]
+
+sort(orderfunction)：按指定的参数对数组进行排序
+var a = [1,2,3,4,5];
+var b = a.sort(); //a：[1,2,3,4,5]   b：[1,2,3,4,5]
+
+slice(start,end)：返回从原数组中指定开始下标到结束下标之间的项组成的新数组
+var a = [1,2,3,4,5];
+var b = a.slice(2,5); //a：[1,2,3,4,5]   b：[3,4,5]
+
+join(separator)：将数组的元素组起一个字符串，以separator为分隔符，省略的话则用默认用逗号为分隔符
+var a = [1,2,3,4,5];
+var b = a.join("|"); //a：[1,2,3,4,5]   b："1|2|3|4|5"
+
+再给个利用数组模拟javaStringBuffer处理字符串的方法：
+
+/**
+* 字符串处理函数
+*/
+function StringBuffer()
+{
+var arr = new Array;
+this.append = function(str)
+{
+    arr[arr.length] = str;
+};
+
+this.toString = function()
+{
+    return arr.join(""); //把append进来的数组ping成一个字符串
+};
+}
+
+今天在应用中突然发现join是一种把数组转换成字符串的好方法，故封装成对象使用了：
+
+/**
+* 把数组转换成特定符号分割的字符串
+*/
+function arrayToString(arr,separator)
+{
+if(!separator) separator = "";//separator为null则默认为空
+    return arr.join(separator);
+}
+
+/**
+* 查找数组包含的字符串
+*/
+function arrayFindString(arr,string)
+{
+var str = arr.join("");
+    return str.indexOf(string);
+}
+
+
+
+===============================================================================================
+javascript数组操作大全，数组方法总汇
+
+
+shift：删除原数组第一项，并返回删除元素的值；如果数组为空则返回undefined
+var a = [1,2,3,4,5];
+var b = a.shift(); //a：[2,3,4,5] b：1
+
+unshift：将参数添加到原数组开头，并返回数组的长度
+var a = [1,2,3,4,5];
+var b = a.unshift(-2,-1); //a：[-2,-1,1,2,3,4,5] b：7
+注：在IE6.0下测试返回值总为undefined，FF2.0下测试返回值为7，所以这个方法的返回值不可靠，需要用返回值时可用splice代替本方法来使用。
+
+pop：删除原数组最后一项，并返回删除元素的值；如果数组为空则返回undefined
+var a = [1,2,3,4,5];
+var b = a.pop(); //a：[1,2,3,4] b：5
+
+push：将参数添加到原数组末尾，并返回数组的长度
+var a = [1,2,3,4,5];
+var b = a.push(6,7); //a：[1,2,3,4,5,6,7] b：7
+
+concat：返回一个新数组，是将参数添加到原数组中构成的
+var a = [1,2,3,4,5];
+var b = a.concat(6,7); //a：[1,2,3,4,5] b：[1,2,3,4,5,6,7]
+
+splice(start,deleteCount,val1,val2,...)：从start位置开始删除deleteCount项，并从该位置起插入val1,val2,...
+var a = [1,2,3,4,5];
+var b = a.splice(2,2,7,8,9); //a：[1,2,7,8,9,5] b：[3,4]
+var b = a.splice(0,1); //同shift
+a.splice(0,0,-2,-1); var b = a.length; //同unshift
+var b = a.splice(a.length-1,1); //同pop
+a.splice(a.length,0,6,7); var b = a.length; //同push
+
+reverse：将数组反序
+var a = [1,2,3,4,5];
+var b = a.reverse(); //a：[5,4,3,2,1] b：[5,4,3,2,1]
+
+sort(orderfunction)：按指定的参数对数组进行排序
+var a = [1,2,3,4,5];
+var b = a.sort(); //a：[1,2,3,4,5] b：[1,2,3,4,5]
+
+slice(start,end)：返回从原数组中指定开始下标到结束下标之间的项组成的新数组
+var a = [1,2,3,4,5];
+var b = a.slice(2,5); //a：[1,2,3,4,5] b：[3,4,5]
+
+join(separator)：将数组的元素组起一个字符串，以separator为分隔符，省略的话则用默认用逗号为分隔符
+var a = [1,2,3,4,5];
+var b = a.join("|"); //a：[1,2,3,4,5] b："1|2|3|4|5"
+
+数组是JavaScript提供的一个内部对象，它是一个标准的集合，我们可以添加(push)、删除(shift)里面元素，我们还可以通过for循环遍历里面的元素，那么除了数组我们在JavaScript里还可以有别的集合吗?
+
+　　由于JavaScript的语言特性，我们可以向通用对象动态添加和删除属性。所以Object也可以看成是JS的一种特殊的集合。下面比较一下Array和Object的特性:
+
+　　Array:
+
+新建:var ary = new Array(); 或 var ary = [];
+增加:ary.push(value);
+删除:delete ary[n];
+遍历:for ( var i=0 ; i < ary.length ; ++i ) ary[i];
+
+　　Object:
+
+新建:var obj = new Object(); 或 var obj = {};
+增加:obj[key] = value; (key为string)
+删除:delete obj[key];
+遍历:for ( var key in obj ) obj[key];
+
+　　从上面的比较可以看出Object完全可以作为一个集合来使用，在使用Popup窗口创建无限级Web页菜单(3)中我介绍过Eric实现的那个__MenuCache__，它也就是一个模拟的集合对象。
+
+　　如果我们要在Array中检索出一个指定的值，我们需要遍历整个数组:
+
+　　
+代码：
+var keyword = ;
+　　for ( var i=0 ; i < ary.length ; ++i )
+　　{
+　　if ( ary[i] == keyword )
+　　{
+　　// todo
+　　}
+　　}
+
+　　而我们在Object中检索一个指定的key的条目，只需要是要使用:
+
+　　
+代码：
+var key = '';
+　　var value = obj[key];
+　　// todo
+
+　Object的这个特性可以用来高效的检索Unique的字符串集合，遍历Array的时间复杂度是O(n)，而遍历Object的时间复杂度是 O(1)。
+虽然对于10000次集合的for检索代价也就几十ms，可是如果是1000*1000次检索或更多，使用Object的优势一下就体现出来了。在此之前我做了一个mapping，
+把100个Unique的字符mapping到1000个字符串数组上，耗时25-30s!后来把for遍历改成了Object模拟的集合的成员引用，同样的数据量mapping，耗时仅1.7-2s!!!
+
+　　对于集合的遍历效率(从高到低):var value = obj[key]; > for ( ; ; ) > for ( in )。效率最差的就是for( in )了，如果集合过大，尽量不要使用for ( in )遍历。
+
+
+
+==========================================================================================================
+
+ Javascript数组及其操作
+
+    * 博客分类： JAVASCRIPT
+
+JavaScript
+本文介绍如下几个方面的内容:
+
+1.如何创建数组
+2.如何对数组进行操作（添加,删除,读取)
+3.数组常见方法和属性
+
+如何创建一个数组,一般地根据初始化设定简单分为3种:
+
+1.单纯创建数组:
+var arr=new Array();
+要点:用new关键字创建数组对象Array(),Array()对象是一个本地类,可以用new创建一个对象后使用
+2.创建数组的同时规定数组大小:
+var arr=new Array(10);//这里就创建了一个初始化大小为10的数组
+注意:当使用数组大小操作初始化大小时,数组会自动被撑大,不会像C语言那样发生错误.动态增长是js数组的一个性质.另外,js中支持最大数组长度为
+
+4294967295
+
+3.直接初始化:
+var arr=new Array("love","hate","pain");//这里就直接初始化了数组
+或var arr=["happy","cute","scare"];//括号也可以声明一个数组对象
+
+
+当然,类似C语言,可以定义2维3维和多维的数组,例如:
+
+<script language=Javascript>
+    var myArray = new Array();
+    for(var i=0;i<10;i++ )...{
+        myArray[i]=new Array();
+        myArray[i][0]=Math.floor(Math.random()*10);
+        myArray[i][1]=Math.floor(Math.random()*10);
+        myArray[i][2]=Math.floor(Math.random()*10);
+        myArray[i][3]=Math.floor(Math.random()*10);
+        myArray[i][4]=Math.floor(Math.random()*10);
+        myArray[i][5]=Math.floor(Math.random()*10);
+        myArray[i][6]=Math.floor(Math.random()*10);
+        myArray[i][7]=Math.floor(Math.random()*10);
+        myArray[i][8]=Math.floor(Math.random()*10);
+    }
+  
+    myArray.sort( function(x, y) ...{
+        return (x[0]==y[0])?((x[4]==y[4])?(x[8]-y[8]):(x[4]-y[4])):(x[2]-y[2])
+    });
+    for(var i=0;i<myArray.length;i++ )...{
+        document.write(myArray[i].join(",") + "<br/>");
+    }
+</script>
+
+
+数组的属性:length
+arr.length返回数组arr的长度,常见于循环中对数组的遍历,比如:
+for(var i=0;i<arr.length;i++){
+执行部分
+}
+数组元素的访问: arr[index],其中index表示索引即数组基数,从0开始,共有arr.length个元素.比如: arr[0]访问第一个数组元素,arr[1]访问第二个数组元素....依
+
+次类推 数组的操作方法:先概览下下面的这些操作数组常用的方法(13个)
+
+toString(),valueOf(),toLocalString(),join(),split(),slice(),concat(),
+pop(),push(),shift(),unshift(),sort(),splice()
+下面逐一分析这些方法的功能和用法.
+
+toString(),valueOf(),toLocalString():
+功能:返回数组的全部元素
+注:数组名也可以返回整个数组
+代码:
+
+    var m=["am","bm","cm"];//用括号声明一个数组对象
+    alert(m.toString());//toString()返回数组对象的所有内容,用逗号分割,即am,bm,cm
+    alert(m.valueOf());//valueOf()也返回数组对象的所有内容
+    alert(m.toLocaleString());//toLocaleString()也返回数组对象的所有内容,但有地区语言区别,暂不研究
+    alert(m);//数组名也返回数组对象的所有内容
+
+join():
+功能:把数组各个项用某个字符(串)连接起来,但并不修改原来的数组
+代码:
+
+    var m=["am","bm","cm"];//用括号声明一个数组对象
+    var n=m.join("---");//用---连接am,bm,cm.
+    alert(m.toString());//m并没有被修改,返回am,bm,cm
+    alert(n);//n是一个字符串,为am---bm---cm
+
+
+split():
+功能:把一个字符串按某个字符(串)分割成一个数组,但不修改原字符串
+代码:
+
+    var str="I love maomao,I am caolvchong";
+    var arr=str.split("o");//按字符o把str字符串分割成一个数组
+    alert(arr);//输出整个数组
+
+
+slice():返回某个位置开始(到某个位置结束)的数组部分,不修改原数组
+代码:
+
+    var m=["am","bm","cm","dm","em","fm"];
+    var n=m.slice(2);//返回第二个元素bm后面的元素,即cm,dm,em,fm
+    var q=m.slice(2,5);//返回第二个元素后到第五个元素,即cm,dm,em
+    alert(n);
+    alert(q);
+
+
+数组对象的栈操作:
+push():数组末尾添加一个项
+pop():删除数组最后一个项
+代码:
+
+    var m=["am","bm","cm","dm","em","fm"];
+    m.push("gm");//在数组末尾添加元素gm
+    alert(m);
+    m.pop();//删除数组最后一个元素gm
+    alert(m);
+
+
+数组对象的队列操作:
+unshift():数组头添加一个项
+shift():删除数组第一个项
+代码:
+
+    var m=["am","bm","cm","dm","em","fm"];
+    m.unshift("gm");//在数组第一个元素位置添加元素gm
+    alert(m);
+    m.shift();//删除数组第一个元素gm
+    alert(m);
+
+
+sort():数组按字符的ASCII码进行排序,修改数组对象
+注:即便是数字数组,也将转化为字符串来进行比较排序
+代码:
+
+    var m=["am","fm","gm","bm","em","dm"];
+    m.sort();//按字母序排序
+    alert(m);
+
+
+concat():在数组尾添加元素,但不修改数组对象
+代码:
+
+    var m=["am","bm"]
+    var n=m.concat("cm");//添加一项cm,并且赋予新数组对象
+    alert(m);//原数组没有被修改
+    alert(n);//输出新数组对象
+
+
+splice():在数组的任意位置进行添加,删除或者替换元素,直接修改数组对象
+细节:
+splice()有三个参数或三个以上参数,前两个是必须的,后面参数是可选的
+进行添加:splice(起始项,0,添加项)
+进行删除:splice(起始项,要删除的项个数)
+进行替换:splice(起始项,替换个数,替换项) 这个其实是添加删除的共同结果
+代码:
+
+    var m=["am","bm"]
+    m.splice(1,0,"fm","sm");//在第一项后面添加fm和sm,返回am,fm,sm,bm
+    alert(m);
+    m.splice(2,1);//删除第二项后面一项(即第三项sm,返回am,fm,bm)
+    alert(m);
+    m.splice(2,1,"mm");//替换第二项后面一项(即第三项,返回am,fm,mm)
+    alert(m); 
+
+
+=================================================================================================
+逆波兰表达式
+求助编辑百科名片
+   [逆波兰表达式]
+逆波兰表达式
+
+逆波兰表达式又叫做后缀表达式。在通常的表达式中，二元运算符总是置于与之相关的两个运算对象之间，所以，这种表示法也称为中缀表示。波兰逻辑学家 J.Lukasiewicz于1929年提出了另一种表示表达式的方法。按此方法，每一运算符都置于其运算对象之后，故称为后缀表示。
+
+目录
+
+    逆波兰表达式
+    逆波兰表达式的用途
+    逆波兰表达式的优势
+    一般算法
+    算法流程
+    优先级分类
+
+编辑本段逆波兰表达式
+　　逆波兰表达式，它的语法规定，表达式必须以逆波兰表达式的方式给出。逆波兰表达式又叫做后缀表达式。这个知识点在数据结构和编译原理这两门课程中都有介绍，下面是一些例子：
+　　正常的表达式 逆波兰表达式
+　　a+b ---> a,b,+
+　　a+(b-c) ---> a,b,c,-,+
+　　a+(b-c)*d ---> a,b,c,-,d,*,+
+　　a+d*(b-c)--->a,d,b,c,-,*,+
+　　a=1+3 ---> a=1,3 +
+　　http=(smtp+http+telnet)/1024 写成什么呢？
+　　http=smtp,http,telnet,+,+,1024,/
+编辑本段逆波兰表达式的用途
+　　逆波兰表达式是一种十分有用的表达式，它将复杂表达式转换为可以依靠简单的操作得到计算结果的表达式。例如(a+b)*(c+d)转换为ab+cd+*
+编辑本段逆波兰表达式的优势
+　　它的优势在于只用两种简单操作，入栈和出栈就可以搞定任何普通表达式的运算。其运算方式如下：
+　　如果当前字符为变量或者为数字，则压栈，如果是运算符，则将栈顶两个元素弹出作相应运算，结果再入栈，最后当表达式扫描完后，栈里的就是结果。
+编辑本段一般算法
+　　将一个普通的中序表达式转换为逆波兰表达式的一般算法是：
+　　(1)首先构造一个运算符栈，此运算符在栈内遵循越往栈顶优先级越高的原则。
+　　(2)读入一个用中缀表示的简单算术表达式，为方便起见,设该简单算术表达式的右端多加上了优先级最低的特殊符号“#”。
+　　(3)从左至右扫描该算术表达式，从第一个字符开始判断，如果该字符是数字，则分析到该数字串的结束并将该数字串直接输出。
+　　(4)如果不是数字，该字符则是运算符，此时需比较优先关系。
+　　做法如下：将该字符与运算符栈顶的运算符的优先关系相比较。如果，该字符优先关系高于此运算符栈顶的运算符，则将该运算符入栈。倘若不是的话，则将栈顶的运算符从栈中弹出，直到栈顶运算符的优先级低于当前运算符，将该字符入栈。
+　　(5)重复上述操作(3)-(4)直至扫描完整个简单算术表达式，确定所有字符都得到正确处理，我们便可以将中缀式表示的简单算术表达式转化为逆波兰表示的简单算术表达式。
+编辑本段算法流程
+　　下面是程序化算法流程：
+　　1、建立运算符栈stackOperator用于运算符的存储，压入'\0'。
+　　2、预处理表达式，正、负号前加0(如果一个加号（减号）出现在最前面或左括号后面，则该加号（减号）为正负号) 。
+　　3、顺序扫描表达式，如果当前字符是数字（优先级为0的符号），则直接输出该数字；如果当前字符为运算符或括号（优先级不为0的符号），则判断第4点 。
+　　4、若当前运算符为'('，直接入栈；
+　　若为')'，出栈并顺序输出运算符直到遇到第一个'('，遇到的第一个'('出栈但不输出；
+　　若为其它，比较stackOperator栈顶元素与当前元素的优先级：
+　　如果 栈顶元素运算符优先级 >= 当前元素的优先级，出栈并顺序输出运算符直到 栈顶元素优先级 < 当前元素优先级，然后当前元素入栈；
+　　如果 栈顶元素 < 当前元素，直接入栈。
+　　5、重复第3点直到表达式扫描完毕。
+　　6、顺序出栈并输出运算符直到栈顶元素为'\0'。
+　　int Precedence(char sign)
+　　{
+　　switch(sign)
+　　{
+　　case '+':
+　　case '-':
+　　return 1;
+　　case '*':
+　　case '/':
+　　return 2;
+　　case '^':
+　　case '%':
+　　return 3;
+　　case '(':
+　　case '@':
+　　default:
+　　return 0;
+　　}
+　　}
+　　/****************中缀表达式转换成后缀表达式 ********************/
+　　void Change(char* s1,char* s2)
+　　{
+　　seqstack T;
+　　int i=0,j=0;
+　　char ch;
+　　SetNull(&T);
+　　Push(&T,'@');
+　　ch=s1[i];
+　　while(ch!='\0')
+　　{
+　　if(ch==' ')
+　　ch=s1[++i];
+　　else if(ch=='(')
+　　{
+　　Push(&T,ch);
+　　ch=s1[++i];
+　　}
+　　else if(ch==')')
+　　{
+　　while(GetTop(&T)!='(')
+　　s2[j++]=Pop(&T);
+　　Pop(&T);
+　　ch=s1[++i];
+　　}
+　　else if(ch=='+' || ch=='-' ||ch=='*' ||ch=='/' ||ch=='^' ||ch=='%')
+　　{
+　　char w=GetTop(&T);
+　　while(Precedence(w)>=Precedence(ch))
+　　{
+　　s2[j++]=w;
+　　Pop(&T);
+　　w=GetTop(&T);
+　　}
+　　Push(&T,ch);
+　　ch=s1[++i];
+　　}
+　　else
+　　{
+　　while((ch>='0' && ch<='9')||ch=='.')
+　　{
+　　s2[j++]=ch;
+　　ch=s1[++i];
+　　}
+　　s2[j++]=' ';
+　　}
+　　}
+　　ch=Pop(&T);
+　　while(ch!='@')
+　　{
+　　s2[j++]=ch;
+　　ch=Pop(&T);
+　　}
+　　s2[j++]='\0';
+　　}
+编辑本段优先级分类
+　　优先级分为栈内优先级isp(In stack priority)和栈外优先级icp(In coming priority)。除了括号以外，其他运算符进栈后优先级都升1，这样可以体现在中缀表达式中相同优先级的操作符自左向右计算的要求，让位于栈顶的操作符先退栈并输出。
+　　各运算符及符号优先级：
+　　
+操作符	#	^	*,/,%	+,- 	(	)
+isp	0	7	5	3	1	8
+icp	0	6	4	2	8	1
+
+扩展阅读：
+
+        * 1
+
+          http://www.cnblogs.com/chinadhf/archive/2006/07/16/452137.html
+        * 2
+
+          http://blog.163.com/terrorist_1992@126/blog/static/104676822200931185652540
+        * 3
+
+          参考程序：http://blog.163.com/terrorist_1992@126/blog/static/104676822200931185652540
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

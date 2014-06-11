@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Ajax - Get</title>
+
+    <script type="text/javascript" src="../scripts/jquery-1.3.2-vsdoc2.js"></script>
+
+    <script type="text/javascript">
+        $(function()
+        {
+            $("#btnAjaxGet").click(function(event)
+            {
+                $.get("../data/AjaxGetMethod.aspx?param=btnAjaxGet_click");
+                $("#divResult").html("发送请求完毕, 只传递url");
+            });
+
+            $("#btnAjaxGet2").click(function(event)
+            {
+                $.get("../data/AjaxGetMethod.aspx", { "param": "btnAjaxGet2_click" });
+                $("#divResult").html("发送请求完毕, 传递url和参数");
+            });
+
+            $("#btnAjaxGet3").click(function(event)
+            {
+                $.get("../data/AjaxGetMethod.aspx", { "param": "btnAjaxGet3_click" }, function(data, textStatus)
+                {
+                    var result = "data:" + data + "<br/> textStatus:" + textStatus + "<br/> this:" + typeof(this);
+                    $("#divResult").html(result);
+                });
+            });
+
+
+        })
+    </script>
+
+</head>
+<body>    
+    <button id="btnAjaxGet">只传递Url参数</button><br />
+    <button id="btnAjaxGet2">传递url和data参数</button><br />
+    <button id="btnAjaxGet3">使用回调函数</button><br />
+    <br />
+    <div id="divResult"></div>
+</body>
+</html>

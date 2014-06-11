@@ -1,0 +1,229 @@
+
+<!DOCTYPE html>
+<html>
+<!--
+@license
+Copyright (C) 2010 The Libphonenumber Authors
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS-IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<!--
+  Author: Nikolaos Trogkanis
+-->
+<head>
+<title>Phone Number Parser Demo</title>
+<script src="goog-base-fake.js"></script>
+<script src="goog.error.js"></script>
+<script src="goog.asserts.js"></script>
+<script src="goog.array.js"></script>
+<script src="goog.object.js"></script>
+<script src="goog.string.js"></script>
+<script src="goog.string.stringbuffer.js"></script>
+
+<script src="goog.json.js"></script> <!-- Only used for parse result from 'phoneUtil.parseAndKeepRawInput' -->
+
+<script src="goog.proto2.util.js"></script>
+<script src="goog.proto2.descriptor.js"></script>
+<script src="goog.proto2.fielddescriptor.js"></script>
+<script src="goog.proto2.message.js"></script>
+<script src="goog.proto2.serializer.js"></script>
+<script src="goog.proto2.lazydeserializer.js"></script>
+<script src="goog.proto2.pbliteserializer.js"></script>
+
+<script src="goog.proto2.objectserializer.js"></script> <!-- Only used for parse result from 'phoneUtil.parseAndKeepRawInput' -->
+
+<script src="i18n.phonenumbers.phonemetadata.pb.js"></script>
+<script src="i18n.phonenumbers.phonenumber.pb.js"></script>
+<script src="i18n.phonenumbers.metadata.js"></script>
+<script src="i18n.phonenumbers.phonenumberutil.js"></script>
+<script src="i18n.phonenumbers.asyoutypeformatter.js"></script>
+</head>
+<body>
+
+<script>
+function phoneNumberParser() {
+  var $ = document.getElementById;
+  var phoneNumber = document.getElementById('phoneNumber').value;
+  var regionCode = document.getElementById('defaultCountry').value;
+  var carrierCode = document.getElementById('carrierCode').value;
+  var output = new goog.string.StringBuffer();
+  //try {
+    var phoneUtil = i18n.phonenumbers.PhoneNumberUtil.getInstance();
+    var number = phoneUtil.parseAndKeepRawInput(phoneNumber, regionCode);
+	
+    output.append('****Parsing Result:****\n');
+    output.append(goog.json.serialize(new goog.proto2.ObjectSerializer(
+        goog.proto2.ObjectSerializer.KeyOption.NAME).serialize(number)));
+    output.append('\n\n****Validation Results:****');
+	
+    var isNumberValid = phoneUtil.isValidNumber(number);
+    output.append('\nResult from isValidNumber(): ');
+    output.append(isNumberValid);
+    output.append('\nResult from isValidNumberForRegion(): ');
+    output.append(phoneUtil.isValidNumberForRegion(number, regionCode));
+    output.append('\nPhone Number region: ');
+    output.append(phoneUtil.getRegionCodeForNumber(number));
+    output.append('\nResult from isPossibleNumber(): ');
+    output.append(phoneUtil.isPossibleNumber(number));
+    output.append('\nResult from getNumberType(): ');
+    var PNT = i18n.phonenumbers.PhoneNumberType;
+    switch (phoneUtil.getNumberType(number)) {
+      case PNT.FIXED_LINE:
+        output.append('FIXED_LINE');
+        break;
+      case PNT.MOBILE:
+        output.append('MOBILE');
+        break;
+      case PNT.FIXED_LINE_OR_MOBILE:
+        output.append('FIXED_LINE_OR_MOBILE');
+        break;
+      case PNT.TOLL_FREE:
+        output.append('TOLL_FREE');
+        break;
+      case PNT.PREMIUM_RATE:
+        output.append('PREMIUM_RATE');
+        break;
+      case PNT.SHARED_COST:
+        output.append('SHARED_COST');
+        break;
+      case PNT.VOIP:
+        output.append('VOIP');
+        break;
+      case PNT.PERSONAL_NUMBER:
+        output.append('PERSONAL_NUMBER');
+        break;
+      case PNT.PAGER:
+        output.append('PAGER');
+        break;
+      case PNT.UAN:
+        output.append('UAN');
+        break;
+      case PNT.UNKNOWN:
+        output.append('UNKNOWN');
+        break;
+    }
+    var PNF = i18n.phonenumbers.PhoneNumberFormat;
+    output.append('\n\n****Formatting Results:**** ');
+    output.append('\nE164 format: ');
+    output.append(isNumberValid ?
+                  phoneUtil.format(number, PNF.E164) :
+                  'invalid');
+    output.append('\nOriginal format: ');
+    output.append(phoneUtil.formatInOriginalFormat(number, regionCode));
+    output.append('\nInternational format: ');
+    output.append(isNumberValid ?
+                  phoneUtil.format(number, PNF.INTERNATIONAL) :
+                  'invalid');
+    output.append('\nNational format: ');
+    output.append(phoneUtil.format(number, PNF.NATIONAL));
+    output.append('\nOut-of-country format from US: ');
+    output.append(isNumberValid ?
+                  phoneUtil.formatOutOfCountryCallingNumber(number, 'US') :
+                  'invalid');
+    if (carrierCode.length > 0) {
+      output.append('\nNational format with carrier code: ');
+      output.append(phoneUtil.formatNationalNumberWithCarrierCode(number,
+                                                                  carrierCode));
+    }
+    output.append('\n\n****AsYouTypeFormatter Results****');
+    var formatter = new i18n.phonenumbers.AsYouTypeFormatter(regionCode);
+    var phoneNumberLength = phoneNumber.length;
+    for (var i = 0; i < phoneNumberLength; ++i) {
+      var inputChar = phoneNumber.charAt(i);
+      output.append('\nChar entered: ');
+      output.append(inputChar);
+      output.append(' Output: ');
+      output.append(formatter.inputDigit(inputChar));
+    }
+  //} catch (e) {
+  //  output.append('\n' + e);
+  //}
+  document.getElementById('output').value = output.toString();
+  return false;
+}
+
+function printStackTrace(e) {
+  var callstack = [];
+  var isCallstackPopulated = false;
+  if (e.stack) { //Firefox
+      var lines = e.stack.split('\n');
+      for (var i=0, len=lines.length; i<len; i++) {
+        if (lines[i].match(/^\s*[A-Za-z0-9\-_\$]+\(/)) {
+          callstack.push(lines[i]);
+        }
+      }
+      //Remove call to printStackTrace()
+      callstack.shift();
+      isCallstackPopulated = true;
+    }
+    else if (window.opera && e.message) { //Opera
+      var lines = e.message.split('\n');
+      for (var i=0, len=lines.length; i<len; i++) {
+        if (lines[i].match(/^\s*[A-Za-z0-9\-_\$]+\(/)) {
+          var entry = lines[i];
+          //Append next line also since it has the file info
+          if (lines[i+1]) {
+            entry += ' at ' + lines[i+1];
+            i++;
+          }
+          callstack.push(entry);
+        }
+      }
+      //Remove call to printStackTrace()
+      callstack.shift();
+      isCallstackPopulated = true;
+    }
+  if (!isCallstackPopulated) { //IE and Safari
+    var currentFunction = arguments.callee.caller;
+    while (currentFunction) {
+      var fn = currentFunction.toString();
+      var fname = fn.substring(fn.indexOf("function") + 8, fn.indexOf('')) || 'anonymous';
+      callstack.push(fname);
+      currentFunction = currentFunction.caller;
+    }
+  }
+  output(callstack);
+}
+
+function output(arr) {
+  //Optput however you want
+  console.info(arr.join('\n\n'));
+}
+</script>
+
+<h2>Phone Number Parser Demo</h2>
+
+<form>
+  <p>
+  Specify a Phone Number:
+  <input type="text" name="phoneNumber" id="phoneNumber" size="25" value="3035551234122" />
+  </p>
+  <p>
+  Specify a Default Country:
+  <input type="text" name="defaultCountry" id="defaultCountry" size="2" value="US" />
+  (ISO 3166-1 two-letter country code)
+  </p>
+  <p>
+  Specify a Carrier Code:
+  <input type="text" name="carrierCode" id="carrierCode" size="2" />
+  (optional, only valid for some countries)
+  </p>
+  <input type="button" value="Submit" onclick="return phoneNumberParser();" />
+  <input type="reset" value="Reset" />
+  <p>
+  <textarea id="output" rows="30" cols="80"></textarea>
+  </p>
+</form>
+
+</body>
+</html>

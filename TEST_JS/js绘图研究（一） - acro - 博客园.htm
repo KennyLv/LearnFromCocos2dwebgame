@@ -1,0 +1,1064 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!-- saved from url=(0058)http://www.cnblogs.com/acro/archive/2007/12/12/992244.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>js绘图研究（一） - acro - 博客园</title>
+<meta name="description" content="本文仅是web绘图的一个另类研究，对于高手们而言，也许只是图鸭之笔，但我觉得对于新手，仍具有一定的参考价值。     本文只介绍js实现web绘图的另类知识。构思参照neweroica 于2003年发布的JS2D函数集。在小学的几何中我们就明白，绘图平面由线构成，而线是由点构成，所以，只要我们解决了">
+<link type="text/css" rel="stylesheet" href="./js绘图研究（一） - acro - 博客园_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="./js绘图研究（一） - acro - 博客园_files/style.css">
+<link type="text/css" rel="stylesheet" href="./js绘图研究（一） - acro - 博客园_files/common2.css">
+<link type="text/css" rel="stylesheet" href="./js绘图研究（一） - acro - 博客园_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="./js绘图研究（一） - acro - 博客园_files/shThemeDefault.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/acro/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/acro/rsd.xml"> 
+<script src="./js绘图研究（一） - acro - 博客园_files/jquery.js" type="text/javascript"></script>  
+<script src="./js绘图研究（一） - acro - 博客园_files/common.js" type="text/javascript"></script>
+<script src="./js绘图研究（一） - acro - 博客园_files/jquery.json-2.2.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./js绘图研究（一） - acro - 博客园_files/shCore.js"></script>
+<script type="text/javascript" src="./js绘图研究（一） - acro - 博客园_files/shLanguage.js"></script>
+</head>
+<body>
+    <a name="top"></a>
+    <form method="post" action="./js绘图研究（一） - acro - 博客园_files/js绘图研究（一） - acro - 博客园.htm" id="Form1">
+<div class="aspNetHidden">
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="">
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+        
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/acro/">Acro-Home</a><br>
+		要想看到美丽的风景,就要走在队伍的最前面
+	</div>
+</div>
+
+</div>
+<div id="mylinks">
+<!--done-->
+<a id="MyLinks1_HomeLink" class="menu" href="http://www.cnblogs.com/">博客园</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/acro/">首页</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://www.cnblogs.com/acro/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_ContactLink" accesskey="9" class="menu" rel="nofollow" href="http://space.cnblogs.com/msg/send/acro">联系</a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/acro/rss">订阅</a><a id="MyLinks1_XMLLink" href="http://www.cnblogs.com/acro/rss"><img src="./js绘图研究（一） - acro - 博客园_files/xml.gif" alt="订阅"></a>&nbsp;&nbsp;&nbsp;
+<a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://www.cnblogs.com/acro/admin/EditPosts.aspx">管理</a>
+</div>
+<div id="mytopmenu">
+	
+		
+<div class="blogStats">随笔 - 5&nbsp;
+文章 - 0&nbsp;评论 - 57&nbsp;trackbacks - 4
+</div>
+	
+</div>
+<div id="leftcontent">
+	
+		<div id="leftcontentcontainer">
+			<table id="Calendar1_entryCal" class="Cal" cellspacing="0" cellpadding="0" title="Calendar" style="border-width:1px;border-style:solid;border-collapse:collapse;border:0px">
+	<tbody><tr><td colspan="7" style="background-color:Transparent;"><table class="CalTitle" cellspacing="0" style="width:100%;border-collapse:collapse;">
+		<tbody><tr><td class="CalNextPrev" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V2861')" style="color:Black" title="Go to the previous month">&lt;</a></td><td align="center" style="width:70%;">2007年12月</td><td class="CalNextPrev" align="right" style="width:15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V2922')" style="color:Black" title="Go to the next month">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" align="center" abbr="日" scope="col">日</th><th class="CalDayHeader" align="center" abbr="一" scope="col">一</th><th class="CalDayHeader" align="center" abbr="二" scope="col">二</th><th class="CalDayHeader" align="center" abbr="三" scope="col">三</th><th class="CalDayHeader" align="center" abbr="四" scope="col">四</th><th class="CalDayHeader" align="center" abbr="五" scope="col">五</th><th class="CalDayHeader" align="center" abbr="六" scope="col">六</th></tr><tr><td class="CalOtherMonthDay" align="center" style="width:14%;">25</td><td class="CalOtherMonthDay" align="center" style="width:14%;">26</td><td class="CalOtherMonthDay" align="center" style="width:14%;">27</td><td class="CalOtherMonthDay" align="center" style="width:14%;">28</td><td class="CalOtherMonthDay" align="center" style="width:14%;">29</td><td class="CalOtherMonthDay" align="center" style="width:14%;">30</td><td class="CalWeekendDay" align="center" style="width:14%;">1</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">2</td><td align="center" style="width:14%;">3</td><td align="center" style="width:14%;">4</td><td align="center" style="width:14%;">5</td><td align="center" style="width:14%;">6</td><td align="center" style="width:14%;">7</td><td class="CalWeekendDay" align="center" style="width:14%;">8</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">9</td><td align="center" style="width:14%;">10</td><td align="center" style="width:14%;">11</td><td align="center" style="width:14%;"><a href="http://www.cnblogs.com/acro/archive/2007/12/12.html"><u>12</u></a></td><td align="center" style="width:14%;">13</td><td align="center" style="width:14%;">14</td><td class="CalWeekendDay" align="center" style="width:14%;">15</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">16</td><td align="center" style="width:14%;">17</td><td align="center" style="width:14%;">18</td><td align="center" style="width:14%;">19</td><td align="center" style="width:14%;">20</td><td align="center" style="width:14%;">21</td><td class="CalWeekendDay" align="center" style="width:14%;">22</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">23</td><td align="center" style="width:14%;">24</td><td align="center" style="width:14%;">25</td><td align="center" style="width:14%;">26</td><td align="center" style="width:14%;">27</td><td align="center" style="width:14%;">28</td><td class="CalWeekendDay" align="center" style="width:14%;">29</td></tr><tr><td class="CalWeekendDay" align="center" style="width:14%;">30</td><td align="center" style="width:14%;">31</td><td class="CalOtherMonthDay" align="center" style="width:14%;">1</td><td class="CalOtherMonthDay" align="center" style="width:14%;">2</td><td class="CalOtherMonthDay" align="center" style="width:14%;">3</td><td class="CalOtherMonthDay" align="center" style="width:14%;">4</td><td class="CalOtherMonthDay" align="center" style="width:14%;">5</td></tr>
+</tbody></table>
+<br>
+			
+<!--done-->
+<div class="newsItem">
+	<div id="profile_block">昵称：<a href="http://www.cnblogs.com/acro/">acro</a><br>园龄：<a href="http://home.cnblogs.com/u/acro/">6年</a><br>粉丝：<a href="http://home.cnblogs.com/u/acro/followers/">1</a><br>关注：<a href="http://home.cnblogs.com/u/acro/followees/">0</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger(&#39;8890310b-63cf-dd11-9e4d-001cf0cd104b&#39;)">+加关注</a></div><script type="text/javascript">cnblogs.UserManager.GetFollowStatus('8890310b-63cf-dd11-9e4d-001cf0cd104b')</script></div>
+</div>
+
+			
+<script type="text/javascript">
+var blogapp = 'acro';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input type="text" id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk">&nbsp;<input onclick="zzk_go()" type="button" value="找找看" id="btnZzk" class="btn_my_zzk"></div>
+
+<div class="div_my_zzk"><input type="text" name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk">&nbsp;<input onclick="google_go()" type="button" value="谷歌搜索" class="btn_my_zzk"></div>
+
+</div>
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl03_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/acro/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/acro/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/acro/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass(&#39;itemListLink&#39;, &#39;itemListLin_con&#39;);return false;" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display:none;">
+<ul>
+		<li><a id="SingleColumn1_ctl03_repeaterLinks_lnkLinkItem_0" title="我发表过评论的随笔" href="http://www.cnblogs.com/acro/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/acro/MyNews.html">我的新闻</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/acro/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl03_repeaterLinks_lnkLinkItem_3" href="http://www.cnblogs.com/acro/tag/">我的标签</a></li>
+	</ul>
+</div>
+<h3 class="catListTitle">我参与的团队</h3>
+<div class="RecentComment">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1__56911_TeamList_lnkTeam_0" href="http://www.cnblogs.com/team/BeginnerTraining/">.NET新手training活动(0/0)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__56911_TeamList_lnkTeam_1" href="http://www.cnblogs.com/team/Xian/">微软（西安）.NET开发俱乐部(0/0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<!--done-->
+
+		<h1 class="catListTitle">随笔档案</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_0_Link_0" class="listitem" href="http://www.cnblogs.com/acro/archive/2008/09.html">2008年9月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_0_Link_1" class="listitem" href="http://www.cnblogs.com/acro/archive/2008/06.html">2008年6月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_0_Link_2" class="listitem" href="http://www.cnblogs.com/acro/archive/2008/04.html">2008年4月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_0_Link_3" class="listitem" href="http://www.cnblogs.com/acro/archive/2008/02.html">2008年2月 (1)</a></li>
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_0_Link_4" class="listitem" href="http://www.cnblogs.com/acro/archive/2007/12.html">2007年12月 (1)</a></li>
+			
+				</ul>
+			
+	
+		<h1 class="catListTitle">相册</h1>
+		
+				<ul class="catList">
+			
+				<li class="catListItem"> <a id="SingleColumn1_Categories_CatList_LinkList_1_Link_0" class="listitem" rel="nofollow" href="http://www.cnblogs.com/acro/gallery/82213.html">MySelf</a></li>
+			
+				</ul>
+			
+	
+
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__7f7474_CommentList_Hyperlink1_0" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html#2062903">1.&nbsp;Re:自定义分页控件开发</a>
+			</li>
+			<li>
+				不错。<br><a href="" target="_blank"></a>
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--huyong</li>
+		
+			<li>
+				<a id="SingleColumn1__7f7474_CommentList_Hyperlink1_1" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html#1731042">2.&nbsp;Re:自定义分页控件开发</a>
+			</li>
+			<li>
+				支持，不过当和GRIDVIEW配套使用时，会出现问题
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--songcan</li>
+		
+			<li>
+				<a id="SingleColumn1__7f7474_CommentList_Hyperlink1_2" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html#1729847">3.&nbsp;Re:自定义分页控件开发</a>
+			</li>
+			<li>
+				应该叫翻页控件比较好，叫分页控件不爽
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--superstar</li>
+		
+			<li>
+				<a id="SingleColumn1__7f7474_CommentList_Hyperlink1_3" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html#1525929">4.&nbsp;re: 自定义分页控件开发</a>
+			</li>
+			<li>
+				错误	2	“WindowsControlLibrary2.UserControl1.Dispose()”: 没有找到适合的方法来重写	C:\Documents and Settings\Adminis...
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--XYD</li>
+		
+			<li>
+				<a id="SingleColumn1__7f7474_CommentList_Hyperlink1_4" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html#1514916">5.&nbsp;re: 自定义分页控件开发</a>
+			</li>
+			<li>
+				学习一下   
+<br>谢谢哦
+<br>
+			</li>
+			<li style="text-align:right;margin-right:4px">
+				--hehuili</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_0" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html">1.&nbsp;自定义分页控件开发(5360)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_1" href="./js绘图研究（一） - acro - 博客园_files/js绘图研究（一） - acro - 博客园.htm">2.&nbsp;js绘图研究（一）(4171)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_2" href="http://www.cnblogs.com/acro/archive/2008/09/26/1299256.html">3.&nbsp;JS实现可编缉表格(1138)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_3" href="http://www.cnblogs.com/acro/archive/2008/02/23/1078746.html">4.&nbsp;用Membership类判断用户是否存在(452)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_4" href="http://www.cnblogs.com/acro/archive/2008/04/03/1136591.html">5.&nbsp;图片客户端快速浏览与后台合成(187)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	
+			<ul style="word-break:break-all">
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_0" href="http://www.cnblogs.com/acro/archive/2008/06/18/1224758.html">1.&nbsp;自定义分页控件开发(31)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_1" href="./js绘图研究（一） - acro - 博客园_files/js绘图研究（一） - acro - 博客园.htm">2.&nbsp;js绘图研究（一）(22)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_2" href="http://www.cnblogs.com/acro/archive/2008/09/26/1299256.html">3.&nbsp;JS实现可编缉表格(3)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_3" href="http://www.cnblogs.com/acro/archive/2008/02/23/1078746.html">4.&nbsp;用Membership类判断用户是否存在(1)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_4" href="http://www.cnblogs.com/acro/archive/2008/04/03/1136591.html">5.&nbsp;图片客户端快速浏览与后台合成(0)</a>
+			</li>
+		
+			</ul>
+		
+</div></div>		
+	
+</div>
+<div id="centercontent">
+	
+					
+<!--done-->
+<div class="post">
+	<div class="postTitle">
+		<h1><a id="ctl02_TitleUrl" class="postTitle2" href="./js绘图研究（一） - acro - 博客园_files/js绘图研究（一） - acro - 博客园.htm">js绘图研究（一）</a></h1>
+	</div>
+	<div id="cnblogs_post_body"><p><font face="Courier New">Js绘图研究（一）<br>
+——点的实现与速度测试<br>
+Ps：本文只是一菜鸟画鸭之笔，有不对之处欢迎高手们指证!</font></p>
+<p><font face="Courier New">一、背景知识：<br>
+&nbsp;&nbsp; 通过搜索，网上关于web绘图的实现大致有以下三类：<br>
+1 插件实现<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 优点：功能丰富。护展性好，速度快。<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 缺点：首次访问必须下载插件。<br>
+2 flash实现<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 优点：首次访问不需要下载插件（大部分浏览已经安装有flash插件），画面质量高。<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 缺点：速度较慢，需要懂得flash相关编程的知识。<br>
+3 js实现<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 优点：首次访问不需要下载插件<br>
+&nbsp;&nbsp;&nbsp;&nbsp; 缺点：速度应该慢于插件的实现（没有测试），实现方法较牵强。<br>
+本文只介绍js实现。构思参照neweroica 于2003年发布的JS2D函数集。在小学的几何中我们就明白，绘图平面由线构成，而线是由点构成，所以，只要我们解决了点的绘制，则线，面只是一个循序渐进的过程。</font></p>
+<p><font face="Courier New">二、思路解析：<br>
+&nbsp;在newerroica的JS2D函数集中，点的绘制是通过table标签来实现的。也就是绘制一个无边框，无填充，一个单元格的表格，来实现点的显示。点的颜色、大小、位置则由table标签的style属性来定义。代码如下：<br>
+//Dottable.js<br>
+</font></p>
+<p><font face="Courier New"></font></p><font face="Courier New">
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><span style="color: #008080">1</span><img id="Codehighlighter1_0_126_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_0_126_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""><span id="Codehighlighter1_0_126_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff">/**/</span><span id="Codehighlighter1_0_126_Open_Text"><span style="color: #008000">/*</span><span style="color: #008000">************&nbsp;画点&nbsp;**************<br>
+</span><span style="color: #008080">2</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;x,y&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;点所在的屏幕坐标（像素）<br>
+</span><span style="color: #008080">3</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;color&nbsp;&nbsp;&nbsp;颜色（字符串值）<br>
+</span><span style="color: #008080">4</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;size&nbsp;&nbsp;&nbsp;&nbsp;大小（像素）<br>
+</span><span style="color: #008080">5</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">*********************************</span><span style="color: #008000">*/</span></span><span style="color: #000000"><br>
+</span><span style="color: #008080">6</span><span style="color: #000000"><img id="Codehighlighter1_160_371_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_160_371_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">function</span><span style="color: #000000">&nbsp;drawDot(x,y,color,size)</span><span id="Codehighlighter1_160_371_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_160_371_Open_Text"><span style="color: #000000">{<br>
+</span><span style="color: #008080">7</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;document.write(</span><span style="color: #000000">"</span><span style="color: #000000">&lt;table&nbsp;border='0'&nbsp;cellspacing=0&nbsp;cellpadding=0&gt;&lt;tr&gt;&lt;td&nbsp;style='position:&nbsp;absolute;&nbsp;left:&nbsp;</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">(x)</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;&nbsp;top:&nbsp;</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">(y)</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;background-color:&nbsp;</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">color</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">'&nbsp;width=</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">size</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">&nbsp;height=</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">size</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span><span style="color: #000000">"</span><span style="color: #000000">);<br>
+</span><span style="color: #008080">8</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">}</span></span></div>
+</font><p><font face="Courier New"><br>
+我的改进思路是，如果table可以实现，那么div是否同样可以实现，并且能够达到更快的速度呢，我简单的修改代码如下：<br>
+//Dotdiv.js</font><font face="Courier New"></font></p><font face="Courier New">
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><span style="color: #008080">1</span><img id="Codehighlighter1_0_95_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_0_95_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""><span id="Codehighlighter1_0_95_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff">/**/</span><span id="Codehighlighter1_0_95_Open_Text"><span style="color: #008000">/*</span><span style="color: #008000">*********画点***********<br>
+</span><span style="color: #008080">2</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">x,y&nbsp;&nbsp;&nbsp;点的坐标(像素)<br>
+</span><span style="color: #008080">3</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">color&nbsp;点的颜色（字符串值）<br>
+</span><span style="color: #008080">4</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">size&nbsp;&nbsp;点在大小(像素)<br>
+</span><span style="color: #008080">5</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt=""><br>
+</span><span style="color: #008080">6</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">*********************</span><span style="color: #008000">*/</span></span><span style="color: #000000"><br>
+</span><span style="color: #008080">7</span><span style="color: #000000"><img id="Codehighlighter1_129_307_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_129_307_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">function</span><span style="color: #000000">&nbsp;drawDot(x,y,color,size)</span><span id="Codehighlighter1_129_307_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_129_307_Open_Text"><span style="color: #000000">{<br>
+</span><span style="color: #008080">8</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;document.write(</span><span style="color: #000000">"</span><span style="color: #000000">&lt;div&nbsp;style='position:&nbsp;absolute;&nbsp;border:0;left:&nbsp;</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">(x)</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;&nbsp;top:&nbsp;</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">(y)</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;background-color:</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">color</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;&nbsp;width:</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">size</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;&nbsp;height:</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">size</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">;&nbsp;overflow:hidden;'&gt;&lt;/div&gt;</span><span style="color: #000000">"</span><span style="color: #000000">);<br>
+</span><span style="color: #008080">9</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">}</span></span></div>
+</font><p><font face="Courier New">那么div是否真的比table快呢？我做了个简单的js测试程序段，这个程序段同样可用于更多的js脚本性能测试，代码如下：<br>
+//timer.js</font><font face="Courier New"></font></p><font face="Courier New">
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><span style="color: #008080">&nbsp;1</span><img id="Codehighlighter1_0_115_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_0_115_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""><span id="Codehighlighter1_0_115_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff">/**/</span><span id="Codehighlighter1_0_115_Open_Text"><span style="color: #008000">/*</span><span style="color: #008000">**********计时器****************<br>
+</span><span style="color: #008080">&nbsp;2</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">startime()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开始计时<br>
+</span><span style="color: #008080">&nbsp;3</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">endtime()&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结束计时并输出时间<br>
+</span><span style="color: #008080">&nbsp;4</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt=""><br>
+</span><span style="color: #008080">&nbsp;5</span><span style="color: #008000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">********************************</span><span style="color: #008000">*/</span></span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;6</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">var</span><span style="color: #000000">&nbsp;ms;<br>
+</span><span style="color: #008080">&nbsp;7</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #008000">//</span><span style="color: #008000">开始计时</span><span style="color: #008000"><br>
+</span><span style="color: #008080">&nbsp;8</span><span style="color: #008000"><img id="Codehighlighter1_153_198_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_153_198_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">function</span><span style="color: #000000">&nbsp;starttime()&nbsp;</span><span id="Codehighlighter1_153_198_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_153_198_Open_Text"><span style="color: #000000">{<br>
+</span><span style="color: #008080">&nbsp;9</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;then&nbsp;</span><span style="color: #000000">=</span><span style="color: #000000">&nbsp;</span><span style="color: #0000ff">new</span><span style="color: #000000">&nbsp;Date();<br>
+</span><span style="color: #008080">10</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;ms</span><span style="color: #000000">=</span><span style="color: #000000">&nbsp;then.getTime();<br>
+</span><span style="color: #008080">11</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;<br>
+</span><span style="color: #008080">12</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">}</span></span><span style="color: #000000"><br>
+</span><span style="color: #008080">13</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">14</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #008000">//</span><span style="color: #008000">结束计时</span><span style="color: #008000"><br>
+</span><span style="color: #008080">15</span><span style="color: #008000"><img id="Codehighlighter1_227_313_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_227_313_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">function</span><span style="color: #000000">&nbsp;endtime()&nbsp;</span><span id="Codehighlighter1_227_313_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_227_313_Open_Text"><span style="color: #000000">{<br>
+</span><span style="color: #008080">16</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;now&nbsp;</span><span style="color: #000000">=</span><span style="color: #000000">&nbsp;</span><span style="color: #0000ff">new</span><span style="color: #000000">&nbsp;Date();<br>
+</span><span style="color: #008080">17</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;ms</span><span style="color: #000000">=</span><span style="color: #000000">now.getTime()</span><span style="color: #000000">-</span><span style="color: #000000">ms;<br>
+</span><span style="color: #008080">18</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;ms</span><span style="color: #000000">=</span><span style="color: #000000">ms</span><span style="color: #000000">/</span><span style="color: #000000">1000</span><span style="color: #000000">;<br>
+</span><span style="color: #008080">19</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;alert(</span><span style="color: #000000">"</span><span style="color: #000000">共用时:</span><span style="color: #000000">"</span><span style="color: #000000">+</span><span style="color: #000000">ms</span><span style="color: #000000">+</span><span style="color: #000000">"</span><span style="color: #000000">秒</span><span style="color: #000000">"</span><span style="color: #000000">);<br>
+</span><span style="color: #008080">20</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">}</span></span></div>
+</font><p><font face="Courier New">三、测试<br>
+构建测试用例，我们用两种方法，分别沿45度画5百个点，分别对所用时间计数:<br>
+Ps:我的机器配置：方正t3200c笔记本电脑，p41.5的cpu，内存384M。<br>
+Table实现的测试用例代码：</font><font face="Courier New"></font></p><font face="Courier New">
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><span style="color: #008080">&nbsp;1</span><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><span style="color: #0000ff">&lt;</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;2</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;3</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;4</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;5</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">src</span><span style="color: #0000ff">="timer.js"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">&nbsp;6</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;7</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">src</span><span style="color: #0000ff">="dottable.js"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">&nbsp;8</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;9</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">10</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">11</span><span style="color: #000000"><img id="Codehighlighter1_132_233_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_132_233_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">language</span><span style="color: #0000ff">="javascript"</span><span style="color: #0000ff">&gt;</span><span id="Codehighlighter1_132_233_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_132_233_Open_Text"><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">12</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;starttime();<br>
+</span><span style="color: #008080">13</span><span style="color: #000000; background-color: #f5f5f5"><img id="Codehighlighter1_172_215_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedSubBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_172_215_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedSubBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff; background-color: #f5f5f5">for</span><span style="color: #000000; background-color: #f5f5f5">(i</span><span style="color: #000000; background-color: #f5f5f5">=</span><span style="color: #000000; background-color: #f5f5f5">0</span><span style="color: #000000; background-color: #f5f5f5">;i</span><span style="color: #000000; background-color: #f5f5f5">&lt;</span><span style="color: #000000; background-color: #f5f5f5">500</span><span style="color: #000000; background-color: #f5f5f5">;i</span><span style="color: #000000; background-color: #f5f5f5">++</span><span style="color: #000000; background-color: #f5f5f5">)</span><span id="Codehighlighter1_172_215_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_172_215_Open_Text"><span style="color: #000000; background-color: #f5f5f5">{<br>
+</span><span style="color: #008080">14</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawDot(</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">+</span><span style="color: #000000; background-color: #f5f5f5">i,</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">+</span><span style="color: #000000; background-color: #f5f5f5">i,</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">ff0000</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">,</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">);<br>
+</span><span style="color: #008080">15</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedSubBlockEnd.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;}</span></span><span style="color: #000000; background-color: #f5f5f5">&nbsp;<br>
+</span><span style="color: #008080">16</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt=""><br>
+</span><span style="color: #008080">17</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;endtime();<br>
+</span><span style="color: #008080">18</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">19</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">20</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">21</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span></div>
+<p>运行后返回时间：0.27秒<br>
+Div实现的测试用例代码：</p>
+<div style="border-right: #cccccc 1px solid; padding-right: 5px; border-top: #cccccc 1px solid; padding-left: 4px; font-size: 13px; padding-bottom: 4px; border-left: #cccccc 1px solid; width: 98%; word-break: break-all; padding-top: 4px; border-bottom: #cccccc 1px solid; background-color: #eeeeee"><span style="color: #008080">&nbsp;1</span><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><span style="color: #0000ff">&lt;</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;2</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;3</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">head</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;4</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;5</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">src</span><span style="color: #0000ff">="timer.js"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">&nbsp;6</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;7</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">src</span><span style="color: #0000ff">="dotdiv.js"</span><span style="color: #0000ff">&gt;</span><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">&nbsp;8</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">&nbsp;9</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">10</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">11</span><span style="color: #000000"><img id="Codehighlighter1_130_231_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_130_231_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedBlock.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;</span><span style="color: #800000">script&nbsp;</span><span style="color: #ff0000">language</span><span style="color: #0000ff">="javascript"</span><span style="color: #0000ff">&gt;</span><span id="Codehighlighter1_130_231_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_130_231_Open_Text"><span style="color: #000000; background-color: #f5f5f5"><br>
+</span><span style="color: #008080">12</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;starttime();<br>
+</span><span style="color: #008080">13</span><span style="color: #000000; background-color: #f5f5f5"><img id="Codehighlighter1_170_213_Open_Image" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ExpandedSubBlockStart.gif" align="top" alt=""><img id="Codehighlighter1_170_213_Closed_Image" style="display: none" onclick="code_collapse_toggle(this);" src="./js绘图研究（一） - acro - 博客园_files/ContractedSubBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000ff; background-color: #f5f5f5">for</span><span style="color: #000000; background-color: #f5f5f5">(i</span><span style="color: #000000; background-color: #f5f5f5">=</span><span style="color: #000000; background-color: #f5f5f5">0</span><span style="color: #000000; background-color: #f5f5f5">;i</span><span style="color: #000000; background-color: #f5f5f5">&lt;</span><span style="color: #000000; background-color: #f5f5f5">500</span><span style="color: #000000; background-color: #f5f5f5">;i</span><span style="color: #000000; background-color: #f5f5f5">++</span><span style="color: #000000; background-color: #f5f5f5">)</span><span id="Codehighlighter1_170_213_Closed_Text" style="border-right: #808080 1px solid; border-top: #808080 1px solid; display: none; border-left: #808080 1px solid; border-bottom: #808080 1px solid; background-color: #ffffff"><img src="./js绘图研究（一） - acro - 博客园_files/dot.gif" alt=""></span><span id="Codehighlighter1_170_213_Open_Text"><span style="color: #000000; background-color: #f5f5f5">{<br>
+</span><span style="color: #008080">14</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;drawDot(</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">+</span><span style="color: #000000; background-color: #f5f5f5">i,</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">+</span><span style="color: #000000; background-color: #f5f5f5">i,</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">ff0000</span><span style="color: #000000; background-color: #f5f5f5">"</span><span style="color: #000000; background-color: #f5f5f5">,</span><span style="color: #000000; background-color: #f5f5f5">1</span><span style="color: #000000; background-color: #f5f5f5">);<br>
+</span><span style="color: #008080">15</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedSubBlockEnd.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;}</span></span><span style="color: #000000; background-color: #f5f5f5">&nbsp;<br>
+</span><span style="color: #008080">16</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/InBlock.gif" align="top" alt=""><br>
+</span><span style="color: #008080">17</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/ExpandedBlockEnd.gif" align="top" alt="">&nbsp;&nbsp;&nbsp;&nbsp;endtime();<br>
+</span><span style="color: #008080">18</span><span style="color: #000000; background-color: #f5f5f5"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">script</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">19</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""><br>
+</span><span style="color: #008080">20</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">body</span><span style="color: #0000ff">&gt;</span><span style="color: #000000"><br>
+</span><span style="color: #008080">21</span><span style="color: #000000"><img src="./js绘图研究（一） - acro - 博客园_files/None.gif" align="top" alt=""></span><span style="color: #0000ff">&lt;/</span><span style="color: #800000">html</span><span style="color: #0000ff">&gt;</span></div>
+<p>运行后返回时间：0.11秒</p>
+<p>显然，div的运行时间明显快于table.测试成功。</p>
+</font><p><font face="Courier New">未完待续</font></p>
+ </div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 8198;
+var cb_entryId = 992244;
+var cb_blogApp = "acro";
+var cb_blogUserGuid = "8890310b-63cf-dd11-9e4d-001cf0cd104b";
+var cb_entryCreatedDate = '2007/12/12 14:54:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="green_channel" style="">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,&#39;谢谢推荐！&#39;);">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(992244);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/acro" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/acro/">acro</a><br><a href="http://home.cnblogs.com/u/acro/followees">关注 - 0</a><br><a href="http://home.cnblogs.com/u/acro/followers">粉丝 - 1</a></div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow"><a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a></div>
+</div>
+<div id="div_digg" style="">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count">0</span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">(请您对文章做出评价)</div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/acro/archive/2008/02/23/1078746.html" class="p_n_p_prefix">» </a> 博主后一篇：<a href="http://www.cnblogs.com/acro/archive/2008/02/23/1078746.html" title="发布于2008-02-23 14:30">用Membership类判断用户是否存在</a><br><a href="http://www.cnblogs.com/harryguo/archive/2007/12/12/992206.html" class="p_n_p_prefix">« </a> 首页前一篇：<a href="http://www.cnblogs.com/harryguo/archive/2007/12/12/992206.html">让中科院中文分词系统ICTCLAS为lucene所用的简单程序(C#版)</a><br><a href="http://www.cnblogs.com/yank/archive/2007/12/12/992386.html" class="p_n_p_prefix">» </a> 首页后一篇：<a href="http://www.cnblogs.com/yank/archive/2007/12/12/992386.html">存储过程详细介绍</a><br></div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+</script>
+<div id="post_body_ad" style="margin-top:5px;"><script type="text/javascript">if (c_enable_dfp) { try { GA_googleFillSlot("cnblogs_blogpost_body");}catch (e) { } 
+ blog_ad_has_shown=true;}</script></div>
+
+
+
+	<div class="postDesc">posted on 2007-12-12 14:54 <a href="http://www.cnblogs.com/acro/">acro</a> 阅读(4171) <a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">评论(22)</a>  <a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#" onclick="open_link(&#39;http://www.cnblogs.com/acro/admin/EditPosts.aspx?postid=992244&#39;)" rel="nofollow">编辑</a> <a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#" onclick="AddToWz(992244);return false;">收藏</a></div>
+</div>
+<img src="./js绘图研究（一） - acro - 博客园_files/992244.html" width="1px" height="1px" alt="">
+
+<a name="pagedcomment"></a>
+<!--done-->
+<br>
+<b>FeedBack:</b>
+<div class="feedbackNoItems"><span id="span_comment_maxid" style="display:none">1505135</span></div>
+	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992711">#1楼</a><a name="992711" id="comment_anchor_992711"></a>&nbsp;2007-12-12 21:19&nbsp;<a id="Comments1_CommentList_NameLink_0" target="_blank">abc2[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_992711" class="blog_comment_body">没有使用意义</span><br>　<a onclick="ReplyComment(&quot;abc2&quot;,992711,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992711,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_0" href="javascript:__doPostBack('Comments1$CommentList$ctl00$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_0"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992720">#2楼</a><a name="992720" id="comment_anchor_992720"></a>&nbsp;2007-12-12 21:32&nbsp;<a id="Comments1_CommentList_NameLink_1" rel="nofllow" href="http://www.cnblogs.com/Hafeyang/" target="_blank">Hafeyang</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Hafeyang" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992720" class="blog_comment_body">非常有意义
+<br>我也研究很久了
+<br>在上传图片的时候需要制作水印或者简单操作的时候,能使用js提供一个预览,自然比发送到服务器端要好,我一直想做点什么,楼主能研究这个,佩服.
+<br>对于js图片操作,最重要的是js的性能和兼容的问题.
+<br>至于博主用div和table做性能比较,结果是不言而喻的,因为浏览器在绘制整个页面的最小单位就是块状元素,table明显是一个复杂的快状元素,自然绘制的速度要比div慢</span><br>　<a onclick="ReplyComment(&quot;Hafeyang&quot;,992720,&quot;v1ANCK6kpzLVy/hJUlTlDAzzW2LZwdDWPuImmfwnzdiX6aQ2N0ELLA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992720,&quot;v1ANCK6kpzLVy/hJUlTlDAzzW2LZwdDWPuImmfwnzdiX6aQ2N0ELLA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Hafeyang" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_1" href="javascript:__doPostBack('Comments1$CommentList$ctl01$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_1"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992768">#3楼</a><a name="992768" id="comment_anchor_992768"></a>&nbsp;2007-12-12 21:55&nbsp;<a id="Comments1_CommentList_NameLink_2" rel="nofllow" href="http://www.cnblogs.com/SoulHuang/" target="_blank">Soul Huang</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Soul+Huang" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992768" class="blog_comment_body">关注...</span><br>　<a onclick="ReplyComment(&quot;Soul Huang&quot;,992768,&quot;Ty6KrnDTN4wI5IotOtQs+7dEBEs8qDiYnjpuwLjlHcrXm2D/yaEQTQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992768,&quot;Ty6KrnDTN4wI5IotOtQs+7dEBEs8qDiYnjpuwLjlHcrXm2D/yaEQTQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Soul+Huang" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_2" href="javascript:__doPostBack('Comments1$CommentList$ctl02$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_2"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992782">#4楼</a><a name="992782" id="comment_anchor_992782"></a>&nbsp;2007-12-12 22:01&nbsp;<a id="Comments1_CommentList_NameLink_3" target="_blank">ayu[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_992782" class="blog_comment_body">js+cs?呵</span><br>　<a onclick="ReplyComment(&quot;ayu&quot;,992782,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992782,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_3" href="javascript:__doPostBack('Comments1$CommentList$ctl03$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_3"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992795">#5楼</a><a name="992795" id="comment_anchor_992795"></a>&nbsp;2007-12-12 22:15&nbsp;<a id="Comments1_CommentList_NameLink_4" rel="nofllow" href="http://www.cnblogs.com/Cajon/" target="_blank">Colin Han</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Colin+Han" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992795" class="blog_comment_body">哈哈，我曾经在99年的时候尝试过类似的东西，当时，给屏幕上显示了100多个div的时候，似乎性能就已经无法忍受了。<br><br>呵呵，当时我还在用定时器在做动画，不知道是哪一个影响了性能。</span><br>　<a onclick="ReplyComment(&quot;Colin Han&quot;,992795,&quot;FITPaJUm4IlvuTykcY3XWDJYO4/Qa0qvffkWY7h72mZGwKLVDOi1/g==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992795,&quot;FITPaJUm4IlvuTykcY3XWDJYO4/Qa0qvffkWY7h72mZGwKLVDOi1/g==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Colin+Han" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_4" href="javascript:__doPostBack('Comments1$CommentList$ctl04$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_4"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992797">#6楼</a><a name="992797" id="comment_anchor_992797"></a>&nbsp;2007-12-12 22:16&nbsp;<a id="Comments1_CommentList_NameLink_5" rel="nofllow" href="http://www.cnitblog.com/r.aspx?url=http://www.google.com/coop/cse?cx=006422944775554126616%3Ay1jszj8-boo" target="_blank">Javascript搜索引擎[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_992797" class="blog_comment_body">Javascript搜索引擎<br><a href="http://www.google.com/coop/cse?cx=006422944775554126616%3Ay1jszj8-boo" target="_new" rel="nofollow">http://www.google.com/coop/cse?cx=006422944775554126616%3Ay1jszj8-boo</a></span><br>　<a onclick="ReplyComment(&quot;Javascript搜索引擎&quot;,992797,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992797,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_5" href="javascript:__doPostBack('Comments1$CommentList$ctl05$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_5"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992799">#7楼</a><a name="992799" id="comment_anchor_992799"></a>&nbsp;2007-12-12 22:19&nbsp;<a id="Comments1_CommentList_NameLink_6" rel="nofllow" href="http://www.cnblogs.com/guaiguai/" target="_blank">怪怪</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%80%aa%e6%80%aa" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992799" class="blog_comment_body">终于有人玩这个了 :).<br><br>不过绘制线和图案的时候, 不要去循环调用类似于你的DrawDot的函数, 而是直接拼出最终的字符串, 一次写到页面上. 效率还算可以用的范围内.<br><br>也就是说, 最好做一个虚拟的平面, 向这个平面内绘制, 而绘制的操作全都转化为对字符穿的增删改, 然后直接将最终的字符串搞上去. 比如, 用prototype的方式建立一个Suface类, var s = new Surface(); s.drawDot(x, y); s.drawLine(x1, y1, x2, y2); s.flush();这样的方式.<br><br>另外一个需要注意的是, 往往图形, 比如有一定宽度的斜线, 圆, 或者任意图案, 中间一些部分可以用有一定宽度和高度的DIV代替若干个DIV的组成的方阵, 这样优化下来可以节省很多DIV. <br><br>比如一个没有颜色变化的圆, 其实可以先分为一个内接正方形, 然后内接正方形上侧用高度固定越接近上部越短的div实现, 内接正方形左侧用宽度固定越左高度越小的div实现, 以此类推. 也可以做一个求div的算法, 话任意区域都使用这个算法.<br><br>这个方式效率在一般情况下不是主要问题, 主要问题是边缘部分不平滑.</span><br>　<a onclick="ReplyComment(&quot;怪怪&quot;,992799,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992799,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%80%aa%e6%80%aa" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_6" href="javascript:__doPostBack('Comments1$CommentList$ctl06$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_6"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992819">#8楼</a><a name="992819" id="comment_anchor_992819"></a>&nbsp;2007-12-12 22:41&nbsp;<a id="Comments1_CommentList_NameLink_7" rel="nofllow" href="http://www.cnblogs.com/guaiguai/" target="_blank">怪怪</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%80%aa%e6%80%aa" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992819" class="blog_comment_body">说的有点罗嗦, 就是不是简单的用一个一个的DIV点去组成线和面, 而是用不同大小的DIV方块去组成线和面, 会大幅提高效率.</span><br>　<a onclick="ReplyComment(&quot;怪怪&quot;,992819,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992819,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%80%aa%e6%80%aa" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_7" href="javascript:__doPostBack('Comments1$CommentList$ctl07$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_7"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992886">#9楼</a><a name="992886" id="comment_anchor_992886"></a>[<span class="louzhu">楼主</span>]&nbsp;2007-12-12 23:42&nbsp;<a id="Comments1_CommentList_NameLink_8" rel="nofllow" href="http://www.cnblogs.com/acro/" target="_blank">acro</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/acro" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992886" class="blog_comment_body">@Hafeyang
+<br>感谢关注与肯定。
+<br>呵呵，总觉得WEB绘图还有很多值得研究的东西。所以有了此文。ajax也是利用现有技术来实现的。我们虽然达不到那样的境界，但至少也会在研究中有所收获。
+<br></span><br>　<a onclick="ReplyComment(&quot;acro&quot;,992886,&quot;1bYj/lfat9VPraG4PDuF+wzRTQklSpyrIZyt8kbQMD/ifOIb+U8vBQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992886,&quot;1bYj/lfat9VPraG4PDuF+wzRTQklSpyrIZyt8kbQMD/ifOIb+U8vBQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=acro" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_8" href="javascript:__doPostBack('Comments1$CommentList$ctl08$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_8"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992891">#10楼</a><a name="992891" id="comment_anchor_992891"></a>[<span class="louzhu">楼主</span>]&nbsp;2007-12-12 23:50&nbsp;<a id="Comments1_CommentList_NameLink_9" rel="nofllow" href="http://www.cnblogs.com/acro/" target="_blank">acro</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/acro" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992891" class="blog_comment_body">@怪怪
+<br>字符串的实现类似绘图的缓存技术，而我进一步的设想是得到及时的效果，就像用铅笔写字。如果缓冲，则看步到中间效果。
+<br>
+<br>你提的第二点算是矢量绘图吧？我也有想过，但是由于我想在后面进一步实现类似photoshop的笔触的效果，则更类似位图。
+<br>
+<br>感谢交流，不知我的理解是否正确。</span><br>　<a onclick="ReplyComment(&quot;acro&quot;,992891,&quot;1bYj/lfat9VPraG4PDuF+wzRTQklSpyrIZyt8kbQMD/ifOIb+U8vBQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992891,&quot;1bYj/lfat9VPraG4PDuF+wzRTQklSpyrIZyt8kbQMD/ifOIb+U8vBQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=acro" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_9" href="javascript:__doPostBack('Comments1$CommentList$ctl09$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_9"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992912">#11楼</a><a name="992912" id="comment_anchor_992912"></a>&nbsp;2007-12-13 00:18&nbsp;<a id="Comments1_CommentList_NameLink_10" rel="nofllow" href="http://www.cnblogs.com/cnlamar/" target="_blank">cnlamar</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/cnlamar" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992912" class="blog_comment_body">怪怪说的那个应该和矢量无关吧.
+<br>
+<br>我觉得这样绘图,DIV的字符拼接还不是太大的问题,浏览器渲染这些DIV....会不会挂掉...</span><br>　<a onclick="ReplyComment(&quot;cnlamar&quot;,992912,&quot;BbGZ9o/E+cMIYj/yX3kGDAt8Bc+E+JCMY9+YO7bBORwROohjmweiog==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992912,&quot;BbGZ9o/E+cMIYj/yX3kGDAt8Bc+E+JCMY9+YO7bBORwROohjmweiog==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=cnlamar" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_10" href="javascript:__doPostBack('Comments1$CommentList$ctl10$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_10"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992925">#12楼</a><a name="992925" id="comment_anchor_992925"></a>&nbsp;2007-12-13 00:44&nbsp;<a id="Comments1_CommentList_NameLink_11" rel="nofllow" href="http://www.cnblogs.com/matrix/" target="_blank">Matrix</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Matrix" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992925" class="blog_comment_body">js的绘图的话
+<br>JS + VML
+<br>或是JS + SVG这样比较正宗一些。</span><br>　<a onclick="ReplyComment(&quot;Matrix&quot;,992925,&quot;NcZ6KsziFZWxmDrHhA810eXUmLc9izWdjTaESgZ1VdJDGUV0nZ6Gsg==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992925,&quot;NcZ6KsziFZWxmDrHhA810eXUmLc9izWdjTaESgZ1VdJDGUV0nZ6Gsg==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Matrix" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_11" href="javascript:__doPostBack('Comments1$CommentList$ctl11$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_11"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992968">#13楼</a><a name="992968" id="comment_anchor_992968"></a>&nbsp;2007-12-13 02:31&nbsp;<a id="Comments1_CommentList_NameLink_12" rel="nofllow" href="http://www.cnblogs.com/ThomasNet/" target="_blank">米开朗基罗</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e7%b1%b3%e5%bc%80%e6%9c%97%e5%9f%ba%e7%bd%97" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_992968" class="blog_comment_body">@Matrix<br>楼上的说得好，vml我刚看了下，确实很强。<br>不过可惜firefox现在好像不能支持啊。</span><br>　<a onclick="ReplyComment(&quot;米开朗基罗&quot;,992968,&quot;9wbXg7V8BC/qXaWZDo3dmQ0sJKdNlVLMZJXIht4ryNmkC9+rse5uOA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992968,&quot;9wbXg7V8BC/qXaWZDo3dmQ0sJKdNlVLMZJXIht4ryNmkC9+rse5uOA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e7%b1%b3%e5%bc%80%e6%9c%97%e5%9f%ba%e7%bd%97" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_12" href="javascript:__doPostBack('Comments1$CommentList$ctl12$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_12"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#992995">#14楼</a><a name="992995" id="comment_anchor_992995"></a>&nbsp;2007-12-13 08:11&nbsp;<a id="Comments1_CommentList_NameLink_13" target="_blank">过去的[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_992995" class="blog_comment_body">貌似 楼主. 是在重新发明轮子...不过研究还是可以了...记得有这样一个 JS库..wz_jsgraphics.js 国内N多地方用它..</span><br>　<a onclick="ReplyComment(&quot;过去的&quot;,992995,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(992995,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_13" href="javascript:__doPostBack('Comments1$CommentList$ctl13$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_13"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993043">#15楼</a><a name="993043" id="comment_anchor_993043"></a>&nbsp;2007-12-13 09:16&nbsp;<a id="Comments1_CommentList_NameLink_14" rel="nofllow" href="http://www.cnblogs.com/reonlyrun/" target="_blank">Clark Zheng</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Clark+Zheng" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993043" class="blog_comment_body">关注一下，不过感觉没什么前途</span><br>　<a onclick="ReplyComment(&quot;Clark Zheng&quot;,993043,&quot;vw3z6Rgl6jgl2/1KgbYadkQ2VZfpCgb3UsqaE/GL2Oo3VAREt4MRfA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993043,&quot;vw3z6Rgl6jgl2/1KgbYadkQ2VZfpCgb3UsqaE/GL2Oo3VAREt4MRfA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Clark+Zheng" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_14" href="javascript:__doPostBack('Comments1$CommentList$ctl14$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_14"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993055">#16楼</a><a name="993055" id="comment_anchor_993055"></a>&nbsp;2007-12-13 09:22&nbsp;<a id="Comments1_CommentList_NameLink_15" rel="nofllow" href="http://www.cnblogs.com/tonyqus/" target="_blank">Tony Qu</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Tony+Qu" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993055" class="blog_comment_body">用这个来做游戏还是有用的，不是有人做过js版星际，期待楼主的js版warcraft:)</span><br>　<a onclick="ReplyComment(&quot;Tony Qu&quot;,993055,&quot;5Fq7fZd5GqBXxzD4LuSVPSbyMjcHS6+YAYk8OwrqXKfDZFsitM7U9A==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993055,&quot;5Fq7fZd5GqBXxzD4LuSVPSbyMjcHS6+YAYk8OwrqXKfDZFsitM7U9A==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Tony+Qu" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_15" href="javascript:__doPostBack('Comments1$CommentList$ctl15$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_15"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993172">#17楼</a><a name="993172" id="comment_anchor_993172"></a>&nbsp;2007-12-13 10:12&nbsp;<a id="Comments1_CommentList_NameLink_16" rel="nofllow" href="http://www.cnblogs.com/sinmen/" target="_blank">sinmen</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/sinmen" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993172" class="blog_comment_body">虽然很少用到，不过有时间研究一下，可以提高自己的能力，支持LZ</span><br>　<a onclick="ReplyComment(&quot;sinmen&quot;,993172,&quot;PwRS/3K0JDwU4I2rhMOKs7O6MBQwfR9tIaas2SYomjIjTxNM0EWsaQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993172,&quot;PwRS/3K0JDwU4I2rhMOKs7O6MBQwfR9tIaas2SYomjIjTxNM0EWsaQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=sinmen" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_16" href="javascript:__doPostBack('Comments1$CommentList$ctl16$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_16"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993356">#18楼</a><a name="993356" id="comment_anchor_993356"></a>&nbsp;2007-12-13 10:59&nbsp;<a id="Comments1_CommentList_NameLink_17" rel="nofllow" href="http://www.cnblogs.com/Icebird/" target="_blank">Icebird</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Icebird" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993356" class="blog_comment_body">这个思路(用div)与wz_jsgraphics是一样的</span><br>　<a onclick="ReplyComment(&quot;Icebird&quot;,993356,&quot;Q9IL8H0XaUep45I39qZua8bJzP/enKsvgGJ+64SGkQlNiEGvMg7HTA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993356,&quot;Q9IL8H0XaUep45I39qZua8bJzP/enKsvgGJ+64SGkQlNiEGvMg7HTA==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Icebird" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_17" href="javascript:__doPostBack('Comments1$CommentList$ctl17$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_17"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993435">#19楼</a><a name="993435" id="comment_anchor_993435"></a>&nbsp;2007-12-13 11:37&nbsp;<a id="Comments1_CommentList_NameLink_18" rel="nofllow" href="http://www.cnitblog.com/r.aspx?url=http://www.shi123.com" target="_blank">图形处理软件下载[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_993435" class="blog_comment_body">很好的算法思路，顶一个
+<br>
+<br><a href="http://www.shi123.com/" target="_new" rel="nofollow">http://www.shi123.com</a></span><br>　<a onclick="ReplyComment(&quot;图形处理软件下载&quot;,993435,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993435,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_18" href="javascript:__doPostBack('Comments1$CommentList$ctl18$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_18"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993484">#20楼</a><a name="993484" id="comment_anchor_993484"></a>&nbsp;2007-12-13 12:22&nbsp;<a id="Comments1_CommentList_NameLink_19" rel="nofllow" href="http://www.cnblogs.com/webreport/" target="_blank">web报表</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/web%e6%8a%a5%e8%a1%a8" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993484" class="blog_comment_body">收藏!!</span><br>　<a onclick="ReplyComment(&quot;web报表&quot;,993484,&quot;21IAAoRUF253qUXPftqTiejAyTzGT4hEuDYc1W1CDoSHdaEXOmxi9A==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993484,&quot;21IAAoRUF253qUXPftqTiejAyTzGT4hEuDYc1W1CDoSHdaEXOmxi9A==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=web%e6%8a%a5%e8%a1%a8" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_19" href="javascript:__doPostBack('Comments1$CommentList$ctl19$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_19"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#993808">#21楼</a><a name="993808" id="comment_anchor_993808"></a>&nbsp;2007-12-13 15:41&nbsp;<a id="Comments1_CommentList_NameLink_20" rel="nofllow" href="http://www.cnblogs.com/guaiguai/" target="_blank">怪怪</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%80%aa%e6%80%aa" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+				<div align="left"><span id="comment_body_993808" class="blog_comment_body">@acro<br>不是的, 只是一次操作中出现的图形如此处理. 其实在C++里也一样的, 先把操作都做到一个缓冲区内, 在反映到绘图设备上. 比如响应鼠标移动操作, 那么每次mousemove时这一个过程内, 象我说的那么处理, 速度会高很多, 有时也能减少需要的DIV数量. 当然仅仅用于实现一次绘制多点的情形, 需求就是一个点一个点绘制的, 就用不到我说的方式.<br><br>另外FF虽然没有VML, 但有SVG, IE8之后的版本可能也会支持SVG. 主要SVG作为一个标准, 得不到厂商(比如MS)的有力支持. 另外纯以画图而论, FF上还有更好用的专门画图的东西, 叫Canvas还是什么来着, 使其来超简单无比, 不过现在困糊涂了, 想不起来了....<br><br>你这种DIV的方法很显然是最通用的, 而且效率没有想象中那么差, 所以我觉得不是特别重量级的绘图的应用, 完全可以使用的.</span><br>　<a onclick="ReplyComment(&quot;怪怪&quot;,993808,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(993808,&quot;7tmpUg0mDmMIDpqwesO5wD5duwOFdKMDdUcK9CmqAVlhsEsSDlEVGQ==&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%80%aa%e6%80%aa" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_20" href="javascript:__doPostBack('Comments1$CommentList$ctl20$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_20"></a>
+			</div>
+		</div>
+	
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+			<div class="feedbacktitle"><a href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#1505135">#22楼</a><a name="1505135" id="comment_anchor_1505135"></a><a name="Post"></a>&nbsp;2009-04-16 22:17&nbsp;<a id="Comments1_CommentList_NameLink_21" rel="nofllow" href="http://www.cnitblog.com/r.aspx?url=http://greatghoul.blogspot.com" target="_blank">GreatGhoul[未注册用户]</a></div>
+				<div align="left"><span id="comment_body_1505135" class="blog_comment_body">的确,点一多就不行了.</span><br>　<a onclick="ReplyComment(&quot;GreatGhoul&quot;,1505135,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">回复</a>　<a onclick="QuoteComment(1505135,&quot;&quot;)" href="http://www.cnblogs.com/acro/archive/2007/12/12/992244.html#commentform">引用</a>　<a id="Comments1_CommentList_DeleteLink_21" href="javascript:__doPostBack('Comments1$CommentList$ctl21$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_21"></a>
+			</div>
+		</div>
+	
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 0;
+        comment.blogId = 0;
+        comment.sourceUrl = '';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = '';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl03_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+
+<div id="ctl03_divLoginPannel">
+<div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2facro%2farchive%2f2007%2f12%2f12%2f992244.html%3flogin%3d1%23commentform" class="underline">登录</a> 或 <a rel="nofollow" href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2facro%2farchive%2f2007%2f12%2f12%2f992244.html%23Bottom2" class="underline">注册</a>，<a href="http://www.cnblogs.com/" target="_blank">返回博客园首页</a>。</div>
+</div>
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br>
+
+          ·  <a href="http://news.cnblogs.com/n/112287/" target="_blank">李一男加盟金沙江创投出任合伙人</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112286/" target="_blank">新 Xbox 360 泄漏版本暗示 Skype 以及“配套设备”支持</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112285/" target="_blank">小米手机首批量产1万部 米聊或成雷军着力点</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112284/" target="_blank">开心网副总裁郭巍：流量下降说与事实不符</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/112283/" target="_blank">陈一舟：移动互联网比拼速度 将现快鱼吃慢鱼局面</a><br>
+	
+» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<b>最新知识库文章</b>:<br>
+<div id="kb_recent">
+
+·  <a href="http://kb.cnblogs.com/page/108524/" target="_blank">如何辨别优秀的程序员</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/104475/" target="_blank">IT项目管理的六种错误思维</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/107415/" target="_blank">我的10个开发原则</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/109493/" target="_blank">为什么编程是独一无二的职业</a><br>
+
+·  <a href="http://kb.cnblogs.com/page/104736/" target="_blank">分享8年开发经验，浅谈个人发展经历，明确自己发展方向</a><br>
+
+</div>
+» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a>
+</div>
+
+<script type="text/javascript" src="./js绘图研究（一） - acro - 博客园_files/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script><script src="./js绘图研究（一） - acro - 博客园_files/google_ads.js"></script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_C2");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_C2");
+        }
+    }
+    catch (e) { }
+</script>
+</div>
+
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/STATIC07/1107/2011chinapub_6810_110718/2011chinapub_6810_110718.asp" target="_blank" rel="nofollow"><img src="./js绘图研究（一） - acro - 博客园_files/china-pub.jpg" alt="" style="border:0px;"></a><br>
+<a href="http://www.china-pub.com/STATIC07/1107/zh_autumntb_110725/zh_autumntb_110725.asp" target="_blank" rel="nofollow">China-pub 2011秋季教材巡展</a><br>
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank" rel="nofollow">China-Pub 计算机绝版图书按需印刷服务</a><br>
+</div>
+<div id="clear_reader_link">
+
+</div>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank" title="程序员的网上家园">网站首页</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a><a href="http://news.cnblogs.com/" target="_blank">IT新闻</a><a href="http://home.cnblogs.com/" target="_blank">我的园子</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+
+
+
+
+
+</div>
+
+
+				
+	
+<!--done-->
+<div class="footer">
+	
+	Copyright ©2011 acro Powered by: <a href="http://www.cnblogs.com/" class="footerlink">博客园</a> 模板提供：<a href="http://blog.hjenglish.com/" class="footerlink">沪江博客</a><br>
+</div>
+</div>
+
+
+
+     
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="./js绘图研究（一） - acro - 博客园_files/ShowHidden.js"></script>
+    
+
+
+</div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></div></form></body></html>

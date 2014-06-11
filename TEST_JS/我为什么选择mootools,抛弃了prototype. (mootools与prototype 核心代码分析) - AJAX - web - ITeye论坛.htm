@@ -1,0 +1,865 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析) - AJAX - web - ITeye论坛</title>
+    <meta name="description" content="我为什么选择mootools,抛弃了prototype. (mootools 与 prototype 核心代码分析) =========================================== 前言 =========================================== 最近喜欢上了mootools(相见恨晚啊),在公开表示了对他的偏爱. 很多朋友都问我为什么要移情别恋, ..." />
+    <meta name="keywords" content="mootools AJAX web" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="/rss/board/web" rel="alternate" title="ITeye论坛" type="application/rss+xml" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/open_search.xml" title="ITeye" />
+    <link href="http://www.iteye.com/stylesheets/forum.css?1305181159" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://js.iteye.com/javascripts/application.js?1302577958" type="text/javascript"></script>
+      <link href="http://www.iteye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1299226978" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.iteye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1299226978" type="text/javascript"></script>
+<script src="http://www.iteye.com/javascripts/hotkey.js?1299226978" type="text/javascript"></script>
+  <script src="http://www.iteye.com/javascripts/code_favorites.js?1300153098" type="text/javascript"></script>
+          <script src="http://www.iteye.com/javascripts/dragdrop.js?1299226978" type="text/javascript"></script>
+          </head>
+  <body>
+    <div id="page">
+      <div id="header">
+        <div class="clearfix"><div id="user_nav">
+      <a href="/login" class="welcome" title="登录">您还未登录 !</a>
+    <a href="http://www.iteye.com/all" style="color:red">我的应用</a>
+    <a href="/login">登录</a>
+    <a href="/signup" class="nobg">注册</a>
+  </div></div>
+        <div class="clearfix">
+          <div id="branding">
+            <a href="http://www.iteye.com"><img alt="ITeye-最棒的软件开发交流社区" src="http://www.iteye.com/images/logo.gif?1301623867" title="ITeye-最棒的软件开发交流社区" /></a>
+          </div>
+          <div id="gg"><script type="text/javascript" >BAIDU_CLB_SLOT_ID = "124844";</script>
+<script type="text/javascript" src="http://cbjs.baidu.com/js/o.js"></script></div>
+        </div>
+      </div>
+
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+          
+
+<div class="clearfix">
+  <div class="crumbs">
+    <a href="/forums">论坛首页</a> <span class="arrow">&rarr;</span>
+    <a href="/forums/board/web">Web前端技术版</a> <span class="arrow">&rarr;</span>
+    <a href="/forums/tag/ajax">AJAX</a> <span class="arrow">&rarr;</span>
+    <h1>我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)</h1>
+  </div>
+</div>
+
+<div id="forum_tag_list">
+  <a href='/forums/board/web'>全部</a>
+      <a href='/forums/tag/JavaScript'>JavaScript</a>
+      <a href='/forums/tag/EXT'>EXT</a>
+      <a href='/forums/tag/ajax'>AJAX</a>
+      <a href='/forums/tag/UI'>UI</a>
+      <a href='/forums/tag/CSS'>CSS</a>
+      <a href='/forums/tag/prototype'>prototype</a>
+      <a href='/forums/tag/dojo'>dojo</a>
+      <a href='/forums/tag/YUI'>YUI</a>
+      <a href='/forums/tag/DWR'>DWR</a>
+      <a href='/forums/tag/GWT'>GWT</a>
+      <a href='/forums/tag/JQuery'>JQuery</a>
+      <a href='/forums/tag/JavaFX'>JavaFX</a>
+      <a href='/forums/tag/Web'>Web综合</a>
+  </div>
+
+<div class="actions">
+  <div class="buttons"></div>
+  <div class="wrapper">
+    <div id="forum_recommended_f4"><a href='/clicks/578' target='_blank'><span style="font-weight:bold;color:red">中国智汇 云领全球 华为终端智汇云开发者大赛火热开赛</span></a></div>
+    <div class="pagination"><span class="disabled prev_page">&laquo; 上一页</span> <span class="current">1</span> <a href="/topic/122425?page=2" rel="next">2</a> <a href="/topic/122425?page=3">3</a> <span class="gap">&hellip;</span> <a href="/topic/122425?page=6">6</a> <a href="/topic/122425?page=7">7</a> <a href="/topic/122425?page=2" class="next_page" rel="next">下一页 &raquo;</a></div>
+    <div class="info">浏览 76412 次</div>
+  </div>
+</div>
+
+
+
+<table id="forum_main" cellspacing="1">
+  <thead>
+    <tr>
+      <th colspan="2" class="topic_title">
+        <div class="wrapper"><span class='locked'>锁定老帖子</span> <a href="/topic/122425">主题：我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)</a></div>
+        <div id='topic_rate_box'><strong class='highlight'>该帖已经被评为精华帖</strong></div>
+      </th>
+    </tr>
+    <tr>
+      <td class="first_col">作者</td>
+      <td class="last_col">正文</td>
+    </tr>
+  </thead>
+  <tbody id="posts">
+    <tr id="373821">
+  <td class="postauthor">
+    <ul>
+      <li class="name">fins</li>
+      <li>等级: <img src="/images/zisen.gif" alt="资深会员" title="资深会员"/><span style="color:#009900;font-weight:bold;">资深会员</span></li>
+      <li><a href='http://fins.iteye.com' target='_blank'><img alt="fins的博客" class="logo" src="http://www.iteye.com/upload/logo/user/140680/8b5d1675-cdba-3cb7-8682-1c9ba0174e40.jpg?1251274936" title="fins的博客: 大城小胖的大城" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 3205</li>
+      <li>积分: 2953</li>
+      <li>来自: 小胖儿的大城</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+        
+          
+        
+      
+                                            <div id="related_topics">相关文章: <span class="close"><a href="#" onclick="$('related_topics').hide();if($('hunter_recommended')){$('hunter_recommended').style.width='780px';} return false;" title="关闭">&nbsp;</a></span>
+              <ul>
+                                    <li><a href='http://www.iteye.com/topic/120135' title='强烈推荐mootools替代prototype' target='_blank'>强烈推荐mootools替代prototype</a></li>
+                                      <li><a href='http://www.iteye.com/topic/101586' title='莫要对一个框架轻下结论' target='_blank'>莫要对一个框架轻下结论</a></li>
+                                      <li><a href='http://www.iteye.com/topic/192877' title='prototype中继承的问题?' target='_blank'>prototype中继承的问题?</a></li>
+                                  </ul>
+                <br/><span>推荐群组: <a href="http://mootools.group.iteye.com" target="_blank">MooTools</a></span>
+                <br/><a href="/wiki/topic/122425" target="_blank">更多相关推荐</a>
+              </div>
+              <script type="text/javascript">
+                if($('hunter_recommended')) {
+                  $('hunter_recommended').setStyle({cssFloat: 'left', width: '557px'})
+                }
+                new Draggable("related_topics");
+              </script>
+                              
+        我为什么选择mootools,抛弃了prototype. (mootools 与 prototype 核心代码分析)<br /><br /><br />===========================================<br />前言<br />===========================================<br /><br />最近喜欢上了mootools(相见恨晚啊),在公开表示了对他的偏爱.<br />很多朋友都问我为什么要移情别恋,其实理由还是蛮多的.<br /><br />今天在这里打算列举出一部分.让更多的朋友能够了解一下mootools,也希望有更多的朋友喜欢上他.<br /><br /><br />文章的标题注定了我会更多的讲述 mootools比prototype好的地方,<br />希望大家不要被我的误导,以为mootools处处都比prototype好.<br />mootools还是有一些不足的.<br /><br /><br />本次对比针对 mootools 1.11版 和 prototype 1.51版,<br />只比较了一些核心代码,其他的工具方法,辅助函数不再本文讨论之内.<br /><br /><br />开始前,再次重申一遍:我曾经很爱prototype,而且我将永远都会用"伟大"来形容它.<br /><br /><br />好 下面对比正式开始 (<br />	mootools以下简称moo.<br />	本文所引用的代码, 只是起到说明作用,不保证他们都可以被正确的执行.<br />	同时为了使本文简洁一些,引入的 一些 moo和prototype的代码也只是片段或是伪代码.<br />)<br /><br />===========================================<br />一. 类机制<br />===========================================<br /><br /><br />js里的类实际上就是function.<br />如果不使用任何框架和组件,那么想创建一个自己类也不是难事,方法如下:<br /><br /><pre name="code" class="java">
+var PersonClass=function(name,gender){
+	this.name=name;
+	this.gender=gender;
+	alert("My name is "+this.name);
+}
+
+var myGirlFriend=new PersonClass('Vickey','female');
+
+</pre><br /><br />执行 后, 会创建一个PersonClass类的实例myGirlFriend, 并执行function内的语句.<br />那些语句可以理解为是类的构造函数.<br /><br /><br /><br /><strong>Prototype</strong><br />现在来看看在prototype的帮助下如何去定义这个类:<br /><pre name="code" class="java">
+var PersonClass = Class.create();
+
+PersonClass.prototype.initialize=function(name,gender){
+	this.name=name;
+	this.gender=gender;
+	alert("My name is "+this.name);
+};
+
+var myGirlFriend=new PersonClass('Vickey','female');
+
+//如果想给类增加属性和方法时使用 
+PersonClass.prototype.XXX=...;
+//或者是使用 prototype提供的 
+Object.extend(PersonClass.prototype, {...} );
+
+</pre><br />(关于Object.extend稍后在对比继承机制时再细说.)<br /><br /><br />再来看看prototype是实现类机制的核心代码.<br /><pre name="code" class="java">
+var Class = {
+  create: function() {
+    return function() {
+      this.initialize.apply(this, arguments);
+    }
+  }
+}
+
+</pre><br />通过看代码不难看出,prototype的Class实际上只是帮助我们抽象出了"类的构造函数".<br />而当我们在prototype的这种机制下进行类的定义时,实际上带来的好处是非常有限的.<br />prototype的Class只是从结构对我们的类进行了重新规划. 而这样的规划意义并不是很大.<br />而且prototype带有强制性,即, initialize 是必须要定义的.<br />实际上这里存在一个缺陷, Class应该提供一个默认的initialize(一个空函数就好),<br />或者是在create返回的function里进行必要的判断.<br />(prototype1.6的类机制变化比较大,但是还没仔细研究过,所以不敢轻易评论).<br /><br /><br /><strong>Mootools</strong><br /><br />现在来看看在 moo的帮助下如何去定义一个类:<br /><pre name="code" class="java">
+var PersonClass = new Class( {
+	initialize: function(name,gender){
+		this.name=name;
+		this.gender=gender;
+		alert("My name is "+this.name);
+	}
+});
+var myGirlFriend=new PersonClass('Vickey','female');
+</pre><br />其中类的 initialize 不是必须的.<br />如果你想给 PersonClass 增加属性和方法,你可以在new Class的参数里直接以 json方式定义.<br />也可以使用 如下方式<br /><pre name="code" class="java">
+PersonClass.implement ({ 
+	age:0 ,
+	getName : function() {return this.name;}
+} , {...}, ..... );
+</pre><br />implement支持多个{}.关于implement稍后在对比继承机制时再细说.<br /><br /><br />在来看一下moo类机制的一些核心代码.<br /><br /><pre name="code" class="java">
+var Class = function(properties){
+	var klass = function(){
+		return (arguments[0] !== null &amp;&amp; this.initialize &amp;&amp; $type(this.initialize) == 'function') ? this.initialize.apply(this, arguments) : this;
+	};
+	$extend(klass, this);
+	klass.prototype = properties;
+	klass.constructor = Class;
+	return klass;
+};
+
+Class.prototype = {
+	extend: function(properties){
+		var proto = new this(null);
+		for (var property in properties){
+			var pp = proto[property];
+			proto[property] = Class.Merge(pp, properties[property]);
+		}
+		return new Class(proto);
+	},
+	implement: function(){
+		for (var i = 0, l = arguments.length; i &lt; l; i++) $extend(this.prototype, arguments[i]);
+	}
+
+};
+
+</pre><br /><br />代码的具体原理就不细说了.大家在moo的Class里看到了 extend 和implement,那下面就来具体说一说moo和prototype的 继承机制吧.<br /><br /><br />===========================================<br />二. 继承机制<br />===========================================<br /><br /><strong>Prototype</strong><br />prototype提供的继承很简单.<br /><pre name="code" class="java">
+Object.extend = function(destination, source) {
+  for (var property in source) {
+    destination[property] = source[property];
+  }
+  return destination;
+}
+</pre><br /><br />他只是把source里的属性赋给destination,同时会覆盖destination里的同名属性.<br />他可以用于对象,也可以用于类,当要实现类的继承时,destination要使用 MySubClass.prototype.<br /><br />prototype的继承机制可以说是非常薄弱的.<br /><br /><br /><strong>Mootools</strong><br /><br />moo提供了三种继承机制:<br /><br />首先他也提供了简单的继承机制:<br />Objcet.extend (注意,不是上面代码中 Class 里的 extend)<br />他的代码如下<br /><pre name="code" class="java">
+
+var $extend = function(){
+	var args = arguments;
+	if (!args[1]) args = [this, args[0]];
+	for (var property in args[1]) args[0][property] = args[1][property];
+	return args[0];
+};
+Object.extend = $extend;
+</pre><br />他的使用方法和 prototype 完全一样.<br /><br />但是大家可能注意到了 这句 if (!args[1]) args = [this, args[0]]; 这句的纯在使得下面的代码写法成为可能.<br /><pre name="code" class="java">
+var myObjcet={....};
+myObjcet.extend=$extend;
+myObjcet.extend(objA);
+myObjcet.extend(objB);
+myObjcet.extend(objC);
+</pre><br /><br />简单的一句话,让extend的用法增加了更多的灵活性,不得不赞一个了!!!<br /><br />下面说说重点, moo的类里的extend和 implement <br />先说 implement,之前已经说了一些了<br /><br /><pre name="code" class="java">
+var MyClassA = new Class();
+MyClassA.implement( { methodA : function() {... } }  );
+</pre><br /><br />执行后 MyClassA 将拥有 methodA.<br /><br />implement用来向类中添加属性和方法(会覆盖同名属性和方法),相当于 <br />Object.extend (MyClassA.prototype , {... } )<br />但是Object.extend 不支持多个source,implement可以,示例如下:<br />MyClassA.implement( objA , objB, objC ... );<br /><br /><br />下面来看看moo的Class.extend.<br />moo的Class.extend才是我们期待的真正的"类继承",看一下官方的示例<br /><br /><pre name="code" class="java">
+
+		var Animal = new Class({
+			initialize: function(age){
+				this.age = age;
+			}
+		});
+		var Cat = Animal.extend({
+			initialize: function(name, age){
+				this.parent(age); //will call the previous initialize;
+				this.name = name;
+			}
+		});
+
+</pre><br /><br />看那个<strong>parent()</strong> !!!!<br />通过moo的Class.extend实现的继承提供一个关键的方法 parent().<br />使用他你可以调用父类中的同名方法,好像java里的super一样.<br />这个示例已经可以说明一切了.<br /><br /><br />关于prototype和moo的类机制和继承机制的对比就到这里,孰优孰劣大家心里应该有数了吧.<br /><br />===========================================<br />三.抽象对象<br />===========================================<br /><br /><br />再来看一看"抽象对象". 这个虽然对于开发人员来说用处不大,但还是对比一下吧,小细节也能看出作者的用心.<br /><br /><strong>Prototype</strong><br />prototype的抽象对象很简单 <br /> var Abstract = new Object();<br />具体的意义不大.<br /><br /><br /><strong>Mootools</strong><br />moo的的抽象对象相对更完善一些.<br /><pre name="code" class="java">
+var Abstract = function(obj){
+	obj = obj || {};
+	obj.extend = $extend;
+	return obj;
+};
+</pre><br />支持自定义抽象(以参数形式传入),同时会为抽象对象自动添加extend方法.<br /><br /><br />===========================================<br />四. 关于 $() <br />===========================================<br /><br /><strong>Prototype</strong><br />prototype的$大家都比较熟悉了, 工作原理就是<br />通过id取得一个页面元素(或者直接传入一个页面元素对象),然后给他增加一些prototype提供的方法和属性,来方便开发人员对页面元素的使用.<br /><br /><br /><strong>Mootools</strong><br />moo在这方面做的差不多.<br />不同的主要有两点, 首先moo为页面元素增加的方法和属性与prototype的不同(这个稍后会介绍),另外一个不同是moo的$兼具了对象管理的一个功能.<br />他引入了一个&nbsp; Garbage 类, 来对页面元素进行一个统一的管理和回收(主要是回收).<br />可以更好的减少js(或浏览器)造成的内存泄露等问题.<br /><br />具体的大家可以看一下代码,在这里就不详细说明了.<br /><br /><br />===========================================<br />五.关于 Array Enumerable Hash<br />===========================================<br /><br /><br />prototype 和 moo 都提供了集合迭代方法 (each)<br />这个网上已经有一篇不错的对比文章,我就不在这里重复了<br />http://blog.fackweb.cn/?p=50.<br /><br /><br />moo的 forEach/each方法: function(fn, bind){..}<br />那个bind 结合代码 和 上面那篇文章, 大家应该可以很好的看出来prototype和moo的不同与优劣.<br /><br /><br />prototype里面有 Enumerable 的概念,moo没有.<br />但是我个人一直觉得 Enumerable 比较鸡肋.<br />在实际开发中,很少使用.<br />Enumerable的功能完全可以 用普通json对象 或者是 Hash来实现.<br />moo的作者也许同样这么认为.所以 不再 设置一个 鸡肋的 Enumerable类.<br />但是请大家放心, Enumerable 能做的事情, 在moo里也能完成.<br /><br />可以理解为<br /><br />moo的 Array +&nbsp; Hash +{} 完全可以接替 prototype的 Array + Enumerable + Hash +{} <br />当然对于一些工具方法两者提供的都不太一样,不好比较,但是那些方法都是附属品.<br />我们完全可以自己来实现,所以不在这次的比较范畴之内.<br /><br /><br />===========================================<br />六. 关于 Element<br />===========================================<br /><br />两者的 Element 从作用上看类似.都是一种对页面元素的包装,为页面元素添加了一些诸如 addEvent remove style之类的方法.<br />但是大家通过看代码可以发现 moo的实现明显更简洁 更OO.<br /><br />同时还有一个关键的不同,prototype又提取出了一个Form对象,里面包含了很多表单相关的方法.<br />同时还衍生出了 serializeElements Method 等等很多类和方法,代码瞬间变得异常复杂和难以琢磨.<br /><br /><br />而moo中没有Form对象,在moo中,Form本身就是一个Element 他没什么特别的,这样的思想类似components模式<br />普通Element具备的方法 Form 都应该具备, Form具备的方法 Element也都应该包含.form 和 其他页面元素没什么不同.<br />form元素只是一个包含了 input select textarea等子元素,同时拥有action target等属性而已.<br />一个div 一个span 一个td... 同样可以包含input select textarea子元素,同样可以拥有.action target属性.<br />浏览器处理他们的方式可能不同,但是在moo面前,大家完全平等.<br /><br /><br />其实prototype里 form和普通页面元素几乎也是平等的,但是问题就是,既然是平等的,又何必硬生生的造出Form以及那么多的衍生物呢?<br /><br /><br /><br />===========================================<br />七.Ajax<br />===========================================<br /><br /><strong>Prototype</strong><br />prototype的ajax实现主要是靠一个 Ajax类 来实现.(但是这个类形同虚设,大家更多的是和 Ajax.Request 类打交道.<br /><br /><br />先来看一个prototype下一个简单的ajax提交实例:<br /><pre name="code" class="java">
+var myAjax = new Ajax.Request( url,{parameters: myData , onComplete: callBackFunction } );
+</pre><br />其中 myData 可以是字符 : "name=Vickey&amp;gender=female";<br />也可以是对象 { 	name : Vickey, 	gender : female }<br /><br /><br /><strong>Mootools</strong><br />moo首先在将ajax机制分层.提取出了一个基类:XHR.<br />目前XHR有两个子类, 一个是 Ajax ,另一个是Json.Remote.<br /><br />在moo下一个简单的ajax提交实例:<br /><pre name="code" class="java">
+ var myAjax =new Ajax(url, {data : myData , onComplete: callBackFunction  }).request();
+</pre><br />大家可以看到request成为了Ajax对象的一个方法,这样的设计显然是更合理更自然 也更OO的.<br /><br />而且关键的一点是,你可以提前创建好你需要的ajax对象.在需要发出请求时再发出请求. <br /><br /><pre name="code" class="java">
+ var myAjax =new Ajax(...);
+.....
+ myAjax.request();
+</pre><br />同时还有一个重要特性, request是支持参数的,这个参数就是你要提交的数据.<br /><br />也就是说,你可以在new Ajax时不指定数据或者指定一个默认数据.<br />在提交的时候可以提交另一个data.如.<br /><br /> myAjax.request(yourData);<br /><br />其中data可以是字符串,可以是对象, 也可以是一个页面元素.<br /><br />要用ajax提交一个form 或者一个 div下的所有表单元素,只是改变一下 myData. <br />var myData= $("formID");&nbsp; // var myData= $("divID");<br />然后就和普通的ajax提交完全一样了.<br /><br /> myAjax.request(myData); <br /><br /> 当然还有更oo的方式 : <br /> myData.send({onComplete: callBackFunction });<br /><br />用后一种方式的时候要保证提交的元素有action属性,没有你就赋一个 myData.action=url.<br /> prototype里如何实现这一功能呢??<br /><br /> <br /><strong>Prototype</strong><br />Form.request($("formID") ,{ onComplete: callBackFunction });<br /><br />当然prototype里也可以类似moo的做法 , 只要让myData=$("formID").serialize(true) 就可以了.<br />但是这一个小小的不同,反映出了设计上的差距.<br /><br /><br /><strong>Mootools</strong><br />moo的Json.Remote类,简单,但是很实用:<br /><br /><pre name="code" class="java">
+	var jSonRemoteRequest = new Json.Remote( url , {onComplete:callBackFunction }).send({name: 'Vickey',gender: 'female' });
+</pre><br />这个类和Ajax类的本质区别是,<br />他提交的是一个序列化后的 json字符串("{name: 'Vickey',gender: 'female' } "),而不是把 json对象转化成QueryString ("name=Vickey&amp;gender=female");<br /><br /><br /><br />===========================================<br />结束语<br />===========================================<br /><br />写这篇文章不是要批评prototype,以我现在的水平还没那个资格.<br />只是和mootools对比后, prototype在设计上的不足立刻就显现了出来.<br /><br />虽然prototype新版本变化很多,很多我上面提到的一些不足都改正了,而且也加入了很多以前不具备的新的特性.<br />但是prototype现在的发展停留在:"修补不足,增加功能"的阶段,而没有从设计上进行深层次的重构,所以我不认为他在mootools面前有足够的底气.<br /><br />至于jquery我没有深入研究过,但是它的设计觉得完全是prototype风格的, 注意,我说的是设计风格,而不是代码风格.<br />代码上他可能写的更精妙,更有趣,但是设计上依然是prototype风格:薄弱的类机制,靠简单的extend支撑起整个系统.<br />JQuery在很多方面很出色,但是归根结底他和prototype走在一条路上,只是在有些方面他走的更快.<br /><br /><br />mootools并非完美无缺,但是至少现在他美的地方比prototype更多,缺的地方比prototype更少.<br /><br />所以,我选择mootools. 你呢??<br /><br />不要听评论,不要看介绍, 只要看看他们的源代码, 同时动手用他们写些东西, 你的答案自然会浮现出来.<br /><br /><br /><br />
+      </div>
+      
+              <div id="topic_copyright">声明：ITeye文章版权属于作者，受法律保护。没有作者书面许可不得转载。 </div>
+        <div id="forum_recommended_f5"><span>推荐链接</span><ul><li><a href='/clicks/508' target='_blank'><span style="font-weight:bold;color:red">java新手是如何获得8K月薪的</span></a></li><li><a href='/clicks/527' target='_blank'><span style="font-weight:bold;color:red">【推荐】年薪15-20万急聘java讲师"</span></a></li></ul></div>
+                    <div id="forum_recommended_f0"><script type="text/javascript"><!--
+google_ad_client = "pub-1076724771190722";
+/* JE论坛文章728x90 */
+google_ad_slot = "4097489287";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+          </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://fins.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=fins" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=fins" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+              </div>
+                        </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373834">
+  <td class="postauthor">
+    <ul>
+      <li class="name">radar</li>
+      <li>等级: <img src="/images/star1.gif" alt="一星会员" title="一星会员"/></li>
+      <li><a href='http://radar.iteye.com' target='_blank'><img alt="radar的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1301623867" title="radar的博客: radar" /></a></li>
+            <li>文章: 146</li>
+      <li>积分: 118</li>
+      <li>来自: ...</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        核心的ui支持你没说，这可能才是关键。<br /><br />jQuery不是你想的那种设计风格，我个人认为jQuery发挥了javascript语言的特性，而不是模仿java之类。<br /><br />如果谁读jQuery代码，注意两个方面：<br />1、状态。不是类似java的保存方法，jQuery没有类，只有函数。javascript有他处理问题的思路，我们不能照搬java那一套。<br />2、晚期绑定。<br />可能性能是个问题，但这才是语言发展的方向！
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://radar.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=radar" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=radar" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373834" title="radar回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373834' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373840">
+  <td class="postauthor">
+    <ul>
+      <li class="name">fins</li>
+      <li>等级: <img src="/images/zisen.gif" alt="资深会员" title="资深会员"/><span style="color:#009900;font-weight:bold;">资深会员</span></li>
+      <li><a href='http://fins.iteye.com' target='_blank'><img alt="fins的博客" class="logo" src="http://www.iteye.com/upload/logo/user/140680/8b5d1675-cdba-3cb7-8682-1c9ba0174e40.jpg?1251274936" title="fins的博客: 大城小胖的大城" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 3205</li>
+      <li>积分: 2953</li>
+      <li>来自: 小胖儿的大城</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        谢谢楼上的指正<br /><br />ui支持本身不属于太核心的东西吧<br />我觉得我这里的核心应该类似于 core base的意思.<br />而不是最常用 最重要的部分. <br /><br /><br />另外我觉得jquery并没有模仿java 其实moo prototype都没有模范java 他们都是在做自己.<br /><br />至于jquery的深层的东西确实研究不多,但是他的底层实现上来看 他模范prototype的痕迹比较重.<br />同样简单的 jQuery.extend, 而且同样是大量的利用jQuery.extend来构造出整个框架.<br /> 
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://fins.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=fins" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=fins" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373840" title="fins回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373840' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373841">
+  <td class="postauthor">
+    <ul>
+      <li class="name">fins</li>
+      <li>等级: <img src="/images/zisen.gif" alt="资深会员" title="资深会员"/><span style="color:#009900;font-weight:bold;">资深会员</span></li>
+      <li><a href='http://fins.iteye.com' target='_blank'><img alt="fins的博客" class="logo" src="http://www.iteye.com/upload/logo/user/140680/8b5d1675-cdba-3cb7-8682-1c9ba0174e40.jpg?1251274936" title="fins的博客: 大城小胖的大城" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 3205</li>
+      <li>积分: 2953</li>
+      <li>来自: 小胖儿的大城</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        再补充一点,其实prototype和jquery的一些不足不是体现在他们本身的代码上.而是体现在 当你用他们来构造你自己的 js框架或组件时.<br /><br />例如我总说的 他们薄弱的extend, 其实对于他们自己来说 那个extend已经足够用了.<br />但是你想想, 当你自己把他们作为基础组件,来在其基础上在进行开发时,你就会发现他们的很多不足了.<br /><br />
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://fins.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=fins" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=fins" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373841" title="fins回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373841' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373859">
+  <td class="postauthor">
+    <ul>
+      <li class="name">radar</li>
+      <li>等级: <img src="/images/star1.gif" alt="一星会员" title="一星会员"/></li>
+      <li><a href='http://radar.iteye.com' target='_blank'><img alt="radar的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1301623867" title="radar的博客: radar" /></a></li>
+            <li>文章: 146</li>
+      <li>积分: 118</li>
+      <li>来自: ...</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        在jQuery中根本不存在“类”，也不是面向对象的。<br /><br />“extend”也不是继承的意思，在java中是，在prototype.js中，jQuery不完全是。如果你非要把javascript当成java来理解学习的话，也可以这样理解。<br />prototype.js中的extend充其量只是个minix的作用，只是我们很多人把它当成“继承”了。<br /><br /><br />“另外我觉得jquery并没有模仿java 其实moo prototype都没有模范java 他们都是在做自己.”<br />不是它们模仿，而是我们用java的思想来理解它们！！！<br />
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://radar.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=radar" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=radar" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373859" title="radar回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373859' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373861">
+  <td class="postauthor">
+    <ul>
+      <li class="name">radar</li>
+      <li>等级: <img src="/images/star1.gif" alt="一星会员" title="一星会员"/></li>
+      <li><a href='http://radar.iteye.com' target='_blank'><img alt="radar的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1301623867" title="radar的博客: radar" /></a></li>
+            <li>文章: 146</li>
+      <li>积分: 118</li>
+      <li>来自: ...</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        ui在ajax lib选择时很重要。如果yui-ext的ui做了不好，估计根本没有现在的光景。借了yui的光，现在还自立门户。呵！<br /><br /><br />YUI-EXT的成功也就在ui上。你们认为呢？<br /><br />另外mootools的命名不是很好，为什么不用package的概念呢？
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://radar.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=radar" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=radar" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373861" title="radar回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373861' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373868">
+  <td class="postauthor">
+    <ul>
+      <li class="name">fins</li>
+      <li>等级: <img src="/images/zisen.gif" alt="资深会员" title="资深会员"/><span style="color:#009900;font-weight:bold;">资深会员</span></li>
+      <li><a href='http://fins.iteye.com' target='_blank'><img alt="fins的博客" class="logo" src="http://www.iteye.com/upload/logo/user/140680/8b5d1675-cdba-3cb7-8682-1c9ba0174e40.jpg?1251274936" title="fins的博客: 大城小胖的大城" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 3205</li>
+      <li>积分: 2953</li>
+      <li>来自: 小胖儿的大城</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        我觉得大家并没有刻意的去用JAVA的思想来理解他们, 大家可能都是用OO的思想来理解的.只是恰巧java是比较流行的OO语言.<br />我想如果这是在一个.net的论坛里 我就会用C#来举例了 呵呵<br /><br />其实moo prototype jquery他们是否学习了java 以及是否该用java的思想来理解 已经不是问题的关键了<br /><br />问题的关键就是 哪个设计更优雅 使用更方便 结构更健壮.<br />从目前的情况来看 我会选择moo.<br /><br />我对jquery始终都不喜欢.可能这里有一些莫名的偏见在里面吧.<br />有时候我这人太感性了 呵呵 就好像我莫名其妙的讨厌一个人,但是你问我讨厌他哪里 或者他哪里得罪我了 我还真说不上来 哈哈<br />
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://fins.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=fins" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=fins" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373868" title="fins回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373868' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>1</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373869">
+  <td class="postauthor">
+    <ul>
+      <li class="name">fins</li>
+      <li>等级: <img src="/images/zisen.gif" alt="资深会员" title="资深会员"/><span style="color:#009900;font-weight:bold;">资深会员</span></li>
+      <li><a href='http://fins.iteye.com' target='_blank'><img alt="fins的博客" class="logo" src="http://www.iteye.com/upload/logo/user/140680/8b5d1675-cdba-3cb7-8682-1c9ba0174e40.jpg?1251274936" title="fins的博客: 大城小胖的大城" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 3205</li>
+      <li>积分: 2953</li>
+      <li>来自: 小胖儿的大城</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        "另外mootools的命名不是很好，为什么不用package的概念呢？"<br />因为他不想成为 又一个dojo 又一个yui吧<br />毕竟简单轻巧才是他最求的吧.<br /><br />其实我觉得JS里搞命名空间实际意义不是很大 至少现在看来是这样.<br /><br />因为我们一般很少会写太过复杂的js代码,而且很少会在同一个页面内同时使用两个以上的大型js框架
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://fins.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=fins" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://fins.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=fins" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373869" title="fins回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373869' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373897">
+  <td class="postauthor">
+    <ul>
+      <li class="name">差沙</li>
+      <li>等级: <img src="/images/dimd1.gif" alt="一钻会员" title="一钻会员"/></li>
+      <li><a href='http://sshwsfc.iteye.com' target='_blank'><img alt="差沙的博客" class="logo" src="http://www.iteye.com/upload/logo/user/10876/c9164cc4-c476-4f9e-a3ad-dda1093f2ecd.gif?1236832080" title="差沙的博客: 差沙" /></a></li>
+      <li>性别: <img src="/images/icon_minigender_1.gif" title="男"/></li>      <li>文章: 318</li>
+      <li>积分: 822</li>
+      
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        <div class="quote_title">radar 写道</div><div class="quote_div">ui在ajax lib选择时很重要。如果yui-ext的ui做了不好，估计根本没有现在的光景。借了yui的光，现在还自立门户。呵！<br /><br /><br />YUI-EXT的成功也就在ui上。你们认为呢？<br /><br />另外mootools的命名不是很好，为什么不用package的概念呢？</div><br /><br />我不这么认为，说明你还没有深入了解EXT
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://sshwsfc.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://sshwsfc.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=%E5%B7%AE%E6%B2%99" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://sshwsfc.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=%E5%B7%AE%E6%B2%99" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373897" title="差沙回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373897' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+<tr id="373920">
+  <td class="postauthor">
+    <ul>
+      <li class="name">radar</li>
+      <li>等级: <img src="/images/star1.gif" alt="一星会员" title="一星会员"/></li>
+      <li><a href='http://radar.iteye.com' target='_blank'><img alt="radar的博客" class="logo" src="http://www.iteye.com/images/user-logo.gif?1301623867" title="radar的博客: radar" /></a></li>
+            <li>文章: 146</li>
+      <li>积分: 118</li>
+      <li>来自: ...</li>
+      <li><img src='/images/status/offline.gif'/></li>
+    </ul>
+  </td>
+  <td class="postcontent">
+    <div class="postactions">
+      <div class="description">
+        &nbsp;&nbsp;
+        发表时间：2007-09-09&nbsp;&nbsp;
+        
+      </div>
+      <div class="links">
+        
+      </div>
+    </div>
+    <div class="postbody clearfix">
+      
+      
+        <div class="quote_title">fins 写道</div><div class="quote_div">"另外mootools的命名不是很好，为什么不用package的概念呢？"<br />因为他不想成为 又一个dojo 又一个yui吧<br />毕竟简单轻巧才是他最求的吧.<br /><br />其实我觉得JS里搞命名空间实际意义不是很大 至少现在看来是这样.<br /><br />因为我们一般很少会写太过复杂的js代码,而且很少会在同一个页面内同时使用两个以上的大型js框架</div><br /><br />package怎么了？dojo的问题是package吗？<br />我指的是，mootools占用了太多的顶层变量名。<br />$extend<br />Ajax<br />$<br />fx<br />... ...<br /><br />万一你不小心定义一个<br />$开头的变量呢？<br /><br /><br />可能这不是主要问题，如果都放到<br />var mootools={};下就没这个问题了啊！为什么不呢？<br /><br />
+      </div>
+      
+                </td>
+  </tr>
+  <tr>
+    <td class="postauthor"><a href="#">返回顶楼</a></td>
+    <td class="postcontent">
+      <div class="icons">
+        <a href='http://radar.iteye.com' class='icon_www' title='浏览作者的博客'>&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/profile' class='icon_profile' title='浏览作者资料'>&nbsp;</a>
+        <a href="http://app.iteye.com/messages/new?message%5Breceiver_name%5D=radar" class="icon_pm" title="发送站内短信">&nbsp;</a>
+        <a href='http://radar.iteye.com/blog/guest_book' class='icon_guestbook' title='给作者留言'>&nbsp;</a>
+        <a href="http://app.iteye.com/feed?subscription%5Bsubscribed_user_name%5D=radar" class="icon_rss" onclick="var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;f.submit();return false;" title="关注作者">&nbsp</a>
+                  <a href="#373920" title="radar回帖:我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)">回帖地址</a>
+              </div>
+                        <div id='post_rate_box_373920' class='post_rate_box'><a href='#' onclick='return false;' class='good' title='好'>0</a> <a href='#' onclick='return false;' class='hidden' title='差'>0</a> 请登录后投票</div>                  </td>
+  </tr>
+  <tr class="sep2"><td colspan="2"></td></tr>
+
+  </tbody>
+</table>
+
+
+<div class="actions">
+  <div class="buttons"></div>
+  <div class="wrapper"><div class="pagination"><span class="disabled prev_page">&laquo; 上一页</span> <span class="current">1</span> <a href="/topic/122425?page=2" rel="next">2</a> <a href="/topic/122425?page=3">3</a> <span class="gap">&hellip;</span> <a href="/topic/122425?page=6">6</a> <a href="/topic/122425?page=7">7</a> <a href="/topic/122425?page=2" class="next_page" rel="next">下一页 &raquo;</a></div></div>
+</div>
+
+<div>
+  <div class="crumbs">
+    <a href="/forums">论坛首页</a> <span class="arrow">&rarr;</span>
+    <a href="/forums/board/web">Web前端技术版</a>
+     <span class="arrow">&rarr;</span> <a href='/forums/tag/ajax'>AJAX</a>
+    <br/><br/>跳转论坛:<select id="forum_urlname" name="forum[urlname]" onchange="window.location='/forums/board/'+this.value"><option value="Java">Java编程和Java企业应用</option>
+<option value="web" selected="selected">Web前端技术</option>
+<option value="mobile">移动编程和手机应用开发</option>
+<option value="cpp">C/C++编程</option>
+<option value="Ruby">Ruby编程</option>
+<option value="Python">Python编程</option>
+<option value="PHP">PHP编程</option>
+<option value="Flash">Flash编程和RIA</option>
+<option value="dotnet">Microsoft .Net</option>
+<option value="Tech">综合技术</option>
+<option value="develop">软件开发和项目管理</option>
+<option value="Industry">行业应用</option>
+<option value="New">入门讨论</option>
+<option value="Job">招聘求职</option>
+<option value="Life">海阔天空</option></select>
+     
+      <ul id="recommended_jobs" style="list-style-type:none;border:1px solid #f8aa4f;width:400px;height:110px;margin-top:5px;padding:7px 0;overflow:hidden;" onmousemove="marqueeing = false;" onmouseout="marqueeing = true;">
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1505" target="_blank" title="北京:Eleutian诚聘网页设计工程师">北京: Eleutian诚聘网页设计工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1444" target="_blank" title="上海:上海广播电视台网络新闻台诚聘高级网站前端开发工程师">上海: 上海广播电视台网络新闻台诚聘高级网站前端开</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1297" target="_blank" title="北京:sinobeststar诚聘Java web开发工程师">北京: sinobeststar诚聘Java web开发工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1410" target="_blank" title="上海:DeNA China诚聘 Web应用程序开发">上海: DeNA China诚聘 Web应用程序开发</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1691" target="_blank" title="上海:DeNA China诚聘UI Designer">上海: DeNA China诚聘UI Designer</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1211" target="_blank" title="浙江:CSST研究院杭州分院诚聘UI工程师">浙江: CSST研究院杭州分院诚聘UI工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/916" target="_blank" title="北京:北京格致璞诚聘wap开发工程师">北京: 北京格致璞诚聘wap开发工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1560" target="_blank" title="北京:美团诚聘资深前端工程师">北京: 美团诚聘资深前端工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1360" target="_blank" title="北京:新媒传信(中国移动飞信)诚聘前端开发工程师">北京: 新媒传信(中国移动飞信)诚聘前端开发工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1630" target="_blank" title="浙江:阿里巴巴诚聘AppOps（应用运维工程师）">浙江: 阿里巴巴诚聘AppOps（应用运维工程师）</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1629" target="_blank" title="浙江:阿里巴巴诚聘应用架构师">浙江: 阿里巴巴诚聘应用架构师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/914" target="_blank" title="北京:北京格致璞诚聘前端开发工程师">北京: 北京格致璞诚聘前端开发工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/725" target="_blank" title="北京:chinacache诚聘高级Java开发工程师（web）">北京: chinacache诚聘高级Java开发工程师（web）</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1278" target="_blank" title="浙江:广通信达杭州研发中心诚聘UI工程师">浙江: 广通信达杭州研发中心诚聘UI工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/840" target="_blank" title="浙江:网易（NETEASE）诚聘前端开发工程师">浙江: 网易（NETEASE）诚聘前端开发工程师</a></li>
+        
+          <li style="padding-left:20px;margin-left:15px;background:transparent url(/images/board-tab-list.png) no-repeat scroll left center;"><a href="/jobs/1488" target="_blank" title="浙江:网易（NETEASE）诚聘AS3开发工程师">浙江: 网易（NETEASE）诚聘AS3开发工程师</a></li>
+        
+      </ul>
+      <script type="text/javascript">
+        var marqueeing = true;
+        function marquee(){
+          if(marqueeing) {
+            var container=document.getElementById("recommended_jobs");
+            container.appendChild(container.firstChild);
+          }
+        }
+        setInterval("marquee()", 4000);
+      </script>
+    
+  </div>
+
+  
+</div>
+
+<div style="display:none">
+  <form action="/posts/rate" id="post_rate_form" method="post" onsubmit="new Ajax.Request('/posts/rate', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;">
+    <input type="hidden" id="post_rate_id" name="id"/>
+    <input type="hidden" id="post_rate_type" name="type"/>
+  </form></div>
+
+<script type="text/javascript">
+  dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+  fix_image_size($$('div.postbody img'), 760);
+  
+  $$('#forum_main > #posts > tr[id]').each(function(tr){
+    var post_id = tr.id;
+    $$("#"+post_id+" pre[name=code]").each(function(pre, index){
+      var location = window.location;
+      source_url = location.protocol + "//" + location.host + location.pathname + location.search;
+      source_url += "#" + post_id;
+      pre.writeAttribute('codeable_type', 'Post');
+      pre.writeAttribute('codeable_id', post_id);
+      pre.writeAttribute('source_url', source_url);
+      pre.writeAttribute('pre_index', index);
+      pre.writeAttribute('title', '我为什么选择mootools,抛弃了prototype. (mootools与prototype 核心代码分析)');
+    });
+  });
+  code_favorites_init();
+
+  function rate_post(id, type) {
+    Element.update('post_rate_box_' + id, '提交中...');
+    new Ajax.Request('/posts/rate', {asynchronous:true, evalScripts:true, parameters:{"id":id, "type":type}});
+  }
+
+  function rate_topic(type) {
+    Element.update('topic_rate_box', '提交中...');
+    new Ajax.Request('/topics/rate', {asynchronous:true, evalScripts:true, parameters:{"id":122425, "type":type}});
+  }
+</script>
+
+
+
+        </div>
+        <div id="nav">
+  <div class="wrapper">
+    <ul>
+            <li><a href="http://www.iteye.com/">首页</a></li>
+      <li><a href="http://www.iteye.com/news">资讯</a></li>
+      <li><a href="http://www.iteye.com/forums" class='selected'>论坛</a></li>
+      <li><a href="http://www.iteye.com/ask">问答</a></li>
+      <li><a href="http://www.iteye.com/wiki">专栏</a></li>
+      <li><a href="http://www.iteye.com/blogs">博客</a></li>
+      <!--<li><a href="http://www.iteye.com/articles">文摘</a></li>//-->
+      <li><a href="http://www.iteye.com/groups">群组</a></li>
+      <li><a href="http://www.iteye.com/job">招聘</a></li>
+      <li><a href="http://www.iteye.com/search">搜索</a></li>
+      <li class="last" style="float: right"><a href="http://runqian.iteye.com">润亁报表</a></li>
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div id="footer">
+  <div id="site_nav">
+    <ul>
+      <li><a href="/index/service">广告服务</a></li>
+      <li><a href="http://webmaster.iteye.com">ITeye黑板报</a></li>
+      <li><a href="/index/contactus">联系我们</a></li>
+      <li class="last"><a href="/index/friend_links">友情链接</a></li>
+    </ul>
+  </div>
+  <div id="copyright">
+    &copy; 2003-2011 ITeye.com.    [ <a href="http://www.miibeian.gov.cn">京ICP证110151号</a> ]
+  </div>
+</div>
+
+    </div>
+    <script type="text/javascript">
+  document.write("<img src='http://stat.iteye.com/?url="+ encodeURIComponent(document.location.href) + "&referrer=" + encodeURIComponent(document.referrer) + "&user_id=-1' width='0' height='0' />");
+</script>
+  </body>
+</html>

@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>网页调用IE浏览器的打印功能</title>
+<script type="text/javascript">
+
+//javaScript函数劫持
+var _print = print;
+window.print = function() {
+    if (confirm("是否要打印？"))
+     {
+       _print();
+    }
+    
+}
+
+
+function printsetup(){  
+    wb.execwb(8,1);  
+}  
+// 打印页面预览  
+function printpreview(){          
+    wb.execwb(7,1);  
+}  
+  
+function printit(){  
+    if (confirm('确定打印吗？'))  
+        wb.execwb(6,6)    
+}  
+
+
+</script>
+</head>
+<body>
+<object classid="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"  id="wb" width="0px" height="0px"></object>
+<input id="testBut1" type="button" style="width:140px; height:50px;" " value="Print" onclick="window.print()"/>
+
+<input type="button" name="button_print" style="width:140px; height:50px;"  " value="打印" onclick="printit()"/>  
+<input type="button"  name="button_setup" style="width:140px; height:50px;"  " value="打印页面设置" onclick="printsetup();"/>   
+<input type="button"  name="button_show" style="width:140px; height:50px;"  " value="打印预览" onclick="printpreview();"/>  
+
+<br />
+<textarea style=" width:100%;height:100%">
+<span>
+javascript:window.print() 打印
+1.JavaScript打印
+</span>
+
+<input id="btnPrint" type="button" value="button" onclick="javascript:window.print();"
+ style="color:#00f; font-weight:bold; text-decoration:none;cursor:pointer!important; cursor:hand"/>
+
+可以用样式控制，你想让那块打印就打印，样式如下：
+<style type="text/css" media=print>
+.noprint{display : none }
+</style>
+然后使用样式就可以：
+<p class="noprint">不需要打印的地方</p>
+如果要打印网页中的某一部分,只要把这一部分标记为 
+<!--startprint--><!---endprint-->中就可以了 
+=============================================================
+2.IE打印
+<script type="text/javascript">
+// 打印页面设置
+function printsetup() { wb.execwb(8,1);} 
+// 打印页面预览
+function printpreview() { wb.execwb(7,1); }
+function printit(){  if (confirm('确定打印吗？')) { wb.execwb(6,6) }}
+</script>
+
+=============
+<span>
+<pre>
+
+      <object classid="CLSID:8856F961_340A_11D0_A96B_00C04FD705A2"  height="0" id="wb" name="wb" width="0" />
+      <input type="button" name="button_print" value="打印"        onclick="javascript:printit()">
+      <input type="button"　name="button_setup" value="打印页面设置"         onclick="javascript:printsetup();">
+      <input type="button"　name="button_show" value="打印预览"  onclick="javascript:printpreview();">
+      <input type="button" name="button_fh" value="关闭"       onclick="javascript:window.close();">
+     </pre>
+     </span> 
+=============
+<span>
+      关于这个组件还有其他的用法，列举如下：
+      WebBrowser.ExecWB(1,1) 打开
+      Web.ExecWB(2,1) 关闭现在所有的IE窗口，并打开一个新窗口
+      Web.ExecWB(4,1) 保存网页
+      Web.ExecWB(6,1) 打印
+      Web.ExecWB(7,1) 打印预览
+      Web.ExecWB(8,1) 打印页面设置
+      Web.ExecWB(10,1) 查看页面属性
+      Web.ExecWB(15,1) 好像是撤销，有待确认
+      Web.ExecWB(17,1) 全选
+      Web.ExecWB(22,1) 刷新
+      Web.ExecWB(45,1) 关闭窗体无提示
+</span>
+
+</textarea>
+
+
+
+
+
+
+</body>
+</html>

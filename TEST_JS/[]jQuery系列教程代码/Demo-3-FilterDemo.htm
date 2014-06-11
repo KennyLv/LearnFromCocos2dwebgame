@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>动态创建对象</title>
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+</head>
+<body>
+<div id="a">a html<ol id="div_ol"><li id="div_ol_li">ol html</li></ol></div>
+<div id="b">b html</div>
+
+<p id="p1">p1 html<ol id="p_ol"><li id="p_ol_li">ol html</li></ol></p>
+<p id="p2">p2 html</p>
+<script type="text/javascript">
+<!--
+//选出不包含ol的元素, 没有问题
+    $(document).ready(function() {
+        $("div").filter(
+function(index) {
+    return $("ol", this).size() == 0;
+}
+).each(function(index) {
+    alert(this.id);
+});
+
+        //这里测试p的结果
+        $("p").filter(
+function(index) {
+    alert("index:" + index + " ol size:  " + $("ol", this).size());
+    return $("ol", this).size() == 0;
+}
+).each(function(index) {
+    //alert(this.id);
+});
+    });
+//-->
+</script> 
+</body>
+</html>

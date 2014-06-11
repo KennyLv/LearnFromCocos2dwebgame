@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>动态创建对象</title>
+    <style type="text/css">
+        .colorRed
+        {
+            color: Red;
+        }
+        .borderBlue
+        {
+            border: solid 2px #00FF00;
+        }
+    </style>
+
+    <script type="text/javascript" src="scripts/jquery-1.3.2-vsdoc2.js"></script>
+
+    <script type="text/javascript">
+        $(function()
+        {
+            $("#btnAdd").bind("click", function(event) { $("p").addClass("colorRed borderBlue"); });
+            $("#btnDel").bind("click", function(event) { $("p").removeClass("borderBlue"); });
+            $("#benDelAll").bind("click", function(event) { $("p").removeClass(); });
+        })
+    </script>
+
+</head>
+<body>
+    <div>
+        <input id="btnAdd" type="button" value="添加样式" /><br />
+        <input id="btnDel" type="button" value="删除边框样式" /><br />
+        <input id="benDelAll" type="button" value="删除全部样式" /><br />
+    </div>
+    <p>
+        测试文本</p>
+</body>
+</html>

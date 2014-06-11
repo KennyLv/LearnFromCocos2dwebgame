@@ -1,0 +1,12 @@
+<script type="text/javascript">
+    var fso, f;   
+    function copyFile()
+    {   
+        fso = new ActiveXObject("Scripting.FileSystemObject");   
+        f = fso.CreateTextFile("c://testfile.txt", true);   
+        f.WriteLine("This is a test.");   
+        f.Close();   
+        f = fso.GetFile("c://aaa//111.txt");   
+        f.Copy("c://bbb//111.txt");   
+    }  
+</script>

@@ -1,0 +1,152 @@
+/*---主体样式---*/
+#container{width:auto;margin:0px auto;text-align:center;}
+#FlashHead{position: absolute;width:100%;left:0px;}
+/*---顶部样式---*/
+#container #header{background:url('top.gif') repeat-x;width:100%;}
+#container #header #blogname{display: none;}
+#container #header #blogname #blogTitle{}
+#container #header #menu{background:url('sky.gif') no-repeat left top;height: 107px;}
+#container #header #menu #Left{display: none;}
+#container #header #menu #Right{display: none;}  
+#container #header #menu ul{
+height:40px;
+float:right;
+padding-top:40px;
+list-style:none;
+margin:0 80px 0 0 !important;
+margin:0 40px 0 0;
+} 
+#container #header #menu ul li{
+float:left;
+height:34px;
+margin:0;
+padding:0;
+background:#6D876F url(a.jpg) top left;
+font-size:12px;
+border-right: 1px solid #fff;
+border-top: 1px solid #fff;
+}
+#container #header #menu ul li a{
+margin: 5px 5px;
+padding: 3px 10px;
+color: #fff;
+text-decoration: none;
+background: #6D876F;
+border-left: 1px solid #fff;
+border-bottom: 1px solid #fff;
+}
+#container #header #menu ul li a:hover{
+font-size:12px;
+text-decoration: none;
+color: #6D876F;
+background: #fff;
+}
+.menuL{visibility: hidden;}
+.menuR{visibility: hidden;} 
+.menuDiv{visibility: hidden;}/*---菜单分割线---*/
+/*---内容样式---*/
+#container #Tbody{margin:0px;}
+/*---工具条--*/
+#sidebar{float:right;right:20px;width:202px;margin-right:10px;border-left:solid 1px #EEE;}
+#innersidebar{float:right;right:1px;width:202px;margin-left:-180px;padding:0px 0px 0px 0px;}
+#sidebar-topimg{height:0px;overflow:hidden;}
+#sidebar-bottomimg{height:0px;overflow:hidden;}
+/*---CenterBar--*/
+#centerbar{float:left;width:0px;margin-left:0px;padding:0px 10px 20px 0px;border-left:solid 1px #EEE;border-right:solid 1px #EEE;text-align:left;}
+/*---工具箱样式--*/
+.sidepanel{margin-bottom:10px;}
+.Ptitle{margin:0px 0px 0px 10px;height:18px;text-align:left;padding:0px 0px 0px 0px;font-weight:bold;font-size:12px; border-bottom:1px dotted #4B3F32;}  
+.Pcontent{margin:0px;text-align:left;padding-left:20px;padding-top:5px;padding-bottom:5px; line-height:150%; width:190px;} 
+#Side_Search .Pcontent{width:160px;background: #eee url(a.jpg) top left;margin-left:10px;text-align:left;padding-left:10px;padding-top:5px;padding-bottom:5px; line-height:150%;} 
+#Side_Search .Pcontent select{width:105px;}
+
+.Pfoot{}
+/*---主内容--*/ 
+#mainContent{float:left;margin-right:-430px !important;margin-right:-420px;width:100%;}
+#innermainContent{overflow:visible;margin-right:200px !important;margin-right:210px;padding:0px 20px 0px 20px;}
+.content-width{margin:0;}/*--主内容元素的全局宽度--*/
+/*---主内容页数--*/
+.pageContent{margin:0 auto;padding-left:3px;text-align:left;height:18px;font-size:12px;} 
+.NavTitle{float:left;font-size:10px;padding:2px;}
+.page{padding-right:5px;height:18px;}
+.page ul{list-style:none;margin:0px;padding:0px} 
+.page ul li{float:left;padding:0px 3px 0px 3px;} 
+.page ul li.PageL {width:9px;height:16px;}
+.page ul li.PageR {width:9px;height:16px;}
+.PageLbutton{}
+.PageRbutton{}
+/*---内容框--*/
+.Content{margin:0 auto;} 
+/*---日志标题框--*/
+.Content-top{background:url('title_bg.gif');padding:2px;text-align:left;margin-bottom:2px;border-bottom:1px dotted #4B3F32; height:30px;}
+.Content-top .ContentLeft{width:0px;float:left;}
+.Content-top .ContentRight{width:0px;float:right;}
+.Content-top .ContentTitle{font-size:14px;padding:8px 0 0 10px;margin:0px;color:#6D876F; float:left;}
+.Content-top .ContentAuthor{color:#6D876F;font-size:12px;padding:8px 10px 0 0;margin:0px; font-weight:normal; float:right;} 
+/*---日志内容框--*/
+.Content-body{margin:10px auto;overflow:hidden;text-align:left;width:96%;line-height:150%; clear:both;}
+.Content-body a:link,.Content-body a:visited,.Content-body a:hover{
+background:#D9EBFC;
+color:#3E9AF8;
+border-bottom:1px dotted #4B3F32;
+font-weight:bold;
+font-size:12px;
+}
+.Content-body p a:link,.Content-body p a:visited{
+background:#E7F6ED;
+color:#6D876F;
+border-bottom:1px dotted #4B3F32;
+padding:3px;
+font-size:12px;
+}
+.Content-body p a:hover{
+background:#6D876F;
+color:#fff;
+border-bottom:1px dotted #4B3F32;
+padding:3px;
+font-size:12px;
+}
+.Content-body p{padding-bottom:3px;}
+/*---日志内容底部--*/
+.Content-bottom{padding:0px;text-align:right;padding:3px 3px 20px 3px; border-top:1px solid #EEE; font-size:12px;color:#999;}
+.Content-bottom .ContentBLeft{width:0px;float:left;}
+.Content-bottom .ContentBRight{width:0px;float:right;}  
+
+/*---日志其他信息--*/
+.Content-Info {margin:0px 4px 6px 4px;padding:0px}
+.Content-Info .InfoAuthor{text-align:left}
+.Content-Info .InfoOther{float:right;text-align:right;}
+/*--评论框--*/
+.comment{text-align:left;margin:0px 12px 15px 12px;border:1px solid #DBDBD0;background:#fff}
+.commentinfo{font-size:11px;color:#999;}
+.commenttop{padding:4px;background:#EEEEE8;margin:1px}
+.commentcontent{padding:10px;line-height:140%;overflow:hidden;width:96%}
+/*---UBB框--*/ 
+.UBBPanel{background:#fff;border-left:3px solid #DBDBD0}
+.UBBTitle{font-weight:bold;padding:4px;border-bottom:1px dotted #4B3F32}
+.UBBContent{padding:6px;line-height:160%;}
+.UBBContent TEXTAREA {width:448px;margin-bottom:2px;}
+:link.UBBLink,:visited.UBBLink{font-size:11px;font-family:verdana;}
+/*---信息框--*/
+#MsgContent{width:450px;padding:1px; background:#fff url(intern.jpg) top left;margin:0 auto 20px;}
+#MsgContent #MsgHead{padding:10px 0 10px 30px;text-align:left;font-weight:bold; font-size:14px;}
+#MsgContent #MsgBody{padding:10px 20px 10px 0;line-height:180%;}
+
+.LDialog{border:1px solid #795B50;margin:3px auto;padding:1px;}
+.LDialog .LHead{background:#BBA097;padding:1px;color:#fff;text-align:center;font-weight:bold;}
+.LDialog .LBody{padding:4px;line-height:200%;}
+
+
+/*信息框图标以及文字*/
+.MessageText{height:50px;margin-right:38px;}
+.MessageIcon{background:url(Message.gif) no-repeat;width:48px;height:48px;float:left;margin-left:10px;}
+.ErrorIcon{background:url(Error.gif) no-repeat;width:48px;height:48px;float:left; margin-left:10px;}
+.WarningIcon{background:url(Warning.gif) no-repeat;width:48px;height:48px;float:left;margin-left:10px;}
+.QuestionIcon{background:url(vQuestion.gif) no-repeat;width:48px;height:48px;float:left;margin-left:10px;}
+/*---底部样式---*/
+#container #foot{position:relative;width:auto;margin:1px 0 0 0;padding:14px 0px 14px 20px;color:#333; font-size:12px; text-align:left; clear:both; background:#eee url(a.jpg) top left;}
+#container #foot p{margin:2px;font-size:10px;}
+/*---文件上传框样式---*/
+.attachmentBody{
+margin:0px;font-size:12px;background:#fff
+}

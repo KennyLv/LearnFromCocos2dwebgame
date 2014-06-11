@@ -1,0 +1,47 @@
+在安装Office2003以后，有一个ActiveX控件被安装到了系统中，这个控件位于“Program   Files\Microsoft   Office\OFFICE11\owssupp.dll”。通过这个控件，客户端页面上的JavaScript就可以激活本地的Office软件，来实现打开、编辑Office文档。（另，Office   XP应该就已经包含这个ActiveX控件了。）   
+    
+  首先，用Script创建一个本地的对象：   
+    
+  openDocObj   =   new   ActiveXObject("SharePoint.OpenDocuments.2");   //   为了兼容Office   XP，可以创建“SharePoint.OpenDocuments.1”   
+    
+  然后，调用openDocObj的相应的方法。比如打开服务器上的一个Office文档：   
+    
+  openDocObj.ViewDocument("http://www.abc.com/documents/sample.doc");   
+    
+  openDocObj对象会根据参数中不同的Office文档类型（.doc、.xls、.ppt）来打开不同的程序（Word、Excel、PowerPoint）。ViewDocument()方法还有一个重载签名，可以让我们手工指定激活哪个程序来打开文档：  
+    
+  openDocObj.ViewDocument("http://www.abc.com/documents/sample.doc",   要激活的程序的ProgID);   
+    
+  那么要打开Office程序在线编辑文件又如何？   
+    
+  openDocObj.EditDocument("http://www.abc.com/documents/sample.doc");   
+    
+  就可以直接激活Word，在Word里面编辑文档，然后直接点击Word里面的保存功能，就可以将文件保存会服务器上了。注意：为了让Word能将编辑后的文档直接保存会服务器，访问Web站点的当前上下文的Windows   Identity必须对服务器的相应目录（即“http://www.abc.com/documents”这个虚拟目录所对应的服务器上的物理路径）有相应的写权限，否则保存动作会失败。编辑完成后，EditDocument()会返回一个bool值，来反映编辑操作是否成功。   
+    
+  我们还可以通过打开服务器上的一个文档模版，来创建一个新的文档：   
+    
+  openDocObj.CreateNewDocument("http://www.abc.com/documents/sampleTemplate.dot",   "http://www.abc.com/documents/");   
+    
+  就可以使用“http://www.abc.com/documents/sampleTemplate.dot”这个模版来创建一个新的文档，默认新文档的保存地点是“http://www.abc.com/documents/”。创建新文档时使用的程序取决于模版文件的类型（比如.dot模版会对应Word）。新文档的保存同样需要注意权限问题。CreateNewDocument()方法同样会返回一个bool值来反映操作是否成功。   
+    
+  CreateNewDocument()方法的第一个参数，除了可以使用一个模版的地址外，还可以直接指定为希望用来创建新文档的客户端程序的ProgID。   
+  <html>     
+  <head>     
+  <title>     
+  test_word     
+  </title>     
+  <Script   Language="JavaScript">     
+  function   Validator()     
+  {     
+  var   openDocObj;     
+  openDocObj   =   new   ActiveXObject("SharePoint.OpenDocuments.2");     
+  openDocObj.EditDocument("C:\Inetpub\wwwroot\前言.doc");     
+  }     
+  </script>     
+  </head>     
+  <body   bgcolor="#ffffff">     
+  <h1>     
+  <input   type="button"   name="word"   value="word"   onclick="Validator()">     
+  </h1>     
+  </body>     
+  </html>  

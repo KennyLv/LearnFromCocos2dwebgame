@@ -1,0 +1,566 @@
+炎炎夏日，自制凉拌小品
+------------------------------
+/*  
+*   四则运算精度修正函数
+*   m     数值1(number)
+*   n     数值2(number)
+*   op   操作符(string)
+*/
+function   fixMath(m,   n,   op)   {
+    var   a   =   (m+ " ");
+    var   b   =   (n+ " ");
+    var   x   =   1;
+    var   y   =   1;
+    var   c   =   1;
+    if(a.indexOf( ". ")> 0)   {
+        x   =   Math.pow(10,   a.length   -   a.indexOf( ". ")   -   1);
+    }
+    if(b.indexOf( ". ")> 0)   {
+        y   =   Math.pow(10,   b.length   -   b.indexOf( ". ")   -   1);
+    }
+    switch(op)
+    {
+        case   '+ ':
+        case   '- ':
+            c   =   Math.max(x,y);
+            m   =   Math.round(m*c);
+            n   =   Math.round(n*c);
+            break;
+        case   '* ':
+            c   =   x*y
+            m   =   Math.round(m*x);
+            n   =   Math.round(n*y);
+            break;
+        case   '/ ':
+            c   =   Math.max(x,y);
+            m   =   Math.round(m*c);
+            n   =   Math.round(n*c);
+            c   =   1;
+            break;
+    }
+    return   eval( "( "+m+op+n+ ")/ "+c);
+}
+
+用法如下:
+-----------------------
+fixMath(2.3,   1.9,   '* ')
+fixMath(1.98,   1.9,   '- ')
+fixMath(83.50,   74.15,   '- ')
+
+
+<script type="text/javascript">
+ var alsoAString = '25';
+ var isANumber = 25;
+ // var isEqual = (alsoAString==isANumber); // This is true, they are both 25.
+ var isEqual = (alsoAString===isANumber); // False , one is a number, the other a string.
+ // alert(isEqual);
+ var floatError=0.06+0.01
+ //alert(floatError);
+ 
+ //除法函数，用来得到精确的除法结果
+ //说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
+ //调用：accDiv(arg1,arg2)
+ //返回值：arg1除以arg2的精确结果
+ function accDiv(arg1,arg2){
+  var t1=0,t2=0,r1,r2;
+  try{t1=arg1.toString().split(".")[1].length}catch(e){}
+  try{t2=arg2.toString().split(".")[1].length}catch(e){}
+  with(Math){
+   r1=Number(arg1.toString().replace(".",""))
+   r2=Number(arg2.toString().replace(".",""))
+   return (r1/r2)*pow(10,t2-t1);
+  }
+ }
+ 
+ //给Number类型增加一个div方法，调用起来更加方便。
+ Number.prototype.div = function (arg){
+  return accDiv(this, arg);
+ }
+ 
+ //乘法函数，用来得到精确的乘法结果
+ //说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+ //调用：accMul(arg1,arg2)
+ //返回值：arg1乘以arg2的精确结果
+ function accMul(arg1,arg2)
+ {
+  var m=0,s1=arg1.toString(),s2=arg2.toString();
+  try{m+=s1.split(".")[1].length}catch(e){}
+  try{m+=s2.split(".")[1].length}catch(e){}
+  return Number(s1.replace(".",""))*Number(s2.replace(".",""))/Math.pow(10,m)
+ }
+ 
+ //给Number类型增加一个mul方法，调用起来更加方便。
+ Number.prototype.mul = function (arg){
+  return accMul(arg, this);
+ }
+ 
+ //加法函数，用来得到精确的加法结果
+ //说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+ //调用：accAdd(arg1,arg2)
+ //返回值：arg1加上arg2的精确结果
+ function accAdd(arg1,arg2){
+  var r1,r2,m;
+  try{r1=arg1.toString().split(".")[1].length}catch(e){r1=0}
+  try{r2=arg2.toString().split(".")[1].length}catch(e){r2=0}
+  m=Math.pow(10,Math.max(r1,r2))
+  return (arg1*m+arg2*m)/m
+ }
+ 
+ //给Number类型增加一个add方法，调用起来更加方便。
+ Number.prototype.add = function (arg){
+  return accAdd(arg,this);
+ }
+ 
+ document.writeln("未改进的运算：7*0.8="+7*0.8+"\<br>");
+ document.writeln("改进以后的运算：7*0.8="+(7).mul(0.8)+"\<br>");
+ 
+ document.writeln("未改进的运算：0.06+0.01=" + 0.06+0.01 +"\<br>")
+ document.writeln("改进后的运算：0.06+0.01=" + 0.06.add(0.01) +"\<br>")
+</script>
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <title>四则运算计算机</title>
+</head>
+<body>
+   <h1>能进行四则混合运算的计算器</h1>
+   <script language="JavaScript">
+    <!--
+    function compute(obj)//计算并输出结果
+   {
+    obj.expr.value=eval(obj.expr.value)  
+   }//定义10个数字以及各种运算符
+   var one='1'
+   var two="2"
+   var three='3'
+    var four='4'
+    var five='5'
+    var six='6'
+    var seven='7'
+    var eight='8'
+    var nine='9'
+    var zero='0'
+    var plus='+'
+    var minus='-'
+    var multiply='*'
+    var divide='/'
+    var decimal='.'
+    function enter(obj,string)//将输入的运算数字及运算符连接起来
+    {
+     obj.expr.value+=string
+    
+    }
+    function clear(obj)//输入框清零
+    {
+     obj.expr.value=''
+    }
+    //-->
+   
+   </script>
+<center>
+  
+   <form name="calc">
+    <table border=1>
+     <td colspan=4>
+      <input type="text" name="expr" size=30 action="compute(this.form)">
+      <tr>
+       <td><input type="button" value="7" onclick="enter(this.form,seven)">
+                 <td><input type="button" value="8" onclick="enter(this.form,eight)">
+       <td><input type="button" value="9" onclick="enter(this.form,nine)">
+       <td><input type="button" value="/" onclick="enter(this.form,divide)">
+       <tr>
+      <td><input type="button" value="4" onclick="enter(this.form,four)">
+       <td><input type="button" value="5" onclick="enter(this.form,five)">   
+          <td><input type="button" value="6" onclick="enter(this.form,six)">
+           <td><input type="button" value="*" onclick="enter(this.form,multiply)">
+     <tr>
+     <td><input type="button" value="1" onclick="enter(this.form,one)">
+     <td><input type="button" value="2" onclick="enter(this.form,two)">
+     <td><input type="button" value="3" onclick="enter(this.form,three)">
+     <td><input type="button" value="-" onclick="enter(this.form,minus)">
+     <tr>
+      <td colspan=2>
+       <input type="button" value="0" onclick="enter(this.form,zero)">
+     <td>    <input type="button" value="." onclick="enter(this.form,decimal)">
+      <td>    <input type="button" value="+" onclick="enter(this.form,plus)">
+      <tr>
+       <td colspan=2>    <input type="button" value="=" onclick="compute(this.form)">
+       <td colspan=2>    <input type="reset" value="Ac" onclick="clear(this.form)">
+    </table>
+   </form>
+</center>
+</body>
+</html>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <title>Untitled Document</title>
+</head>
+<body>
+   <center><h1>简单的加减速乘除运算</h1></center>
+   <script language="Javascript">
+   <!--  
+   function equa1()
+   {
+    a=document.form1.aa.value;
+    b=document.form1.ab.value;
+    c=a-b;
+    document.form1.total1.value=c//结果输出
+   
+   
+   }
+   function equa2()
+   {
+    a=document.form1.ba.value;
+    b=document.form1.bb.value;
+    c=(a*1)+(b*1);
+    document.form1.total2.value=c
+   
+   }
+   function equa3()
+   {
+    a=document.form1.ca.value;
+    b=document.form1.cb.value;
+    c=a/b;
+    document.form1.total3.value=c
+   
+   }
+   function equa4()
+   {
+    a=document.form1.da.value;
+    b=document.form1.db.value;   
+    c=a*b;
+    document.form1.total4.value=c   
+   }  
+   //-->  
+   </script>
+<!--
+
+设置几个文本域，用来输入数字，并为各组文本域设置一个按钮
+-->
+<form name="form1">
+<center>
+   <table border=1 cellpadding=1 cellspacing=1>
+    <tr>
+    <td>
+     <input type="text" size=5 name="aa">-<input type="text" size=5 name="ab"></td>
+     
+    <td>&nbsp;=<input type="text" name="total1" size=5></td>
+   
+     <td><input type="button" value="计算" onclick="equa1()"></td>   
+    </tr>
+   <tr>
+   <td><input type="text" size=5 name="ba">+<input type="text" size=5 name="bb"></td>
+   <td>&nbsp;=<input type="text" name="total2" size=5></td>
+        <td><input type="button" value="计算" onclick="equa2()"></td>
+  
+   </tr>
+   <tr>
+    <td><input type="text" size=5 name="ca">/<input type="text" size=5 name="cb"></td>
+    <td>&nbsp;=<input type="text" name="total3" size=5></td>
+    <td><input type="button" value="计算" onclick="equa3()"></td>
+   </tr>
+   <tr>
+    <td><input type="text" size=5 name="da">*<input type="text" size=5 name="db"></td>
+    <td>&nbsp;=<input type="text" name="total4" size=5></td>
+    <td><input type="button" value="计算" onclick="equa4()"></td>
+   </tr>
+   <tr><td colspan=3 align=center><input type="reset" value="重 置"></td></tr>
+   </table>
+  
+  
+</center>
+
+
+
+</form>
+</body>
+</html>
+
+
+
+使用原生的javascript进行字符的四则运算。
+先讲解原理：利用数据结构的堆栈原理实现字符串的四则运算。
+                目前测试出来，暂时还不支持负数。
+
+以下就是代码：
+
+  1 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  2 <html xmlns="http://www.w3.org/1999/xhtml">
+  3 <head>
+  4 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  5 <title>无标题文档</title>
+  6 <script type="text/javascript">
+  7 var expression = new Array();
+  8 var postexpression = new Array();
+  9 var opexpression = new Array();
+ 10 var stexpression = new Array();
+ 11 //计算字符串值
+ 12 var expc={
+ 13     ex:expression,
+ 14     index:0,
+ 15     totallength:0
+ 16     }
+ 17 //存放数值的数组
+ 18 var postexp={
+ 19     pe:postexpression,
+ 20     index:0,
+ 21     totallength:0
+ 22     }    
+ 23 //存放操作符的数组
+ 24 var op={
+ 25     ope:opexpression,
+ 26     top:-1
+ 27 }
+ 28 //从后缀表达式进行计算
+ 29 var st={
+ 30     data:stexpression,
+ 31     top:-1,
+ 32     result:0,
+ 33     numa:0,
+ 34     numb:0,
+ 35     tempresult:0,
+ 36     intnum:0,//存放整数部分
+ 37     decimals:0,   //存放小数部分
+ 38     point:''//存放小数点
+ 39     }
+ 40 //初始化字符串，将字符串存入到数组中
+ 41 function init(s){
+ 42   
+ 43       for(var i=0;i <s.length;i++)
+ 44       {
+ 45         expression[expression.length]=s.substr(i,1)
+ 46       }
+ 47       expc.totallength=s.length;
+ 48     while(expc.index<expc.totallength)
+ 49     {
+ 50        switch(expc.ex[expc.index])
+ 51        {
+ 52         case '(':
+ 53                 op.top++;
+ 54                 op.ope[op.top]=expc.ex[expc.index];
+ 55                 expc.index++;
+ 56                 break;
+ 57         case ')':
+ 58                 while(op.ope[op.top]!='(')
+ 59                    {
+ 60                     postexp.pe[postexp.index++]    =op.ope[op.top];
+ 61                     op.top--;
+ 62                     }
+ 63                     op.top--;
+ 64                     expc.index++;
+ 65                     break;
+ 66         case '+':
+ 67         case '-':
+ 68                 while(op.top!=-1&&op.ope[op.top]!='(')
+ 69                     {
+ 70                      postexp.pe[postexp.index++]=op.ope[op.top];
+ 71                      op.top--;                                
+ 72                     }
+ 73                     op.top++;
+ 74                     op.ope[op.top]= expc.ex[expc.index];
+ 75                     expc.index++;
+ 76                     break;
+ 77         case '*':
+ 78         case '/':
+ 79               while(op.ope[op.top]=="*"||op.ope[op.top]=="/")
+ 80               {
+ 81                   postexp.pe[postexp.index]=op.ope[op.top];
+ 82                   op.top--;
+ 83               }
+ 84               op.top++;
+ 85               op.ope[op.top]=expc.ex[expc.index];
+ 86               expc.index++;
+ 87               break;
+ 88         case ' ':break;
+ 89         default:
+ 90              while((expc.ex[expc.index]>='0'&&expc.ex[expc.index]<='9')||(expc.ex[expc.index]=='.'))
+ 91              {
+ 92                  postexp.pe[postexp.index++]=expc.ex[expc.index]
+ 93                  expc.index++;
+ 94              }
+ 95              postexp.pe[postexp.index++]='#';
+ 96        }//switch
+ 97     }//while
+ 98     while(op.top!=-1)
+ 99     {
+100         postexp.pe[postexp.index++]=op.ope[op.top];
+101         op.top--;
+102     }
+103     postexp.totallength= postexp.pe.length;
+104     var s="";
+105     
+106      for (var i=0;i<postexp.totallength;i++)
+107         s=s+postexp.pe[i];
+108         expc.ex.length=0;
+109         expc.index=0;
+110         expc.totallength=0;
+111         op.ope.length=0;
+112         op.top=-1;
+113        postexp.index=0;
+114      //计算值。
+115  
+116     
+117     while(postexp.index<postexp.totallength)
+118     {
+119        switch(postexp.pe[postexp.index])
+120        {
+121            case '+':
+122               st.numa=st.data[st.top];
+123               st.top--;
+124               st.numb=st.data[st.top];
+125               st.top--;
+126               st.result=parseFloat(st.numa)+parseFloat(st.numb);
+127               st.top++;
+128               st.data[st.top]=st.result;
+129               break;
+130             case '-':
+131               st.numa=st.data[st.top];
+132               st.top--;
+133               st.numb=st.data[st.top];
+134               st.top--;
+135               st.result=parseFloat(st.numb)-parseFloat(st.numa);
+136               st.top++;
+137               st.data[st.top]=st.result;
+138               break;
+139             case '*':
+140                st.numa=st.data[st.top];
+141               st.top--;
+142               st.numb=st.data[st.top];
+143               st.top--;
+144               st.result=parseFloat(st.numb)*parseFloat(st.numa);
+145               st.top++;
+146               st.data[st.top]=st.result;
+147               break;
+148             case '/':
+149               st.numa=st.data[st.top];
+150               st.top--;
+151               st.numb=st.data[st.top];
+152               st.top--;
+153               if(st.numa!=0)
+154               {
+155               st.result=parseFloat(st.numb)/parseFloat(st.numa);
+156               st.top++;
+157               st.data[st.top]=st.result;
+158               }     
+159               else
+160               {
+161                    alert("你输入的数据有误请重新输入");
+162               }
+163               break;
+164             default:  
+165                 st.tempresult=0;
+166                 while((postexp.pe[postexp.index]>='0'&&postexp.pe[postexp.index]<='9')||(postexp.pe[postexp.index]=='.'))
+167                 {
+168                     if(postexp.pe[postexp.index]=='.')
+169                     { 
+170                        postexp.index++;
+171                        st.point='.';
+172                         while(postexp.pe[postexp.index]>='0'&&postexp.pe[postexp.index]<='9')
+173                         {
+174                           st.decimals=10*st.decimals+parseFloat(postexp.pe[postexp.index]);
+175                           postexp.index++;
+176                         }
+177                     }
+178                     else
+179                     {
+180                       st.intnum = 10*st.intnum+parseFloat(postexp.pe[postexp.index]);
+181                       postexp.index++;
+182                     }
+183                 }
+184                 if(st.point=='.')
+185                 {
+186                     var a=st.intnum+"";
+187                     var b=st.decimals+"";
+188                     var temp=a+st.point+b;
+189                 st.tempresult=  parseFloat(temp);
+190                 }
+191                 else
+192                 {
+193                     st.tempresult = st.intnum;
+194                 }
+195                 st.decimals=0;
+196                 st.intnum=0;
+197                 st.point='';
+198                 st.top++;
+199                 st.data[st.top]=st.tempresult;
+200               break;  
+201                
+202        }    
+203        postexp.index++
+204        }
+205         document.getElementById('result').innerHTML=st.data[st.top] ;
+206       postexp.pe.length=0;
+207       postexp.index=0;
+208       postexp.totallength=0;
+209       st.data.length=0;
+210       st.decimals=0;
+211       st.intnum=0;
+212       st.numa=0;
+213       st.numb=0;
+214       st.point='';
+215       st.result=0;
+216       st.top=-1;
+217 }
+218   
+219 </script>
+220 
+221 </head>
+222 
+223 <body>
+224 <p onclick="init()">fdfd</p>
+225 <input type="text" id="c" />
+226 <input type="button" value="计算" onclick="init(document.getElementById('c').value)"/>
+227 <br />
+228 结果是：<label id="result"></label>
+229 </body>
+230 </html>
+
+ 
+ 编程时 需要注意一点的是：当计算一次结束时，要记得还原对象的初始值。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

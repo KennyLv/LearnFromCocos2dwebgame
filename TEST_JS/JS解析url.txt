@@ -1,0 +1,28 @@
+		function parseUrl(url){
+			var obj;
+			if(url.indexOf('?')!=-1){
+				obj = {};
+				var parameterUrl = url.substring(url.indexOf('?')+1);
+				var arrTmp = parameterUrl.split("&");
+				for (var i = 0; i < arrTmp.length; i++) {
+					var dIntPos = arrTmp[i].indexOf("=");
+					var paraName = arrTmp[i].substr(0, dIntPos);
+					var paraData = decodeURI(arrTmp[i].substr(dIntPos + 1));
+					if(obj[paraName]){
+						if(!(obj.paraName instanceof Array)){
+							var preData = obj.paraName;
+							obj[paraName] = [];
+							obj[paraName].push(preData);
+						}
+						obj[paraName].push(paraData);
+					}
+					else{
+					 obj[paraName] = paraData;
+					}
+				}
+			}
+			return obj;
+		}
+		
+		//var test=parseUrl("http://www.hoperun.com?index=1&te=kj");
+		//alert(test.te);

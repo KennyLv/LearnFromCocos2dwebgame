@@ -1,0 +1,288 @@
+<!-- 
+宝玉 2004-2-26
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> 获取当前系统字体和排版样式 </TITLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function getSystemFonts(){
+    var a=dlgHelper.fonts.count;
+    var fArray = new Array();
+    var oDropDown = document.all.fonts;
+    for (i = 1;i < dlgHelper.fonts.count;i++){ 
+        fArray[i] = dlgHelper.fonts(i);
+        var aOptions = oDropDown.options;    
+        var oOption = document.createElement("OPTION");
+        aOptions.add(oOption);    
+        oOption.text = fArray[i];
+        oOption.Value = i;
+    } 
+}
+
+function getBlockFormats(){
+    var a=dlgHelper.blockFormats.count;
+    var fArray = new Array();
+    var oDropDown = document.all.formats;
+    oDropDown.setAttribute("id","FormatList");
+    for (i = 1;i < dlgHelper.blockFormats.count;i++)
+    { 
+        fArray[i] = dlgHelper.blockFormats(i);
+        var aOptions = oDropDown.options;    
+        var oOption = document.createElement("OPTION");
+        aOptions.add(oOption);    
+        oOption.text = fArray[i];
+        oOption.Value = i;
+    } 
+}
+//-->
+</SCRIPT>
+</HEAD>
+
+<BODY onload="getSystemFonts();getBlockFormats()">
+系统字体和排版样式 SystemFont and BlockFormats<BR>
+<SELECT NAME="fonts" onchange="document.body.style.fontFamily = this.options[this.selectedIndex].text">
+</SELECT>
+ <SELECT NAME="formats" onchange="document.body.style.fontFamily = this.options[this.selectedIndex].text">
+</SELECT>
+<OBJECT ID=dlgHelper CLASSID="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" WIDTH="0px" HEIGHT="0px"></OBJECT>
+</BODY>
+</HTML>
+
+
+<HTML>
+<HEAD>
+<TITLE>JavaScript获取系统字体</TITLE>
+</HEAD>
+<BODY>
+<OBJECT id="dlgHelper" CLASSID="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" width="0px" height="0px"></OBJECT>
+<select id="the_font"></select>
+<script>  
+function setFont()
+{
+var cnt = dlgHelper.fonts.count
+
+for (var i = 1; i < cnt; i++)
+{
+      the_font.options[the_font.options.length] = new Option(dlgHelper.fonts(i),dlgHelper.fonts(i));
+}	
+}
+window.onload = setFont;
+</script>
+</BODY>
+</HTML>
+
+
+
+<html>
+<head>
+</head>
+<body>
+<DIV style="LEFT: 0px; POSITION: absolute; TOP: 0px">
+<OBJECT ID="dlgHelper" CLASSID="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" WIDTH="0px" HEIGHT="0px"></OBJECT>
+<script language="javascript" type="text/javascript">
+// FontFacesMenu.js
+var fontsArray = new Array();
+var fontsIsAdded = false;
+function fontFacesMenuEnter(fontFacesDropdownList, dlgHelperId)
+{
+if((fontsIsAdded == false )||(fontsArray==''))
+{
+fontsArray = getSystemFonts(dlgHelperId);
+
+fontsIsAdded = true;
+for (var s=1; s < fontsArray.length; s++)
+{
+   newOption = document.createElement("option");
+   newOption.value = fontsArray[s];
+   newOption.text = fontsArray[s];
+   fontFacesDropdownList.add(newOption);
+}
+}
+}
+function getSystemFonts(dlgHelperId)
+{
+var a = document.all(dlgHelperId).fonts.count;
+var fArray = new Array();
+for (i = 1;i <= parent.document.all(dlgHelperId).fonts.count;i++){
+fArray[i] = parent.document.all(dlgHelperId).fonts(i);
+}
+return fArray;
+}
+</script>
+</DIV>
+<a href="http://longstep.cn" target="_blank">获取系统字体列表</a>
+<p><select id="blessingWords_FontFamily_DL" name="blessingWords_FontFamily_DL" style="width:140px;" onmouseenter="fontFacesMenuEnter(this, 'dlgHelper');//updateFontList();">
+<option value=""><- 设置字体 -></option>
+</select></p>
+<p><a href="http://longstep.cn" target="_blank">当空接龙整理</a></p>
+</body>
+
+
+
+
+把下面的js保存为font.js
+
+
+//获取系统字体
+document.write("<OBJECT id=\"dlgHelper\" CLASSID=\"clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b\" width=\"0px\" height=\"0px\" VIEWASTEXT></OBJECT>");
+function SelectFont(obj)
+{
+    var dFont="宋体";//默认字体
+    var selectFont=" 字体: <select onChange=\"document.getElementById('"+obj+"').style.fontFamily=this.value;\">";
+    var cnt=dlgHelper.fonts.count;
+    for(var i=1;i<cnt;i++)
+    {
+        if(dFont==dlgHelper.fonts(i))
+        {
+            selectFont+="<option value=\""+dlgHelper.fonts(i)+"\" selected>"+dlgHelper.fonts(i)+"</option>";
+        }
+        else
+        {
+            selectFont+="<option value=\""+dlgHelper.fonts(i)+"\">"+dlgHelper.fonts(i)+"</option>";
+        }
+    }
+    selectFont+="</select>";
+    document.write(selectFont);
+}
+
+测试文档:
+
+<html>
+<head>
+
+<title>获取系统字体</title>
+</head>
+
+<body>
+<script src="font.js" type="text/javascript"></script>
+<div>
+<script>SelectFont("test");</script>
+</div>
+<div id="test">
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890    </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890</p>
+<p> <a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890</p>
+<p> <a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890 </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890 </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890 </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890 </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890 </p>
+<p><a href="http://www.whstudio.com">问号工作室</a> <a href="http://www.whstudio.com">http://www.whstudio.com</a> 1234567890</p>
+</div>
+</body>
+</html>
+
+
+改变字体大小 选择视力保护色
+
+/字体大小
+function font(obj)
+{
+    var font=new Array(6);
+    var dSize=12;//默认大小
+    for(var i=5;i<11;i++)
+    {
+     font[i-5]=new Array(2*i+'px',2*i);
+    }
+    var selectFont=" 字体: <select onChange=\"document.getElementById('"+obj+"').style.fontSize=this.value+'px';\">";
+    for(var a=0;a<font.length;a++)
+    {
+      if(font[a][1]==dSize)
+     {
+       selectFont+="<option value=\""+font[a][1]+"\" selected>"+font[a][0]+"</option>";
+     }
+     else
+     {
+      selectFont+="<option value=\""+font[a][1]+"\">"+font[a][0]+"</option>";
+     }
+    }
+    selectFont+="</select>";
+    document.write(selectFont);
+}
+//视力保护色
+function showColor(obj)
+{
+          var color = new Array(8);
+    color[0] = new Array('银河白','#FFFFFF');
+          color[1] = new Array('杏仁黄','#FAF9DE');
+          color[2] = new Array('秋叶褐','#FFF2E2');
+          color[3] = new Array('胭脂红','#FDE6E0');
+          color[4] = new Array('青草绿','#E3EDCD');
+          color[5] = new Array('海天蓝','#DCE2F1');
+          color[6] = new Array('葛巾紫','#E9EBFE');
+          color[7] = new Array('极光灰','#EAEAEF');
+    var selectColor=" 选择视力保护色: <select onChange=\"document.getElementById('"+obj+"').style.background=this.value;\">";
+    for(var a=0;a<color.length;a++)
+    {
+      selectColor+="<option value=\""+color[a][1]+"\" style=\"background-color:"+color[a][1]+"\">"+color[a][0]+"</option>";
+    }
+    selectColor+="</select>";
+    document.write(selectColor);
+}
+
+视力保护色也可以多写几句代码,加上一个默认的,
+
+用法:
+
+1.把上面的保存为fc.js
+
+2.在使用处添加
+<script type=text/javascript>
+      font('test');
+                  showColor('test');
+</script>
+
+3.在2的位置之前添加
+<script language="javascript" src="fc.js"></script>
+
+4.示例:
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<title>选择视力保护色,改变字体大小</title>
+</head>
+<body>
+<script src="fc.js"></script>
+<script type=text/javascript>
+      font('test');
+      showColor('test');
+</script>
+<div id="test">
+    <p>test color</p>
+    <p>sdf</p>
+    <p>sdf</p>
+    <p>asdf</p>
+    <p>as</p>
+    <p>df</p>
+    <p>as</p>
+    <p>df</p>
+    <p>sa</p>
+    <p>f</p>
+    <p>s</p>
+    <p>df</p>
+    <p>s</p>
+    <p>df</p>
+</div>
+</body>
+</html>
+
+
+网上找的JS获取客户端字体好多都是通过组件实现的！
+
+其实可以通过Flash获取客户端所有系统字体！
+
+在网上找到了一个老外写的！原文：http://rel.me/2008/06/26/font-detection-with-javascript-and-flash/
+
+实例下载：http://files.cnblogs.com/zjfree/getAllFont.rar
+
+ 
+
+ps:还是由于flash因为域名不同所以flash又不工作了！
+
+
+
+

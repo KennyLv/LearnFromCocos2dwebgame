@@ -1,0 +1,1832 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用js实现输入提示（自动完成） - JaiHo - 博客园</title>
+<meta name="keywords" content="用js实现输入提示,自动完成">
+<link type="text/css" rel="stylesheet" href="js_autoComplete_files/common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="js_autoComplete_files/style.css">
+<link type="text/css" rel="stylesheet" href="js_autoComplete_files/common2.css">
+<link type="text/css" rel="stylesheet" href="js_autoComplete_files/shCore.css">
+<link type="text/css" rel="stylesheet" href="js_autoComplete_files/shThemeDefault.css">
+<link type="text/css" rel="stylesheet" href="js_autoComplete_files/customcss.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/jaiho/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/jaiho/rsd.xml"> 
+<script src="js_autoComplete_files/jquery_002.js" type="text/javascript"></script>  
+<script src="js_autoComplete_files/common.js" type="text/javascript"></script>
+<script src="js_autoComplete_files/jquery.js" type="text/javascript"></script>
+<script type="text/javascript" src="js_autoComplete_files/shCore.js"></script>
+<script type="text/javascript" src="js_autoComplete_files/shLanguage.js"></script>
+</head><body>
+    <a name="top"></a>
+    <form method="post" action="js_autoComplete.html" id="Form1">
+<div class="aspNetHidden">
+<input name="__EVENTTARGET" id="__EVENTTARGET" value="" type="hidden">
+<input name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" type="hidden">
+<input name="__VIEWSTATE" id="__VIEWSTATE" value="" type="hidden">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['Form1'];
+if (!theForm) {
+    theForm = document.Form1;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+        
+<div id="top">
+	
+<div>
+	<table>
+		<tbody><tr>
+			<td class="HeaderTitles">
+				<h1 class="HeaderTitle"><a id="Header1_HeaderTitle" class="HeaderMainTitle" href="http://www.cnblogs.com/jaiho/">学无止境</a></h1>
+				<p id="tagline">——把简单的知识用好，也把东西做的简单</p>
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+<div class="HeaderBar">
+	<table id="HeaderBar" class="HeaderBar" cellpadding="0" cellspacing="0">
+		<tbody><tr>
+			<td class="HeaderBarTab" nowrap="nowrap">
+&nbsp;
+<a id="Header1_MyLinks1_HomeLink" href="http://www.cnblogs.com/">博客园</a>&nbsp;::
+<a id="Header1_MyLinks1_MyHomeLink" href="http://www.cnblogs.com/jaiho/">首页</a>&nbsp;::
+<a id="Header1_MyLinks1_NewPostLink" rel="nofollow" href="http://www.cnblogs.com/jaiho/admin/EditPosts.aspx?opt=1">新随笔</a>&nbsp;::
+<a id="Header1_MyLinks1_ContactLink" accesskey="9" rel="nofollow" href="http://space.cnblogs.com/msg/send/JaiHo">联系</a>&nbsp;::
+<a id="Header1_MyLinks1_Syndication" href="http://www.cnblogs.com/jaiho/rss">订阅</a>
+<a id="Header1_MyLinks1_XMLLink" class="XMLLink" href="http://www.cnblogs.com/jaiho/rss"><img src="js_autoComplete_files/xml.gif" alt="订阅"></a>&nbsp;::
+<a id="Header1_MyLinks1_Admin" rel="nofollow" href="http://www.cnblogs.com/jaiho/admin/EditPosts.aspx">管理</a>&nbsp;::
+
+</td>
+			<td><img id="Header1_BlueTab" src="js_autoComplete_files/BlueTabRight.gif" align="absmiddle"></td>
+			<td class="HeaderBarTabBack" nowrap="nowrap" width="100%">
+				
+<div class="BlogStatsBar">
+	<table class="BlogStatsBar">
+		<tbody><tr>
+			<td width="100%">
+			</td>
+			<td class="BlogStatsBar" nowrap="nowrap">
+				&nbsp;
+				29 
+				随笔&nbsp;::
+				0 文章
+				::
+				56 评论
+				::
+				0 引用
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+			</td>
+		</tr>
+	</tbody></table>
+</div>
+
+</div>
+<div id="leftmenu">
+
+	    <table id="Calendar1_entryCal" class="Cal" title="Calendar" style="border-style: solid; border-width: 1px; border-collapse: collapse;" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7" style="background-color: Silver;"><table class="CalTitle" style="width: 100%; border-collapse: collapse;" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev" style="width: 15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V4169')" style="color: Black;" title="Go to the previous month">&lt;</a></td><td style="width: 70%;" align="center">2011年7月</td><td class="CalNextPrev" style="width: 15%;" align="right"><a href="javascript:__doPostBack('Calendar1$entryCal','V4230')" style="color: Black;" title="Go to the next month">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" style="width: 14%;" align="center">26</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">27</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">28</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">29</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">30</td><td style="width: 14%;" align="center">1</td><td class="CalWeekendDay" style="width: 14%;" align="center">2</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">3</td><td style="width: 14%;" align="center">4</td><td style="width: 14%;" align="center">5</td><td style="width: 14%;" align="center">6</td><td style="width: 14%;" align="center">7</td><td style="width: 14%;" align="center">8</td><td class="CalWeekendDay" style="width: 14%;" align="center">9</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">10</td><td style="width: 14%;" align="center">11</td><td style="width: 14%;" align="center">12</td><td style="width: 14%;" align="center">13</td><td style="width: 14%;" align="center">14</td><td class="CalTodayDay" style="width: 14%;" align="center">15</td><td class="CalWeekendDay" style="width: 14%;" align="center">16</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">17</td><td style="width: 14%;" align="center">18</td><td style="width: 14%;" align="center">19</td><td style="width: 14%;" align="center">20</td><td style="width: 14%;" align="center">21</td><td style="width: 14%;" align="center">22</td><td class="CalWeekendDay" style="width: 14%;" align="center">23</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">24</td><td style="width: 14%;" align="center">25</td><td style="width: 14%;" align="center">26</td><td style="width: 14%;" align="center">27</td><td style="width: 14%;" align="center">28</td><td style="width: 14%;" align="center">29</td><td class="CalWeekendDay" style="width: 14%;" align="center">30</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">31</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">1</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">2</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">3</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">4</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">5</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">6</td></tr>
+</tbody></table>
+
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="profile_block">昵称：<a href="http://www.cnblogs.com/jaiho/">JaiHo</a><br>园龄：<a href="http://home.cnblogs.com/u/jaiho/">1年内</a><br>粉丝：<a href="http://home.cnblogs.com/u/jaiho/followers/">13</a><br>关注：<a href="http://home.cnblogs.com/u/jaiho/followees/">0</a><br><span id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('b359a04c-1d25-e011-ac81-842b2b196315')">+加关注</a></span><script type="text/javascript">cnblogs.UserManager.GetFollowStatus('b359a04c-1d25-e011-ac81-842b2b196315')</script></div>
+</div>
+
+		
+<script type="text/javascript">
+var blogapp = 'jaiho';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+
+<div class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+
+</div>
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/jaiho/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/jaiho/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/jaiho/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display: none;">
+<ul>
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_0" title="我发表过评论的随笔" href="http://www.cnblogs.com/jaiho/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/jaiho/MyNews.html">我的新闻</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/jaiho/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_3" href="http://www.cnblogs.com/jaiho/tag/">我的标签</a></li>
+	</ul>
+</div>
+
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/jaiho/tag/php/">php</a>(4)</li><li><a href="http://www.cnblogs.com/jaiho/tag/javascript/">javascript</a>(4)</li><li><a href="http://www.cnblogs.com/jaiho/tag/html/">html</a>(3)</li><li><a href="http://www.cnblogs.com/jaiho/tag/vim/">vim</a>(2)</li><li><a href="http://www.cnblogs.com/jaiho/tag/%E7%AE%97%E6%B3%95/">算法</a>(1)</li><li><a href="http://www.cnblogs.com/jaiho/tag/jQuery/">jQuery</a>(1)</li>
+</ul>
+</div>
+		<h3>随笔档案<span style="font-size: 11px; font-weight: normal;">(13)</span></h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/jaiho/archive/2011/06.html">2011年6月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/jaiho/archive/2011/05.html">2011年5月 (4)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/jaiho/archive/2011/02.html">2011年2月 (6)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/jaiho/archive/2011/01.html">2011年1月 (2)</a> </li>
+			
+				</ul>
+			
+	
+
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		11049
+	</li><li>
+		排名 -
+		7689
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2077314">1.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				@sunsdwajax直接把注释去了就行了，只要有fetch.php提供数据就可以了，数据的格式注释已经说的很清楚了，参数里的值插件会处理自己加上去了，最后加的值就是输入框里输入的值。...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--JaiHo</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2077023">2.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				JS功力比较悲剧能把你Ajax传值部分详细写一下吗？如：我改为ajax:{ type:'post',url:'./php/fetch.php?search=[123,456]&amp;...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--sunsdw</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2039660">3.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				@肥燕子多谢提出的问题，这个地方ie的确有问题，可以把这个地方改了：            fetch:function(ajax,search,quickExpr){                ...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--JaiHo</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2039444">4.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				   楼主，写的不错，赞一个！ 但是我在试验你代码的AJAX时候，发现一个问题，就是你没有对传送的值进行escape()，造成了IE下，输入中文，总是提示错误。但JS我又看不懂，所以不知道给那个sea...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--肥燕子</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2037679">5.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				貌似jqueryui里面有~<br>谢谢lz分享<br>
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--PPBoy</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="">
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html">1.&nbsp;用js实现输入提示（自动完成）(4146)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html">2.&nbsp;用js实现表格数据管理(2544)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/01/autocomplete.html">3.&nbsp;jQuery自动完成插件(506)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/02/16/input_name.html">4.&nbsp;HTML中如何一次传多个相同有name的input值(313)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/01/26/vim_base.html">5.&nbsp;vim使用基础(216)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	
+			<ul style="">
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html">1.&nbsp;用js实现输入提示（自动完成）(32)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html">2.&nbsp;用js实现表格数据管理(18)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/16/input_name.html">3.&nbsp;HTML中如何一次传多个相同有name的input值(4)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/01/31/php_download.html">4.&nbsp;php做下载文件方法(2)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049403.html">5.&nbsp;windows下的_vimrc设置(0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+<h3 class="catListTitle">60天内阅读排行</h3>
+<div class="RecentComment">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049403.html">1.&nbsp;windows下的_vimrc设置(172)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049369.html">2.&nbsp;php简单对象与数组的转换(136)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049321.html">3.&nbsp;php获取访问的ip(123)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049361.html">4.&nbsp;Ubuntu11.04添加笔记本的触摸板的管理工具(81)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/06/21/2044146.html">5.&nbsp;[转]Eclipse快捷键大全(18)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+		
+</div>
+<div id="main">
+	
+					
+<div class="post">
+	<div class="postTitle">
+		<a id="ctl01_TitleUrl" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html">用js实现输入提示（自动完成）</a>
+	</div>
+	
+	<div class="postText">
+		<div id="cnblogs_post_body"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+以前也写过一个<a href="http://www.cnblogs.com/jaiho/archive/2011/02/01/autocomplete.html">jQuery的这种插件</a>，但是很多地方根本不用jQuery，这个功能也有很多其它库支持，但是为了用这个功能而加载很多js插件，这样效率明显下降了很多，而且这个东西平时也很常用，所以一决心自己写了个相对比较独立的。
+</p>
+<br>
+<p><strong>完成有以下功能：</strong></p>
+<ul>
+<li>输入字符会把以输入字符开头的提示出来。</li>
+<li>支持上下方向键选择提示选项，支持循环</li>
+<li>支持绑定一个数组提示，支持ajax传递输入框值请求数据。</li>
+<li>支持多个选择的dom元素一块绑定数据实现输入提示。各dom元素也可以单独绑定自己的数据实现输入提示，互不影响。</li>
+<li>支持中文。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 首先是js的核心部分，其各部分都有较详细的说明，代码如下： </p>
+<div class="cnblogs_Highlighter">
+<div class="syntaxhighlighter  jscript" id="highlighter_816931"><div class="bar                                                                                      show"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>001</code></td><td class="content"><code class="jscript plain">;(</code><code class="jscript keyword">function</code><code class="jscript plain">(window){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>002</code></td><td class="content"><code class="jscript comments">/* 插件开始 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>003</code></td><td class="content"><code class="jscript keyword">var</code> <code class="jscript plain">autoComplete=</code><code class="jscript keyword">function</code><code class="jscript plain">(o){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>004</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">handler=(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>005</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">handler=</code><code class="jscript keyword">function</code><code class="jscript plain">(e,o){ </code><code class="jscript keyword">return</code> <code class="jscript keyword">new</code> <code class="jscript plain">handler.prototype.init(e,o); };</code><code class="jscript comments">/* 为每个选择的dom都创建一个相对应的对象，这样选择多个dom时可以很方便地使用 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>006</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">handler.prototype={</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>007</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">e:</code><code class="jscript keyword">null</code><code class="jscript plain">, o:</code><code class="jscript keyword">null</code><code class="jscript plain">, timer:</code><code class="jscript keyword">null</code><code class="jscript plain">, show:0, input:</code><code class="jscript keyword">null</code><code class="jscript plain">, popup:</code><code class="jscript keyword">null</code><code class="jscript plain">,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>008</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">init:</code><code class="jscript keyword">function</code><code class="jscript plain">(e,o){</code><code class="jscript comments">/* 设置初始对象 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>009</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.e=e, </code><code class="jscript keyword">this</code><code class="jscript plain">.o=o,</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>010</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.input=</code><code class="jscript keyword">this</code><code class="jscript plain">.e.getElementsByTagName(</code><code class="jscript keyword">this</code><code class="jscript plain">.o.input)[0],</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>011</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.popup=</code><code class="jscript keyword">this</code><code class="jscript plain">.e.getElementsByTagName(</code><code class="jscript keyword">this</code><code class="jscript plain">.o.popup)[0],</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>012</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.initEvent();</code><code class="jscript comments">/* 初始化各种事件 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>013</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">},</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>014</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">match:</code><code class="jscript keyword">function</code><code class="jscript plain">(quickExpr,value,source){</code><code class="jscript comments">/* 生成提示 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>015</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">li = </code><code class="jscript keyword">null</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>016</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i </code><code class="jscript keyword">in</code> <code class="jscript plain">source){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>017</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">( value.length&gt;0 &amp;&amp; quickExpr.exec(source[i])!=</code><code class="jscript keyword">null</code> <code class="jscript plain">){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>018</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">li = document.createElement(</code><code class="jscript string">'li'</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>019</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">li.innerHTML = </code><code class="jscript string">'&lt;a href="javascript:;"&gt;'</code><code class="jscript plain">+source[i]+</code><code class="jscript string">'&lt;/a&gt;'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>020</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.popup.appendChild(li);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>021</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>022</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>023</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">).length)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>024</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.popup.style.display=</code><code class="jscript string">'block'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>025</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">else</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>026</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.popup.style.display=</code><code class="jscript string">'none'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>027</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">},</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>028</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ajax:</code><code class="jscript keyword">function</code><code class="jscript plain">(type,url,quickExpr,search){</code><code class="jscript comments">/* ajax请求远程数据 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>029</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">xhr = window.ActiveXObject ? </code><code class="jscript keyword">new</code> <code class="jscript plain">ActiveXObject(</code><code class="jscript string">"Microsoft.XMLHTTP"</code><code class="jscript plain">) : </code><code class="jscript keyword">new</code> <code class="jscript plain">XMLHttpRequest();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>030</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">xhr.open(type,url,</code><code class="jscript keyword">true</code><code class="jscript plain">);</code><code class="jscript comments">/* 同异步在此修改 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>031</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">xhr.setRequestHeader(</code><code class="jscript string">"Content-Type"</code><code class="jscript plain">,</code><code class="jscript string">"application/x-www-form-urlencoded"</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>032</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">that=</code><code class="jscript keyword">this</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>033</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">xhr.onreadystatechange = </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>034</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(xhr.readyState==4) {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>035</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(xhr.status==200) {</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>036</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">data = eval(xhr.responseText);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>037</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.match(quickExpr,search,data);</code><code class="jscript comments">/* 相同于成功的回调函数 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>038</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code><code class="jscript plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>039</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">alert(</code><code class="jscript string">"请求页面异常!"</code><code class="jscript plain">);</code><code class="jscript comments">/* 请求失败 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>040</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>041</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>042</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>043</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">xhr.send(</code><code class="jscript keyword">null</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>044</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">},</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>045</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">fetch:</code><code class="jscript keyword">function</code><code class="jscript plain">(ajax,search,quickExpr){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>046</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">that=</code><code class="jscript keyword">this</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>047</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.ajax(ajax.type,ajax.url+search,quickExpr,search);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>048</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">},</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>049</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">initEvent:</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code><code class="jscript comments">/* 各事件的集合 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>050</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">that=</code><code class="jscript keyword">this</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>051</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.input.onfocus = </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>052</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.inputValue) </code><code class="jscript keyword">this</code><code class="jscript plain">.value = </code><code class="jscript keyword">this</code><code class="jscript plain">.inputValue;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>053</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">value=</code><code class="jscript keyword">this</code><code class="jscript plain">.value, quickExpr=RegExp(</code><code class="jscript string">'^'</code><code class="jscript plain">+value,</code><code class="jscript string">'i'</code><code class="jscript plain">), self=</code><code class="jscript keyword">this</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>054</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">els = that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>055</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(els.length&gt;0) that.popup.style.display = </code><code class="jscript string">'block'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>056</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.timer=setInterval(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>057</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(value!=self.value){</code><code class="jscript comments">/* 判断输入内容是否改变，兼容中文 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>058</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">value=self.value;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>059</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.innerHTML=</code><code class="jscript string">''</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>060</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(value!=</code><code class="jscript string">''</code><code class="jscript plain">){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>061</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">quickExpr=RegExp(</code><code class="jscript string">'^'</code><code class="jscript plain">+value);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>062</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(that.o.source) that.match(quickExpr,value,that.o.source);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>063</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(that.o.ajax) that.fetch(that.o.ajax,value,quickExpr);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>064</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>065</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>066</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">},200);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>067</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>068</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.input.onblur = </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code><code class="jscript comments">/*&nbsp; 输入框添加事件 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>069</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.value!=</code><code class="jscript keyword">this</code><code class="jscript plain">.defaultValue) </code><code class="jscript keyword">this</code><code class="jscript plain">.inputValue = </code><code class="jscript keyword">this</code><code class="jscript plain">.value;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>070</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">clearInterval(that.timer);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>071</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">current=-1;</code><code class="jscript comments">/* 记住当前有焦点的选项 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>072</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">els = that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>073</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">len = els.length-1;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>074</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">aClick = </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>075</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.input.inputValue = </code><code class="jscript keyword">this</code><code class="jscript plain">.firstChild.nodeValue;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>076</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.innerHTML=</code><code class="jscript string">''</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>077</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.style.display=</code><code class="jscript string">'none'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>078</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.input.focus();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>079</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>080</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">aFocus = </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>081</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=len; i&gt;=0; i--){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>082</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.parentNode===that.popup.children[i]){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>083</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current = i;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>084</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">break</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>085</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>086</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>087</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//that.input.value = this.firstChild.nodeValue;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>088</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">k </code><code class="jscript keyword">in</code> <code class="jscript plain">that.o.elemCSS.focus){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>089</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.style[k] = that.o.elemCSS.focus[k];</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>090</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>091</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>092</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">aBlur= </code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>093</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">k </code><code class="jscript keyword">in</code> <code class="jscript plain">that.o.elemCSS.blur)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>094</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.style[k] = that.o.elemCSS.blur[k];</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>095</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>096</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">aKeydown = </code><code class="jscript keyword">function</code><code class="jscript plain">(event){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>097</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">event = event || window.event;</code><code class="jscript comments">/* 兼容IE */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>098</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(current === len &amp;&amp; event.keyCode===9){</code><code class="jscript comments">/* tab键时popup隐藏 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>099</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.style.display = </code><code class="jscript string">'none'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>100</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(event.keyCode==40){</code><code class="jscript comments">/* 处理上下方向键事件方便选择提示的选项 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>101</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current++;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>102</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(current&lt;-1) current=len;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>103</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(current&gt;len){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>104</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current=-1;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>105</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.input.focus();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>106</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code><code class="jscript plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>107</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">)[current].focus();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>108</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>109</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(event.keyCode==38){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>110</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current--;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>111</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(current==-1){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>112</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.input.focus();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>113</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(current&lt;-1){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>114</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current = len;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>115</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">)[current].focus();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>116</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code><code class="jscript plain">{</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>117</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">)[current].focus();</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>118</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>119</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>120</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>121</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0; i&lt;els.length; i++){</code><code class="jscript comments">/* 为每个选项添加事件 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>122</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">els[i].onclick = aClick;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>123</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">els[i].onfocus = aFocus;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>124</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">els[i].onblur = aBlur;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>125</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">els[i].onkeydown = aKeydown;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>126</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>127</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>128</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.input.onkeydown = </code><code class="jscript keyword">function</code><code class="jscript plain">(event){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>129</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">event = event || window.event;</code><code class="jscript comments">/* 兼容IE */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>130</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">els = that.popup.getElementsByTagName(</code><code class="jscript string">'a'</code><code class="jscript plain">);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>131</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(event.keyCode==40){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>132</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(els[0]) els[0].focus();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>133</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(event.keyCode==38){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>134</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(els[els.length-1]) els[els.length-1].focus();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>135</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(event.keyCode==9){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>136</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(event.shiftKey==</code><code class="jscript keyword">true</code><code class="jscript plain">) that.popup.style.display = </code><code class="jscript string">'none'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>137</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>138</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>139</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.e.onmouseover = </code><code class="jscript keyword">function</code><code class="jscript plain">(){ that.show=1; };</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>140</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.e.onmouseout = </code><code class="jscript keyword">function</code><code class="jscript plain">(){ that.show=0; };</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>141</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">addEvent.call(document,</code><code class="jscript string">'click'</code><code class="jscript plain">,</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>142</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(that.show==0){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>143</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">that.popup.style.display=</code><code class="jscript string">'none'</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>144</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>145</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">});</code><code class="jscript comments">/* 处理提示框dom元素不支持onblur的情况 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>146</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>147</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>148</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">handler.prototype.init.prototype=handler.prototype;</code><code class="jscript comments">/* JQuery style，这样我们在处的时候就不用每个dom元素都用new来创建对象了 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>149</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">handler;</code><code class="jscript comments">/* 把内部的处理函数传到外部 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>150</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">})();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>151</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(</code><code class="jscript keyword">this</code><code class="jscript plain">.length){</code><code class="jscript comments">/* 处理选择多个dom元素 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>152</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">a=</code><code class="jscript keyword">this</code><code class="jscript plain">.length-1; a&gt;=0; a--){</code><code class="jscript comments">/* 调用方法为每个选择的dom生成一个处理对象，使它们不互相影响 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>153</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">handler(</code><code class="jscript keyword">this</code><code class="jscript plain">[a],o);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>154</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>155</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code><code class="jscript plain">{</code><code class="jscript comments">/* 处理选择一个dom元素 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>156</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">handler(</code><code class="jscript keyword">this</code><code class="jscript plain">,o);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>157</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>158</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript keyword">this</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>159</code></td><td class="content"><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>160</code></td><td class="content"><code class="jscript keyword">return</code> <code class="jscript plain">window.autoComplete = autoComplete;</code><code class="jscript comments">/* 暴露方法给全局对象 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>161</code></td><td class="content"><code class="jscript comments">/* 插件结束 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>162</code></td><td class="content"><code class="jscript plain">})(window);</code></td></tr></tbody></table></div></div></div>
+</div>
+<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 其中了一些全局的自定义函数，如addEvent和在例子中将要用到的getElementsByClassName函数如下：</p>
+<div class="cnblogs_Highlighter">
+<div class="syntaxhighlighter  jscript" id="highlighter_8008"><div class="bar                                     "><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>01</code></td><td class="content"><code class="jscript keyword">var</code> <code class="jscript plain">getElementsByClassName = </code><code class="jscript keyword">function</code> <code class="jscript plain">(searchClass, node, tag) {</code><code class="jscript comments">/* 兼容各浏览器的选择class的方法；(写法参考了博客园：<a href="http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html">http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1529640.html</a>，想了解更多请看这个地址) */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>02</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">node = node || document, tag = tag ? tag.toUpperCase() : </code><code class="jscript string">"*"</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>03</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(document.getElementsByClassName){</code><code class="jscript comments">/* 支持getElementsByClassName的浏览器 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>04</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">temp = node.getElementsByClassName(searchClass);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>05</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(tag==</code><code class="jscript string">"*"</code><code class="jscript plain">){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>06</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">temp;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>07</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">} </code><code class="jscript keyword">else</code> <code class="jscript plain">{</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>08</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">ret = </code><code class="jscript keyword">new</code> <code class="jscript plain">Array();</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>09</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">i=0; i&lt;temp.length; i++)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>10</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(temp[i].nodeName==tag)</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>11</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">ret.push(temp[i]);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>12</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">ret;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>13</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>14</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code><code class="jscript plain">{</code><code class="jscript comments">/* 不支持getElementsByClassName的浏览器 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>15</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">classes = searchClass.split(</code><code class="jscript string">" "</code><code class="jscript plain">),</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>16</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">elements = (tag === </code><code class="jscript string">"*"</code> <code class="jscript plain">&amp;&amp; node.all)? node.all : node.getElementsByTagName(tag),</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>17</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">patterns = [], returnElements = [], current, match;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>18</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">i = classes.length;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>19</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">while</code><code class="jscript plain">(--i &gt;= 0)</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>20</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">patterns.push(</code><code class="jscript keyword">new</code> <code class="jscript plain">RegExp(</code><code class="jscript string">"(^|\\s)"</code> <code class="jscript plain">+ classes[i] + </code><code class="jscript string">"(\\s|$)"</code><code class="jscript plain">));</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>21</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">var</code> <code class="jscript plain">j = elements.length;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>22</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">while</code><code class="jscript plain">(--j &gt;= 0){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>23</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">current = elements[j], match = </code><code class="jscript keyword">false</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>24</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">for</code><code class="jscript plain">(</code><code class="jscript keyword">var</code> <code class="jscript plain">k=0, kl=patterns.length; k&lt;kl; k++){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>25</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">match = patterns[k].test(current.className);</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>26</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(!match) </code><code class="jscript keyword">break</code><code class="jscript plain">;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>27</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>28</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(match) returnElements.push(current);</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>29</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>30</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">returnElements;</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>31</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>32</code></td><td class="content"><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>33</code></td><td class="content"><code class="jscript keyword">var</code> <code class="jscript plain">addEvent=(</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code><code class="jscript comments">/* 用此函数添加事件防止事件覆盖 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>34</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">if</code><code class="jscript plain">(document.addEventListener){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>35</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript keyword">function</code><code class="jscript plain">(type, fn){ </code><code class="jscript keyword">this</code><code class="jscript plain">.addEventListener(type, fn, </code><code class="jscript keyword">false</code><code class="jscript plain">); };</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>36</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code><code class="jscript keyword">else</code> <code class="jscript keyword">if</code><code class="jscript plain">(document.attachEvent){</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>37</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript keyword">function</code><code class="jscript plain">(type,fn){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>38</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">this</code><code class="jscript plain">.attachEvent(</code><code class="jscript string">'on'</code><code class="jscript plain">+type, </code><code class="jscript keyword">function</code> <code class="jscript plain">() {</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>39</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript keyword">return</code> <code class="jscript plain">fn.call(</code><code class="jscript keyword">this</code><code class="jscript plain">, window.event);</code><code class="jscript comments">/* 兼容IE */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>40</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">});</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>41</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">};</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>42</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">}</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>43</code></td><td class="content"><code class="jscript plain">})();</code></td></tr></tbody></table></div></div></div>
+</div>
+<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 最后是调用的部分，调用和每个参数的部分都有说明和注意事项，再说一个其中source和ajax参数是二选一，如果二者都写只有source是有用的，调用代码如下：</p>
+<div class="cnblogs_Highlighter">
+<div class="syntaxhighlighter  jscript" id="highlighter_86344"><div class="bar"><div class="toolbar"><a class="item viewSource" style="width: 16px; height: 16px;" title="view source" href="#viewSource">view source</a><a class="item printSource" style="width: 16px; height: 16px;" title="print" href="#printSource">print</a><a class="item about" style="width: 16px; height: 16px;" title="?" href="#about">?</a></div></div><div class="lines"><div class="line alt1"><table><tbody><tr><td class="number"><code>1</code></td><td class="content"><code class="jscript plain">addEvent.call(</code><code class="jscript keyword">null</code><code class="jscript plain">,</code><code class="jscript string">'load'</code><code class="jscript plain">,</code><code class="jscript keyword">function</code><code class="jscript plain">(){</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>2</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">autoComplete.call( getElementsByClassName(</code><code class="jscript string">'autoComplete'</code><code class="jscript plain">), {</code><code class="jscript comments">/* 使用call或apply调用此方法 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>3</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">source:[</code><code class="jscript string">'0123'</code><code class="jscript plain">,</code><code class="jscript string">'023'</code><code class="jscript plain">,123,1234,212,214,</code><code class="jscript string">'033333'</code><code class="jscript plain">,</code><code class="jscript string">'0352342'</code><code class="jscript plain">,1987,17563,20932],</code><code class="jscript comments">/* 提示时在此数组中搜索 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>4</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript comments">//ajax:{ type:'post',url:'./php/fetch.php?search=' },/* 如果使用ajax则返回的数据格式要与source相同，如为字符串"[111,222,333,444]"等形式。*/</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>5</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">elemCSS:{ focus:{</code><code class="jscript string">'color'</code><code class="jscript plain">:</code><code class="jscript string">'#00ff00'</code><code class="jscript plain">,</code><code class="jscript string">'background'</code><code class="jscript plain">:</code><code class="jscript string">'red'</code><code class="jscript plain">}, blur:{</code><code class="jscript string">'color'</code><code class="jscript plain">:</code><code class="jscript string">'#ff0000'</code><code class="jscript plain">,</code><code class="jscript string">'background'</code><code class="jscript plain">:</code><code class="jscript string">'transparent'</code><code class="jscript plain">} },</code><code class="jscript comments">/* 些对象中的key要js对象中的style属性支持 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>6</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">input:</code><code class="jscript string">'input'</code><code class="jscript plain">,</code><code class="jscript comments">/* 输入框使用input元素 */</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>7</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">popup:</code><code class="jscript string">'ul'</code><code class="jscript comments">/* 提示框使用ul元素 */</code></td></tr></tbody></table></div><div class="line alt2"><table><tbody><tr><td class="number"><code>8</code></td><td class="content"><code class="spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="jscript plain">});</code></td></tr></tbody></table></div><div class="line alt1"><table><tbody><tr><td class="number"><code>9</code></td><td class="content"><code class="jscript plain">});</code></td></tr></tbody></table></div></div></div>
+</div>
+<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 代码比较多，但是测试的比较完整，基本没有什么大毛病了，如果有什么毛病请大家指正，谢谢！</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 下面是个完整的例子，大家可以在线测试一下，欢迎指正：</p>
+<textarea id="runcode" rows="10" cols="88">&lt;!DOCTYPE html PUBLIC
+"-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;title&gt;autoComplete&lt;/title&gt;
+&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8"
+/&gt;
+&lt;style type="text/css"&gt;
+.autoComplete {margin:8px;position:relative;float:left;}
+.autoComplete input
+{width:200px;height:25px;margin:0;padding:0;line-height:25px;}
+.autoComplete ul {z-index:-12;padding:0px;margin:0px;border:1px #333
+solid;width:200px;background:white;display:none;position:absolute;left:0;top:28px;*margin-left:9px;*margin-top:2px;margin-top:1px\0;}
+.autoComplete
+li {list-style:none;}
+.autoComplete li a
+{display:block;color:#000;text-decoration:none;padding:1px 0 1px
+5px;_width:97%;}
+.autoComplete li a:hover {color:#000;background:#ccc;border:none;}
+&lt;/style&gt;
+&lt;script type="text/javascript"&gt;
+//&lt;![CDATA[
+var getElementsByClassName = function (searchClass, node, tag) {/*
+兼容各浏览器的选择class的方法；(写法参考了博客园：http://www.cnblogs.com/rubylouvre/archive
+/2009/07/24/1529640.html，想了解更多请看这个地址) */ node = node || document, tag =
+tag ? tag.toUpperCase() : "*"; if(document.getElementsByClassName){/*
+支持getElementsByClassName的浏览器 */ var temp =
+node.getElementsByClassName(searchClass); if(tag=="*"){ return temp; }
+else { var ret = new Array(); for(var i=0; i&lt;temp.length; i++)
+if(temp[i].nodeName==tag) ret.push(temp[i]); return ret; } }else{/*
+不支持getElementsByClassName的浏览器 */ var classes = searchClass.split(" "),
+elements = (tag === "*" &amp;&amp; node.all)? node.all :
+node.getElementsByTagName(tag), patterns = [], returnElements = [],
+current, match; var i = classes.length; while(--i &gt;= 0)
+patterns.push(new RegExp("(^|\\s)" + classes[i] + "(\\s|$)")); var j =
+elements.length; while(--j &gt;= 0){ current = elements[j], match =
+false; for(var k=0, kl=patterns.length; k&lt;kl; k++){ match =
+patterns[k].test(current.className); if(!match) break; } if(match)
+returnElements.push(current); } return returnElements; }
+};
+var addEvent=(function(){/* 用此函数添加事件防止事件覆盖 */
+if(document.addEventListener){ return function(type, fn){
+this.addEventListener(type, fn, false); }; }else
+if(document.attachEvent){ return function(type,fn){
+this.attachEvent('on'+type, function () { return fn.call(this,
+window.event);/* 兼容IE */ }); }; }
+})();
+;(function(window){
+/* 插件开始 */
+var autoComplete=function(o){ var handler=(function(){ var
+handler=function(e,o){ return new handler.prototype.init(e,o); };/*
+为每个选择的dom都创建一个相对应的对象，这样选择多个dom时可以很方便地使用 */ handler.prototype={ e:null,
+o:null, timer:null, show:0, input:null, popup:null,
+init:function(e,o){/* 设置初始对象 */ this.e=e, this.o=o,
+this.input=this.e.getElementsByTagName(this.o.input)[0],
+this.popup=this.e.getElementsByTagName(this.o.popup)[0],
+this.initEvent();/* 初始化各种事件 */ },
+match:function(quickExpr,value,source){/* 生成提示 */ var li = null;
+for(var i in source){ if( value.length&gt;0 &amp;&amp;
+quickExpr.exec(source[i])!=null ){ li = document.createElement('li');
+li.innerHTML = '&lt;a href="javascript:;"&gt;'+source[i]+'&lt;/a&gt;';
+this.popup.appendChild(li); } }
+if(this.popup.getElementsByTagName('a').length)
+this.popup.style.display='block'; else this.popup.style.display='none';
+}, ajax:function(type,url,quickExpr,search){/* ajax请求远程数据 */ var xhr =
+window.ActiveXObject ? new ActiveXObject("Microsoft.XMLHTTP") : new
+XMLHttpRequest(); xhr.open(type,url,true);/* 同异步在此修改 */
+xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+
+var that=this; xhr.onreadystatechange = function(){
+if(xhr.readyState==4) { if(xhr.status==200) { var data =
+eval(xhr.responseText); that.match(quickExpr,search,data);/* 相同于成功的回调函数
+*/ }else{ alert("请求页面异常!");/* 请求失败 */ } } }; xhr.send(null); },
+fetch:function(ajax,search,quickExpr){ var that=this;
+this.ajax(ajax.type,ajax.url+search,quickExpr,search); },
+initEvent:function(){/* 各事件的集合 */ var that=this; this.input.onfocus =
+function(){ if(this.inputValue) this.value = this.inputValue; var
+value=this.value, quickExpr=RegExp('^'+value,'i'), self=this; var els =
+that.popup.getElementsByTagName('a'); if(els.length&gt;0)
+that.popup.style.display = 'block'; that.timer=setInterval(function(){
+if(value!=self.value){/* 判断输入内容是否改变，兼容中文 */ value=self.value;
+that.popup.innerHTML=''; if(value!=''){ quickExpr=RegExp('^'+value);
+if(that.o.source) that.match(quickExpr,value,that.o.source); else
+if(that.o.ajax) that.fetch(that.o.ajax,value,quickExpr); } } },200); };
+this.input.onblur = function(){/* 输入框添加事件 */
+if(this.value!=this.defaultValue) this.inputValue = this.value;
+clearInterval(that.timer); var current=-1;/* 记住当前有焦点的选项 */ var els =
+that.popup.getElementsByTagName('a'); var len = els.length-1; var
+aClick = function(){ that.input.inputValue = this.firstChild.nodeValue;
+that.popup.innerHTML=''; that.popup.style.display='none';
+that.input.focus(); }; var aFocus = function(){ for(var i=len; i&gt;=0;
+i--){ if(this.parentNode===that.popup.children[i]){ current = i; break;
+} } //that.input.value = this.firstChild.nodeValue; for(var k in
+that.o.elemCSS.focus){ this.style[k] = that.o.elemCSS.focus[k]; } };
+var aBlur= function(){ for(var k in that.o.elemCSS.blur) this.style[k]
+= that.o.elemCSS.blur[k]; }; var aKeydown = function(event){ event =
+event || window.event;/* 兼容IE */ if(current === len &amp;&amp;
+event.keyCode===9){/* tab键时popup隐藏 */ that.popup.style.display =
+'none'; }else if(event.keyCode==40){/* 处理上下方向键事件方便选择提示的选项 */ current++;
+if(current&lt;-1) current=len; if(current&gt;len){ current=-1;
+that.input.focus(); }else{
+that.popup.getElementsByTagName('a')[current].focus(); } }else
+if(event.keyCode==38){ current--; if(current==-1){ that.input.focus();
+}else if(current&lt;-1){ current = len;
+that.popup.getElementsByTagName('a')[current].focus(); }else{
+that.popup.getElementsByTagName('a')[current].focus(); } } }; for(var
+i=0; i&lt;els.length; i++){/* 为每个选项添加事件 */ els[i].onclick = aClick;
+els[i].onfocus = aFocus; els[i].onblur = aBlur; els[i].onkeydown =
+aKeydown; } }; this.input.onkeydown = function(event){ event = event ||
+window.event;/* 兼容IE */ var els = that.popup.getElementsByTagName('a');
+if(event.keyCode==40){ if(els[0]) els[0].focus(); }else
+if(event.keyCode==38){ if(els[els.length-1]) els[els.length-1].focus();
+}else if(event.keyCode==9){ if(event.shiftKey==true)
+that.popup.style.display = 'none'; } }; this.e.onmouseover =
+function(){ that.show=1; }; this.e.onmouseout = function(){
+that.show=0; }; addEvent.call(document,'click',function(){
+if(that.show==0){ that.popup.style.display='none'; } });/*
+处理提示框dom元素不支持onblur的情况 */ } };
+handler.prototype.init.prototype=handler.prototype;/* JQuery
+style，这样我们在处的时候就不用每个dom元素都用new来创建对象了 */ return handler;/* 把内部的处理函数传到外部
+*/ })(); if(this.length){/* 处理选择多个dom元素 */ for(var a=this.length-1;
+a&gt;=0; a--){/* 调用方法为每个选择的dom生成一个处理对象，使它们不互相影响 */ handler(this[a],o);
+} }else{/* 处理选择一个dom元素 */ handler(this,o); } return this;
+};
+return window.autoComplete = autoComplete;/* 暴露方法给全局对象 */
+/* 插件结束 */
+})(window);
+/* 调用 */
+addEvent.call(null,'load',function(){ autoComplete.call(
+getElementsByClassName('autoComplete'), {/* 使用call或apply调用此方法 */
+source:['0123','023',123,1234,212,214,'033333','0352342',1987,17563,20932],/*
+提示时在此数组中搜索 */ //ajax:{ type:'post',url:'./php/fetch.php?search=' },/*
+如果使用ajax则远程返回的数据格式要与source相同 */ elemCSS:{
+focus:{'color':'black','background':'#ccc'},
+blur:{'color':'black','background':'transparent'} },/*
+些对象中的key要js对象中的style属性支持 */ input:'input',/* 输入框使用input元素 */
+popup:'ul'/* 提示框使用ul元素 */ });
+});
+//]]&gt;
+&lt;/script&gt; &lt;/head&gt; &lt;body&gt;&lt;!--
+这所以使用这么多的z-index是因为ie6和ie7的问题 --&gt; &lt;div&gt; &lt;div
+class="autoComplete" style="z-index:19"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:18"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:17"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:16"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:15"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:14"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:13"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:12"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:11"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:10"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:9"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:8"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:7"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:6"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:5"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:4"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:3"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:2"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:1"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+class="autoComplete" style="z-index:0"&gt; &lt;input value="input"
+/&gt; &lt;ul&gt;&lt;li&gt;&lt;/li&gt;&lt;/ul&gt; &lt;/div&gt; &lt;div
+style="clear:both;"&gt;&lt;/div&gt; &lt;/div&gt; &lt;div
+style="border:3px red double;margin:15px;padding:5px;"&gt; &lt;h3
+style="line-height:10px;"&gt;Tip:&lt;/h3&gt; &lt;ul&gt;
+&lt;li&gt;输入0、1，2会得到提示。&lt;/li&gt; &lt;li&gt;用鼠标或上下键可以选择提示。&lt;/li&gt;
+&lt;li&gt;选择点击鼠标或点回车可以选择选项。&lt;/li&gt;
+&lt;li&gt;可以修改调用处，使各个输入框提示不同内容。&lt;/li&gt; &lt;/ul&gt; &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+<p><input id="runBtn" value="运行" type="button"></p>
+<p>P.S.：转载请注明本文的原始链接。</p>
+<script type="text/javascript">// <![CDATA[
+                 var runCode = function(code){
+                 if (code!=''){
+                 var newwin = window.open('','_blank','');
+                 newwin.document.open('text/html','replace');
+                 newwin.opener = null;
+                 newwin.document.write(code);
+                 newwin.document.close();
+                 } 
+                 };
+                 document.getElementById('runBtn').onclick = function(){
+                 runCode(document.getElementById('runcode').value)
+                 };
+// ]]></script></div>
+<script type="text/javascript">
+if ($ != jQuery) {
+	$ = jQuery.noConflict();
+}
+var isLogined = false;
+var cb_blogId = 82899;
+var cb_entryId = 1963295;
+var cb_blogApp = "jaiho";
+var cb_blogUserGuid = "b359a04c-1d25-e011-ac81-842b2b196315";
+var cb_entryCreatedDate = '2011/2/28 9:26:00';
+</script>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/jaiho/tag/javascript/">javascript</a>, <a href="http://www.cnblogs.com/jaiho/tag/html/">html</a></div>
+<div id="green_channel" style="">
+绿色通道：<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(cb_entryId,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a><a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a><a id="green_channel_favorite" onclick="AddToWz(1963295);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://space.cnblogs.com/msg/send/JaiHo" target="_blank">与我联系</a>
+</div>
+<div id="digg_block">
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info"><a href="http://home.cnblogs.com/u/jaiho/" target="_blank"><img src="js_autoComplete_files/u266849.gif" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/jaiho/">JaiHo</a><br><a href="http://home.cnblogs.com/u/jaiho/followees">关注 - 0</a><br><a href="http://home.cnblogs.com/u/jaiho/followers">粉丝 - 13</a></div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow"><a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a></div>
+</div>
+<div id="div_digg" style="">										
+	<div class="diggit" onclick="DiggIt(cb_entryId,cb_blogId,1)"> 
+		<span class="diggnum" id="digg_count">20</span>
+	</div>
+	<div class="buryit" onclick="DiggIt(cb_entryId,cb_blogId,2)"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">(请您对文章做出评价)</div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html">« </a> 上一篇：<a href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html" title="发布于2011-02-20 21:18">用js实现表格数据管理</a><br><a href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049321.html">» </a> 下一篇：<a href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049321.html" title="发布于2011-05-17 21:52">php获取访问的ip</a><br></div>
+</div>
+<script type="text/javascript">
+LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+GetPrevNextPost(cb_blogId, cb_entryCreatedDate);
+</script>
+
+
+
+
+	</div>
+	
+	<div class="postfoot">
+		posted on 2011-02-28 09:26 <a href="http://www.cnblogs.com/jaiho/">JaiHo</a> 阅读(4146) <a href="#commentform">评论(32)</a>  <a href="#" onclick="open_link('http://www.cnblogs.com/jaiho/admin/EditPosts.aspx?postid=1963295')" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(1963295);return false;">收藏</a>
+	</div>
+</div>
+<img src="js_autoComplete_files/1963295.jpeg" alt="" height="1px" width="1px">
+
+<a name="pagedcomment"></a>
+<a name="comments">
+<br>
+</a><div id="comments">
+<h3><a name="comments">评论</a></h3>
+<span id="span_comment_maxid" style="display: none;"><a name="comments">2077314</a></span>
+
+<a name="comments">		</a><div class="post"><a name="comments">			
+			</a><div class="postTitle">
+<a name="comments">				</a><a href="#2034844">#1楼</a><a name="2034844" id="comment_anchor_2034844"></a>
+					<span>
+						2011-02-28 09:45
+					</span>
+				<a id="Comments1_CommentList_NameLink_0" rel="nofllow" href="http://home.cnblogs.com/u/161654/" target="_blank">ckd</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/ckd" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034844" class="blog_comment_body">不错 顶</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("ckd",2034844,"lVEskYOCRvOCADbw3akaBqm9iSm36BTQ2bH/nAc7IAxQnfooPFzFTg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034844,"lVEskYOCRvOCADbw3akaBqm9iSm36BTQ2bH/nAc7IAxQnfooPFzFTg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=ckd" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_0" href="javascript:__doPostBack('Comments1$CommentList$ctl00$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_0"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034905">#2楼</a><a name="2034905" id="comment_anchor_2034905"></a>
+					<span>
+						2011-02-28 10:31
+					</span>
+				<a id="Comments1_CommentList_NameLink_1" href="http://www.cnblogs.com/Mainz/" target="_blank">Mainz</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Mainz" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034905" class="blog_comment_body">不错的</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("Mainz",2034905,"PxWYiWrojHGLvmlQscWpkFp0Conh3fjIqA9dVBCAAVYAZGLf0I9d9g==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034905,"PxWYiWrojHGLvmlQscWpkFp0Conh3fjIqA9dVBCAAVYAZGLf0I9d9g==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Mainz" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_1" href="javascript:__doPostBack('Comments1$CommentList$ctl01$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_1"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034908">#3楼</a><a name="2034908" id="comment_anchor_2034908"></a>
+					<span>
+						2011-02-28 10:33
+					</span>
+				<a id="Comments1_CommentList_NameLink_2" href="http://www.cnblogs.com/suiye007/" target="_blank">舞千愁</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e8%88%9e%e5%8d%83%e6%84%81" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034908" class="blog_comment_body">回车后，文本框失去了焦点，别的都还算好了！</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("舞千愁",2034908,"/hMJe+Ew63Dv1d+lU1sSyUB+wJY2HoCqoSxa3rt6wOYyyDk5tJiWgQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034908,"/hMJe+Ew63Dv1d+lU1sSyUB+wJY2HoCqoSxa3rt6wOYyyDk5tJiWgQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e8%88%9e%e5%8d%83%e6%84%81" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_2" href="javascript:__doPostBack('Comments1$CommentList$ctl02$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_2"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034913">#4楼</a><a name="2034913" id="comment_anchor_2034913"></a>
+					<span>
+						2011-02-28 10:35
+					</span>
+				<a id="Comments1_CommentList_NameLink_3" href="http://www.cnblogs.com/Allen-liu/" target="_blank">Allen sky</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Allen+sky" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034913" class="blog_comment_body">牛人！<br>我不是做前端的<br>所以以后用的着就直接拿来用了<br>拿来主义 呵呵</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("Allen sky",2034913,"7OBDU7X+aoIeguUOXXzB9iAaBrAV4OhTzM5XVuRp5Pjejyo5u5yg1w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034913,"7OBDU7X+aoIeguUOXXzB9iAaBrAV4OhTzM5XVuRp5Pjejyo5u5yg1w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Allen+sky" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_3" href="javascript:__doPostBack('Comments1$CommentList$ctl03$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_3"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034917">#5楼</a><a name="2034917" id="comment_anchor_2034917"></a>
+					<span>
+						2011-02-28 10:40
+					</span>
+				<a id="Comments1_CommentList_NameLink_4" href="http://www.cnblogs.com/jkisjk/" target="_blank">JKisJK</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JKisJK" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034917" class="blog_comment_body">不错。。。<br>粗略体验了一下：<br>按向下键会导致焦点丢失、tab时焦点离开但是浮层不消失、以及其它焦点问题。<br>输入0，焦点离开，浮层消失；再focus，浮层不显示。<br></span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JKisJK",2034917,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034917,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JKisJK" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_4" href="javascript:__doPostBack('Comments1$CommentList$ctl04$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_4"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034929">#6楼</a><a name="2034929" id="comment_anchor_2034929"></a>
+					<span>
+						2011-02-28 10:53
+					</span>
+				<a id="Comments1_CommentList_NameLink_5" href="http://www.cnblogs.com/jkisjk/" target="_blank">JKisJK</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JKisJK" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034929" class="blog_comment_body">这里也有一个独立的autocomplete:<br><a href="http://www.cnblogs.com/jkisjk/archive/2011/02/21/combobox_solo.html" target="_blank">http://www.cnblogs.com/jkisjk/archive/2011/02/21/combobox_solo.html</a><br>另外，楼主ms是一个组件开发者，欢迎关注QWrap，它为组件开发者作了很多考虑。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JKisJK",2034929,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034929,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JKisJK" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_5" href="javascript:__doPostBack('Comments1$CommentList$ctl05$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_5"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034936">#7楼</a><a name="2034936" id="comment_anchor_2034936"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 11:00
+					</span>
+				<a id="Comments1_CommentList_NameLink_6" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034936" class="blog_comment_body"><a href="#2034929" title="查看所回复的评论">@</a>JKisJK<br>很感谢你提的意见和推荐，另外ms的意思是？</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2034936,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034936,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_6" href="javascript:__doPostBack('Comments1$CommentList$ctl06$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_6"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034940">#8楼</a><a name="2034940" id="comment_anchor_2034940"></a>
+					<span>
+						2011-02-28 11:04
+					</span>
+				<a id="Comments1_CommentList_NameLink_7" href="http://www.cnblogs.com/jkisjk/" target="_blank">JKisJK</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JKisJK" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034940" class="blog_comment_body">ms---貌似</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JKisJK",2034940,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034940,"4gHc9FuEpiRkkirLJO+nfCL7O36biJQ8v1nX4t5lK2qpe3I30+YFug==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JKisJK" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_7" href="javascript:__doPostBack('Comments1$CommentList$ctl07$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_7"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034944">#9楼</a><a name="2034944" id="comment_anchor_2034944"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 11:12
+					</span>
+				<a id="Comments1_CommentList_NameLink_8" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034944" class="blog_comment_body"><a href="#2034940" title="查看所回复的评论">@</a>JKisJK<br>呵呵，其实我是主做后台php的，比较喜爱js，自己学习自己用，呵呵，主要是包装方便使用。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2034944,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034944,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_8" href="javascript:__doPostBack('Comments1$CommentList$ctl08$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_8"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2034993">#10楼</a><a name="2034993" id="comment_anchor_2034993"></a>
+					<span>
+						2011-02-28 12:08
+					</span>
+				<a id="Comments1_CommentList_NameLink_9" href="http://www.cnblogs.com/homeLu/" target="_blank">Home.Lu</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Home.Lu" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2034993" class="blog_comment_body">我自己也做过一个，是多个单词的自动完成，有时间发上来。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("Home.Lu",2034993,"wRFmn0lM77yFKg8Lx2Q9vXTQE6/bKp8ERH2kMCvThj7wv77CxvjOGQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2034993,"wRFmn0lM77yFKg8Lx2Q9vXTQE6/bKp8ERH2kMCvThj7wv77CxvjOGQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Home.Lu" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_9" href="javascript:__doPostBack('Comments1$CommentList$ctl09$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_9"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035006">#11楼</a><a name="2035006" id="comment_anchor_2035006"></a>
+					<span>
+						2011-02-28 12:33
+					</span>
+				<a id="Comments1_CommentList_NameLink_10" href="http://www.cnblogs.com/chan/" target="_blank">str.chan</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/str.chan" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035006" class="blog_comment_body">不
+错~~~
+帮顶下，再提个用户友好度的建议，LZ有没有注意到当我输入错误的按了上下什么的进入到选择操作时，想返回继续输入的时候要鼠标点一下才会返回？
+上下选择给用户的第一反应（或者说给我的第一反应）是能enter到选择操作，就应该能enter到输入框继续操作~~~~ </span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("str.chan",2035006,"ntZoLGJpRFBQOgVVIO+jicd8wQXTF7rsa8aMn6UkBZGKcYvWJTvUIg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035006,"ntZoLGJpRFBQOgVVIO+jicd8wQXTF7rsa8aMn6UkBZGKcYvWJTvUIg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=str.chan" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_10" href="javascript:__doPostBack('Comments1$CommentList$ctl10$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_10"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035007">#12楼</a><a name="2035007" id="comment_anchor_2035007"></a>
+					<span>
+						2011-02-28 12:35
+					</span>
+				<a id="Comments1_CommentList_NameLink_11" href="http://www.cnblogs.com/henryfan/" target="_blank">henry</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/henry" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035007" class="blog_comment_body">JQuery UI有Autocomplete,可以参考一下</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("henry",2035007,"9PrJj5Aj7UgTal3giJxPrT478a7/2yObCrNWHdhf3DlkrDXS0IQszg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035007,"9PrJj5Aj7UgTal3giJxPrT478a7/2yObCrNWHdhf3DlkrDXS0IQszg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=henry" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_11" href="javascript:__doPostBack('Comments1$CommentList$ctl11$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_11"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035026">#13楼</a><a name="2035026" id="comment_anchor_2035026"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 13:08
+					</span>
+				<a id="Comments1_CommentList_NameLink_12" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035026" class="blog_comment_body"><a href="#2035006" title="查看所回复的评论">@</a>str.chan<br>感谢提的意见，晚上会把输入框也加到上下键循环队列中。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2035026,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035026,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_12" href="javascript:__doPostBack('Comments1$CommentList$ctl12$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_12"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035033">#14楼</a><a name="2035033" id="comment_anchor_2035033"></a>
+					<span>
+						2011-02-28 13:16
+					</span>
+				<a id="Comments1_CommentList_NameLink_13" href="http://www.cnblogs.com/basilwang/" target="_blank">BAsil</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/BAsil" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035033" class="blog_comment_body">jquery.autocomplete 很不错，楼主这个比较有什么优势？</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("BAsil",2035033,"rsV++Kt2mfTho/lgtHDljx9G/W2Jfi4M6GBBUYGfW29goifW0EtVYw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035033,"rsV++Kt2mfTho/lgtHDljx9G/W2Jfi4M6GBBUYGfW29goifW0EtVYw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=BAsil" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_13" href="javascript:__doPostBack('Comments1$CommentList$ctl13$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_13"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035036">#15楼</a><a name="2035036" id="comment_anchor_2035036"></a>
+					<span>
+						2011-02-28 13:17
+					</span>
+				<a id="Comments1_CommentList_NameLink_14" href="http://www.cnblogs.com/basilwang/" target="_blank">BAsil</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/BAsil" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035036" class="blog_comment_body">不好意思没注意到这个是非jquery的，支持一下楼主</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("BAsil",2035036,"rsV++Kt2mfTho/lgtHDljx9G/W2Jfi4M6GBBUYGfW29goifW0EtVYw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035036,"rsV++Kt2mfTho/lgtHDljx9G/W2Jfi4M6GBBUYGfW29goifW0EtVYw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=BAsil" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_14" href="javascript:__doPostBack('Comments1$CommentList$ctl14$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_14"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035059">#16楼</a><a name="2035059" id="comment_anchor_2035059"></a>
+					<span>
+						2011-02-28 13:53
+					</span>
+				<a id="Comments1_CommentList_NameLink_15" rel="nofllow" href="http://home.cnblogs.com/u/125604/" target="_blank">星辰大海</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%98%9f%e8%be%b0%e5%a4%a7%e6%b5%b7" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035059" class="blog_comment_body">不错不错</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("星辰大海",2035059,"Dd3e/1XfERfoogX6r3zYNaYXno5rmVDOTkEmme+N1MyV1JFx5m5mCA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035059,"Dd3e/1XfERfoogX6r3zYNaYXno5rmVDOTkEmme+N1MyV1JFx5m5mCA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%98%9f%e8%be%b0%e5%a4%a7%e6%b5%b7" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_15" href="javascript:__doPostBack('Comments1$CommentList$ctl15$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_15"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035075">#17楼</a><a name="2035075" id="comment_anchor_2035075"></a>
+					<span>
+						2011-02-28 14:11
+					</span>
+				<a id="Comments1_CommentList_NameLink_16" href="http://www.cnblogs.com/omeweb/" target="_blank">omeweb</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/omeweb" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035075" class="blog_comment_body">自动提示的太多了，不过比较少的是 一个输入框输入多个值的自动提示，他们中间用逗号分隔开，比如QQ邮箱的收件人输入框，以及在textarea里的自动提示，而且提示框要在鼠标位置不远的地方，不能对齐textarea最下面，不像input这样</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("omeweb",2035075,"a2KlHuU3r+33ktNXJH9MpWh4l3SV+dAeOAhH5iZHNxb7FLeHbLpMAA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035075,"a2KlHuU3r+33ktNXJH9MpWh4l3SV+dAeOAhH5iZHNxb7FLeHbLpMAA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=omeweb" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_16" href="javascript:__doPostBack('Comments1$CommentList$ctl16$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_16"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035076">#18楼</a><a name="2035076" id="comment_anchor_2035076"></a>
+					<span>
+						2011-02-28 14:15
+					</span>
+				<a id="Comments1_CommentList_NameLink_17" href="http://www.cnblogs.com/likwo/" target="_blank">Likwo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Likwo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035076" class="blog_comment_body">不错，收下了</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("Likwo",2035076,"5j2lbQmp1Ygs9uFJfR12AealzzQnyBAc//GoB3CImcCC6wGpauPjwg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035076,"5j2lbQmp1Ygs9uFJfR12AealzzQnyBAc//GoB3CImcCC6wGpauPjwg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Likwo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_17" href="javascript:__doPostBack('Comments1$CommentList$ctl17$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_17"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035078">#19楼</a><a name="2035078" id="comment_anchor_2035078"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 14:16
+					</span>
+				<a id="Comments1_CommentList_NameLink_18" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035078" class="blog_comment_body"><a href="#2035075" title="查看所回复的评论">@</a>omeweb<br>多谢，目前还未用到这种，如果我用到的话会做一个发上来。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2035078,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035078,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_18" href="javascript:__doPostBack('Comments1$CommentList$ctl18$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_18"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035399">#20楼</a><a name="2035399" id="comment_anchor_2035399"></a>
+					<span>
+						2011-02-28 22:08
+					</span>
+				<a id="Comments1_CommentList_NameLink_19" href="http://www.cnblogs.com/skyaspnet/" target="_blank">skyaspnet</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/skyaspnet" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035399" class="blog_comment_body">当出现提示并且使用键盘移动了焦点位置之后，再将鼠标移上去就失效了</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("skyaspnet",2035399,"+UBC7X6h+3ghAfiO0htzYz1An3cQgcVBTfFyzSxnpucUxLKE1I/Emg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035399,"+UBC7X6h+3ghAfiO0htzYz1An3cQgcVBTfFyzSxnpucUxLKE1I/Emg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=skyaspnet" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_19" href="javascript:__doPostBack('Comments1$CommentList$ctl19$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_19"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035400">#21楼</a><a name="2035400" id="comment_anchor_2035400"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 22:09
+					</span>
+				<a id="Comments1_CommentList_NameLink_20" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035400" class="blog_comment_body">根据大家的意见，修正了以下几个问题：<br>1、把输入框加入到了上下键循环队列中。<br>2、组件失去焦点时提示层隐藏。<br>3、输入框输入内容得到提示，失去焦点后再得到焦点产生提示层。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2035400,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035400,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_20" href="javascript:__doPostBack('Comments1$CommentList$ctl20$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_20"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035409">#22楼</a><a name="2035409" id="comment_anchor_2035409"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-02-28 22:16
+					</span>
+				<a id="Comments1_CommentList_NameLink_21" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035409" class="blog_comment_body"><a href="#2035399" title="查看所回复的评论">@</a>skyaspnet<br>你好，你说的问题是我修正过第3个问题吗？现在效果可以吗？</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2035409,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035409,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_21" href="javascript:__doPostBack('Comments1$CommentList$ctl21$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_21"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035411">#23楼</a><a name="2035411" id="comment_anchor_2035411"></a>
+					<span>
+						2011-02-28 22:22
+					</span>
+				<a id="Comments1_CommentList_NameLink_22" href="http://www.cnblogs.com/guanjie20/" target="_blank">搏击的小船</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%90%8f%e5%87%bb%e7%9a%84%e5%b0%8f%e8%88%b9" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035411" class="blog_comment_body">支持一个！代码风格也很美！</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("搏击的小船",2035411,"yHQH0Z5dbX7lrYYn12Tok+vliIvfYdjCwfbfJo2mmapUbIgWKT/Svg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035411,"yHQH0Z5dbX7lrYYn12Tok+vliIvfYdjCwfbfJo2mmapUbIgWKT/Svg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%90%8f%e5%87%bb%e7%9a%84%e5%b0%8f%e8%88%b9" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_22" href="javascript:__doPostBack('Comments1$CommentList$ctl22$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_22"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035444">#24楼</a><a name="2035444" id="comment_anchor_2035444"></a>
+					<span>
+						2011-02-28 23:27
+					</span>
+				<a id="Comments1_CommentList_NameLink_23" href="http://www.cnblogs.com/lhb25/" target="_blank">梦想(山边小溪)</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e6%a2%a6%e6%83%b3%28%e5%b1%b1%e8%be%b9%e5%b0%8f%e6%ba%aa%29" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035444" class="blog_comment_body"> 很不错，支持一下！</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("梦想(山边小溪)",2035444,"Rd8mPlZX7it6iR0Al7NuMwqzBXM6tDOuCLfUphNsliudd4PasEj7+g==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035444,"Rd8mPlZX7it6iR0Al7NuMwqzBXM6tDOuCLfUphNsliudd4PasEj7+g==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e6%a2%a6%e6%83%b3%28%e5%b1%b1%e8%be%b9%e5%b0%8f%e6%ba%aa%29" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_23" href="javascript:__doPostBack('Comments1$CommentList$ctl23$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_23"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035457">#25楼</a><a name="2035457" id="comment_anchor_2035457"></a>
+					<span>
+						2011-02-28 23:59
+					</span>
+				<a id="Comments1_CommentList_NameLink_24" href="http://www.cnblogs.com/bourbon/" target="_blank">Bourbon</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/Bourbon" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035457" class="blog_comment_body">很好。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("Bourbon",2035457,"Ni/G1xGKQ2myQMELRtDQvqEu9ebXhNKJlzQaP7X5QOekQovLEq0iPQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035457,"Ni/G1xGKQ2myQMELRtDQvqEu9ebXhNKJlzQaP7X5QOekQovLEq0iPQ==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=Bourbon" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_24" href="javascript:__doPostBack('Comments1$CommentList$ctl24$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_24"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035563">#26楼</a><a name="2035563" id="comment_anchor_2035563"></a>
+					<span>
+						2011-03-01 09:44
+					</span>
+				<a id="Comments1_CommentList_NameLink_25" rel="nofllow" href="http://home.cnblogs.com/u/69871/" target="_blank">后生</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e5%90%8e%e7%94%9f" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035563" class="blog_comment_body">很很不错，顶</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("后生",2035563,"hL0fs/f9Gs9RiC5kL+sJVLEMkNRc8Kb0aEkTjftM/R1VlgFgSbTMMA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035563,"hL0fs/f9Gs9RiC5kL+sJVLEMkNRc8Kb0aEkTjftM/R1VlgFgSbTMMA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e5%90%8e%e7%94%9f" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_25" href="javascript:__doPostBack('Comments1$CommentList$ctl25$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_25"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2035612">#27楼</a><a name="2035612" id="comment_anchor_2035612"></a>
+					<span>
+						2011-03-01 10:37
+					</span>
+				<a id="Comments1_CommentList_NameLink_26" href="http://www.cnblogs.com/liublogs/" target="_blank">傻人傻福</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e5%82%bb%e4%ba%ba%e5%82%bb%e7%a6%8f" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2035612" class="blog_comment_body">收藏+1<br></span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("傻人傻福",2035612,"cdMbgQjWT2gj0F8rMvU01R/K5RnjdRk+rHPvybB5UrwgMAub60GSCA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2035612,"cdMbgQjWT2gj0F8rMvU01R/K5RnjdRk+rHPvybB5UrwgMAub60GSCA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e5%82%bb%e4%ba%ba%e5%82%bb%e7%a6%8f" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_26" href="javascript:__doPostBack('Comments1$CommentList$ctl26$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_26"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2037679">#28楼</a><a name="2037679" id="comment_anchor_2037679"></a>
+					<span>
+						2011-03-03 14:34
+					</span>
+				<a id="Comments1_CommentList_NameLink_27" href="http://www.cnblogs.com/PPBoy/" target="_blank">PPBoy</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/PPBoy" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2037679" class="blog_comment_body">貌似jqueryui里面有~<br>谢谢lz分享<br></span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("PPBoy",2037679,"Zm5TLJbrzuS4wLHOKNhf1XTlvpIv1f2kSqN9EObKM4njJ6lSOpnIUw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2037679,"Zm5TLJbrzuS4wLHOKNhf1XTlvpIv1f2kSqN9EObKM4njJ6lSOpnIUw==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=PPBoy" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_27" href="javascript:__doPostBack('Comments1$CommentList$ctl27$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_27"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2039444">#29楼</a><a name="2039444" id="comment_anchor_2039444"></a>
+					<span>
+						2011-03-06 01:28
+					</span>
+				<a id="Comments1_CommentList_NameLink_28" href="http://www.cnblogs.com/shihenice/" target="_blank">肥燕子</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/%e8%82%a5%e7%87%95%e5%ad%90" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2039444" class="blog_comment_body">   楼主，写的不错，赞一个！ 但是我在试验你代码的AJAX时候，发现一个问题，就是你没有对传送的值进行escape()，造成了IE下，输入中文，总是提示错误。但JS我又看不懂，所以不知道给那个search进行escape(),望楼主赐教。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("肥燕子",2039444,"uShecjgpiageS+BQhwvqKzQ1Jpdb7l1lOMXvOPiqJS3CDTeAIAsHKg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2039444,"uShecjgpiageS+BQhwvqKzQ1Jpdb7l1lOMXvOPiqJS3CDTeAIAsHKg==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=%e8%82%a5%e7%87%95%e5%ad%90" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_28" href="javascript:__doPostBack('Comments1$CommentList$ctl28$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_28"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2039660">#30楼</a><a name="2039660" id="comment_anchor_2039660"></a>[<span class="louzhu">楼主</span>]
+					<span>
+						2011-03-06 16:15
+					</span>
+				<a id="Comments1_CommentList_NameLink_29" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2039660" class="blog_comment_body"><a href="#2039444" title="查看所回复的评论">@</a>肥燕子<br>多谢提出的问题，这个地方ie的确有问题，可以把这个地方改了：<br>            fetch:function(ajax,search,quickExpr){<br>                search = encodeURI(search);<br>                var that=this;<br>                this.ajax(ajax.type,ajax.url+search,quickExpr,search);<br>            },<br>这样，传过去的中文就是被转义的了。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2039660,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2039660,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_29" href="javascript:__doPostBack('Comments1$CommentList$ctl29$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_29"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2077023">#31楼</a><a name="2077023" id="comment_anchor_2077023"></a>
+					<span>
+						2011-04-21 16:58
+					</span>
+				<a id="Comments1_CommentList_NameLink_30" rel="nofllow" href="http://home.cnblogs.com/u/137380/" target="_blank">sunsdw</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/sunsdw" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2077023" class="blog_comment_body">JS功力比较悲剧<br>能把你Ajax传值部分详细写一下吗？<br>如：我改为ajax:{ type:'post',url:'./php/fetch.php?search=[123,456]' },<br>这样写有什么错误吗？<br>最好留个QQ</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("sunsdw",2077023,"SCi09r2/BGK+l9uoVhkltEhLTclSP/bnv1AYK8uEuabHquaKWi9VqA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2077023,"SCi09r2/BGK+l9uoVhkltEhLTclSP/bnv1AYK8uEuabHquaKWi9VqA==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=sunsdw" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_30" href="javascript:__doPostBack('Comments1$CommentList$ctl30$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_30"></a>
+            </div>
+		</div>
+		<br>
+	
+		<div class="post">			
+			<div class="postTitle">
+				<a href="#2077314">#32楼</a><a name="2077314" id="comment_anchor_2077314"></a>[<span class="louzhu">楼主</span>]<a name="Post"></a>
+					<span>
+						2011-04-21 23:00
+					</span>
+				<a id="Comments1_CommentList_NameLink_31" href="http://www.cnblogs.com/jaiho/" target="_blank">JaiHo</a>&nbsp;<a href="http://space.cnblogs.com/msg/send/JaiHo" title="给此人发送站内短消息" class="sendMsg2This">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+			</div>
+			<div class="postText">
+				<span id="comment_body_2077314" class="blog_comment_body"><a href="#2077023" title="查看所回复的评论">@</a>sunsdw<br>ajax直接把注释去了就行了，只要有fetch.php提供数据就可以了，数据的格式注释已经说的很清楚了，参数里的值插件会处理自己加上去了，最后加的值就是输入框里输入的值。</span>
+			</div>
+            <div class="commentOpt">
+			　<a onclick='ReplyComment("JaiHo",2077314,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">回复</a>　<a onclick='QuoteComment(2077314,"1EtK0zJOOQAXs2othrePgivEYmTrGn8lRZ5k7GTFyG3PwjpPZYxU3w==")' href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#commentform">引用</a>　<a title="查看该作者发表过的评论" href="http://www.cnblogs.com/CommentsByAuthor.aspx?author=JaiHo" target="_blank">查看</a>　<a id="Comments1_CommentList_DeleteLink_31" href="javascript:__doPostBack('Comments1$CommentList$ctl31$DeleteLink','')"></a>&nbsp;&nbsp;<a id="Comments1_CommentList_EditLink_31"></a>
+            </div>
+		</div>
+		<br>
+	
+</div>
+<script type="text/javascript">
+    var commentAuthorHasChecked = false;
+    var commentAuthorIsValid = false;
+    var commentUrlIsValid = true;
+    var commentEmailIsValid = true;
+    var authenCodeHasChecked = false;
+    var authenCodeIsValid = true;
+    var hasLogined = false;
+    
+    function PostComment() {    
+        
+        var isValid = true;
+        
+        if($("#wrapAuthenCode").css("display")=="none"){
+            ShowAuthenCode();
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("请输入验证码！");
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentAuthorHasChecked){
+            CheckAuthor();        
+        }                
+        if(!hasLogined && !commentAuthorIsValid){
+            isValid = false;
+        }
+                       
+        if(!authenCodeHasChecked){
+            CheckAuthenCode();            
+        }
+        if(!authenCodeIsValid){
+            isValid = false;
+        }
+        
+        if(!hasLogined && !commentUrlIsValid){            
+            isValid = false;
+        }        
+        if(!commentEmailIsValid){            
+            isValid = false;
+        }        
+        if(!CheckCommentContent()){
+            isValid = false;
+        }    
+        if(!isValid){
+            return;
+        }
+
+        var content = $("#tbCommentBody").val();
+        if(content.length>2000){
+            alert("评论内容过长！不允许发布！");
+            return;
+        }     
+        
+        if(content.indexOf("　Ｅ　　　　　　　　　Ｅ　　　　　　　　　　Ｅ　　　　　　")>=0){
+            alert("该内容不允许布！");
+            return;
+        }   
+        
+       if ($("#span_comment_posted").html()!='' && $("#span_comment_posted").html()==content){
+            alert("该评论已发表过!");
+            return;
+        }
+        
+        $("#tip_comment").html("评论提交中...");
+        $("#span_comment_posted").html(content);
+        //content = content.replace("'", "\\'");
+        var email = $("#tbCommentEmail").val();
+        var authenNum = $("#tbAuthenCode").val();
+        var authenId = $("#span_comment_test").html();
+        var comment = {};
+        comment.authenNum = authenNum;
+        comment.authenId= authenId;
+        comment.parentId = 0;
+        comment.blogId = 0;
+        comment.sourceUrl = '';
+        comment.author = $("#tbCommentAuthor").val();
+        comment.url = $("#tbCommentAuthorUrl").val();
+        comment.authenCode = $("#tbAuthenCode").val();
+        comment.email = email;
+        comment.title = '';
+        comment.content = content;
+        comment.parentCommentId = $("#span_parentcomment_id").html();
+        $.ajax({
+            url: '/ws/CommentService.asmx/AddAnonymousComment',
+            data: $.toJSON(comment),
+            type: "post",
+            dataType: "json",
+            contentType: "application/json; charset=utf8",
+            success: function(data) {
+               if (data.d["IsSuccess"]) {
+                    ShowCommentMsg("感谢您的回复:)");
+                    //RereshComments2(comment.parentId);
+                    $("#tbCommentBody").val('');
+                    //$("#divCommentShow").html(data.d["ReturnData"]+content.replace(/\n/g,"<br/>")+"<br/><br/>");
+                    $("#divCommentShow").html($("#divCommentShow").html()+data.d["ReturnData"]); 
+                    $("#tip_AuthenCode").html('');
+                    RefreshAuthenCode();
+                    $("#tbAuthenCode").val("");                    
+                    CommentNotify(data.d["CommentID"]);
+                }
+                else {
+                    ShowCommentMsg(data.d["ReturnData"]);//"抱歉！评论提交失败！请与管理员联系。");
+                    $("#span_comment_posted").html(''); 
+                }
+            },
+            error: function(xhr) {
+                ShowCommentMsg("抱歉！评论提交失败！请与管理员联系。");
+                $("#span_comment_posted").html('');  
+                //alert(xhr.responseText);
+            }
+        }
+        );
+    }
+    
+    function RefreshAuthenCode(){
+        AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",RefreshImg); 
+        $("#lnkRereshAuthenCode").html("<span style='color:red'>刷新中...</span>");
+        return false;
+    }
+    
+    function RefreshImg(response){
+       $("#imgAuthenCode").attr("src","/Modules/CaptchaImage/ValidCodeImage.aspx?id="+encodeURIComponent(response));
+       $("#span_comment_test").html(response);
+       $("#lnkRereshAuthenCode").html("看不清，换一个");
+    }
+    
+    function ShowAuthenCode(){
+        //if($("#wrapAuthenCode").css("display")=="none"){    
+        //    AjaxPost("/ws/CommentService.asmx/RefreshAuthenCode","{}",ShowAuthenCodeOk);
+        //}
+        $("#wrapAuthenCode").show();      
+    }
+    
+    function ShowAuthenCodeOk(response){
+         UpdateAuthenCode();
+         $("#tbAuthenCode").val("");
+         $("#wrapAuthenCode").show();
+         $("#tip_AuthenCode").html('');
+    }  
+ 
+    
+    function CheckAuthor(isOnblur){
+        commentAuthorHasChecked = true;
+        var maxLength = 30;
+        if($("#tbCommentAuthor").val().length == 0){
+            $("#tip_author").html("请输入您的昵称！");
+            commentAuthorIsValid = false;
+            return false;
+        }     
+        else if($("#tbCommentAuthor").val().length > maxLength){
+            $("#tip_author").html("昵称不允许超过" + maxLength + "个字符！");
+            commentAuthorIsValid = false;
+            return false;
+        }
+        else{
+            //if(isOnblur){
+                AjaxPost("/ws/CommentService.asmx/IsAuthorExist","{author:'"+$("#tbCommentAuthor").val()+"'}" ,OnCheckAuthorExist);
+            //}
+            //else{
+            //    $("#tip_author").html("");
+            //    commentAuthorIsValid = true;
+            //}
+            return true;
+        }
+   }
+   
+    function OnCheckAuthorExist(response){        
+        if(!response){
+            $("#tip_author").html("");
+            commentAuthorIsValid = true;
+        }
+        else{
+            $("#tip_author").html("该昵称已被使用，请更换昵称");
+            commentAuthorIsValid = false;
+        }
+   }
+   
+    function CheckUrl(){
+        var maxLength = 50;
+        var url = $("#tbCommentAuthorUrl").val();
+        
+        if(url.length == 0){
+            commentUrlIsValid = true;
+            return true;
+        }
+        else if(url.length > maxLength){
+            $("#tip_url").html("主页地址不允许超过" + maxLength + "个字符！");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else if(url.indexOf("http://")!=0 || url.indexOf(".") < 0){
+            $("#tip_url").html("主页地址要以“http://”开头");
+            commentUrlIsValid = false;
+            return false;
+        }
+        else{
+            $("#tip_url").html("");
+            commentUrlIsValid = true;
+            return true;
+        }
+   }
+   
+   function CheckEmail(){
+        var email = $("#tbCommentEmail").val();
+        if(email.length>0){
+            var regExp = new RegExp("\\w+@((\\w|\-)+\\.)+[a-z]{2,3}");
+            if(!regExp.test(email)){
+                $("#tip_email").html("请输入正确的邮件地址!");
+                commentEmailIsValid = false;
+            }
+            else{
+                commentEmailIsValid = true;
+                 $("#tip_email").html("");
+            }
+        }
+        else{
+            commentEmailIsValid = true;
+            $("#tip_email").html("");  
+        }
+   }
+   
+   function CheckAuthenCode(){
+        authenCodeHasChecked = true;
+        var num = $("#tbAuthenCode").val();
+        var id = $("#span_comment_test").html();
+        $("#tip_AuthenCode").css("color","red");
+        if(num.length==0){
+             authenCodeIsValid = false;
+             $("#tip_AuthenCode").html("请输入验证码！");
+             return;
+        }
+        else if(num.length!=4){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else if(new RegExp("(\d+)").test(num)){
+            authenCodeIsValid = false;
+            $("#tip_AuthenCode").html("请输入四位数字！");
+             return;
+        }
+        else{
+            AjaxPost("/ws/CommentService.asmx/CheckAuthenCode","{number:"+num+",id:'"+id+"'}", OnCheckAuthenCode);
+        }
+   }
+   
+   function OnCheckAuthenCode(response){
+        if(response){
+            $("#tip_AuthenCode").css("color","green");
+            $("#tip_AuthenCode").html("验证码输入正确！");
+            authenCodeIsValid = true;            
+        }
+        else{
+            $("#tip_AuthenCode").css("color","red");
+            $("#tip_AuthenCode").html("验证码输错啦！");
+            RefreshAuthenCode();
+            authenCodeIsValid = false;           
+        }
+   }
+   
+   function CheckCommentContent(){
+    if($("#tbCommentBody").val().length==0){
+        alert("请输入评论内容！");
+        return false;
+    }
+    return true;
+   }
+    
+</script>
+<div id="ctl02_comment_form" class="commentform">
+
+<script type="text/javascript">
+    try {
+        SyntaxHighlighter.all();
+        isSyntaxHighlighted = true;
+    } catch (e) { }
+</script>
+
+
+<div id="ctl02_divLoginPannel">
+<div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="http://passport.cnblogs.com/login.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fjaiho%2farchive%2f2011%2f02%2f28%2fjs_autoComplete.html%3flogin%3d1%23commentform" class="underline">登录</a> 或 <a rel="nofollow" href="http://passport.cnblogs.com/register.aspx?ReturnUrl=http%3a%2f%2fwww.cnblogs.com%2fjaiho%2farchive%2f2011%2f02%2f28%2fjs_autoComplete.html%23Bottom2" class="underline">注册</a>，<a href="http://www.cnblogs.com/" target="_blank">返回博客园首页</a>。</div>
+</div>
+
+<div class="itnews c_ad_block">
+<b>最新IT新闻</b>:<br>
+
+          ·  <a href="http://news.cnblogs.com/n/108582/" target="_blank">Songify：声音可以 Instagram 吗？</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/108581/" target="_blank">Mozilla荐NPAPI开发跨浏览器插件</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/108580/" target="_blank">富士通新防水 Windows Phone 芒果手机基于其 REGZA 手机？</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/108579/" target="_blank">提供移动和Web应用性能监控服务的Apica获200万美元投资</a><br>
+	
+          ·  <a href="http://news.cnblogs.com/n/108578/" target="_blank">中电信引入iPhone玄机：用高端机型配合3G推广</a><br>
+	
+» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a>
+</div>
+
+
+<script type="text/javascript" src="js_autoComplete_files/google_service.js"></script>
+<script type="text/javascript">
+    var c_enable_dfp = true;
+    if (navigator.userAgent.indexOf("Chrome/6.0.401.1") > 0) {
+        c_enable_dfp = false;
+    }
+    if (c_enable_dfp) {
+        try {
+            GS_googleAddAdSenseService("ca-pub-4210569241504288");
+            GS_googleEnableAllServices();
+        }
+        catch (e) { }
+    }
+</script><script src="js_autoComplete_files/google_ads.js"></script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_bottom");
+            GA_googleAddSlot("ca-pub-4210569241504288", "cnblogs_blogpost_C2");
+        }
+        catch (e) { }
+    }
+</script>
+<script type="text/javascript">
+    if (c_enable_dfp) {
+        try {
+            GA_googleFetchAds();
+        } catch (e) { }
+    }
+</script>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_bottom");
+        }
+    }
+    catch (e) { }
+</script><script src="js_autoComplete_files/ads_002"></script><div id="google_ads_div_cnblogs_blogpost_bottom_ad_container">
+<ins style="border: 0pt none ; width: 300px; height: 250px; display: inline-table; position: relative;"><ins style="border: 0pt none ; width: 300px; height: 250px; display: block; position: relative;"><iframe style="border: 0pt none ; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_cnblogs_blogpost_bottom" id="google_ads_iframe_cnblogs_blogpost_bottom" frameborder="0" height="250" scrolling="no" width="300"></iframe></ins></ins></div>
+<script>GA_googleCreateDomIframe("google_ads_div_cnblogs_blogpost_bottom_ad_container" ,"cnblogs_blogpost_bottom");</script>
+</div>
+<div class="c_ad_block">
+<script type="text/javascript">
+    try {
+        if (c_enable_dfp) {
+
+            GA_googleFillSlot("cnblogs_blogpost_C2");
+        }
+    }
+    catch (e) { }
+</script><script src="js_autoComplete_files/ads"></script><div id="google_ads_div_cnblogs_blogpost_C2_ad_container">
+<ins style="border: 0pt none ; width: 468px; height: 60px; display: inline-table; position: relative;"><ins style="border: 0pt none ; width: 468px; height: 60px; display: block; position: relative;"><iframe style="border: 0pt none ; position: absolute; top: 0pt; left: 0pt;" marginheight="0" marginwidth="0" name="google_ads_iframe_cnblogs_blogpost_C2" id="google_ads_iframe_cnblogs_blogpost_C2" frameborder="0" height="60" scrolling="no" width="468"></iframe></ins></ins></div>
+<script>GA_googleCreateDomIframe("google_ads_div_cnblogs_blogpost_C2_ad_container" ,"cnblogs_blogpost_C2");</script>
+</div>
+
+
+<div class="itnews c_ad_block" id="kb_block">
+<b>知识库最新文章</b>:<br>
+<div id="kb_recent">
+
+		<a href="http://kb.cnblogs.com/page/108441/" target="_blank">我在赶集网的两个月（完整版）</a><br>
+	
+		<a href="http://kb.cnblogs.com/page/108334/" target="_blank">从 Lisp 程序员的视角看 Java 语言的缺点</a><br>
+	
+		<a href="http://kb.cnblogs.com/page/108171/" target="_blank">深度分析HTML5在移动开发方面的发展状况</a><br>
+	
+		<a href="http://kb.cnblogs.com/page/106722/" target="_blank">《Effective C#中文版：改善C#程序的50种方法》读书笔记</a><br>
+	
+		<a href="http://kb.cnblogs.com/page/107859/" target="_blank">产品不要被技术绑架的十大注意事项</a><br>
+	
+</div>
+» <a href="http://news.cnblogs.com/" target="_blank">更多知识库文章...</a>
+</div>
+<div id="HistoryToday" class="c_ad_block">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    });
+</script>
+<div id="site_nav_under" class="c_ad_block">
+网站导航: <a href="http://www.cnblogs.com/" target="_blank">博客园首页</a> &nbsp;<a href="http://news.cnblogs.com/" target="_blank">IT新闻</a> &nbsp;<a href="http://home.cnblogs.com/" target="_blank">我的园子</a> &nbsp;<a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a> &nbsp;<a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a> &nbsp;<a href="http://home.cnblogs.com/q/" target="_blank">博问</a> 
+</div>
+<div id="ad_under_comment2" class="c_ad_block">
+<a href="http://www.china-pub.com/STATIC07/1104/jsj_bangding_110421.asp?ref=bky" target="_blank"><img src="js_autoComplete_files/china-pub.jpg" alt="" style="border: 0px none ;"></a><br>
+<a href="http://www.china-pub.com/itbook/" target="_blank">China-pub 计算机图书网上专卖店！6.5万品种2-8折！</a><br>
+<a href="http://www.china-pub.com/static07/0901/zh_jueba_090121.asp" target="_blank">China-Pub 计算机绝版图书按需印刷服务</a><br>
+</div>
+<div id="clear_reader_link">
+<div id="kb_link">简洁版式：<a href="http://archive.cnblogs.com/a/1963295/">用js实现输入提示（自动完成）</a></div>
+</div>
+
+
+
+
+
+</div>
+
+
+				
+</div>
+<div id="lefttemp" style="display: none;">
+
+	    <table id="Calendar1_entryCal" class="Cal" title="Calendar" style="border-style: solid; border-width: 1px; border-collapse: collapse;" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7" style="background-color: Silver;"><table class="CalTitle" style="width: 100%; border-collapse: collapse;" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev" style="width: 15%;"><a href="javascript:__doPostBack('Calendar1$entryCal','V4169')" style="color: Black;" title="Go to the previous month">&lt;</a></td><td style="width: 70%;" align="center">2011年7月</td><td class="CalNextPrev" style="width: 15%;" align="right"><a href="javascript:__doPostBack('Calendar1$entryCal','V4230')" style="color: Black;" title="Go to the next month">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" style="width: 14%;" align="center">26</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">27</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">28</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">29</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">30</td><td style="width: 14%;" align="center">1</td><td class="CalWeekendDay" style="width: 14%;" align="center">2</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">3</td><td style="width: 14%;" align="center">4</td><td style="width: 14%;" align="center">5</td><td style="width: 14%;" align="center">6</td><td style="width: 14%;" align="center">7</td><td style="width: 14%;" align="center">8</td><td class="CalWeekendDay" style="width: 14%;" align="center">9</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">10</td><td style="width: 14%;" align="center">11</td><td style="width: 14%;" align="center">12</td><td style="width: 14%;" align="center">13</td><td style="width: 14%;" align="center">14</td><td class="CalTodayDay" style="width: 14%;" align="center">15</td><td class="CalWeekendDay" style="width: 14%;" align="center">16</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">17</td><td style="width: 14%;" align="center">18</td><td style="width: 14%;" align="center">19</td><td style="width: 14%;" align="center">20</td><td style="width: 14%;" align="center">21</td><td style="width: 14%;" align="center">22</td><td class="CalWeekendDay" style="width: 14%;" align="center">23</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">24</td><td style="width: 14%;" align="center">25</td><td style="width: 14%;" align="center">26</td><td style="width: 14%;" align="center">27</td><td style="width: 14%;" align="center">28</td><td style="width: 14%;" align="center">29</td><td class="CalWeekendDay" style="width: 14%;" align="center">30</td></tr><tr><td class="CalWeekendDay" style="width: 14%;" align="center">31</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">1</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">2</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">3</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">4</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">5</td><td class="CalOtherMonthDay" style="width: 14%;" align="center">6</td></tr>
+</tbody></table>
+
+		
+<h3>公告</h3>
+<div class="News">
+	<div id="profile_block">昵称：<a href="http://www.cnblogs.com/jaiho/">JaiHo</a><br>园龄：<a href="http://home.cnblogs.com/u/jaiho/">1年内</a><br>粉丝：<a href="http://home.cnblogs.com/u/jaiho/followers/">13</a><br>关注：<a href="http://home.cnblogs.com/u/jaiho/followees/">0</a><br><span id="p_b_follow"></span><script type="text/javascript">cnblogs.UserManager.GetFollowStatus('b359a04c-1d25-e011-ac81-842b2b196315')</script></div>
+</div>
+
+		
+<script type="text/javascript">
+var blogapp = 'jaiho';
+</script>
+<div class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+
+<div class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+
+<div class="div_my_zzk"><input name="google_q" id="google_q" onkeydown="return google_go_enter(event)" class="input_my_zzk" type="text">&nbsp;<input onclick="google_go()" value="谷歌搜索" class="btn_my_zzk" type="button"></div>
+
+</div>
+<h3 class="catListTitle">常用链接</h3>
+<ul>
+
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_0" href="http://www.cnblogs.com/jaiho/MyPosts.html">我的随笔</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_1" href="http://home.cnblogs.com/jaiho/">我的空间</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_2" href="http://space.cnblogs.com/msg/recent">我的短信</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_rptMainLinks_lnkLinkItem_3" href="http://www.cnblogs.com/jaiho/MyComments.html">我的评论</a></li>
+	
+<li><a id="itemListLink" onclick="this.blur();WarpClass('itemListLink', 'itemListLin_con');return false;" href="#">更多链接</a></li>
+</ul>
+<div id="itemListLin_con" style="display: none;">
+<ul>
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_0" title="我发表过评论的随笔" href="http://www.cnblogs.com/jaiho/OtherPosts.html">我的参与</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_1" href="http://www.cnblogs.com/jaiho/MyNews.html">我的新闻</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_2" href="http://www.cnblogs.com/jaiho/RecentComments.html">最新评论</a></li>
+	
+		<li><a id="SingleColumn1_ctl02_repeaterLinks_lnkLinkItem_3" href="http://www.cnblogs.com/jaiho/tag/">我的标签</a></li>
+	</ul>
+</div>
+
+<h3 class="catListTitle">我的标签</h3>
+<div id="MyTag">
+<ul>
+<li><a href="http://www.cnblogs.com/jaiho/tag/php/">php</a>(4)</li><li><a href="http://www.cnblogs.com/jaiho/tag/javascript/">javascript</a>(4)</li><li><a href="http://www.cnblogs.com/jaiho/tag/html/">html</a>(3)</li><li><a href="http://www.cnblogs.com/jaiho/tag/vim/">vim</a>(2)</li><li><a href="http://www.cnblogs.com/jaiho/tag/%E7%AE%97%E6%B3%95/">算法</a>(1)</li><li><a href="http://www.cnblogs.com/jaiho/tag/jQuery/">jQuery</a>(1)</li>
+</ul>
+</div>
+		<h3>随笔档案<span style="font-size: 11px; font-weight: normal;">(13)</span></h3>
+		
+				<ul>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/jaiho/archive/2011/06.html">2011年6月 (1)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/jaiho/archive/2011/05.html">2011年5月 (4)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/jaiho/archive/2011/02.html">2011年2月 (6)</a> </li>
+			
+				<li><a id="SingleColumn1_Categories_CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/jaiho/archive/2011/01.html">2011年1月 (2)</a> </li>
+			
+				</ul>
+			
+	
+
+<h3>积分与排名</h3>
+<ul>
+	<li>
+		积分 -
+		11049
+	</li><li>
+		排名 -
+		7689
+	</li>
+</ul>
+
+<h3 class="catListTitle">最新评论</h3>
+<div class="RecentComment" id="RecentComments">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2077314">1.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				@sunsdwajax直接把注释去了就行了，只要有fetch.php提供数据就可以了，数据的格式注释已经说的很清楚了，参数里的值插件会处理自己加上去了，最后加的值就是输入框里输入的值。...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--JaiHo</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2077023">2.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				JS功力比较悲剧能把你Ajax传值部分详细写一下吗？如：我改为ajax:{ type:'post',url:'./php/fetch.php?search=[123,456]&amp;...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--sunsdw</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2039660">3.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				@肥燕子多谢提出的问题，这个地方ie的确有问题，可以把这个地方改了：            fetch:function(ajax,search,quickExpr){                ...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--JaiHo</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2039444">4.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				   楼主，写的不错，赞一个！ 但是我在试验你代码的AJAX时候，发现一个问题，就是你没有对传送的值进行escape()，造成了IE下，输入中文，总是提示错误。但JS我又看不懂，所以不知道给那个sea...
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--肥燕子</li>
+		
+			<li>
+				<a id="SingleColumn1__e345f3_CommentList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html#2037679">5.&nbsp;Re:用js实现输入提示（自动完成）</a>
+			</li>
+			<li>
+				貌似jqueryui里面有~<br>谢谢lz分享<br>
+			</li>
+			<li style="text-align: right; margin-right: 4px;">
+				--PPBoy</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">阅读排行榜</h3>
+<div class="RecentComment" id="TopViewPosts"> 
+	
+			<ul style="">
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html">1.&nbsp;用js实现输入提示（自动完成）(4146)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html">2.&nbsp;用js实现表格数据管理(2544)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/01/autocomplete.html">3.&nbsp;jQuery自动完成插件(506)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/02/16/input_name.html">4.&nbsp;HTML中如何一次传多个相同有name的input值(313)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl07_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/01/26/vim_base.html">5.&nbsp;vim使用基础(216)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+
+<h3 class="catListTitle">评论排行榜</h3>
+<div class="RecentComment" id="TopCommentsPosts">
+	
+			<ul style="">
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/02/28/js_autoComplete.html">1.&nbsp;用js实现输入提示（自动完成）(32)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/02/20/table_manager.html">2.&nbsp;用js实现表格数据管理(18)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/02/16/input_name.html">3.&nbsp;HTML中如何一次传多个相同有name的input值(4)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/01/31/php_download.html">4.&nbsp;php做下载文件方法(2)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1_ctl08_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049403.html">5.&nbsp;windows下的_vimrc设置(0)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+<h3 class="catListTitle">60天内阅读排行</h3>
+<div class="RecentComment">
+	
+			<ul>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_0" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049403.html">1.&nbsp;windows下的_vimrc设置(172)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_1" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049369.html">2.&nbsp;php简单对象与数组的转换(136)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_2" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049321.html">3.&nbsp;php获取访问的ip(123)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_3" href="http://www.cnblogs.com/jaiho/archive/2011/05/17/2049361.html">4.&nbsp;Ubuntu11.04添加笔记本的触摸板的管理工具(81)</a>
+			</li>
+		
+			<li>
+				<a id="SingleColumn1__1216783_TopList_Hyperlink1_4" href="http://www.cnblogs.com/jaiho/archive/2011/06/21/2044146.html">5.&nbsp;[转]Eclipse快捷键大全(18)</a>
+			</li>
+		
+			</ul>
+		
+</div>
+		
+</div>
+<div class="footer">
+
+<p id="footer">
+	Powered by: 
+	<br>
+	
+	<a id="Footer1_Hyperlink3" name="Hyperlink1" href="http://www.cnblogs.com/" style="font-family: Verdana; font-size: 12px;">博客园</a>
+	<br>
+	Copyright © JaiHo
+</p>
+</div>
+    </form> 
+    <script type="text/javascript">
+        if (!isSyntaxHighlighted) {
+            try {
+                SyntaxHighlighter.all();
+            } catch (e) { }
+        }
+    </script>
+    <script type="text/javascript" src="js_autoComplete_files/ShowHidden.js"></script>
+    
+</body></html>

@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>jQuery Ajax - getJSON</title>
+
+    <script type="text/javascript" src="../scripts/jquery-1.3.2-vsdoc2.js"></script>
+
+    <script type="text/javascript">
+        $(function()
+        {
+            $("#btnAjaxGetJSON").click(function(event)
+            {
+                $.getJSON("../data/AjaxGetCityInfo.aspx", { "resultType": "json" }, function(data, textStatus)
+                {
+                    alert("data.length:" + data.length);
+                    alert("data[0].CityName:" + data[0].CityName);
+                });
+            });
+        })
+    </script>
+
+</head>
+<body>    
+    <button id="btnAjaxGetJSON">getJSON</button><br />
+    <br />
+    <div id="divResult"></div>
+</body>
+</html>

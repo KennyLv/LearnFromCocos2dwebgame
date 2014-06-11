@@ -1,0 +1,30 @@
+
+var fl_host = (fl_host == undefined) ? 'www.flickr.com' : fl_host;
+var zg_magisterLudi = '40a0355d24013c47c567a2abb4e48294';
+var zg_flickr_secret = '87f8a3d8a2363466';
+var zg_auth_token = '';
+var zg_auth_hash = '';
+var zg_version = '35740';
+if (fl_FlashDetectExists == undefined) {
+	document.write('<scr'+'ipt type="text/javascript" src="http://'+fl_host+'/javascript/fpi.js"></scr'+'ipt>');
+	function _ok_for_swf(){ 
+	   if (actualVersion<6) return false; 
+	   var ua = navigator.userAgent; 
+	   if (navigator.appVersion.toLowerCase().indexOf("mac") > 0) { // mac 
+			if (ua.indexOf('Gecko') == -1) return false; 
+	   } else { // windows or unix 
+			if (ua.indexOf("MSIE 5.6") > 0 || ua.indexOf("MSIE 5.5") > 0 || ua.indexOf("MSIE 6") > 0 || ua.indexOf("MSIE 7") > 0) { 
+				 // IE 5.5+ 
+			} else { 
+				 if (ua.indexOf('Gecko') == -1) return false; 
+			}
+	   } 
+	   return true; 
+	}
+	var fl_FlashDetectExists = true;
+}
+
+document.write('<scr'+'ipt type="text/javascript" src="http://'+fl_host+'/fun/zeitgeist/badge_code.js?v=16222"></scr'+'ipt>');
+
+
+
